@@ -86,4 +86,16 @@ class PageController extends Controller
     { 
         return view('front.contact-us-light'); 
     }
+
+    
+    /**
+     * Display shop page
+     */
+    public function shop() 
+    { 
+        return view('front.shop'); 
+    }
 }
+
+
+

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\PageController;
+use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 
@@ -30,6 +31,16 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/dieu-khien-hvac', 'hvacControl')->name('hvacControl');
     Route::get('/he-thong-an-ninh', 'security')->name('security');
     Route::get('/contact', 'contact')->name('contact');
+});
+
+// ----------------------------
+// PRODUCT PAGES
+// ----------------------------
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/shop', 'index')->name('shop');
+    Route::get('/product/{slug}', 'show')->name('product.detail');
+    Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
+    Route::get('/search', 'search')->name('product.search');
 });
 
 // ----------------------------
