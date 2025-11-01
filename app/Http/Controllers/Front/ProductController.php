@@ -11,12 +11,57 @@ class ProductController extends Controller
     /**
      * Display all products (shop page)
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::published()
-            ->orderBy('featured', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
+        $query = Product::published();
+
+        // Filter by brands
+        if ($request->has('brand') && $request->brand) {
+            $brands = explode(',', $request->brand);
+            $query->whereIn('brand', $brands);
+        }
+
+        // Filter by categories
+        if ($request->has('category') && $request->category) {
+            $categories = explode(',', $request->category);
+            $query->where(function($q) use ($categories) {
+                foreach ($categories as $category) {
+                    $q->orWhere('categories', 'LIKE', '%' . $category . '%');
+                }
+            });
+        }
+
+        // Search by keyword
+        if ($request->has('q') && $request->q) {
+            $keyword = $request->q;
+            $query->where(function($q) use ($keyword) {
+                $q->where('name', 'LIKE', "%{$keyword}%")
+                  ->orWhere('description', 'LIKE', "%{$keyword}%")
+                  ->orWhere('short_description', 'LIKE', "%{$keyword}%")
+                  ->orWhere('tags', 'LIKE', "%{$keyword}%");
+            });
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'newest');
+        switch ($sort) {
+            case 'popular':
+                $query->orderBy('view_count', 'desc');
+                break;
+            case 'price-low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'newest':
+            default:
+                $query->orderBy('featured', 'desc')
+                      ->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $products = $query->paginate(9)->withQueryString();
 
         return view('front.shop', compact('products'));
     }

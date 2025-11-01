@@ -38,7 +38,7 @@ Route::controller(PageController::class)->group(function () {
 // ----------------------------
 Route::controller(ProductController::class)->group(function () {
     Route::get('/shop', 'index')->name('shop');
-    Route::get('/product/{slug}', 'show')->name('product.detail');
+    Route::get('/product/{slug}', 'show')->name('product.show');
     Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
     Route::get('/search', 'search')->name('product.search');
 });
