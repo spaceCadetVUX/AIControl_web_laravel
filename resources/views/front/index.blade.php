@@ -38,7 +38,7 @@
     <!-- CSS here -->
 </head>
 <!-- tp-magic-cursor -->
-<body class="" data-bg-color="#F2F1EE">
+<body class="" data-bg-color="#ffffffff">
 
     <!-- preloader -->
     <div id="preloader">

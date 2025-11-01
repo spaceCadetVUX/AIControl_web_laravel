@@ -36,9 +36,11 @@ class ProductController extends Controller
             $keyword = $request->q;
             $query->where(function($q) use ($keyword) {
                 $q->where('name', 'LIKE', "%{$keyword}%")
+                  ->orWhere('sku', 'LIKE', "%{$keyword}%")
                   ->orWhere('description', 'LIKE', "%{$keyword}%")
                   ->orWhere('short_description', 'LIKE', "%{$keyword}%")
-                  ->orWhere('tags', 'LIKE', "%{$keyword}%");
+                  ->orWhere('tags', 'LIKE', "%{$keyword}%")
+                  ->orWhere('brand', 'LIKE', "%{$keyword}%");
             });
         }
 
@@ -120,5 +122,44 @@ class ProductController extends Controller
             ->paginate(12);
 
         return view('front.shop', compact('products', 'keyword'));
+    }
+
+    /**
+     * Autocomplete search API
+     */
+    public function autocomplete(Request $request)
+    {
+        $keyword = $request->input('q');
+        
+        if (empty($keyword) || strlen($keyword) < 2) {
+            return response()->json([]);
+        }
+
+        $products = Product::published()
+            ->where(function($query) use ($keyword) {
+                $query->where('name', 'LIKE', "%{$keyword}%")
+                      ->orWhere('sku', 'LIKE', "%{$keyword}%")
+                      ->orWhere('brand', 'LIKE', "%{$keyword}%");
+            })
+            ->select('id', 'name', 'sku', 'slug', 'brand', 'image_url', 'price')
+            ->distinct()
+            ->orderBy('name', 'asc')
+            ->limit(7)
+            ->get();
+
+        $total = Product::published()
+            ->where(function($query) use ($keyword) {
+                $query->where('name', 'LIKE', "%{$keyword}%")
+                      ->orWhere('sku', 'LIKE', "%{$keyword}%")
+                      ->orWhere('brand', 'LIKE', "%{$keyword}%");
+            })
+            ->distinct()
+            ->count('id');
+
+        return response()->json([
+            'products' => $products,
+            'total' => $total,
+            'hasMore' => $total > 7
+        ]);
     }
 }

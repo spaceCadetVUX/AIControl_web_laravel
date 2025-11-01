@@ -40,20 +40,48 @@
                         <div class="row">
                             <!-- Sidebar -->
                             <div class="col-lg-3">
-                                <div class="shop-sidebar">
+                                <!-- Mobile Filter Toggle Button -->
+                                <button class="mobile-filter-toggle" id="mobileFilterToggle">
+                                    <i class="fal fa-filter"></i> Bộ lọc & Tìm kiếm
+                                </button>
+
+                                <!-- Sidebar Overlay for Mobile -->
+                                <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+                                <!-- Sidebar Wrapper -->
+                                <div class="shop-sidebar-wrapper" id="shopSidebar">
+                                    <!-- Close Button for Mobile -->
+                                    <button class="sidebar-close-btn" id="sidebarCloseBtn">
+                                        <i class="fal fa-times"></i>
+                                    </button>
+
+                                    <div class="shop-sidebar">
                                     
                                     <!-- Search Bar -->
                                     <div class="sidebar-widget">
                                         <h3 class="widget-title">
                                             <i class="fal fa-search"></i> Tìm kiếm
                                         </h3>
-                                        <div class="search-form">
+                                        <div class="search-form" style="position: relative;">
                                             <form action="{{ route('shop') }}" method="GET" id="searchForm">
-                                                <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..." value="{{ request('q') }}" aria-label="Tìm kiếm sản phẩm">
+                                                <input type="text" 
+                                                       name="q" 
+                                                       id="search-input" 
+                                                       placeholder="Tìm kiếm sản phẩm, SKU..." 
+                                                       value="{{ request('q') }}" 
+                                                       aria-label="Tìm kiếm sản phẩm" 
+                                                       autocomplete="off"
+                                                       data-autocomplete-url="{{ route('product.autocomplete') }}"
+                                                       data-shop-url="{{ route('shop') }}">
                                                 <button type="submit" aria-label="Tìm kiếm">
                                                     <i class="fal fa-search"></i>
                                                 </button>
                                             </form>
+                                            
+                                            <!-- Autocomplete Dropdown -->
+                                            <div id="autocomplete-dropdown" class="autocomplete-dropdown" style="display: none;">
+                                                <div class="autocomplete-list"></div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -71,7 +99,7 @@
                                             </select>
 
                                             <!-- Filter: Hãng -->
-                                            <div class="sidebar-widget">
+                                            <div class="sidebar-widget pt-20">
                                                 <h3 class="widget-title">
                                                     <i class="fal fa-copyright"></i> Hãng
                                                 </h3>
@@ -130,7 +158,7 @@
                                                         <label class="filter-checkbox">
                                                             <input type="checkbox" name="category[]" value="Rèm cửa" {{ in_array('Rèm cửa', $selectedCategories) ? 'checked' : '' }}>
                                                             <span class="checkmark"></span>
-                                                            <i class="fal fa-blinds"></i> Rèm cửa
+                                                            <i class="fal fa-blinds"></i> Rèm Tự động
                                                         </label>
                                                     </li>
                                                     <li>
@@ -168,6 +196,7 @@
                                     </div>
 
                                 </div>
+                                </div><!-- End shop-sidebar-wrapper -->
                             </div>
 
                             <!-- Products Grid -->
@@ -226,9 +255,13 @@
                                                         <span class="product-sku">SKU: {{ $product->sku }}</span>
                                                         @endif
                                                         
-                                                        @if($product->in_stock)
+                                                        @if($product->stock_status === 'in_stock')
                                                         <span class="stock-status in-stock">
                                                             <i class="fal fa-check-circle"></i> Còn hàng
+                                                        </span>
+                                                        @elseif($product->stock_status === 'pre_order')
+                                                        <span class="stock-status pre-order">
+                                                            <i class="fal fa-check-circle"></i> đặt hàng trước
                                                         </span>
                                                         @else
                                                         <span class="stock-status out-stock">
@@ -333,6 +366,7 @@
     <script src="{{ assets('assets/js/vendor/jquery.js') }}"></script>
     <script src="{{ assets('assets/js/bootstrap-bundle.js') }}"></script>
     <script src="{{ assets('assets/js/main.js') }}"></script>
+    <script src="{{ assets('assets/js/shop.js') }}"></script>
     
     <!-- Offcanvas Toggle -->
     <script>
@@ -364,61 +398,6 @@
             });
         });
     </script>
-    
-    <!-- Filter Functionality -->
-    <script>
-        $(document).ready(function() {
-            // Auto-submit on sort change
-            $('.sort-select').on('change', function() {
-                $('#filterForm').submit();
-            });
-
-            // Auto-submit on filter checkbox change (optional - remove if you want manual apply)
-            $('.filter-checkbox input[type="checkbox"]').on('change', function() {
-                // Uncomment the line below if you want auto-submit on checkbox change
-                // $('#filterForm').submit();
-            });
-
-            // Convert brand[] and category[] arrays to comma-separated before submit
-            $('#filterForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                const form = $(this);
-                const formData = new FormData(this);
-                const params = new URLSearchParams();
-
-                // Get sort
-                const sort = formData.get('sort');
-                if (sort && sort !== 'newest') {
-                    params.append('sort', sort);
-                }
-
-                // Get search query
-                const searchQuery = formData.get('q');
-                if (searchQuery) {
-                    params.append('q', searchQuery);
-                }
-
-                // Get selected brands
-                const brands = formData.getAll('brand[]').filter(Boolean);
-                if (brands.length > 0) {
-                    params.append('brand', brands.join(','));
-                }
-
-                // Get selected categories
-                const categories = formData.getAll('category[]').filter(Boolean);
-                if (categories.length > 0) {
-                    params.append('category', categories.join(','));
-                }
-
-                // Build URL and redirect
-                const baseUrl = '{{ route("shop") }}';
-                const queryString = params.toString();
-                const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-                
-                window.location.href = url;
-            });
-        });
-    </script>
 </body>
 </html>
+
