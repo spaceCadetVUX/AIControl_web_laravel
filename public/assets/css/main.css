@@ -1980,7 +1980,7 @@ input[type=color] {
   letter-spacing: 1px;
   display: inline-block;
   text-transform: uppercase;
-  background-color: #f2f1ed;
+  background-color: #ffffff;
   color: var(--tp-brand-primary-color);
   font-family: var(--tp-ff-inter);
   border: 1px solid var(--tp-brand-primary-color);
@@ -3875,8 +3875,8 @@ input[type=color] {
   }
 }
 .tp-section-title-clash-600 {
-  font-weight: 600;
-  font-size: 80px;
+  font-weight: 400;
+  font-size: 60px;
   line-height: 1;
   letter-spacing: -0.02em;
   /* text-transform: uppercase; */

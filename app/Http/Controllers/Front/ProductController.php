@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -13,6 +14,14 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'brand' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'q' => 'nullable|string|max:255',
+            'sort' => 'nullable|in:newest,popular,price-low,price-high'
+        ]);
+
         $query = Product::published();
 
         // Filter by brands
@@ -73,21 +82,32 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $product = Product::where('slug', $slug)
-            ->published()
-            ->firstOrFail();
+        try {
+            $product = Product::where('slug', $slug)
+                ->published()
+                ->firstOrFail();
 
-        // Increment view count
-        $product->increment('view_count');
+            // Increment view count
+            $product->increment('view_count');
 
-        // Get related products (same brand)
-        $relatedProducts = Product::published()
-            ->where('brand', $product->brand)
-            ->where('id', '!=', $product->id)
-            ->limit(4)
-            ->get();
+            // Get related products (same brand) - optimized query
+            $relatedProducts = Product::published()
+                ->where('brand', $product->brand)
+                ->where('id', '!=', $product->id)
+                ->select('id', 'name', 'slug', 'brand', 'image_url', 'price', 'sale_price', 'stock_status')
+                ->limit(4)
+                ->get();
 
-        return view('front.product-detail', compact('product', 'relatedProducts'));
+            return view('front.product-detail', compact('product', 'relatedProducts'));
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Product not found - return 404
+            abort(404, 'Sản phẩm không tìm thấy');
+        } catch (\Exception $e) {
+            // Log error and show user-friendly message
+            Log::error('Error loading product: ' . $e->getMessage());
+            return back()->with('error', 'Đã xảy ra lỗi khi tải sản phẩm. Vui lòng thử lại.');
+        }
     }
 
     /**
@@ -109,14 +129,26 @@ class ProductController extends Controller
      */
     public function search(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'q' => 'required|string|max:255'
+        ]);
+
         $keyword = $request->input('q');
+
+        // Sanitize keyword
+        if ($keyword) {
+            $keyword = trim($keyword);
+            $keyword = str_replace(['%', '_'], ['\\%', '\\_'], $keyword);
+        }
 
         $products = Product::published()
             ->where(function($query) use ($keyword) {
                 $query->where('name', 'LIKE', "%{$keyword}%")
                       ->orWhere('description', 'LIKE', "%{$keyword}%")
                       ->orWhere('short_description', 'LIKE', "%{$keyword}%")
-                      ->orWhere('tags', 'LIKE', "%{$keyword}%");
+                      ->orWhere('tags', 'LIKE', "%{$keyword}%")
+                      ->orWhere('brand', 'LIKE', "%{$keyword}%");
             })
             ->orderBy('view_count', 'desc')
             ->paginate(12);
@@ -129,11 +161,25 @@ class ProductController extends Controller
      */
     public function autocomplete(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'q' => 'required|string|min:2|max:100'
+        ]);
+
         $keyword = $request->input('q');
         
+        // Validate input
         if (empty($keyword) || strlen($keyword) < 2) {
-            return response()->json([]);
+            return response()->json([
+                'products' => [],
+                'total' => 0,
+                'hasMore' => false
+            ]);
         }
+
+        // Sanitize keyword - remove special SQL characters
+        $keyword = trim($keyword);
+        $keyword = str_replace(['%', '_'], ['\\%', '\\_'], $keyword);
 
         $products = Product::published()
             ->where(function($query) use ($keyword) {

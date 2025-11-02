@@ -95,6 +95,14 @@ class PageController extends Controller
     { 
         return view('front.shop'); 
     }
+
+    /**
+     * Display product details page
+     */
+    public function productDetails() 
+    { 
+        return view('front.productDetails'); 
+    }
 }
 
 

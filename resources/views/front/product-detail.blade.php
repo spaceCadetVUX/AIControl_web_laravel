@@ -12,14 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     {{-- Canonical URL --}}
-    <link rel="canonical" href="{{ route('product.detail', $product->slug) }}">
+    <link rel="canonical" href="{{ route('product.show', $product->slug) }}">
     
     {{-- Open Graph / Facebook --}}
     <meta property="og:type" content="product">
     <meta property="og:title" content="{{ $product->og_title ?? $product->meta_title ?? $product->name }}">
     <meta property="og:description" content="{{ $product->og_description ?? $product->meta_description ?? $product->short_description }}">
-    <meta property="og:image" content="{{ $product->image_url ? asset('storage/' . $product->image_url) : asset('assets/img/default-product.jpg') }}">
-    <meta property="og:url" content="{{ route('product.detail', $product->slug) }}">
+    <meta property="og:image" content="{{ $product->og_image ? (str_starts_with($product->og_image, 'http') ? $product->og_image : asset($product->og_image)) : ($product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg')) }}">
+    <meta property="og:url" content="{{ route('product.show', $product->slug) }}">
     <meta property="og:site_name" content="AIControl Vietnam">
     <meta property="product:price:amount" content="{{ $product->sale_price ?? $product->price }}">
     <meta property="product:price:currency" content="{{ $product->currency }}">
@@ -28,7 +28,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $product->meta_title ?? $product->name }}">
     <meta name="twitter:description" content="{{ $product->meta_description ?? $product->short_description }}">
-    <meta name="twitter:image" content="{{ $product->image_url ? asset('storage/' . $product->image_url) : asset('assets/img/default-product.jpg') }}">
+    <meta name="twitter:image" content="{{ $product->og_image ? (str_starts_with($product->og_image, 'http') ? $product->og_image : asset($product->og_image)) : ($product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg')) }}">
     
     {{-- Schema.org JSON-LD --}}
     <script type="application/ld+json">
@@ -37,10 +37,10 @@
       "@type": "Product",
       "name": "{{ $product->name }}",
       "image": [
-        "{{ $product->image_url ? asset('storage/' . $product->image_url) : '' }}"
+        "{{ $product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : '' }}"
         @if($product->gallery_images)
         @foreach($product->gallery_images as $image)
-        ,"{{ asset('storage/' . $image) }}"
+        ,"{{ str_starts_with($image, 'http') ? $image : asset($image) }}"
         @endforeach
         @endif
       ],
@@ -52,7 +52,7 @@
       },
       "offers": {
         "@type": "Offer",
-        "url": "{{ route('product.detail', $product->slug) }}",
+        "url": "{{ route('product.show', $product->slug) }}",
         "priceCurrency": "{{ $product->currency }}",
         "price": "{{ $product->sale_price ?? $product->price }}",
         "availability": "https://schema.org/{{ $product->stock_status == 'in_stock' ? 'InStock' : 'OutOfStock' }}",
@@ -118,6 +118,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/products.css') }}">
+
+
 </head>
 
 <body class="" data-bg-color="#fff">
@@ -144,11 +146,54 @@
         </button>
     </div>
 
-    <!-- Offcanvas -->
+    <!-- Offcanvas & Header -->
     @include('front.includes.offcanvas')
-
-    <!-- Header -->
     @include('front.includes.header')
+
+
+    <!-- contact_modal -->
+    <div id="callPopup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Chọn phương thức liên hệ</h3>
+            <button id="callOption">Gọi 0918918755</button>
+            <button id="zaloOption">Liên hệ qua Zalo</button>
+            <span class="popup-close">&times;</span>
+        </div>
+    </div>
+
+    <!-- search area start -->
+    <div class="tp-search-area p-relative">
+        <div class="tp-search-close">
+            <button class="tp-search-close-btn">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="path-1" d="M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="path-2" d="M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <div class="container container-1230">
+            <div class="row">
+                <div class="tp-search-wrapper">
+                    <div class="col-lg-8">
+                        <div class="tp-search-content">
+                            <div class="search p-relative">
+                                <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                                <button class="tp-search-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M18.0508 18.05L23.0009 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M20.8004 10.9C20.8004 5.43237 16.3679 1 10.9002 1C5.43246 1 1 5.43237 1 10.9C1 16.3676 5.43246 20.7999 10.9002 20.7999C16.3679 20.7999 20.8004 16.3676 20.8004 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- search area end -->
+
+ 
 
     <div id="smooth-wrapper">
         <div id="smooth-content">
@@ -173,37 +218,47 @@
                 </section>
 
                 <!-- Product Detail -->
-                <section class="product-detail pt-80 pb-80">
+                <section class="product-detail">
                     <div class="container">
                         <div class="row">
                             
                             <!-- Product Images -->
-                            <div class="col-lg-6">
-                                <div class="product-images sticky-top" style="top: 100px;">
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                <div class="product-images">
                                     <!-- Main Image -->
-                                    <div class="main-image mb-3" style="background: #f8f8f8; border-radius: 8px; padding: 40px; min-height: 500px; display: flex; align-items: center; justify-content: center;">
+                                    <div class="main-image-container @if(!$product->gallery_images || count($product->gallery_images) == 0) w-100 @else flex-grow-1 @endif">
                                         @if($product->image_url)
-                                            <img src="{{ asset('storage/' . $product->image_url) }}" 
-                                                 alt="{{ $product->name }}" 
-                                                 id="mainImage"
-                                                 style="max-width: 100%; max-height: 500px; object-fit: contain;">
+                                            <img src="{{ str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url) }}" 
+                                                 alt="{{ $product->image_alt ?? $product->name }}" 
+                                                 id="mainImage">
                                         @else
-                                            <div style="text-align: center; color: #ccc;">
-                                                <i class="fa fa-image" style="font-size: 100px;"></i>
-                                                <p class="mt-3">Chưa có hình ảnh</p>
+                                            <div class="placeholder">
+                                                <div>
+                                                    <i class="fa fa-image"></i>
+                                                    <p class="mt-3">Chưa có hình ảnh</p>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>
 
-                                    <!-- Gallery Images -->
+                                    <!-- Gallery Thumbnails (Right Side) - Only show if gallery images exist -->
                                     @if($product->gallery_images && count($product->gallery_images) > 0)
-                                    <div class="gallery-images d-flex gap-2">
+                                    <div class="gallery-thumbnails">
+                                        <!-- Main image as first thumbnail -->
+                                        @if($product->image_url)
+                                        <div class="gallery-item active">
+                                            <img src="{{ str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url) }}" 
+                                                 alt="{{ $product->image_alt ?? $product->name }}" 
+                                                 onclick="changeMainImage(this)">
+                                        </div>
+                                        @endif
+                                        
+                                        <!-- Other gallery images -->
                                         @foreach($product->gallery_images as $image)
-                                        <div class="gallery-item" style="width: 80px; height: 80px; background: #f8f8f8; border-radius: 4px; cursor: pointer; overflow: hidden;">
-                                            <img src="{{ asset('storage/' . $image) }}" 
-                                                 alt="{{ $product->name }}" 
-                                                 onclick="changeMainImage(this.src)"
-                                                 style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div class="gallery-item">
+                                            <img src="{{ str_starts_with($image, 'http') ? $image : asset($image) }}" 
+                                                 alt="{{ $product->image_alt ?? $product->name }}" 
+                                                 onclick="changeMainImage(this)">
                                         </div>
                                         @endforeach
                                     </div>
@@ -212,7 +267,7 @@
                             </div>
 
                             <!-- Product Info -->
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-12">
                                 <div class="product-info">
                                     
                                     <!-- Brand Badge -->
@@ -224,10 +279,13 @@
                                         @if($product->is_new)
                                             <span class="badge bg-success ms-2">Mới</span>
                                         @endif
+                                        @if($product->is_bestseller)
+                                            <span class="badge bg-warning ms-2">Bán chạy</span>
+                                        @endif
                                     </div>
 
                                     <!-- Product Name -->
-                                    <h1 class="product-title mb-3" style="font-size: 32px; font-weight: 600;">
+                                    <h1 class="product-title">
                                         {{ $product->name }}
                                     </h1>
 
@@ -249,13 +307,13 @@
                                     @endif
 
                                     <!-- Price -->
-                                    <div class="product-price mb-4 p-3" style="background: #f8f8f8; border-radius: 8px;">
+                                    <div class="product-price">
                                         @if($product->sale_price && $product->sale_price < $product->price)
                                             <div class="d-flex align-items-center gap-3">
-                                                <span class="old-price text-muted text-decoration-line-through" style="font-size: 20px;">
+                                                <span class="old-price">
                                                     {{ number_format($product->price, 0, ',', '.') }}đ
                                                 </span>
-                                                <span class="new-price fw-bold" style="color: #FF5722; font-size: 32px;">
+                                                <span class="new-price">
                                                     {{ number_format($product->sale_price, 0, ',', '.') }}đ
                                                 </span>
                                                 <span class="badge bg-danger">
@@ -263,7 +321,7 @@
                                                 </span>
                                             </div>
                                         @else
-                                            <span class="price fw-bold" style="font-size: 32px; color: #FF5722;">
+                                            <span class="price">
                                                 {{ number_format($product->price, 0, ',', '.') }}đ
                                             </span>
                                         @endif
@@ -272,14 +330,14 @@
                                     <!-- Short Description -->
                                     @if($product->short_description)
                                     <div class="short-description mb-4">
-                                        <p style="font-size: 16px; line-height: 1.6;">
+                                        <p>
                                             {{ $product->short_description }}
                                         </p>
                                     </div>
                                     @endif
 
                                     <!-- Stock Status -->
-                                    <div class="stock-status mb-4">
+                                    <div class="stock-status">
                                         <strong>Tình trạng: </strong>
                                         @if($product->stock_status == 'in_stock')
                                             <span class="text-success"><i class="fa fa-check-circle"></i> Còn hàng</span>
@@ -292,25 +350,67 @@
 
                                     <!-- Product Attributes -->
                                     <div class="product-attributes mb-4">
+                                        @if($product->function_category)
+                                        <p><strong>Danh mục chức năng:</strong> {{ $product->function_category }}</p>
+                                        @endif
+                                        @if($product->catalog)
+                                        <p><strong>Danh mục:</strong> {{ $product->catalog }}</p>
+                                        @endif
                                         @if($product->warranty_period)
                                         <p><strong>Bảo hành:</strong> {{ $product->warranty_period }}</p>
                                         @endif
                                         @if($product->manufacturer_country)
-                                        <p><strong>Xuất xứ:</strong> {{ $product->manufacturer_country }}</p>
+                                        <p><strong>Nước sản xuất:</strong> {{ $product->manufacturer_country }}</p>
+                                        @endif
+                                        @if($product->origin)
+                                        <p><strong>Xuất xứ:</strong> {{ $product->origin }}</p>
                                         @endif
                                         @if($product->color)
                                         <p><strong>Màu sắc:</strong> {{ $product->color }}</p>
                                         @endif
+                                        @if($product->material)
+                                        <p><strong>Chất liệu:</strong> {{ $product->material }}</p>
+                                        @endif
+                                        @if($product->weight)
+                                        <p><strong>Trọng lượng:</strong> {{ $product->weight }}</p>
+                                        @endif
+                                        @if($product->dimensions)
+                                        <p><strong>Kích thước:</strong> {{ $product->dimensions }}</p>
+                                        @endif
+                                        @if($product->min_order_quantity && $product->min_order_quantity > 1)
+                                        <p><strong>Số lượng đặt tối thiểu:</strong> {{ $product->min_order_quantity }}</p>
+                                        @endif
                                     </div>
 
                                     <!-- Action Buttons -->
-                                    <div class="action-buttons d-flex gap-3 mb-4">
-                                        <a href="tel:0918918755" class="btn btn-lg" style="background: #FF5722; color: white; flex: 1;">
-                                            <i class="fa fa-phone"></i> Gọi ngay: 0918918755
+                                    <div class="action-buttons">
+                                        <a href="tel:0918918755" class="btn">
+                                            <i class="fa fa-phone"></i> <span class="d-none d-sm-inline">Gọi ngay: </span>0918918755
                                         </a>
-                                        <a href="{{ route('contact') }}" class="btn btn-lg btn-outline-primary" style="flex: 1;">
+                                        <a href="{{ route('contact') }}" class="btn btn-outline-primary">
                                             <i class="fa fa-envelope"></i> Liên hệ tư vấn
                                         </a>
+                                    </div>
+
+                                    <!-- Categories & Tags -->
+                                    <div class="product-meta">
+                                        @if($product->categories)
+                                        <p>
+                                            <strong>Danh mục:</strong> 
+                                            @foreach($product->categories as $category)
+                                                <span class="badge bg-secondary">{{ $category }}</span>
+                                            @endforeach
+                                        </p>
+                                        @endif
+                                        
+                                        @if($product->tags)
+                                        <p>
+                                            <strong>Tags:</strong> 
+                                            @foreach($product->tags as $tag)
+                                                <span class="badge bg-light text-dark">#{{ $tag }}</span>
+                                            @endforeach
+                                        </p>
+                                        @endif
                                     </div>
 
                                     <!-- View Count -->
@@ -330,6 +430,13 @@
                                             Mô tả chi tiết
                                         </button>
                                     </li>
+                                    @if($product->features)
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button">
+                                            Tính năng nổi bật
+                                        </button>
+                                    </li>
+                                    @endif
                                     @if($product->specifications)
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button">
@@ -337,10 +444,10 @@
                                         </button>
                                     </li>
                                     @endif
-                                    @if($product->manual_url || $product->datasheet_url)
+                                    @if($product->manual_url || $product->datasheet_url || $product->video_url)
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="downloads-tab" data-bs-toggle="tab" data-bs-target="#downloads" type="button">
-                                            Tài liệu tải về
+                                            Tài liệu & Video
                                         </button>
                                     </li>
                                     @endif
@@ -353,6 +460,22 @@
                                             {!! $product->description ?? '<p>Đang cập nhật thông tin chi tiết...</p>' !!}
                                         </div>
                                     </div>
+
+                                    <!-- Features -->
+                                    @if($product->features)
+                                    <div class="tab-pane fade" id="features" role="tabpanel">
+                                        <div class="features-content">
+                                            <h4 class="mb-3">Tính năng nổi bật</h4>
+                                            <ul class="list-group list-group-flush">
+                                                @foreach($product->features as $feature)
+                                                <li class="list-group-item">
+                                                    <i class="fa fa-check-circle text-success me-2"></i>{{ $feature }}
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    @endif
 
                                     <!-- Specifications -->
                                     @if($product->specifications)
@@ -370,19 +493,46 @@
                                     </div>
                                     @endif
 
-                                    <!-- Downloads -->
-                                    @if($product->manual_url || $product->datasheet_url)
+                                    <!-- Downloads & Video -->
+                                    @if($product->manual_url || $product->datasheet_url || $product->video_url)
                                     <div class="tab-pane fade" id="downloads" role="tabpanel">
                                         <div class="downloads-content">
-                                            @if($product->manual_url)
-                                            <p><a href="{{ asset('storage/' . $product->manual_url) }}" target="_blank" class="btn btn-outline-primary">
-                                                <i class="fa fa-download"></i> Tải hướng dẫn sử dụng
-                                            </a></p>
+                                            @if($product->video_url)
+                                            <div class="mb-4">
+                                                <h4 class="mb-3">Video sản phẩm</h4>
+                                                <div class="ratio ratio-16x9">
+                                                    @if(str_contains($product->video_url, 'youtube.com') || str_contains($product->video_url, 'youtu.be'))
+                                                        @php
+                                                            preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $product->video_url, $matches);
+                                                            $videoId = $matches[1] ?? null;
+                                                        @endphp
+                                                        @if($videoId)
+                                                            <iframe src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        @endif
+                                                    @else
+                                                        <video controls style="width: 100%;">
+                                                            <source src="{{ asset('storage/' . $product->video_url) }}" type="video/mp4">
+                                                            Trình duyệt của bạn không hỗ trợ video.
+                                                        </video>
+                                                    @endif
+                                                </div>
+                                            </div>
                                             @endif
-                                            @if($product->datasheet_url)
-                                            <p><a href="{{ asset('storage/' . $product->datasheet_url) }}" target="_blank" class="btn btn-outline-primary">
-                                                <i class="fa fa-download"></i> Tải tài liệu kỹ thuật
-                                            </a></p>
+                                            
+                                            @if($product->manual_url || $product->datasheet_url)
+                                            <div>
+                                                <h4 class="mb-3">Tài liệu tải về</h4>
+                                                @if($product->manual_url)
+                                                <p><a href="{{ asset('storage/' . $product->manual_url) }}" target="_blank" class="btn btn-outline-primary">
+                                                    <i class="fa fa-download"></i> Tải hướng dẫn sử dụng
+                                                </a></p>
+                                                @endif
+                                                @if($product->datasheet_url)
+                                                <p><a href="{{ asset('storage/' . $product->datasheet_url) }}" target="_blank" class="btn btn-outline-primary">
+                                                    <i class="fa fa-download"></i> Tải tài liệu kỹ thuật (Datasheet)
+                                                </a></p>
+                                                @endif
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
@@ -394,24 +544,23 @@
                         <!-- Related Products -->
                         @if($relatedProducts->count() > 0)
                         <div class="row mt-5">
-                            <div class="col-lg-12">
+                            <div class="col-12">
                                 <h3 class="mb-4">Sản phẩm liên quan</h3>
-                                <div class="row">
+                                <div class="row g-3">
                                     @foreach($relatedProducts as $relatedProduct)
-                                    <div class="col-lg-3 col-md-6 mb-4">
-                                        <div class="product-card" style="border: 1px solid #e5e5e5; border-radius: 8px; padding: 15px;">
-                                            <div class="product-image mb-3" style="background: #f8f8f8; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="product-card">
+                                            <div class="product-image">
                                                 @if($relatedProduct->image_url)
-                                                    <img src="{{ asset('storage/' . $relatedProduct->image_url) }}" 
-                                                         alt="{{ $relatedProduct->name }}" 
-                                                         style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                                    <img src="{{ str_starts_with($relatedProduct->image_url, 'http') ? $relatedProduct->image_url : asset($relatedProduct->image_url) }}" 
+                                                         alt="{{ $relatedProduct->name }}">
                                                 @else
-                                                    <i class="fa fa-image" style="font-size: 48px; color: #ccc;"></i>
+                                                    <i class="fa fa-image"></i>
                                                 @endif
                                             </div>
-                                            <h5 style="font-size: 14px; min-height: 40px;">{{ Str::limit($relatedProduct->name, 50) }}</h5>
-                                            <p class="text-primary fw-bold">{{ number_format($relatedProduct->price, 0, ',', '.') }}đ</p>
-                                            <a href="{{ route('product.detail', $relatedProduct->slug) }}" class="btn btn-sm btn-outline-primary w-100">Xem chi tiết</a>
+                                            <h5>{{ Str::limit($relatedProduct->name, 50) }}</h5>
+                                            <p class="text-primary fw-bold">{{ number_format($relatedProduct->sale_price ?? $relatedProduct->price, 0, ',', '.') }}đ</p>
+                                            <a href="{{ route('product.show', $relatedProduct->slug) }}" class="btn btn-sm btn-outline-primary w-100">Xem chi tiết</a>
                                         </div>
                                     </div>
                                     @endforeach
@@ -433,14 +582,14 @@
     <!-- JS -->
     <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
-    <script>
-        // Change main image when clicking gallery
-        function changeMainImage(src) {
-            document.getElementById('mainImage').src = src;
-        }
-    </script>
+    <script src="{{ asset('assets/js/productDetails.js') }}"></script>
 
 </body>
 </html>
