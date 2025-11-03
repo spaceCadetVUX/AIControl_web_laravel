@@ -29,12 +29,26 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        $email = $request->email;
+        
+        // Check if email is a recovery email, if so find the user and use their primary email
+        $user = \App\Models\User::where('email', $email)
+            ->orWhere(function($query) use ($email) {
+                $query->where('recovery_email', $email)
+                      ->where('recovery_email_verified', true);
+            })
+            ->first();
+        
+        if (!$user) {
+            return back()
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => __('We can\'t find a user with that email address.')]);
+        }
+        
+        // Use the primary email for password reset
+        $status = Password::sendResetLink([
+            'email' => $user->email
+        ]);
 
         return $status == Password::RESET_LINK_SENT
                     ? back()->with('status', __($status))

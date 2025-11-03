@@ -33,4 +33,406 @@ class DashboardController extends Controller
         // Return response
         return redirect()->route('admin.pages')->with('success', 'Page updated successfully');
     }
+
+    /**
+     * Display users management
+     */
+    public function users()
+    {
+        $users = \App\Models\User::orderBy('created_at', 'desc')->get();
+        return view('admin.users', compact('users'));
+    }
+
+    /**
+     * Toggle user active status
+     */
+    public function toggleUserStatus(\App\Models\User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return redirect()->back()->with('error', 'You cannot deactivate your own account.');
+        }
+
+        $user->update(['is_active' => !$user->is_active]);
+        
+        $status = $user->is_active ? 'activated' : 'deactivated';
+        return redirect()->back()->with('success', "User {$user->name} has been {$status}.");
+    }
+
+    /**
+     * Display products management
+     */
+    public function products()
+    {
+        $products = \App\Models\Product::orderBy('created_at', 'desc')->paginate(20);
+        $brands = \App\Models\Brand::active()->orderBy('name')->pluck('name');
+        $statuses = ['draft', 'published', 'archived'];
+        
+        return view('admin.products', compact('products', 'brands', 'statuses'));
+    }
+
+    /**
+     * Show create product form
+     */
+    public function createProduct()
+    {
+        $brands = \App\Models\Brand::active()->orderBy('name')->get();
+        return view('admin.products-create', compact('brands'));
+    }
+
+    /**
+     * Store new product
+     */
+    public function storeProduct(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'brand' => 'required|string|max:100',
+            'sku' => 'nullable|string|max:100|unique:products,sku',
+            'function_category' => 'nullable|string|max:100',
+            'catalog' => 'nullable|string|max:100',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
+            'features' => 'nullable|string',
+            'specifications' => 'nullable|string',
+            'image_url' => 'nullable|string|max:500',
+            'image_alt' => 'nullable|string|max:255',
+            'video_url' => 'nullable|string|max:500',
+            'manual_url' => 'nullable|string|max:500',
+            'datasheet_url' => 'nullable|string|max:500',
+            'price' => 'nullable|numeric|min:0',
+            'sale_price' => 'nullable|numeric|min:0',
+            'currency' => 'nullable|string|max:10',
+            'stock_quantity' => 'nullable|integer|min:0',
+            'stock_status' => 'nullable|in:in_stock,out_of_stock,on_backorder',
+            'min_order_quantity' => 'nullable|integer|min:1',
+            'tags' => 'nullable|string',
+            'categories' => 'nullable|string',
+            'related_products' => 'nullable|string',
+            'weight' => 'nullable|string|max:50',
+            'dimensions' => 'nullable|string|max:100',
+            'color' => 'nullable|string|max:50',
+            'material' => 'nullable|string|max:100',
+            'warranty_period' => 'nullable|string|max:100',
+            'manufacturer_country' => 'nullable|string|max:100',
+            'origin' => 'nullable|string|max:100',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+            'canonical_url' => 'nullable|string|max:500',
+            'og_image' => 'nullable|string|max:500',
+            'og_title' => 'nullable|string|max:255',
+            'og_description' => 'nullable|string|max:500',
+            'structured_data' => 'nullable|string',
+            'sitemap_priority' => 'nullable|numeric|min:0|max:1',
+            'sitemap_changefreq' => 'nullable|in:always,hourly,daily,weekly,monthly,yearly,never',
+            'indexable' => 'nullable|boolean',
+            'status' => 'required|in:draft,published,archived',
+            'visibility' => 'nullable|in:visible,hidden',
+            'featured' => 'nullable|boolean',
+            'is_new' => 'nullable|boolean',
+            'is_bestseller' => 'nullable|boolean',
+            'language' => 'nullable|string|max:10',
+            'custom_fields' => 'nullable|string',
+            'gallery_images' => 'nullable|array',
+            'gallery_images.*' => 'nullable|string|max:500',
+            'published_at' => 'nullable|date',
+        ]);
+
+        // Generate slug from name
+        $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+        
+        // Convert checkbox values
+        $validated['featured'] = $request->has('featured') ? 1 : 0;
+        $validated['is_new'] = $request->has('is_new') ? 1 : 0;
+        $validated['is_bestseller'] = $request->has('is_bestseller') ? 1 : 0;
+        $validated['indexable'] = $request->has('indexable') ? 1 : 0;
+        
+        // Convert comma-separated strings to arrays for JSON fields
+        $jsonFields = ['tags', 'categories', 'related_products'];
+        foreach ($jsonFields as $field) {
+            if (isset($validated[$field]) && is_string($validated[$field])) {
+                $validated[$field] = array_filter(array_map('trim', explode(',', $validated[$field])));
+            }
+        }
+        
+        // Handle gallery_images array - filter out empty values
+        if (isset($validated['gallery_images']) && is_array($validated['gallery_images'])) {
+            $validated['gallery_images'] = array_values(array_filter($validated['gallery_images'], function($url) {
+                return !empty(trim($url));
+            }));
+        }
+        
+        // Convert JSON strings to arrays for complex JSON fields
+        $complexJsonFields = ['features', 'specifications', 'custom_fields', 'structured_data'];
+        foreach ($complexJsonFields as $field) {
+            if (isset($validated[$field]) && is_string($validated[$field]) && !empty($validated[$field])) {
+                $decoded = json_decode($validated[$field], true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $validated[$field] = $decoded;
+                }
+            }
+        }
+        
+        // Handle action button
+        if ($request->action === 'publish') {
+            $validated['status'] = 'published';
+            if (!$request->published_at) {
+                $validated['published_at'] = now();
+            }
+        }
+        
+        $product = \App\Models\Product::create($validated);
+        
+        $message = $request->action === 'publish' ? 'Product published successfully!' : 'Product saved as draft!';
+        return redirect()->route('admin.products')->with('success', $message);
+    }
+
+    /**
+     * Show edit product form
+     */
+    public function editProduct(\App\Models\Product $product)
+    {
+        $brands = \App\Models\Brand::active()->orderBy('name')->get();
+        return view('admin.products-edit', compact('product', 'brands'));
+    }
+
+    /**
+     * Update product
+     */
+    public function updateProduct(Request $request, \App\Models\Product $product)
+    {
+        try {
+            // Log incoming data for debugging
+            \Illuminate\Support\Facades\Log::info('Update Product Request', [
+                'product_id' => $product->id,
+                'request_data' => $request->all()
+            ]);
+            
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'brand' => 'required|string|max:100',
+                'sku' => [
+                    'nullable',
+                    'string',
+                    'max:100',
+                    \Illuminate\Validation\Rule::unique('products')->ignore($product->id)->whereNull('deleted_at')
+                ],
+                'function_category' => 'nullable|string|max:100',
+                'catalog' => 'nullable|string|max:100',
+                'short_description' => 'nullable|string',
+                'description' => 'nullable|string',
+                'features' => 'nullable|string',
+                'specifications' => 'nullable|string',
+                'image_url' => 'nullable|string|max:500',
+                'image_alt' => 'nullable|string|max:255',
+                'video_url' => 'nullable|string|max:500',
+                'manual_url' => 'nullable|string|max:500',
+                'datasheet_url' => 'nullable|string|max:500',
+                'price' => 'nullable|numeric|min:0',
+                'sale_price' => 'nullable|numeric|min:0',
+                'currency' => 'nullable|string|max:10',
+                'stock_quantity' => 'nullable|integer|min:0',
+                'stock_status' => 'nullable|in:in_stock,out_of_stock,on_backorder',
+                'min_order_quantity' => 'nullable|integer|min:1',
+                'tags' => 'nullable|string',
+                'categories' => 'nullable|string',
+                'related_products' => 'nullable|string',
+                'weight' => 'nullable|string|max:50',
+                'dimensions' => 'nullable|string|max:100',
+                'color' => 'nullable|string|max:50',
+                'material' => 'nullable|string|max:100',
+                'warranty_period' => 'nullable|string|max:100',
+                'manufacturer_country' => 'nullable|string|max:100',
+                'origin' => 'nullable|string|max:100',
+                'meta_title' => 'nullable|string|max:255',
+                'meta_description' => 'nullable|string|max:500',
+                'meta_keywords' => 'nullable|string|max:500',
+                'canonical_url' => 'nullable|string|max:500',
+                'og_image' => 'nullable|string|max:500',
+                'og_title' => 'nullable|string|max:255',
+                'og_description' => 'nullable|string|max:500',
+                'structured_data' => 'nullable|string',
+                'sitemap_priority' => 'nullable|numeric|min:0|max:1',
+                'sitemap_changefreq' => 'nullable|in:always,hourly,daily,weekly,monthly,yearly,never',
+                'indexable' => 'nullable|boolean',
+                'status' => 'required|in:draft,published,archived',
+                'visibility' => 'nullable|in:visible,hidden',
+                'featured' => 'nullable|boolean',
+                'is_new' => 'nullable|boolean',
+                'is_bestseller' => 'nullable|boolean',
+                'language' => 'nullable|string|max:10',
+                'custom_fields' => 'nullable|string',
+                'gallery_images' => 'nullable|array',
+                'gallery_images.*' => 'nullable|string|max:500',
+                'published_at' => 'nullable|date',
+            ]);
+
+            // Update slug if name changed and save old slug
+            if ($request->name !== $product->name) {
+                $validated['old_slug'] = $product->slug;
+                $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+            }
+            
+            // Convert checkbox values
+            $validated['featured'] = $request->has('featured') ? 1 : 0;
+            $validated['is_new'] = $request->has('is_new') ? 1 : 0;
+            $validated['is_bestseller'] = $request->has('is_bestseller') ? 1 : 0;
+            $validated['indexable'] = $request->has('indexable') ? 1 : 0;
+            
+            // Convert comma-separated strings to arrays for JSON fields
+            $jsonFields = ['tags', 'categories', 'related_products'];
+            foreach ($jsonFields as $field) {
+                if (isset($validated[$field]) && is_string($validated[$field])) {
+                    $validated[$field] = array_filter(array_map('trim', explode(',', $validated[$field])));
+                }
+            }
+            
+            // Handle gallery_images array - filter out empty values
+            if (isset($validated['gallery_images']) && is_array($validated['gallery_images'])) {
+                $validated['gallery_images'] = array_values(array_filter($validated['gallery_images'], function($url) {
+                    return !empty(trim($url));
+                }));
+            }
+            
+            // Convert JSON strings to arrays for complex JSON fields
+            $complexJsonFields = ['features', 'specifications', 'custom_fields', 'structured_data'];
+            foreach ($complexJsonFields as $field) {
+                if (isset($validated[$field]) && is_string($validated[$field]) && !empty($validated[$field])) {
+                    $decoded = json_decode($validated[$field], true);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $validated[$field] = $decoded;
+                    }
+                }
+            }
+            
+            // Handle action button
+            if ($request->action === 'publish') {
+                $validated['status'] = 'published';
+                if (!$request->published_at && !$product->published_at) {
+                    $validated['published_at'] = now();
+                }
+            }
+            
+            // Log before update
+            \Illuminate\Support\Facades\Log::info('Before Update', [
+                'validated_data' => $validated,
+                'product_before' => $product->toArray()
+            ]);
+            
+            $product->update($validated);
+            
+            // Log after update
+            \Illuminate\Support\Facades\Log::info('After Update', [
+                'product_after' => $product->fresh()->toArray()
+            ]);
+            
+            $message = $request->action === 'publish' ? 'Product updated and published!' : 'Product updated successfully!';
+            return redirect()->route('admin.products')->with('success', $message);
+            
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Product update error: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Error updating product: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete product
+     */
+    public function deleteProduct(\App\Models\Product $product)
+    {
+        $product->delete();
+        
+        return redirect()->route('admin.products')->with('success', 'Product deleted successfully!');
+    }
+
+    /**
+     * Toggle product status
+     */
+    public function toggleProductStatus(\App\Models\Product $product)
+    {
+        $newStatus = $product->status === 'published' ? 'draft' : 'published';
+        $product->update(['status' => $newStatus]);
+        
+        return redirect()->back()->with('success', "Product status changed to {$newStatus}.");
+    }
+
+    /**
+     * Display brands management
+     */
+    public function brands()
+    {
+        $brands = \App\Models\Brand::orderBy('name')->paginate(20);
+        return view('admin.brands', compact('brands'));
+    }
+
+    /**
+     * Show create brand form
+     */
+    public function createBrand()
+    {
+        return view('admin.brands-create');
+    }
+
+    /**
+     * Store new brand
+     */
+    public function storeBrand(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:brands,name',
+            'description' => 'nullable|string',
+            'logo_url' => 'nullable|url|max:500',
+            'website' => 'nullable|url|max:500',
+            'status' => 'nullable|boolean',
+        ]);
+
+        $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+        $validated['status'] = $request->has('status') ? 1 : 0;
+        
+        \App\Models\Brand::create($validated);
+        
+        return redirect()->route('admin.brands')->with('success', 'Brand created successfully!');
+    }
+
+    /**
+     * Show edit brand form
+     */
+    public function editBrand(\App\Models\Brand $brand)
+    {
+        return view('admin.brands-edit', compact('brand'));
+    }
+
+    /**
+     * Update brand
+     */
+    public function updateBrand(Request $request, \App\Models\Brand $brand)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:brands,name,' . $brand->id,
+            'description' => 'nullable|string',
+            'logo_url' => 'nullable|url|max:500',
+            'website' => 'nullable|url|max:500',
+            'status' => 'nullable|boolean',
+        ]);
+
+        if ($request->name !== $brand->name) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+        }
+        
+        $validated['status'] = $request->has('status') ? 1 : 0;
+        
+        $brand->update($validated);
+        
+        return redirect()->route('admin.brands')->with('success', 'Brand updated successfully!');
+    }
+
+    /**
+     * Delete brand
+     */
+    public function deleteBrand(\App\Models\Brand $brand)
+    {
+        $brand->delete();
+        
+        return redirect()->route('admin.brands')->with('success', 'Brand deleted successfully!');
+    }
 }

@@ -51,17 +51,48 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/verify-recovery-email', [ProfileController::class, 'verifyRecoveryEmail'])->name('profile.verify-recovery-email');
 });
 
 // ----------------------------
-// ADMIN PAGES (protected by auth)
+// ADMIN LOGIN (for guests)
 // ----------------------------
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['guest'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', function () {
+        return view('auth.admin-login');
+    })->name('login');
+});
+
+// ----------------------------
+// ADMIN PAGES (protected by auth and admin middleware)
+// ----------------------------
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Example: manage pages
+    // Manage pages
     Route::get('/pages', [DashboardController::class, 'pages'])->name('pages');
     Route::post('/pages/update', [DashboardController::class, 'update'])->name('pages.update');
+
+    // Manage users
+    Route::get('/users', [DashboardController::class, 'users'])->name('users');
+    Route::post('/users/{user}/toggle-status', [DashboardController::class, 'toggleUserStatus'])->name('users.toggle-status');
+
+    // Manage products
+    Route::get('/products', [DashboardController::class, 'products'])->name('products');
+    Route::get('/products/create', [DashboardController::class, 'createProduct'])->name('products.create');
+    Route::post('/products', [DashboardController::class, 'storeProduct'])->name('products.store');
+    Route::get('/products/{product}/edit', [DashboardController::class, 'editProduct'])->name('products.edit');
+    Route::put('/products/{product}', [DashboardController::class, 'updateProduct'])->name('products.update');
+    Route::delete('/products/{product}', [DashboardController::class, 'deleteProduct'])->name('products.delete');
+    Route::post('/products/{product}/toggle-status', [DashboardController::class, 'toggleProductStatus'])->name('products.toggle-status');
+
+    // Manage brands
+    Route::get('/brands', [DashboardController::class, 'brands'])->name('brands');
+    Route::get('/brands/create', [DashboardController::class, 'createBrand'])->name('brands.create');
+    Route::post('/brands', [DashboardController::class, 'storeBrand'])->name('brands.store');
+    Route::get('/brands/{brand}/edit', [DashboardController::class, 'editBrand'])->name('brands.edit');
+    Route::put('/brands/{brand}', [DashboardController::class, 'updateBrand'])->name('brands.update');
+    Route::delete('/brands/{brand}', [DashboardController::class, 'deleteBrand'])->name('brands.delete');
 });
 
 require __DIR__.'/auth.php';

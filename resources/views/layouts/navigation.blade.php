@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('admin.pages')" :active="request()->routeIs('admin.pages')">
                         {{ __('Manage Pages') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                        {{ __('Manage Users') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('home')" target="_blank">
                         {{ __('View Website') }}
                     </x-nav-link>
@@ -78,6 +81,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.pages')" :active="request()->routeIs('admin.pages')">
                 {{ __('Manage Pages') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                {{ __('Manage Users') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('home')" target="_blank">
                 {{ __('View Website') }}

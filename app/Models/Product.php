@@ -14,17 +14,17 @@ class Product extends Model
 
     // Allow mass assignment for these fields
     protected $fillable = [
-        'name', 'brand', 'function_category', 'catalog', 'sku',
-        'description', 'short_description', 'features', 'specifications',
-        'image_url', 'gallery_images', 'video_url', 'manual_url', 'datasheet_url',
+        'name', 'slug', 'old_slug', 'sku', 'brand', 'function_category', 'catalog',
+        'short_description', 'description', 'features', 'specifications',
+        'image_url', 'image_alt', 'gallery_images', 'video_url', 'manual_url', 'datasheet_url',
         'price', 'sale_price', 'currency', 'stock_quantity', 'stock_status', 'min_order_quantity',
-        'slug', 'meta_title', 'meta_description', 'meta_keywords', 'canonical_url',
-        'og_image', 'og_title', 'og_description',
         'tags', 'categories', 'related_products',
         'weight', 'dimensions', 'color', 'material', 'warranty_period', 'manufacturer_country', 'origin',
-        'status', 'visibility', 'featured', 'is_new', 'is_bestseller',
+        'meta_title', 'meta_description', 'meta_keywords', 'canonical_url',
+        'og_image', 'og_title', 'og_description', 'structured_data',
         'view_count', 'click_count', 'search_count', 'order_count', 'rating', 'review_count',
         'sitemap_priority', 'sitemap_changefreq', 'indexable', 'last_crawled_at',
+        'status', 'visibility', 'featured', 'is_new', 'is_bestseller', 'language',
         'custom_fields', 'published_at'
     ];
 
@@ -37,6 +37,7 @@ class Product extends Model
         'categories' => 'array',
         'related_products' => 'array',
         'custom_fields' => 'array',
+        'structured_data' => 'array',
         'price' => 'decimal:2',
         'sale_price' => 'decimal:2',
         'rating' => 'decimal:2',

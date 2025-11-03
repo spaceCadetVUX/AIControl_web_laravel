@@ -367,6 +367,44 @@
     <script src="{{ assets('assets/js/bootstrap-bundle.js') }}"></script>
     <script src="{{ assets('assets/js/main.js') }}"></script>
     <script src="{{ assets('assets/js/shop.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/productDetails.js') }}"></script>
+    <script src="{{ assets('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ assets('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ assets('assets/js/plugin.js') }}"></script>
+    <script src="{{ assets('assets/js/three.js') }}"></script>
+    <script src="{{ assets('assets/js/slick.js') }}"></script>
+    <script src="{{ assets('assets/js/scroll-magic.js') }}"></script>
+    <script src="{{ assets('assets/js/hover-effect.umd.js') }}"></script>
+    <script src="{{ assets('assets/js/parallax-slider.js') }}"></script>
+    <script src="{{ assets('assets/js/purecounter.js') }}"></script>
+    <script src="{{ assets('assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ assets('assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ assets('assets/js/Observer.min.js') }}"></script>
+    <script src="{{ assets('assets/js/splitting.min.js') }}"></script>
+    <script src="{{ assets('assets/js/webgl.js') }}"></script>
+    <script src="{{ assets('assets/js/parallax-scroll.js') }}"></script>
+    <script src="{{ assets('assets/js/atropos.js') }}"></script>
+    <script src="{{ assets('assets/js/slider-active.js') }}"></script>
+    <script src="{{ assets('assets/js/main.js') }}"></script>
+    <script src="{{ assets('assets/js/tp-cursor.js') }}"></script>
+    <script src="{{ assets('assets/js/portfolio-slider-1.js') }}"></script>
+    <script src="{{ assets('assets/js/contact.js') }}"></script>
+    <script type="module" src="{{ assets('assets/js/distortion-img.js') }}"></script>
+    <script type="module" src="{{ assets('assets/js/skew-slider/index.js') }}"></script>
+    <script type="module" src="{{ assets('assets/js/img-revel/index.js') }}"></script>
+
+    
+    
+ 
     
     <!-- Offcanvas Toggle -->
     <script>

@@ -87,6 +87,7 @@
                         <a href="#">FaceBook</a>
                         <a href="#">YouTube</a>
                         <a href="#">LinkedIn</a>
+                        <a href="{{ route('admin.login') }}" class="text-xs opacity-50">Admin</a>
                     </div>
                 </div>
             </div>

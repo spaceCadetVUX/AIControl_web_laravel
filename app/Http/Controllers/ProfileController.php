@@ -26,15 +26,53 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $validated = $request->validated();
+        
+        $user->fill($validated);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        // If recovery email is changed, mark as unverified
+        if ($user->isDirty('recovery_email')) {
+            $user->recovery_email_verified = false;
+            
+            // Log recovery email change
+            \Illuminate\Support\Facades\Log::info('Recovery email updated', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'new_recovery_email' => $user->recovery_email
+            ]);
+        }
+
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Verify recovery email address
+     */
+    public function verifyRecoveryEmail(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        
+        if (!$user->recovery_email) {
+            return Redirect::route('profile.edit')->with('error', 'No recovery email set.');
+        }
+        
+        $user->recovery_email_verified = true;
+        $user->save();
+        
+        \Illuminate\Support\Facades\Log::info('Recovery email verified', [
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'recovery_email' => $user->recovery_email
+        ]);
+        
+        return Redirect::route('profile.edit')->with('status', 'recovery-email-verified');
     }
 
     /**
