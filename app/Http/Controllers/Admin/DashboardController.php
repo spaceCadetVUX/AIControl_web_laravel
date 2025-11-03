@@ -12,7 +12,29 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        // Get product statistics
+        $totalProducts = \App\Models\Product::count();
+        $publishedProducts = \App\Models\Product::where('status', 'published')->count();
+        
+        // Get top 10 most clicked products (sorted by clicks descending)
+        $topClickedProducts = \App\Models\Product::orderBy('click_count', 'desc')
+            ->orderBy('view_count', 'desc')
+            ->take(10)
+            ->get(['name', 'click_count', 'view_count', 'brand']);
+        
+        // Get product click stats for chart (top 10 by clicks)
+        $productClickStats = \App\Models\Product::select('name', 'click_count', 'view_count', 'brand')
+            ->orderBy('click_count', 'desc')
+            ->take(10)
+            ->get();
+        
+        // Get product view stats for chart (top 10 by views)
+        $productViewStats = \App\Models\Product::select('name', 'click_count', 'view_count', 'brand')
+            ->orderBy('view_count', 'desc')
+            ->take(10)
+            ->get();
+        
+        return view('admin.dashboard', compact('totalProducts', 'publishedProducts', 'topClickedProducts', 'productClickStats', 'productViewStats'));
     }
 
     /**
