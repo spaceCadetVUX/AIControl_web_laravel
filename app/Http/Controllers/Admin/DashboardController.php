@@ -156,7 +156,8 @@ class DashboardController extends Controller
             'language' => 'nullable|string|max:10',
             'custom_fields' => 'nullable|string',
             'gallery_images' => 'nullable|array',
-            'gallery_images.*' => 'nullable|string|max:500',
+            'gallery_images.*.url' => 'nullable|string|max:500',
+            'gallery_images.*.alt' => 'nullable|string|max:255',
             'published_at' => 'nullable|date',
         ]);
 
@@ -177,10 +178,10 @@ class DashboardController extends Controller
             }
         }
         
-        // Handle gallery_images array - filter out empty values
+        // Handle gallery_images array - filter out empty values and ensure proper structure
         if (isset($validated['gallery_images']) && is_array($validated['gallery_images'])) {
-            $validated['gallery_images'] = array_values(array_filter($validated['gallery_images'], function($url) {
-                return !empty(trim($url));
+            $validated['gallery_images'] = array_values(array_filter($validated['gallery_images'], function($image) {
+                return !empty(trim($image['url'] ?? ''));
             }));
         }
         
@@ -285,7 +286,8 @@ class DashboardController extends Controller
                 'language' => 'nullable|string|max:10',
                 'custom_fields' => 'nullable|string',
                 'gallery_images' => 'nullable|array',
-                'gallery_images.*' => 'nullable|string|max:500',
+                'gallery_images.*.url' => 'nullable|string|max:500',
+                'gallery_images.*.alt' => 'nullable|string|max:255',
                 'published_at' => 'nullable|date',
             ]);
 
@@ -309,10 +311,10 @@ class DashboardController extends Controller
                 }
             }
             
-            // Handle gallery_images array - filter out empty values
+            // Handle gallery_images array - filter out empty values and ensure proper structure
             if (isset($validated['gallery_images']) && is_array($validated['gallery_images'])) {
-                $validated['gallery_images'] = array_values(array_filter($validated['gallery_images'], function($url) {
-                    return !empty(trim($url));
+                $validated['gallery_images'] = array_values(array_filter($validated['gallery_images'], function($image) {
+                    return !empty(trim($image['url'] ?? ''));
                 }));
             }
             
@@ -456,5 +458,86 @@ class DashboardController extends Controller
         $brand->delete();
         
         return redirect()->route('admin.brands')->with('success', 'Brand deleted successfully!');
+    }
+
+    /**
+     * Upload image and store in public/assets/aicontrol_imgs/AllProductImages
+     */
+    public function uploadImage(Request $request)
+    {
+        try {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // Max 5MB
+            ]);
+
+            if (!$request->hasFile('image')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No image file provided'
+                ], 400);
+            }
+
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+            $baseFileName = pathinfo($originalName, PATHINFO_FILENAME);
+            
+            // Define the upload directory
+            $uploadPath = public_path('assets/aicontrol_imgs/AllProductImages');
+            
+            // Create directory if it doesn't exist
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            // Check if file with same name exists
+            $fileName = $originalName;
+            $filePath = $uploadPath . '/' . $fileName;
+            $fileExists = file_exists($filePath);
+            
+            // If file exists, create a unique name
+            if ($fileExists) {
+                $counter = 1;
+                while (file_exists($uploadPath . '/' . $fileName)) {
+                    $fileName = $baseFileName . '_' . $counter . '.' . $extension;
+                    $counter++;
+                }
+                
+                // Move the file with new name
+                $image->move($uploadPath, $fileName);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Warning: A file with the same name already exists. Renamed to: ' . $fileName,
+                    'path' => 'assets/aicontrol_imgs/AllProductImages/' . $fileName,
+                    'filename' => $fileName,
+                    'originalName' => $originalName,
+                    'renamed' => true
+                ]);
+            } else {
+                // Move the file with original name
+                $image->move($uploadPath, $fileName);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Image uploaded successfully',
+                    'path' => 'assets/aicontrol_imgs/AllProductImages/' . $fileName,
+                    'filename' => $fileName,
+                    'renamed' => false
+                ]);
+            }
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Upload failed: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -40,7 +40,12 @@
         "{{ $product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : '' }}"
         @if($product->gallery_images)
         @foreach($product->gallery_images as $image)
-        ,"{{ str_starts_with($image, 'http') ? $image : asset($image) }}"
+        @php
+            $imageUrl = is_array($image) ? ($image['url'] ?? '') : $image;
+        @endphp
+        @if(!empty($imageUrl))
+        ,"{{ str_starts_with($imageUrl, 'http') ? $imageUrl : asset($imageUrl) }}"
+        @endif
         @endforeach
         @endif
       ],
@@ -256,11 +261,17 @@
                                         
                                         <!-- Other gallery images -->
                                         @foreach($product->gallery_images as $image)
+                                        @php
+                                            $imageUrl = is_array($image) ? ($image['url'] ?? '') : $image;
+                                            $imageAlt = is_array($image) ? ($image['alt'] ?? $product->image_alt ?? $product->name) : ($product->image_alt ?? $product->name);
+                                        @endphp
+                                        @if(!empty($imageUrl))
                                         <div class="gallery-item">
-                                            <img src="{{ str_starts_with($image, 'http') ? $image : asset($image) }}" 
-                                                 alt="{{ $product->image_alt ?? $product->name }}" 
+                                            <img src="{{ str_starts_with($imageUrl, 'http') ? $imageUrl : asset($imageUrl) }}" 
+                                                 alt="{{ $imageAlt }}" 
                                                  onclick="changeMainImage(this)">
                                         </div>
+                                        @endif
                                         @endforeach
                                     </div>
                                     @endif

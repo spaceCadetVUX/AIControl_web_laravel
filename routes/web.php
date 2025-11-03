@@ -93,6 +93,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/brands/{brand}/edit', [DashboardController::class, 'editBrand'])->name('brands.edit');
     Route::put('/brands/{brand}', [DashboardController::class, 'updateBrand'])->name('brands.update');
     Route::delete('/brands/{brand}', [DashboardController::class, 'deleteBrand'])->name('brands.delete');
+
+    // Upload image
+    Route::post('/upload-image', [DashboardController::class, 'uploadImage'])->name('upload.image');
 });
 
 require __DIR__.'/auth.php';

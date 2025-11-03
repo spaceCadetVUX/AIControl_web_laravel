@@ -143,7 +143,12 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Image URL</label>
-                                <input type="text" name="image_url" value="{{ old('image_url', $product->image_url) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <div class="flex gap-2">
+                                    <input type="text" id="main_image_url" name="image_url" value="{{ old('image_url', $product->image_url) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <button type="button" onclick="openImageUploader('main_image_url')" class="mt-1 px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition whitespace-nowrap">
+                                        📤 Upload
+                                    </button>
+                                </div>
                                 @if($product->image_url)
                                     <img src="{{ $product->image_url }}" alt="{{ $product->image_alt }}" class="mt-2 h-24 w-24 object-cover rounded border">
                                 @endif
@@ -172,22 +177,44 @@
 
                         <div class="mt-6 p-4 bg-gray-50 rounded-lg">
                             <label class="block text-sm font-medium text-gray-700 mb-3">📸 Gallery Images (Thumbnail Images for Product Details)</label>
-                            <div id="gallery-images-container" class="space-y-2">
+                            <div id="gallery-images-container" class="space-y-3">
                                 @php
                                     $galleryImages = old('gallery_images', $product->gallery_images);
                                     if (is_string($galleryImages)) {
                                         $galleryImages = json_decode($galleryImages, true) ?: [];
                                     }
                                     $galleryImages = is_array($galleryImages) ? $galleryImages : [];
+                                    
+                                    // Convert old format (simple array) to new format (array of objects)
+                                    if (!empty($galleryImages) && !isset($galleryImages[0]['url'])) {
+                                        $galleryImages = array_map(function($url) {
+                                            return is_string($url) ? ['url' => $url, 'alt' => ''] : $url;
+                                        }, $galleryImages);
+                                    }
+                                    
                                     if (empty($galleryImages)) {
-                                        $galleryImages = [''];
+                                        $galleryImages = [['url' => '', 'alt' => '']];
                                     }
                                 @endphp
                                 
-                                @foreach($galleryImages as $index => $imageUrl)
-                                <div class="gallery-image-item flex gap-2 items-center">
-                                    <input type="text" name="gallery_images[]" value="{{ $imageUrl }}" placeholder="assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <button type="button" onclick="removeGalleryImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">Remove</button>
+                                @foreach($galleryImages as $index => $image)
+                                @php
+                                    $imageUrl = is_array($image) ? ($image['url'] ?? '') : $image;
+                                    $imageAlt = is_array($image) ? ($image['alt'] ?? '') : '';
+                                @endphp
+                                <div class="gallery-image-item p-3 bg-white rounded-md border border-gray-200">
+                                    <div class="flex gap-2 items-start">
+                                        <div class="flex-1 space-y-2">
+                                            <div class="flex gap-2">
+                                                <input type="text" id="gallery_url_{{ $index }}" name="gallery_images[{{ $index }}][url]" value="{{ $imageUrl }}" placeholder="Image URL: assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                                <button type="button" onclick="openImageUploader('gallery_url_{{ $index }}')" class="px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm whitespace-nowrap">
+                                                    📤 Upload
+                                                </button>
+                                            </div>
+                                            <input type="text" name="gallery_images[{{ $index }}][alt]" value="{{ $imageAlt }}" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                        </div>
+                                        <button type="button" onclick="removeGalleryImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>
@@ -196,15 +223,29 @@
                         </div>
                         
                         <script>
+                            let galleryImageIndex = {{ count($galleryImages) }};
+                            
                             function addGalleryImage() {
                                 const container = document.getElementById('gallery-images-container');
                                 const newItem = document.createElement('div');
-                                newItem.className = 'gallery-image-item flex gap-2 items-center';
+                                newItem.className = 'gallery-image-item p-3 bg-white rounded-md border border-gray-200';
+                                const newId = 'gallery_url_' + galleryImageIndex;
                                 newItem.innerHTML = `
-                                    <input type="text" name="gallery_images[]" value="" placeholder="assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <button type="button" onclick="removeGalleryImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">Remove</button>
+                                    <div class="flex gap-2 items-start">
+                                        <div class="flex-1 space-y-2">
+                                            <div class="flex gap-2">
+                                                <input type="text" id="${newId}" name="gallery_images[${galleryImageIndex}][url]" value="" placeholder="Image URL: assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                                <button type="button" onclick="openImageUploader('${newId}')" class="px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm whitespace-nowrap">
+                                                    📤 Upload
+                                                </button>
+                                            </div>
+                                            <input type="text" name="gallery_images[${galleryImageIndex}][alt]" value="" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                        </div>
+                                        <button type="button" onclick="removeGalleryImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                    </div>
                                 `;
                                 container.appendChild(newItem);
+                                galleryImageIndex++;
                             }
 
                             function removeGalleryImage(button) {
@@ -214,7 +255,8 @@
                                     button.closest('.gallery-image-item').remove();
                                 } else {
                                     // Keep at least one input field
-                                    button.closest('.gallery-image-item').querySelector('input').value = '';
+                                    const inputs = button.closest('.gallery-image-item').querySelectorAll('input');
+                                    inputs.forEach(input => input.value = '');
                                 }
                             }
                         </script>
@@ -546,5 +588,151 @@
             activeButton.classList.add('active', 'border-blue-500', 'text-blue-600');
             activeButton.classList.remove('border-transparent', 'text-gray-500');
         }
+
+        // Image Upload Modal and Functions
+        let currentTargetInput = null;
+
+        function openImageUploader(inputId) {
+            currentTargetInput = inputId;
+            document.getElementById('imageUploadModal').classList.remove('hidden');
+        }
+
+        function closeImageUploader() {
+            document.getElementById('imageUploadModal').classList.add('hidden');
+            document.getElementById('imageFileInput').value = '';
+            document.getElementById('uploadProgress').classList.add('hidden');
+            document.getElementById('uploadMessage').classList.add('hidden');
+        }
+
+        function handleImageUpload() {
+            const fileInput = document.getElementById('imageFileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showUploadMessage('Please select an image file', 'error');
+                return;
+            }
+
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                showUploadMessage('Please select a valid image file (JPEG, PNG, GIF, or WebP)', 'error');
+                return;
+            }
+
+            // Validate file size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showUploadMessage('File size must be less than 5MB', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('_token', '{{ csrf_token() }}');
+
+            // Show progress
+            document.getElementById('uploadProgress').classList.remove('hidden');
+            document.getElementById('uploadMessage').classList.add('hidden');
+
+            fetch('{{ route("admin.upload.image") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('uploadProgress').classList.add('hidden');
+                
+                if (data.success) {
+                    // Set the image path to the target input
+                    document.getElementById(currentTargetInput).value = data.path;
+                    
+                    // Show success message
+                    if (data.renamed) {
+                        showUploadMessage(data.message, 'warning');
+                    } else {
+                        showUploadMessage(data.message, 'success');
+                    }
+                    
+                    // Close modal after 2 seconds
+                    setTimeout(() => {
+                        closeImageUploader();
+                    }, 2000);
+                } else {
+                    showUploadMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                document.getElementById('uploadProgress').classList.add('hidden');
+                showUploadMessage('Upload failed: ' + error.message, 'error');
+            });
+        }
+
+        function showUploadMessage(message, type) {
+            const messageDiv = document.getElementById('uploadMessage');
+            messageDiv.classList.remove('hidden', 'text-green-600', 'text-yellow-600', 'text-red-600');
+            
+            if (type === 'success') {
+                messageDiv.classList.add('text-green-600');
+            } else if (type === 'warning') {
+                messageDiv.classList.add('text-yellow-600');
+            } else {
+                messageDiv.classList.add('text-red-600');
+            }
+            
+            messageDiv.textContent = message;
+        }
     </script>
+
+    <!-- Image Upload Modal -->
+    <div id="imageUploadModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Upload Image</h3>
+                    <button onclick="closeImageUploader()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="mt-2">
+                    <input type="file" id="imageFileInput" accept="image/*" class="block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-50 file:text-blue-700
+                        hover:file:bg-blue-100">
+                    
+                    <p class="mt-2 text-xs text-gray-500">
+                        Maximum file size: 5MB<br>
+                        Supported formats: JPEG, PNG, GIF, WebP
+                    </p>
+
+                    <!-- Upload Progress -->
+                    <div id="uploadProgress" class="hidden mt-4">
+                        <div class="flex items-center justify-center">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            <span class="ml-2 text-sm text-gray-600">Uploading...</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload Message -->
+                    <div id="uploadMessage" class="hidden mt-4 text-sm font-medium"></div>
+                </div>
+                
+                <div class="mt-4 flex justify-end gap-3">
+                    <button onclick="closeImageUploader()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        Cancel
+                    </button>
+                    <button onclick="handleImageUpload()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

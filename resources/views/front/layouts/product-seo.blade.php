@@ -38,7 +38,12 @@
         "{{ asset('storage/' . $product->image_url) }}"
         @if($product->gallery_images)
         @foreach($product->gallery_images as $image)
-        ,"{{ asset('storage/' . $image) }}"
+        @php
+            $imageUrl = is_array($image) ? ($image['url'] ?? '') : $image;
+        @endphp
+        @if(!empty($imageUrl))
+        ,"{{ asset('storage/' . $imageUrl) }}"
+        @endif
         @endforeach
         @endif
       ],
