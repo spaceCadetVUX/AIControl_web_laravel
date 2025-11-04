@@ -135,8 +135,12 @@ class DashboardController extends Controller
             'catalog' => 'nullable|string|max:100',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
-            'features' => 'nullable|string',
-            'specifications' => 'nullable|string',
+            'features' => 'nullable|array',
+            'features.*' => 'nullable|string',
+            'spec_keys' => 'nullable|array',
+            'spec_keys.*' => 'nullable|string',
+            'spec_values' => 'nullable|array',
+            'spec_values.*' => 'nullable|string',
             'image_url' => 'nullable|string|max:500',
             'image_alt' => 'nullable|string|max:255',
             'video_url' => 'nullable|string|max:500',
@@ -206,8 +210,37 @@ class DashboardController extends Controller
             }));
         }
         
-        // Convert JSON strings to arrays for complex JSON fields
-        $complexJsonFields = ['features', 'specifications', 'custom_fields', 'structured_data'];
+        // Handle features array - filter out empty values
+        if (isset($validated['features']) && is_array($validated['features'])) {
+            $validated['features'] = array_values(array_filter($validated['features'], function($feature) {
+                return !empty(trim($feature));
+            }));
+        }
+        
+        // Handle specifications - combine keys and values into associative array
+        if (isset($validated['spec_keys']) && isset($validated['spec_values'])) {
+            $specifications = [];
+            $keys = $validated['spec_keys'];
+            $values = $validated['spec_values'];
+            
+            for ($i = 0; $i < count($keys); $i++) {
+                $key = trim($keys[$i] ?? '');
+                $value = trim($values[$i] ?? '');
+                
+                if (!empty($key) && !empty($value)) {
+                    $specifications[$key] = $value;
+                }
+            }
+            
+            $validated['specifications'] = !empty($specifications) ? $specifications : null;
+            
+            // Remove the temporary arrays
+            unset($validated['spec_keys']);
+            unset($validated['spec_values']);
+        }
+        
+        // Convert JSON strings to arrays for complex JSON fields (excluding features and specifications)
+        $complexJsonFields = ['custom_fields', 'structured_data'];
         foreach ($complexJsonFields as $field) {
             if (isset($validated[$field]) && is_string($validated[$field]) && !empty($validated[$field])) {
                 $decoded = json_decode($validated[$field], true);
@@ -279,8 +312,12 @@ class DashboardController extends Controller
                 'catalog' => 'nullable|string|max:100',
                 'short_description' => 'nullable|string',
                 'description' => 'nullable|string',
-                'features' => 'nullable|string',
-                'specifications' => 'nullable|string',
+                'features' => 'nullable|array',
+                'features.*' => 'nullable|string',
+                'spec_keys' => 'nullable|array',
+                'spec_keys.*' => 'nullable|string',
+                'spec_values' => 'nullable|array',
+                'spec_values.*' => 'nullable|string',
                 'image_url' => 'nullable|string|max:500',
                 'image_alt' => 'nullable|string|max:255',
                 'video_url' => 'nullable|string|max:500',
@@ -353,8 +390,37 @@ class DashboardController extends Controller
                 }));
             }
             
-            // Convert JSON strings to arrays for complex JSON fields
-            $complexJsonFields = ['features', 'specifications', 'custom_fields', 'structured_data'];
+            // Handle features array - filter out empty values
+            if (isset($validated['features']) && is_array($validated['features'])) {
+                $validated['features'] = array_values(array_filter($validated['features'], function($feature) {
+                    return !empty(trim($feature));
+                }));
+            }
+            
+            // Handle specifications - combine keys and values into associative array
+            if (isset($validated['spec_keys']) && isset($validated['spec_values'])) {
+                $specifications = [];
+                $keys = $validated['spec_keys'];
+                $values = $validated['spec_values'];
+                
+                for ($i = 0; $i < count($keys); $i++) {
+                    $key = trim($keys[$i] ?? '');
+                    $value = trim($values[$i] ?? '');
+                    
+                    if (!empty($key) && !empty($value)) {
+                        $specifications[$key] = $value;
+                    }
+                }
+                
+                $validated['specifications'] = !empty($specifications) ? $specifications : null;
+                
+                // Remove the temporary arrays
+                unset($validated['spec_keys']);
+                unset($validated['spec_values']);
+            }
+            
+            // Convert JSON strings to arrays for complex JSON fields (excluding features and specifications)
+            $complexJsonFields = ['custom_fields', 'structured_data'];
             foreach ($complexJsonFields as $field) {
                 if (isset($validated[$field]) && is_string($validated[$field]) && !empty($validated[$field])) {
                     $decoded = json_decode($validated[$field], true);

@@ -170,15 +170,82 @@
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Features (JSON format or one per line)</label>
-                            <textarea name="features" rows="4" placeholder='["Feature 1", "Feature 2"] or one per line' class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('features') }}</textarea>
+                        <!-- Features Section -->
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">✨ Product Features</label>
+                            <div id="features-container" class="space-y-2">
+                                <div class="feature-item flex gap-2">
+                                    <input type="text" name="features[]" value="{{ old('features.0') }}" placeholder="Enter a feature" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeFeature(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="addFeature()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Feature</button>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Specifications (JSON format)</label>
-                            <textarea name="specifications" rows="4" placeholder='{"spec1": "value1", "spec2": "value2"}' class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('specifications') }}</textarea>
+                        <!-- Specifications Section -->
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">📋 Product Specifications</label>
+                            <p class="text-xs text-blue-600 mb-3">💡 Tip: You can add URLs in the value field (e.g., for Doc, Datasheet). They will automatically become clickable links on the product page.</p>
+                            <div id="specifications-container" class="space-y-2">
+                                <div class="specification-item flex gap-2">
+                                    <input type="text" name="spec_keys[]" value="{{ old('spec_keys.0') }}" placeholder="Spec name (e.g., Nguồn điện, Doc)" class="w-1/3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <input type="text" name="spec_values[]" value="{{ old('spec_values.0') }}" placeholder="Value or URL (e.g., 24V DC or https://...)" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeSpecification(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="addSpecification()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Specification</button>
                         </div>
+
+                        <script>
+                            // Features Functions
+                            function addFeature() {
+                                const container = document.getElementById('features-container');
+                                const newItem = document.createElement('div');
+                                newItem.className = 'feature-item flex gap-2';
+                                newItem.innerHTML = `
+                                    <input type="text" name="features[]" value="" placeholder="Enter a feature" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeFeature(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                `;
+                                container.appendChild(newItem);
+                            }
+
+                            function removeFeature(button) {
+                                const container = document.getElementById('features-container');
+                                const items = container.querySelectorAll('.feature-item');
+                                if (items.length > 1) {
+                                    button.closest('.feature-item').remove();
+                                } else {
+                                    // Keep at least one input field
+                                    const input = button.closest('.feature-item').querySelector('input');
+                                    input.value = '';
+                                }
+                            }
+
+                            // Specifications Functions
+                            function addSpecification() {
+                                const container = document.getElementById('specifications-container');
+                                const newItem = document.createElement('div');
+                                newItem.className = 'specification-item flex gap-2';
+                                newItem.innerHTML = `
+                                    <input type="text" name="spec_keys[]" value="" placeholder="Spec name (e.g., Nguồn điện, Doc)" class="w-1/3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <input type="text" name="spec_values[]" value="" placeholder="Value or URL (e.g., 24V DC or https://...)" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeSpecification(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                `;
+                                container.appendChild(newItem);
+                            }
+
+                            function removeSpecification(button) {
+                                const container = document.getElementById('specifications-container');
+                                const items = container.querySelectorAll('.specification-item');
+                                if (items.length > 1) {
+                                    button.closest('.specification-item').remove();
+                                } else {
+                                    // Keep at least one input field
+                                    const inputs = button.closest('.specification-item').querySelectorAll('input');
+                                    inputs.forEach(input => input.value = '');
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
 

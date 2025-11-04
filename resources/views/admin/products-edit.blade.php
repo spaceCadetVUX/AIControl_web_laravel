@@ -269,15 +269,110 @@
                             }
                         </script>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Features (JSON format or one per line)</label>
-                            <textarea name="features" rows="4" placeholder='["Feature 1", "Feature 2"] or one per line' class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('features', $product->features ? (is_array($product->features) ? json_encode($product->features, JSON_PRETTY_PRINT) : $product->features) : '') }}</textarea>
+                        <!-- Features Section -->
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">✨ Product Features</label>
+                            <div id="features-container" class="space-y-2">
+                                @php
+                                    $features = old('features', $product->features);
+                                    if (is_string($features)) {
+                                        $features = json_decode($features, true) ?: [];
+                                    }
+                                    $features = is_array($features) ? $features : [];
+                                    
+                                    if (empty($features)) {
+                                        $features = [''];
+                                    }
+                                @endphp
+                                
+                                @foreach($features as $index => $feature)
+                                <div class="feature-item flex gap-2">
+                                    <input type="text" name="features[]" value="{{ $feature }}" placeholder="Enter a feature" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeFeature(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                </div>
+                                @endforeach
+                            </div>
+                            <button type="button" onclick="addFeature()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Feature</button>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Specifications (JSON format)</label>
-                            <textarea name="specifications" rows="4" placeholder='{"spec1": "value1", "spec2": "value2"}' class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('specifications', $product->specifications ? (is_array($product->specifications) ? json_encode($product->specifications, JSON_PRETTY_PRINT) : $product->specifications) : '') }}</textarea>
+                        <!-- Specifications Section -->
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">📋 Product Specifications</label>
+                            <p class="text-xs text-blue-600 mb-3">💡 Tip: You can add URLs in the value field (e.g., for Doc, Datasheet). They will automatically become clickable links on the product page.</p>
+                            <div id="specifications-container" class="space-y-2">
+                                @php
+                                    $specifications = old('specifications', $product->specifications);
+                                    if (is_string($specifications)) {
+                                        $specifications = json_decode($specifications, true) ?: [];
+                                    }
+                                    $specifications = is_array($specifications) ? $specifications : [];
+                                    
+                                    if (empty($specifications)) {
+                                        $specifications = ['' => ''];
+                                    }
+                                @endphp
+                                
+                                @foreach($specifications as $key => $value)
+                                <div class="specification-item flex gap-2">
+                                    <input type="text" name="spec_keys[]" value="{{ $key }}" placeholder="Spec name (e.g., Nguồn điện, Doc)" class="w-1/3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <input type="text" name="spec_values[]" value="{{ $value }}" placeholder="Value or URL (e.g., 24V DC or https://...)" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeSpecification(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                </div>
+                                @endforeach
+                            </div>
+                            <button type="button" onclick="addSpecification()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Specification</button>
                         </div>
+
+                        <script>
+                            // Features Functions
+                            function addFeature() {
+                                const container = document.getElementById('features-container');
+                                const newItem = document.createElement('div');
+                                newItem.className = 'feature-item flex gap-2';
+                                newItem.innerHTML = `
+                                    <input type="text" name="features[]" value="" placeholder="Enter a feature" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeFeature(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                `;
+                                container.appendChild(newItem);
+                            }
+
+                            function removeFeature(button) {
+                                const container = document.getElementById('features-container');
+                                const items = container.querySelectorAll('.feature-item');
+                                if (items.length > 1) {
+                                    button.closest('.feature-item').remove();
+                                } else {
+                                    // Keep at least one input field
+                                    const input = button.closest('.feature-item').querySelector('input');
+                                    input.value = '';
+                                }
+                            }
+
+                            // Specifications Functions
+                            function addSpecification() {
+                                const container = document.getElementById('specifications-container');
+                                const newItem = document.createElement('div');
+                                newItem.className = 'specification-item flex gap-2';
+                                newItem.innerHTML = `
+                                    <input type="text" name="spec_keys[]" value="" placeholder="Spec name (e.g., Nguồn điện, Doc)" class="w-1/3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <input type="text" name="spec_values[]" value="" placeholder="Value or URL (e.g., 24V DC or https://...)" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <button type="button" onclick="removeSpecification(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                `;
+                                container.appendChild(newItem);
+                            }
+
+                            function removeSpecification(button) {
+                                const container = document.getElementById('specifications-container');
+                                const items = container.querySelectorAll('.specification-item');
+                                if (items.length > 1) {
+                                    button.closest('.specification-item').remove();
+                                } else {
+                                    // Keep at least one input field
+                                    const inputs = button.closest('.specification-item').querySelectorAll('input');
+                                    inputs.forEach(input => input.value = '');
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
 
@@ -402,49 +497,48 @@
                                     <textarea name="og_description" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('og_description', $product->og_description) }}</textarea>
                                 </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">OG Image URL</label>
-                                    <input type="url" name="og_image" value="{{ old('og_image', $product->og_image) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <p class="text-sm text-blue-800">
+                                        <strong>ℹ️ OG Image:</strong> The Open Graph image for social media sharing will automatically use your product's main image. No need to upload separately!
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="border-t pt-6">
-                            <h4 class="text-md font-semibold mb-4">Sitemap Settings</h4>
+                            <h4 class="text-md font-semibold mb-4">Search Engine Visibility</h4>
                             
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Sitemap Priority</label>
-                                    <select name="sitemap_priority" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="0.0" {{ old('sitemap_priority', $product->sitemap_priority) == '0.0' ? 'selected' : '' }}>0.0</option>
-                                        <option value="0.1" {{ old('sitemap_priority', $product->sitemap_priority) == '0.1' ? 'selected' : '' }}>0.1</option>
-                                        <option value="0.3" {{ old('sitemap_priority', $product->sitemap_priority) == '0.3' ? 'selected' : '' }}>0.3</option>
-                                        <option value="0.5" {{ old('sitemap_priority', $product->sitemap_priority) == '0.5' ? 'selected' : '' }}>0.5</option>
-                                        <option value="0.8" {{ old('sitemap_priority', $product->sitemap_priority) == '0.8' ? 'selected' : '' }}>0.8</option>
-                                        <option value="1.0" {{ old('sitemap_priority', $product->sitemap_priority) == '1.0' ? 'selected' : '' }}>1.0</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Change Frequency</label>
-                                    <select name="sitemap_changefreq" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="always" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'always' ? 'selected' : '' }}>Always</option>
-                                        <option value="hourly" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'hourly' ? 'selected' : '' }}>Hourly</option>
-                                        <option value="daily" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'daily' ? 'selected' : '' }}>Daily</option>
-                                        <option value="weekly" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'weekly' ? 'selected' : '' }}>Weekly</option>
-                                        <option value="monthly" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'monthly' ? 'selected' : '' }}>Monthly</option>
-                                        <option value="yearly" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'yearly' ? 'selected' : '' }}>Yearly</option>
-                                        <option value="never" {{ old('sitemap_changefreq', $product->sitemap_changefreq) == 'never' ? 'selected' : '' }}>Never</option>
-                                    </select>
-                                </div>
+                            <div id="indexable-warning" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4" style="display: none;">
+                                <p class="text-sm text-yellow-800">
+                                    <strong>⚠️ Warning:</strong> When unchecked, this product will be hidden from search engines (Google, Bing, etc.). A <code class="bg-yellow-100 px-1 rounded">noindex</code> meta tag will be added to prevent indexing.
+                                </p>
                             </div>
 
-                            <div class="mt-4">
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="indexable" value="1" {{ old('indexable', $product->indexable) ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <span class="ml-2 text-sm text-gray-700">Allow search engines to index this product</span>
-                                </label>
-                            </div>
+                            <label class="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                <input type="checkbox" id="indexable-checkbox" name="indexable" value="1" {{ old('indexable', $product->indexable) ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 h-5 w-5">
+                                <span class="ml-3 text-sm font-medium text-gray-700">Allow search engines to index this product</span>
+                            </label>
+                            
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const checkbox = document.getElementById('indexable-checkbox');
+                                    const warning = document.getElementById('indexable-warning');
+                                    
+                                    // Show warning on page load if unchecked
+                                    if (!checkbox.checked) {
+                                        warning.style.display = 'block';
+                                    }
+                                    
+                                    // Toggle warning when checkbox changes
+                                    checkbox.addEventListener('change', function() {
+                                        if (!this.checked) {
+                                            warning.style.display = 'block';
+                                        } else {
+                                            warning.style.display = 'none';
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>

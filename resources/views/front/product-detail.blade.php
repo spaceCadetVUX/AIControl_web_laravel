@@ -11,14 +11,21 @@
     <meta name="keywords" content="{{ $product->meta_keywords ?? $product->brand . ', ' . $product->name }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    {{-- Robots Meta Tag - Controls Search Engine Indexing --}}
+    @if(!$product->indexable)
+        <meta name="robots" content="noindex, nofollow">
+    @else
+        <meta name="robots" content="index, follow">
+    @endif
+    
     {{-- Canonical URL --}}
-    <link rel="canonical" href="{{ route('product.show', $product->slug) }}">
+    <link rel="canonical" href="{{ $product->canonical_url ?? route('product.show', $product->slug) }}">
     
     {{-- Open Graph / Facebook --}}
     <meta property="og:type" content="product">
     <meta property="og:title" content="{{ $product->og_title ?? $product->meta_title ?? $product->name }}">
     <meta property="og:description" content="{{ $product->og_description ?? $product->meta_description ?? $product->short_description }}">
-    <meta property="og:image" content="{{ $product->og_image ? (str_starts_with($product->og_image, 'http') ? $product->og_image : asset($product->og_image)) : ($product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg')) }}">
+    <meta property="og:image" content="{{ $product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg') }}">
     <meta property="og:url" content="{{ route('product.show', $product->slug) }}">
     <meta property="og:site_name" content="AIControl Vietnam">
     <meta property="product:price:amount" content="{{ $product->sale_price ?? $product->price }}">
@@ -28,7 +35,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $product->meta_title ?? $product->name }}">
     <meta name="twitter:description" content="{{ $product->meta_description ?? $product->short_description }}">
-    <meta name="twitter:image" content="{{ $product->og_image ? (str_starts_with($product->og_image, 'http') ? $product->og_image : asset($product->og_image)) : ($product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg')) }}">
+    <meta name="twitter:image" content="{{ $product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg') }}">
     
     {{-- Schema.org JSON-LD --}}
     <script type="application/ld+json">
@@ -182,28 +189,15 @@
                 <div class="tp-search-wrapper">
                     <div class="col-lg-8">
                         <div class="tp-search-content">
-                            <form action="{{ route('product.search') }}" method="GET" id="searchForm">
-                                <div class="search p-relative">
-                                    <input type="text" name="q" class="search-input" id="searchInput" placeholder="Tìm kiếm sản phẩm..." autocomplete="off">
-                                    <button type="submit" class="tp-search-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path d="M18.0508 18.05L23.0009 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M20.8004 10.9C20.8004 5.43237 16.3679 1 10.9002 1C5.43246 1 1 5.43237 1 10.9C1 16.3676 5.43246 20.7999 10.9002 20.7999C16.3679 20.7999 20.8004 16.3676 20.8004 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                                        </svg>
-                                    </button>
-                                    
-                                    <!-- Search Results Dropdown -->
-                                    <div class="search-results-dropdown" id="searchResults" style="display: none;">
-                                        <div class="search-results-loading" style="display: none; padding: 20px; text-align: center;">
-                                            <i class="fa fa-spinner fa-spin"></i> Đang tìm kiếm...
-                                        </div>
-                                        <div class="search-results-list"></div>
-                                        <div class="search-results-empty" style="display: none; padding: 20px; text-align: center; color: #999;">
-                                            Không tìm thấy sản phẩm
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="search p-relative">
+                                <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                                <button class="tp-search-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M18.0508 18.05L23.0009 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M20.8004 10.9C20.8004 5.43237 16.3679 1 10.9002 1C5.43246 1 1 5.43237 1 10.9C1 16.3676 5.43246 20.7999 10.9002 20.7999C16.3679 20.7999 20.8004 16.3676 20.8004 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,111 +205,6 @@
         </div>
     </div>
     <!-- search area end -->
-    
-    <style>
-        .search-results-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-height: 500px;
-            overflow-y: auto;
-            z-index: 1000;
-            margin-top: 2px;
-        }
-        
-        .search-results-list {
-            padding: 0;
-        }
-        
-        .search-result-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f0f0f0;
-            text-decoration: none;
-            color: inherit;
-            transition: background-color 0.2s;
-        }
-        
-        .search-result-item:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-        
-        .search-result-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        
-        .search-result-image-placeholder {
-            width: 60px;
-            height: 60px;
-            background: #f0f0f0;
-            border-radius: 4px;
-            margin-right: 15px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-        }
-        
-        .search-result-info {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .search-result-name {
-            font-weight: 500;
-            margin-bottom: 4px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .search-result-meta {
-            font-size: 0.875rem;
-            color: #666;
-        }
-        
-        .search-result-price {
-            font-weight: 600;
-            color: #dc3545;
-            margin-left: auto;
-            padding-left: 15px;
-            flex-shrink: 0;
-        }
-        
-        .search-results-footer {
-            padding: 12px 15px;
-            text-align: center;
-            border-top: 1px solid #f0f0f0;
-            background: #f8f9fa;
-        }
-        
-        .search-results-footer a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .search-results-footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
 
  
 
@@ -615,7 +504,15 @@
                                                 @foreach($product->specifications as $key => $value)
                                                 <tr>
                                                     <td style="width: 200px;"><strong>{{ $key }}</strong></td>
-                                                    <td>{{ $value }}</td>
+                                                    <td>
+                                                        @if(filter_var($value, FILTER_VALIDATE_URL))
+                                                            <a href="{{ $value }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">
+                                                                {{ Str::limit($value, 50) }} ↗
+                                                            </a>
+                                                        @else
+                                                            {{ $value }}
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </table>
