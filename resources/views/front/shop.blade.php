@@ -107,34 +107,17 @@
                                                     @php
                                                         $selectedBrands = request('brand') ? explode(',', request('brand')) : [];
                                                     @endphp
+                                                    @forelse($brands ?? [] as $brand)
                                                     <li>
                                                         <label class="filter-checkbox">
-                                                            <input type="checkbox" name="brand[]" value="ABB" {{ in_array('ABB', $selectedBrands) ? 'checked' : '' }}>
+                                                            <input type="checkbox" name="brand[]" value="{{ $brand->name }}" {{ in_array($brand->name, $selectedBrands) ? 'checked' : '' }}>
                                                             <span class="checkmark"></span>
-                                                            ABB
+                                                            {{ $brand->name }}
                                                         </label>
                                                     </li>
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="brand[]" value="Legrand" {{ in_array('Legrand', $selectedBrands) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            Legrand
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="brand[]" value="Vantage" {{ in_array('Vantage', $selectedBrands) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            Vantage
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="brand[]" value="CP Electronics" {{ in_array('CP Electronics', $selectedBrands) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            CP Electronics
-                                                        </label>
-                                                    </li>
+                                                    @empty
+                                                    <li class="text-muted text-sm">Chưa có hãng nào</li>
+                                                    @endforelse
                                                 </ul>
                                             </div>
 

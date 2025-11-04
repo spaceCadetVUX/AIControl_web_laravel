@@ -44,14 +44,22 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700">Product Name *</label>
+                            <label class="block text-sm font-medium text-gray-700">
+                                Product Name * 
+                                <span class="text-blue-600 font-normal text-xs">(Auto-generates unique slug)</span>
+                            </label>
                             <input type="text" name="name" value="{{ old('name') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <p class="mt-1 text-xs text-gray-500">Product name will be converted to a unique URL-friendly slug</p>
                             @error('name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">SKU</label>
-                            <input type="text" name="sku" value="{{ old('sku') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <label class="block text-sm font-medium text-gray-700">
+                                SKU
+                                <span class="text-yellow-600 font-normal text-xs">⚠️ Must be unique</span>
+                            </label>
+                            <input type="text" name="sku" value="{{ old('sku') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="e.g., PROD-001">
+                            <p class="mt-1 text-xs text-yellow-600">Each product must have a unique SKU (Stock Keeping Unit)</p>
                             @error('sku') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
 

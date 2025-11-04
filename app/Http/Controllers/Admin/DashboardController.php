@@ -83,11 +83,31 @@ class DashboardController extends Controller
     /**
      * Display products management
      */
-    public function products()
+    public function products(Request $request)
     {
-        $products = \App\Models\Product::orderBy('created_at', 'desc')->paginate(20);
+        $query = \App\Models\Product::query();
+        
+        // Search functionality
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('sku', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        $products = $query->orderBy('created_at', 'desc')->paginate(20)->withQueryString();
         $brands = \App\Models\Brand::active()->orderBy('name')->pluck('name');
         $statuses = ['draft', 'published', 'archived'];
+        
+        // If AJAX request, return JSON
+        if ($request->ajax()) {
+            return response()->json([
+                'products' => $products->items(),
+                'total' => $products->total(),
+                'hasResults' => $products->count() > 0
+            ]);
+        }
         
         return view('admin.products', compact('products', 'brands', 'statuses'));
     }
@@ -106,10 +126,11 @@ class DashboardController extends Controller
      */
     public function storeProduct(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'brand' => 'required|string|max:100',
-            'sku' => 'nullable|string|max:100|unique:products,sku',
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'brand' => 'required|string|max:100',
+                'sku' => 'nullable|string|max:100|unique:products,sku',
             'function_category' => 'nullable|string|max:100',
             'catalog' => 'nullable|string|max:100',
             'short_description' => 'nullable|string',
@@ -208,6 +229,20 @@ class DashboardController extends Controller
         
         $message = $request->action === 'publish' ? 'Product published successfully!' : 'Product saved as draft!';
         return redirect()->route('admin.products')->with('success', $message);
+        
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Improve SKU duplicate error message
+            $errors = $e->errors();
+            if (isset($errors['sku'])) {
+                return redirect()->back()->withInput()->withErrors([
+                    'sku' => 'This SKU is already used by another product. Each product must have a unique SKU. Please use a different SKU.'
+                ]);
+            }
+            throw $e;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Product creation error: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Error creating product: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -353,6 +388,15 @@ class DashboardController extends Controller
             $message = $request->action === 'publish' ? 'Product updated and published!' : 'Product updated successfully!';
             return redirect()->route('admin.products')->with('success', $message);
             
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Improve SKU duplicate error message
+            $errors = $e->errors();
+            if (isset($errors['sku'])) {
+                return redirect()->back()->withInput()->withErrors([
+                    'sku' => 'This SKU is already used by another product. Each product must have a unique SKU. Please use a different SKU like "' . ($request->sku ?? '') . '-1"'
+                ]);
+            }
+            throw $e;
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Product update error: ' . $e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Error updating product: ' . $e->getMessage());

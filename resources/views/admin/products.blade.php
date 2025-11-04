@@ -42,6 +42,51 @@
                 </div>
             </div>
 
+            <!-- Search Bar -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6">
+                    <form method="GET" action="{{ route('admin.products') }}" id="searchForm" class="flex gap-4">
+                        <div class="flex-1">
+                            <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Products</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    name="search" 
+                                    id="searchInput" 
+                                    value="{{ request('search') }}" 
+                                    placeholder="Search by product name or SKU..." 
+                                    class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    autocomplete="off"
+                                >
+                            </div>
+                        </div>
+                        <div class="flex items-end gap-2">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                Search
+                            </button>
+                            <button type="button" id="clearSearch" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition" style="display: {{ request('search') ? 'inline-flex' : 'none' }};">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                Clear
+                            </button>
+                        </div>
+                    </form>
+                    <div id="searchResults" class="mt-3 text-sm text-gray-600" style="display: {{ request('search') ? 'block' : 'none' }};">
+                        Showing results for: <span class="font-semibold" id="searchTerm">"{{ request('search') }}"</span>
+                        <span class="ml-2 text-gray-500" id="resultCount">({{ $products->total() }} {{ Str::plural('result', $products->total()) }})</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Products Table -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
@@ -110,7 +155,13 @@
                                 @empty
                                     <tr>
                                         <td colspan="8" class="px-6 py-4 text-center text-gray-500">
-                                            No products found. <a href="{{ route('admin.products.create') }}" class="text-blue-600 hover:text-blue-800">Create your first product</a>
+                                            @if(request('search'))
+                                                No products found matching "{{ request('search') }}". 
+                                                <a href="{{ route('admin.products') }}" class="text-blue-600 hover:text-blue-800">Clear search</a> or 
+                                                <a href="{{ route('admin.products.create') }}" class="text-blue-600 hover:text-blue-800">create a new product</a>
+                                            @else
+                                                No products found. <a href="{{ route('admin.products.create') }}" class="text-blue-600 hover:text-blue-800">Create your first product</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforelse
@@ -126,4 +177,129 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let searchTimeout = null;
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+        const clearButton = document.getElementById('clearSearch');
+        const searchResults = document.getElementById('searchResults');
+        const searchTerm = document.getElementById('searchTerm');
+        const resultCount = document.getElementById('resultCount');
+        const tableBody = document.querySelector('tbody');
+        const allRows = Array.from(tableBody.querySelectorAll('tr'));
+
+        // Live search as user types
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.trim().toLowerCase();
+            
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // Show/hide clear button
+            if (query.length > 0) {
+                clearButton.style.display = 'inline-flex';
+            } else {
+                clearButton.style.display = 'none';
+            }
+            
+            // Debounce search - wait 300ms after user stops typing
+            searchTimeout = setTimeout(() => {
+                performSearch(query);
+            }, 300);
+        });
+
+        // Search on form submit
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = searchInput.value.trim().toLowerCase();
+            performSearch(query);
+        });
+
+        // Clear search
+        clearButton.addEventListener('click', function() {
+            searchInput.value = '';
+            clearButton.style.display = 'none';
+            searchResults.style.display = 'none';
+            showAllRows();
+        });
+
+        // Perform client-side search
+        function performSearch(query) {
+            if (query.length === 0) {
+                showAllRows();
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            let visibleCount = 0;
+            
+            allRows.forEach(row => {
+                // Skip empty state rows
+                if (row.cells.length === 1) {
+                    row.style.display = 'none';
+                    return;
+                }
+                
+                // Get product name (column 1) and SKU (column 3)
+                const name = row.cells[1]?.textContent.toLowerCase() || '';
+                const sku = row.cells[3]?.textContent.toLowerCase() || '';
+                
+                // Check if query matches name or SKU
+                if (name.includes(query) || sku.includes(query)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Update search info
+            searchResults.style.display = 'block';
+            searchTerm.textContent = `"${searchInput.value.trim()}"`;
+            const pluralResult = visibleCount === 1 ? 'result' : 'results';
+            resultCount.textContent = `(${visibleCount} ${pluralResult})`;
+
+            // Show "no results" message if needed
+            if (visibleCount === 0) {
+                showNoResults(searchInput.value.trim());
+            }
+        }
+
+        // Show all rows
+        function showAllRows() {
+            allRows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+
+        // Show no results message
+        function showNoResults(query) {
+            // Hide all product rows
+            allRows.forEach(row => {
+                if (row.cells.length > 1) {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Find or create the "no results" row
+            let noResultsRow = tableBody.querySelector('.no-results-row');
+            if (!noResultsRow) {
+                noResultsRow = document.createElement('tr');
+                noResultsRow.className = 'no-results-row';
+                tableBody.appendChild(noResultsRow);
+            }
+            
+            noResultsRow.innerHTML = `
+                <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                    No products found matching "${query}". 
+                    <a href="#" onclick="document.getElementById('clearSearch').click(); return false;" class="text-blue-600 hover:text-blue-800">Clear search</a> or 
+                    <a href="{{ route('admin.products.create') }}" class="text-blue-600 hover:text-blue-800">create a new product</a>
+                </td>
+            `;
+            noResultsRow.style.display = '';
+        }
+    </script>
 </x-app-layout>

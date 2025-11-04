@@ -74,7 +74,12 @@ class ProductController extends Controller
 
         $products = $query->paginate(9)->withQueryString();
 
-        return view('front.shop', compact('products'));
+        // Get all active brands for the filter sidebar
+        $brands = \App\Models\Brand::active()
+            ->orderBy('name')
+            ->get();
+
+        return view('front.shop', compact('products', 'brands'));
     }
 
     /**
@@ -121,7 +126,12 @@ class ProductController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(12);
 
-        return view('front.shop', compact('products', 'brand'));
+        // Get all active brands for the filter sidebar
+        $brands = \App\Models\Brand::active()
+            ->orderBy('name')
+            ->get();
+
+        return view('front.shop', compact('products', 'brand', 'brands'));
     }
 
     /**
@@ -153,7 +163,12 @@ class ProductController extends Controller
             ->orderBy('view_count', 'desc')
             ->paginate(12);
 
-        return view('front.shop', compact('products', 'keyword'));
+        // Get all active brands for the filter sidebar
+        $brands = \App\Models\Brand::active()
+            ->orderBy('name')
+            ->get();
+
+        return view('front.shop', compact('products', 'keyword', 'brands'));
     }
 
     /**
