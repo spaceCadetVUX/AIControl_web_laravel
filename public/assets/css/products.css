@@ -891,7 +891,7 @@
     
     .nav-tabs .nav-link {
         padding: 10px 15px;
-        font-size: 14px;
+        font-size: 24px;
     }
     
     .specifications-content .table td:first-child {
@@ -904,4 +904,230 @@
     .action-buttons {
         gap: 1rem;
     }
+}
+
+/* ================================================
+   RESPONSIVE DESCRIPTION CONTENT STYLES
+   ================================================ */
+
+/* Base Responsive Styles for Description Content */
+.description-content,
+.features-content,
+.specifications-content {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Make all images responsive */
+.description-content img,
+.features-content img,
+.specifications-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 15px auto;
+    border-radius: 8px;
+}
+
+/* Responsive tables */
+.description-content table,
+.features-content table,
+.specifications-content table {
+    width: 100% !important;
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+    margin: 15px 0;
+    border-collapse: collapse;
+}
+
+.description-content table td,
+.description-content table th,
+.features-content table td,
+.features-content table th,
+.specifications-content table td,
+.specifications-content table th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+/* Responsive text */
+.description-content h2,
+.features-content h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.description-content h3,
+.features-content h3 {
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+    margin-top: 20px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.description-content h4,
+.features-content h4 {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    margin-top: 18px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.description-content h5,
+.description-content h6,
+.features-content h5,
+.features-content h6 {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    margin-top: 15px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.description-content p,
+.features-content p,
+.specifications-content p {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.description-content ul,
+.description-content ol,
+.features-content ul,
+.features-content ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.description-content li,
+.features-content li {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+/* Responsive iframes (videos) */
+.description-content iframe,
+.features-content iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16/9;
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+    .description-content,
+    .features-content,
+    .specifications-content {
+        padding: 15px;
+    }
+
+    .description-content img,
+    .features-content img {
+        margin: 10px auto;
+    }
+
+    .description-content h2,
+    .features-content h2 {
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+
+    .description-content table,
+    .features-content table,
+    .specifications-content table {
+        font-size: 0.85rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .description-content table td,
+    .description-content table th,
+    .features-content table td,
+    .features-content table th,
+    .specifications-content table td,
+    .specifications-content table th {
+        padding: 8px;
+        min-width: 100px;
+    }
+
+    /* Better list spacing on mobile */
+    .description-content ul,
+    .description-content ol,
+    .features-content ul,
+    .features-content ol {
+        padding-left: 15px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .description-content,
+    .features-content,
+    .specifications-content {
+        padding: 10px;
+    }
+
+    .description-content table,
+    .features-content table,
+    .specifications-content table {
+        font-size: 0.8rem;
+    }
+
+    .description-content table td,
+    .description-content table th,
+    .features-content table td,
+    .features-content table th,
+    .specifications-content table td,
+    .specifications-content table th {
+        padding: 6px;
+        min-width: 80px;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .description-content,
+    .features-content,
+    .specifications-content {
+        padding: 20px;
+    }
+
+    .description-content img,
+    .features-content img {
+        max-width: 90%;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 1025px) {
+    .description-content,
+    .features-content,
+    .specifications-content {
+        padding: 25px;
+    }
+
+    .description-content img,
+    .features-content img {
+        max-width: 85%;
+    }
+}
+
+/* Prevent horizontal scroll */
+.tab-content {
+    overflow-x: hidden;
+}
+
+/* Fix for very wide content */
+.description-content *,
+.features-content *,
+.specifications-content * {
+    max-width: 100%;
 }

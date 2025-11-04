@@ -10,6 +10,9 @@
         </div>
     </x-slot>
 
+    {{-- TinyMCE Cloud CDN --}}
+    <script src="https://cdn.tiny.cloud/1/sgrz0gpyn1159lugws1kjcka6lqmi221jrtqvt85ildm1rki/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
@@ -135,7 +138,8 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Full Description</label>
-                            <textarea name="description" rows="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('description') }}</textarea>
+                            <textarea id="tinymce-description-create" name="description" rows="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('description') }}</textarea>
+            <p class="mt-1 text-xs text-gray-500">Use headings, paragraphs, links, and images to create rich product content. Images support alt text for SEO.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -669,6 +673,69 @@
             
             messageDiv.textContent = message;
         }
+
+        // TinyMCE Rich Text Editor
+        document.addEventListener('DOMContentLoaded', function() {
+            tinymce.init({
+                selector: '#tinymce-description-create',
+                height: 500,
+                menubar: true,
+                plugins: [
+                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                    'insertdatetime', 'media', 'table', 'help', 'wordcount'
+                ],
+                toolbar: 'undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | removeformat | code | help',
+                block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6',
+                content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 14px; }',
+                
+                // Image upload configuration
+                images_upload_handler: function (blobInfo, progress) {
+                    return new Promise((resolve, reject) => {
+                        const formData = new FormData();
+                        formData.append('image', blobInfo.blob(), blobInfo.filename());
+                        formData.append('_token', '{{ csrf_token() }}');
+
+                        fetch('{{ route("admin.upload.image") }}', {
+                            method: 'POST',
+                            body: formData,
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                resolve('{{ url("/") }}/' + data.path);
+                            } else {
+                                reject(data.message || 'Image upload failed');
+                            }
+                        })
+                        .catch(error => {
+                            reject('Image upload failed: ' + error.message);
+                        });
+                    });
+                },
+                
+                // Image settings
+                image_title: true,
+                image_description: true,
+                image_caption: true,
+                automatic_uploads: true,
+                
+                // Keep line breaks
+                convert_urls: false,
+                remove_script_host: false,
+                relative_urls: false,
+            });
+        });
+    </script>
+
+    <!-- Image Upload Modal -->
+                        ]
+                    }
+                })
+                .catch(error => {
+                    console.error('CKEditor initialization error:', error);
+                });
+        });
     </script>
 
     <!-- Image Upload Modal -->

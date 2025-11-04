@@ -132,7 +132,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/products.css') }}">
 
-
 </head>
 
 <body class="" data-bg-color="#fff">
@@ -440,8 +439,36 @@
 
                         </div>
 
-                        <!-- Product Description & Specifications -->
+                        <!-- Related Products -->
+                        @if($relatedProducts->count() > 0)
                         <div class="row mt-5">
+                            <div class="col-12">
+                                <h3 class="mb-4">Sản phẩm liên quan</h3>
+                                <div class="row g-3">
+                                    @foreach($relatedProducts as $relatedProduct)
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="product-card">
+                                            <div class="product-image">
+                                                @if($relatedProduct->image_url)
+                                                    <img src="{{ str_starts_with($relatedProduct->image_url, 'http') ? $relatedProduct->image_url : asset($relatedProduct->image_url) }}" 
+                                                         alt="{{ $relatedProduct->name }}">
+                                                @else
+                                                    <i class="fa fa-image"></i>
+                                                @endif
+                                            </div>
+                                            <h5>{{ Str::limit($relatedProduct->name, 50) }}</h5>
+                                            <p class="text-primary fw-bold">{{ number_format($relatedProduct->sale_price ?? $relatedProduct->price, 0, ',', '.') }}đ</p>
+                                            <a href="{{ route('product.show', $relatedProduct->slug) }}" class="btn btn-sm btn-outline-primary w-100">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                        <!-- Product Description & Specifications -->
+                        <div class="row mt-5 pt-30">
                             <div class="col-lg-12">
                                 <ul class="nav nav-tabs mb-4" id="productTab" role="tablist">
                                     <li class="nav-item" role="presentation">
@@ -567,34 +594,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Related Products -->
-                        @if($relatedProducts->count() > 0)
-                        <div class="row mt-5">
-                            <div class="col-12">
-                                <h3 class="mb-4">Sản phẩm liên quan</h3>
-                                <div class="row g-3">
-                                    @foreach($relatedProducts as $relatedProduct)
-                                    <div class="col-6 col-md-4 col-lg-3">
-                                        <div class="product-card">
-                                            <div class="product-image">
-                                                @if($relatedProduct->image_url)
-                                                    <img src="{{ str_starts_with($relatedProduct->image_url, 'http') ? $relatedProduct->image_url : asset($relatedProduct->image_url) }}" 
-                                                         alt="{{ $relatedProduct->name }}">
-                                                @else
-                                                    <i class="fa fa-image"></i>
-                                                @endif
-                                            </div>
-                                            <h5>{{ Str::limit($relatedProduct->name, 50) }}</h5>
-                                            <p class="text-primary fw-bold">{{ number_format($relatedProduct->sale_price ?? $relatedProduct->price, 0, ',', '.') }}đ</p>
-                                            <a href="{{ route('product.show', $relatedProduct->slug) }}" class="btn btn-sm btn-outline-primary w-100">Xem chi tiết</a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        @endif
 
                     </div>
                 </section>
