@@ -68,7 +68,7 @@
             </div>
 
             <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                 <!-- Card 1 -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Card 3 - Products -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex items-center">
@@ -115,8 +115,31 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="text-sm font-medium text-gray-500">Products</h4>
-                                <p class="text-2xl font-semibold text-gray-900">{{ $totalProducts ?? 4 }}</p>
-                                <p class="text-xs text-gray-400">{{ $publishedProducts ?? 0 }} published</p>
+                                <p class="text-2xl font-semibold text-gray-900">{{ $totalProducts ?? 11 }}</p>
+                                <p class="text-xs text-gray-400">{{ $publishedProducts ?? 11 }} published</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 - Blogs -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-orange-500 rounded-md p-3">
+                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-medium text-gray-500">Blog Posts</h4>
+                                <p class="text-2xl font-semibold text-gray-900">{{ $totalBlogs ?? 0 }}</p>
+                                <p class="text-xs text-gray-400">
+                                    <span class="text-green-600">{{ $publishedBlogs ?? 0 }} published</span>
+                                    @if(($draftBlogs ?? 0) > 0)
+                                        <span class="text-gray-500"> · {{ $draftBlogs }} drafts</span>
+                                    @endif
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,362 @@
+<!doctype html>
+<html class="no-js agntix-light" lang="zxx">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Tin tức & Bài viết - AIControl Vietnam</title>
+    <meta name="description" content="Cập nhật tin tức mới nhất về hệ thống điều khiển thông minh, chiếu sáng, HVAC, an ninh và giải pháp tự động hóa cho ngôi nhà và công trình.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
+
+</head>
+
+<body class="">
+
+    <!-- Begin magic cursor -->
+    <div id="magic-cursor" class="cursor-white-bg">
+        <div id="ball"></div>
+    </div>
+    <!-- End magic cursor -->
+
+    <!-- preloader -->
+    <div id="preloader">
+        <div class="preloader">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <!-- preloader end  -->
+
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+        <button id="back_to_top" type="button" class="back-to-top-btn">
+            <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 6L6 1L1 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+    <!-- back to top end -->
+
+    <!-- offcanvas start -->
+    @include('front.includes.offcanvas')
+    <!-- offcanvas end -->
+
+     <!-- header area start -->
+    @include('front.includes.header')
+    <!-- header area end -->
+   
+
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <main>
+
+                <!-- breadcurmb area start -->
+                <div class="tp-breadcrumb-area tp-breadcrumb-ptb include-bg" data-background="{{ asset('assets/img/about-us/about-us-4/about-us-4-bg.png') }}">
+                    <div class="container container-1330">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-12">
+                                <div class="tp-blog-heading-wrap p-relative pb-130">
+                                    <span class="tp-section-subtitle pre tp_fade_anim">Tin tức & Bài viết <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
+                                            <rect y="4.04333" width="80" height="1" fill="black" />
+                                            <path d="M77 8.00783L80.5 4.52527L77 1.04271" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+
+                                    <h3 class="tp-blog-title tp_fade_anim smooth">Khám phá <img src="{{ asset('assets/img/about-us/about-us-4/about-us-4-shape-1.png') }}" alt=""> <br> <a href="#down"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M9.99999 1V19M9.99999 19L1 10M9.99999 19L19 10" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg></a> tin tức mới nhất...</h3>
+
+                                    <div class="tp-blog-shape">
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="109" height="109" viewBox="0 0 109 109" fill="none">
+                                                <path d="M46.8918 0.652597C52.0111 11.5756 61.1509 45.3262 42.3414 57.6622C32.5453 63.8237 11.8693 68.6772 1.79348 40.7372C-2.00745 30.1973 6.53261 20.5828 26.243 25.965C37.6149 29.0703 65.0949 36.1781 78.8339 57.5398C86.0851 68.8141 93.074 92.3859 89.9278 107.942M89.9278 107.942C90.8943 100.431 95.9994 85.8585 108.687 87.6568M89.9278 107.942C90.4304 103.013 86.878 91.2724 68.6481 83.7468M63.5129 27.0092C68.0375 28.7613 82.5356 36.982 88.0712 51.886" stroke="black" stroke-width="1.5" />
+                                            </svg></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- breadcurmb area end -->
+
+
+                <!-- blog masonry area start -->
+                <div id="down" class="tp-blog-gird-sidebar-ptb pb-80">
+                    <div class="container container-1330">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    @forelse($blogs as $blog)
+                                    <div class="col-md-6 mb-30">
+                                        <div class="tp-blog-masonry-item h-100">
+                                            @if($blog->featured_image)
+                                            <div class="tp-blog-masonry-thumb position-relative">
+                                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                                    <img src="{{ asset($blog->featured_image) }}" alt="{{ $blog->title }}">
+                                                </a>
+                                                @if($blog->category)
+                                                <div class="tp-blog-masonry-tag">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 15 14" fill="none">
+                                                            <path d="M4.39012 4.13048H4.39847M13.6056 8.14369L8.74375 12.6328C8.6178 12.7492 8.46823 12.8415 8.30359 12.9046C8.13896 12.9676 7.96248 13 7.78426 13C7.60604 13 7.42956 12.9676 7.26493 12.9046C7.10029 12.8415 6.95072 12.7492 6.82477 12.6328L1 7.2609V1H7.78087L13.6056 6.37811C13.8582 6.61273 14 6.93009 14 7.2609C14 7.59171 13.8582 7.90908 13.6056 8.14369Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg> 
+                                                        {{ $blog->category }}
+                                                    </span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                            @endif
+                                            
+                                            <div class="tp-blog-masonry-content">
+                                                <div class="tp-blog-masonry-item-meta d-flex justify-content-between align-items-center mb-20">
+                                                    <div class="tp-blog-masonry-item-user d-flex align-items-center">
+                                                        <div class="tp-blog-masonry-item-user-thumb">
+                                                            <img src="{{ asset('assets/img/blog/blog-masonry/blog-masonry-user-1.jpg') }}" alt="{{ $blog->author->name ?? 'Author' }}">
+                                                        </div>
+                                                        <div class="tp-blog-masonry-item-user-content">
+                                                            <span>{{ $blog->author->name ?? 'Admin' }}</span>
+                                                            <p>{{ $blog->author->role ?? 'Administrator' }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tp-blog-masonry-item-time">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" fill="none">
+                                                                <path d="M9 4.19997V8.99997L12.2 10.6M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg> 
+                                                            {{ $blog->formatted_published_date }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <h4 class="tp-blog-masonry-title mb-15">
+                                                    <a class="tp-line-white" href="{{ route('blog.show', $blog->slug) }}">
+                                                        {{ Str::limit($blog->title, 60) }}
+                                                    </a>
+                                                </h4>
+                                                @if($blog->excerpt)
+                                                <p class="mb-20">{{ Str::limit($blog->excerpt, 120) }}</p>
+                                                @endif
+                                                
+                                                <div class="d-flex justify-content-between align-items-center blog-footer">
+                                                    <div class="tp-blog-masonry-btn">
+                                                        <a href="{{ route('blog.show', $blog->slug) }}">
+                                                            Đọc thêm 
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                                    <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    @if($blog->reading_time)
+                                                    <span class="reading-time">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                        </svg>
+                                                        {{ $blog->reading_time }}
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @empty
+                                    <div class="col-12">
+                                        <div class="blog-empty-state alert alert-info text-center p-5">
+                                            <div class="blog-empty-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#ff5722" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                </svg>
+                                            </div>
+                                            <h4>Chưa có bài viết nào</h4>
+                                            <p class="mb-0">Hãy quay lại sau để đọc những bài viết mới nhất của chúng tôi!</p>
+                                        </div>
+                                    </div>
+                                    @endforelse
+                                </div>
+                                
+                                @if($blogs->hasPages())
+                                <!-- Pagination -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="tp-pagination mt-50">
+                                            {{ $blogs->links() }}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                            
+                            <!-- Sidebar -->
+                            <div class="col-lg-4">
+                                <div class="sidebar-blog-grid-wrap">
+                                    <div class="sidebar-wrapper">
+                                        
+                                        <!-- Search Widget -->
+                                        <div class="sidebar-widget sidebar-search-widget mb-40">
+                                            <div class="sidebar-search">
+                                                <form action="{{ route('blog.search') }}" method="GET">
+                                                    <div class="sidebar-search-input position-relative">
+                                                        <input type="text" name="q" placeholder="Tìm kiếm bài viết..." value="{{ request('q') }}">
+                                                        <button type="submit">
+                                                            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M18.9999 19L14.6499 14.65M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <!-- Categories Widget -->
+                                        @if($categories && $categories->count() > 0)
+                                        <div class="sidebar-widget sidebar-widget-box mb-40">
+                                            <h3 class="sidebar-widget-title sidebar-widget-title-styled mb-25">
+                                                Danh mục
+                                            </h3>
+                                            <div class="sidebar-widget-category">
+                                                <ul class="category-list">
+                                                    @foreach($categories as $cat)
+                                                    <li>
+                                                        <a class="d-flex align-items-center justify-content-between" href="{{ route('blog.category', $cat) }}">
+                                                            <span class="category-icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                                                </svg>
+                                                                {{ $cat }}
+                                                            </span>
+                                                            <span class="category-arrow">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 12 12" fill="none">
+                                                                    <path d="M1 11L11 1M11 1H1M11 1V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        <!-- Latest Posts Widget -->
+                                        @if($latestPosts && $latestPosts->count() > 0)
+                                        <div class="sidebar-widget sidebar-widget-box mb-40">
+                                            <h3 class="sidebar-widget-title sidebar-widget-title-styled mb-25">
+                                                Bài viết mới nhất
+                                            </h3>
+                                            <div class="rc-post-wrap">
+                                                @foreach($latestPosts as $latest)
+                                                <div class="rc-post d-flex align-items-start mb-20">
+                                                    @if($latest->featured_image)
+                                                    <div class="rc-post-thumb">
+                                                        <a href="{{ route('blog.show', $latest->slug) }}">
+                                                            <img src="{{ asset($latest->featured_image) }}" alt="{{ $latest->title }}">
+                                                        </a>
+                                                    </div>
+                                                    @endif
+                                                    <div class="rc-post-content">
+                                                        @if($latest->category)
+                                                        <div class="rc-post-category mb-1">
+                                                            <a href="{{ route('blog.category', $latest->category) }}">{{ $latest->category }}</a>
+                                                        </div>
+                                                        @endif
+                                                        <h3 class="rc-post-title mb-1">
+                                                            <a href="{{ route('blog.show', $latest->slug) }}">{{ Str::limit($latest->title, 50) }}</a>
+                                                        </h3>
+                                                        <div class="rc-post-meta">
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                                </svg>
+                                                                {{ $latest->formatted_published_date }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        <!-- Tags Widget -->
+                                        @if($allTags && $allTags->count() > 0)
+                                        <div class="sidebar-widget sidebar-widget-box">
+                                            <h3 class="sidebar-widget-title sidebar-widget-title-styled mb-25">
+                                                Thẻ tag
+                                            </h3>
+                                            <div class="sidebar-widget-content">
+                                                <div class="tagcloud">
+                                                    @foreach($allTags as $tag)
+                                                    <a href="{{ route('blog.search') }}?q={{ $tag }}">{{ $tag }}</a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- blog masonry area end -->
+
+            </main>
+
+            <!-- footer area start -->
+            @include('front.includes.footer')
+            <!-- footer area end -->
+
+        </div>
+
+        <!-- JS here -->
+        <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+        <script src="{{ asset('assets/js/plugin.js') }}"></script>
+        <script src="{{ asset('assets/js/three.js') }}"></script>
+        <script src="{{ asset('assets/js/slick.js') }}"></script>
+        <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+        <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+        <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+        <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+        <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+        <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+        <script src="{{ asset('assets/js/purecounter.js') }}"></script>
+        <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+        <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+        <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+        <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+        <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+        <script src="{{ asset('assets/js/webgl.js') }}"></script>
+        <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+        <script src="{{ asset('assets/js/atropos.js') }}"></script>
+        <script src="{{ asset('assets/js/slider-active.js') }}"></script>
+        <script src="{{ asset('assets/js/main.js') }}"></script>
+        <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
+        <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+        <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+        <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+        <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+
+    </body>
+</html>

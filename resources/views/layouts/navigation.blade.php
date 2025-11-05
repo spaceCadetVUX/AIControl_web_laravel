@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('admin.brands')" :active="request()->routeIs('admin.brands*')">
                         {{ __('Manage Brands') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs*')">
+                        {{ __('Manage Blogs') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('home')" target="_blank">
                         {{ __('View Website') }}
                     </x-nav-link>
@@ -96,6 +99,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.brands')" :active="request()->routeIs('admin.brands*')">
                 {{ __('Manage Brands') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs*')">
+                {{ __('Manage Blogs') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('home')" target="_blank">
                 {{ __('View Website') }}

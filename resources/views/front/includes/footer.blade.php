@@ -1,6 +1,6 @@
 <footer>
     <!-- footer area start -->
-    <div class="ar-footer-area pt-115 pb-75" data-bg-color="#111214">
+    <div class="ar-footer-area pt-115 pb-75" data-bg-color="#111214" style="background-color: #111214;">
         <div class="container container-1430">
             <div class="row">
                 <div class="col-xl-4 col-lg-6 col-md-8">
@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div class="ar-copyright-area ar-copyright-ptb" data-bg-color="#111214">
+    <div class="ar-copyright-area ar-copyright-ptb" data-bg-color="#111214" style="background-color: #111214;">
         <div class="container container-1430">
             <div class="row align-items-center">
                 <div class="col-lg-6">

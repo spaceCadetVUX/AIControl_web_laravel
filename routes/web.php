@@ -34,6 +34,21 @@ Route::controller(PageController::class)->group(function () {
 });
 
 // ----------------------------
+// BLOG PAGES
+// ----------------------------
+use App\Http\Controllers\Front\BlogController;
+
+Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', 'index')->name('index'); // /blog = blog listing
+    Route::get('/category/{category}', 'byCategory')->name('category'); // /blog/category/{name}
+    Route::get('/search', 'search')->name('search'); // /blog/search?q=keyword
+    Route::get('/{slug}', 'show')->name('show'); // /blog/{slug} = blog detail
+});
+
+// Legacy route for backwards compatibility
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
+
+// ----------------------------
 // PRODUCT PAGES
 // ----------------------------
 Route::controller(ProductController::class)->group(function () {
@@ -93,6 +108,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/brands/{brand}/edit', [DashboardController::class, 'editBrand'])->name('brands.edit');
     Route::put('/brands/{brand}', [DashboardController::class, 'updateBrand'])->name('brands.update');
     Route::delete('/brands/{brand}', [DashboardController::class, 'deleteBrand'])->name('brands.delete');
+
+    // Manage blogs
+    Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
+    Route::post('/blogs/upload-image', [\App\Http\Controllers\Admin\BlogController::class, 'uploadImage'])->name('blogs.upload-image');
 
     // Upload image
     Route::post('/upload-image', [DashboardController::class, 'uploadImage'])->name('upload.image');

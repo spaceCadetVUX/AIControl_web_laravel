@@ -16,6 +16,11 @@ class DashboardController extends Controller
         $totalProducts = \App\Models\Product::count();
         $publishedProducts = \App\Models\Product::where('status', 'published')->count();
         
+        // Get blog statistics
+        $totalBlogs = \App\Models\Blog::count();
+        $publishedBlogs = \App\Models\Blog::where('is_published', true)->count();
+        $draftBlogs = \App\Models\Blog::where('is_published', false)->count();
+        
         // Get top 10 most clicked products (sorted by clicks descending)
         $topClickedProducts = \App\Models\Product::orderBy('click_count', 'desc')
             ->orderBy('view_count', 'desc')
@@ -34,7 +39,7 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
         
-        return view('admin.dashboard', compact('totalProducts', 'publishedProducts', 'topClickedProducts', 'productClickStats', 'productViewStats'));
+        return view('admin.dashboard', compact('totalProducts', 'publishedProducts', 'totalBlogs', 'publishedBlogs', 'draftBlogs', 'topClickedProducts', 'productClickStats', 'productViewStats'));
     }
 
     /**
