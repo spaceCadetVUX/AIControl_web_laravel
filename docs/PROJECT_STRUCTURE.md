@@ -356,27 +356,33 @@ app/Services/
 
 ## 🧹 Cleanup Checklist
 
-### Phase 1: Documentation (5 min)
-- [ ] Create `docs/` folder structure
-- [ ] Move all .md files to appropriate subfolders
-- [ ] Create main `README.md` in root
+### Phase 1: Documentation (5 min) ✅ COMPLETED
+- [x] Create `docs/` folder structure
+- [x] Move all .md files to appropriate subfolders
+  - [x] Admin guides → `docs/admin/`
+  - [x] Feature docs → `docs/features/`
+  - [x] Technical docs → `docs/technical/`
+- [x] Create main `README.md` in root
+- [x] Remove obsolete PowerShell scripts
 
-### Phase 2: Scripts (2 min)
-- [ ] Create `scripts/` folder
-- [ ] Move PowerShell scripts
+### Phase 2: Scripts (2 min) ✅ COMPLETED
+- [x] ~~Create `scripts/` folder~~ (Not needed - old scripts deleted)
+- [x] ~~Move PowerShell scripts~~ (Scripts were for old project, removed)
 
-### Phase 3: Public Assets (10 min)
+### Phase 3: Public Assets (10 min) 🔄 OPTIONAL
 - [ ] Create `public/editors/` folder
 - [ ] Move TinyMCE and CKEditor
 - [ ] Reorganize images into logical folders
+  - [ ] `AllBlogsImgs/` → `assets/images/blogs/`
+  - [ ] `AllProductImages/` → `assets/images/products/`
 
-### Phase 4: Service Layer (30 min)
+### Phase 4: Service Layer (30 min) 🎯 RECOMMENDED
 - [ ] Create `app/Services/` folder
 - [ ] Create `BlogService.php`
 - [ ] Create `ImageUploadService.php`
 - [ ] Update controllers to use services
 
-### Phase 5: Validation (15 min)
+### Phase 5: Validation (15 min) ⚠️ IMPORTANT
 - [ ] Test all routes still work
 - [ ] Test image uploads
 - [ ] Test blog creation
