@@ -158,7 +158,9 @@
 
 
 	// 05. Nice Select Js//
-	$('.tp-select select').niceSelect();
+	if ($.fn.niceSelect) {
+		$('.tp-select select').niceSelect();
+	}
 
 
 	// 06. Masonary Js//
@@ -2205,22 +2207,25 @@
 	const link = document.querySelector('a[href="#Solutions-area"]');
 	const target = document.querySelector('#Solutions-area');
 
-	link.addEventListener('click', function (e) {
-		e.preventDefault();
+	// Only add event listener if both elements exist
+	if (link && target) {
+		link.addEventListener('click', function (e) {
+			e.preventDefault();
 
-		// Get header height (adjust selector if your header has another class)
-		const header = document.querySelector('header');
-		const headerHeight = header ? header.offsetHeight : 0;
+			// Get header height (adjust selector if your header has another class)
+			const header = document.querySelector('header');
+			const headerHeight = header ? header.offsetHeight : 0;
 
-		// Calculate scroll position
-		const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+			// Calculate scroll position
+			const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
 
-		// Smooth scroll
-		window.scrollTo({
-		top: targetPosition,
-		behavior: 'smooth'
+			// Smooth scroll
+			window.scrollTo({
+			top: targetPosition,
+			behavior: 'smooth'
+			});
 		});
-	});
+	}
 	});
 
 

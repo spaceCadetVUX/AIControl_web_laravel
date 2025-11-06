@@ -37,6 +37,9 @@
                             <button type="button" onclick="showTab('advanced')" id="tab-advanced" class="tab-button border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700">
                                 Advanced
                             </button>
+                            <button type="button" onclick="showTab('stats')" id="tab-stats" class="tab-button border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700">
+                                Statistics
+                            </button>
                         </nav>
                     </div>
                 </div>
@@ -93,12 +96,13 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Status *</label>
-                            <select name="status" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                            <label class="block text-sm font-medium text-gray-700">Initial Status</label>
+                            <select name="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <option value="draft" {{ old('status', 'draft') == 'draft' ? 'selected' : '' }}>Draft</option>
                                 <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
                                 <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>Archived</option>
                             </select>
+                            <p class="mt-1 text-xs text-blue-600">💡 Status will be automatically set based on the button you click (Draft/Publish)</p>
                         </div>
 
                         <div>
@@ -139,7 +143,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Full Description</label>
                             <textarea id="tinymce-description-create" name="description" rows="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('description') }}</textarea>
-            <p class="mt-1 text-xs text-gray-500">Use headings, paragraphs, links, and images to create rich product content. Images support alt text for SEO.</p>
+                            <p class="mt-1 text-xs text-gray-500">Use headings, paragraphs, links, and images to create rich product content. Images support alt text for SEO.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -155,7 +159,8 @@
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Image Alt Text</label>
-                                <input type="text" name="image_alt" value="{{ old('image_alt') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <input type="text" name="image_alt" value="{{ old('image_alt') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="e.g., Legrand smart dimmer switch with LED display">
+                                <p class="mt-1 text-xs text-gray-500">Describe what's in the image for accessibility & SEO. Include product name and key visual features.</p>
                             </div>
 
                             <div>
@@ -173,6 +178,80 @@
                                 <input type="url" name="datasheet_url" value="{{ old('datasheet_url') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             </div>
                         </div>
+
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">📸 Gallery Images (Thumbnail Images for Product Details)</label>
+                            <div id="gallery-images-container" class="space-y-3">
+                                @php
+                                    $galleryImages = old('gallery_images', []);
+                                    if (empty($galleryImages)) {
+                                        $galleryImages = [['url' => '', 'alt' => '']];
+                                    }
+                                @endphp
+                                
+                                @foreach($galleryImages as $index => $image)
+                                @php
+                                    $imageUrl = is_array($image) ? ($image['url'] ?? '') : $image;
+                                    $imageAlt = is_array($image) ? ($image['alt'] ?? '') : '';
+                                @endphp
+                                <div class="gallery-image-item p-3 bg-white rounded-md border border-gray-200">
+                                    <div class="flex gap-2 items-start">
+                                        <div class="flex-1 space-y-2">
+                                            <div class="flex gap-2">
+                                                <input type="text" id="gallery_url_create_{{ $index }}" name="gallery_images[{{ $index }}][url]" value="{{ $imageUrl }}" placeholder="Image URL: assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                                <button type="button" onclick="openImageUploaderCreate('gallery_url_create_{{ $index }}')" class="px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm whitespace-nowrap">
+                                                    📤 Upload
+                                                </button>
+                                            </div>
+                                            <input type="text" name="gallery_images[{{ $index }}][alt]" value="{{ $imageAlt }}" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                        </div>
+                                        <button type="button" onclick="removeGalleryImageCreate(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <button type="button" onclick="addGalleryImageCreate()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Image</button>
+                            <p class="mt-2 text-sm text-gray-500">💡 Enter relative paths like: assets/AIcontrol_imgs/Products/ABB/images/image.jpg</p>
+                        </div>
+                        
+                        <script>
+                            let galleryImageCreateIndex = {{ count($galleryImages) }};
+                            
+                            function addGalleryImageCreate() {
+                                const container = document.getElementById('gallery-images-container');
+                                const newItem = document.createElement('div');
+                                newItem.className = 'gallery-image-item p-3 bg-white rounded-md border border-gray-200';
+                                const newId = 'gallery_url_create_' + galleryImageCreateIndex;
+                                newItem.innerHTML = `
+                                    <div class="flex gap-2 items-start">
+                                        <div class="flex-1 space-y-2">
+                                            <div class="flex gap-2">
+                                                <input type="text" id="${newId}" name="gallery_images[${galleryImageCreateIndex}][url]" value="" placeholder="Image URL: assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                                <button type="button" onclick="openImageUploaderCreate('${newId}')" class="px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm whitespace-nowrap">
+                                                    📤 Upload
+                                                </button>
+                                            </div>
+                                            <input type="text" name="gallery_images[${galleryImageCreateIndex}][alt]" value="" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                        </div>
+                                        <button type="button" onclick="removeGalleryImageCreate(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                    </div>
+                                `;
+                                container.appendChild(newItem);
+                                galleryImageCreateIndex++;
+                            }
+
+                            function removeGalleryImageCreate(button) {
+                                const container = document.getElementById('gallery-images-container');
+                                const items = container.querySelectorAll('.gallery-image-item');
+                                if (items.length > 1) {
+                                    button.closest('.gallery-image-item').remove();
+                                } else {
+                                    // Keep at least one input field
+                                    const inputs = button.closest('.gallery-image-item').querySelectorAll('input');
+                                    inputs.forEach(input => input.value = '');
+                                }
+                            }
+                        </script>
 
                         <!-- Features Section -->
                         <div class="mt-6 p-4 bg-gray-50 rounded-lg">
@@ -341,23 +420,25 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Meta Title</label>
                             <input type="text" name="meta_title" value="{{ old('meta_title') }}" maxlength="60" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <p class="mt-1 text-xs text-gray-500">Recommended: 50-60 characters</p>
+                            <p class="mt-1 text-xs text-gray-500">Recommended: 50-60 characters. <span class="text-green-600">Auto-generated from product name if empty.</span></p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Meta Description</label>
                             <textarea name="meta_description" rows="3" maxlength="160" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('meta_description') }}</textarea>
-                            <p class="mt-1 text-xs text-gray-500">Recommended: 150-160 characters</p>
+                            <p class="mt-1 text-xs text-gray-500">Recommended: 150-160 characters. <span class="text-green-600">Auto-generated from short description if empty.</span></p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Meta Keywords</label>
                             <input type="text" name="meta_keywords" value="{{ old('meta_keywords') }}" placeholder="keyword1, keyword2, keyword3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <p class="mt-1 text-xs text-gray-500"><span class="text-green-600">Auto-generated from product name, brand, and category if empty.</span> Separate with commas.</p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Canonical URL</label>
                             <input type="url" name="canonical_url" value="{{ old('canonical_url') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <p class="mt-1 text-xs text-gray-500"><span class="text-green-600">Auto-generated from product slug if empty.</span> Prevents duplicate content issues.</p>
                         </div>
 
                         <div class="border-t pt-6">
@@ -374,49 +455,73 @@
                                     <textarea name="og_description" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('og_description') }}</textarea>
                                 </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">OG Image URL</label>
-                                    <input type="url" name="og_image" value="{{ old('og_image') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <p class="text-sm text-blue-800">
+                                        <strong>ℹ️ OG Image:</strong> The Open Graph image for social media sharing will automatically use your product's main image. No need to upload separately!
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="border-t pt-6">
-                            <h4 class="text-md font-semibold mb-4">Sitemap Settings</h4>
+                            <h4 class="text-md font-semibold mb-4">SEO Checklist</h4>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                                <h5 class="font-medium text-blue-800 mb-2">✅ SEO Best Practices Checklist:</h5>
+                                <ul class="text-sm text-blue-700 space-y-1">
+                                    <li>• Product name is descriptive and includes main keywords</li>
+                                    <li>• Short description summarizes key benefits (used for meta description)</li>
+                                    <li>• Main image has descriptive alt text</li>
+                                    <li>• Gallery images have unique alt text for each image</li>
+                                    <li>• Product specifications are detailed and accurate</li>
+                                    <li>• Tags include relevant search terms</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="border-t pt-6">
+                            <h4 class="text-md font-semibold mb-4">Search Engine Visibility</h4>
                             
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Sitemap Priority</label>
-                                    <select name="sitemap_priority" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="0.0">0.0</option>
-                                        <option value="0.1">0.1</option>
-                                        <option value="0.3">0.3</option>
-                                        <option value="0.5" selected>0.5</option>
-                                        <option value="0.8">0.8</option>
-                                        <option value="1.0">1.0</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Change Frequency</label>
-                                    <select name="sitemap_changefreq" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="always">Always</option>
-                                        <option value="hourly">Hourly</option>
-                                        <option value="daily">Daily</option>
-                                        <option value="weekly" selected>Weekly</option>
-                                        <option value="monthly">Monthly</option>
-                                        <option value="yearly">Yearly</option>
-                                        <option value="never">Never</option>
-                                    </select>
-                                </div>
+                            <div id="indexable-warning-create" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4" style="display: none;">
+                                <p class="text-sm text-yellow-800">
+                                    <strong>⚠️ Warning:</strong> When unchecked, this product will be hidden from search engines (Google, Bing, etc.). A <code class="bg-yellow-100 px-1 rounded">noindex</code> meta tag will be added to prevent indexing.
+                                </p>
                             </div>
 
-                            <div class="mt-4">
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="indexable" value="1" checked class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <span class="ml-2 text-sm text-gray-700">Allow search engines to index this product</span>
-                                </label>
+                            <label class="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                <input type="checkbox" id="indexable-checkbox-create" name="indexable" value="1" checked class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 h-5 w-5">
+                                <span class="ml-3 text-sm font-medium text-gray-700">Allow search engines to index this product</span>
+                            </label>
+                            
+                            <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-600">
+                                    <strong>Sitemap Priority Guide:</strong><br>
+                                    • 1.0 = Most important (featured/bestseller products)<br>
+                                    • 0.8 = High priority (new/popular products)<br>
+                                    • 0.5 = Normal priority (regular products)<br>
+                                    • 0.3 = Lower priority (older/discontinued items)
+                                </p>
                             </div>
+                            
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const checkbox = document.getElementById('indexable-checkbox-create');
+                                    const warning = document.getElementById('indexable-warning-create');
+                                    
+                                    // Show warning on page load if unchecked
+                                    if (!checkbox.checked) {
+                                        warning.style.display = 'block';
+                                    }
+                                    
+                                    // Toggle warning when checkbox changes
+                                    checkbox.addEventListener('change', function() {
+                                        if (!this.checked) {
+                                            warning.style.display = 'block';
+                                        } else {
+                                            warning.style.display = 'none';
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -442,78 +547,6 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Gallery Images (Thumbnail Images)</label>
-                            <div id="gallery-images-container" class="space-y-3">
-                                @php
-                                    $galleryImages = old('gallery_images', []);
-                                    if (empty($galleryImages)) {
-                                        $galleryImages = [['url' => '', 'alt' => '']];
-                                    }
-                                @endphp
-                                
-                                @foreach($galleryImages as $index => $image)
-                                @php
-                                    $imageUrl = is_array($image) ? ($image['url'] ?? '') : $image;
-                                    $imageAlt = is_array($image) ? ($image['alt'] ?? '') : '';
-                                @endphp
-                                <div class="gallery-image-item p-3 bg-gray-50 rounded-md border border-gray-200">
-                                    <div class="flex gap-2 items-start">
-                                        <div class="flex-1 space-y-2">
-                                            <div class="flex gap-2">
-                                                <input type="text" id="gallery_url_create_{{ $index }}" name="gallery_images[{{ $index }}][url]" value="{{ $imageUrl }}" placeholder="Image URL: assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                                                <button type="button" onclick="openImageUploaderCreate('gallery_url_create_{{ $index }}')" class="px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm whitespace-nowrap">
-                                                    📤 Upload
-                                                </button>
-                                            </div>
-                                            <input type="text" name="gallery_images[{{ $index }}][alt]" value="{{ $imageAlt }}" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                                        </div>
-                                        <button type="button" onclick="removeGalleryImageCreate(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm">Remove</button>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                            <button type="button" onclick="addGalleryImageCreate()" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">+ Add Image</button>
-                            <p class="mt-1 text-sm text-gray-500">Enter relative paths like: assets/AIcontrol_imgs/Products/ABB/images/image.jpg</p>
-                        </div>
-
-                        <script>
-                            let galleryImageCreateIndex = {{ count($galleryImages) }};
-                            
-                            function addGalleryImageCreate() {
-                                const container = document.getElementById('gallery-images-container');
-                                const newItem = document.createElement('div');
-                                newItem.className = 'gallery-image-item p-3 bg-gray-50 rounded-md border border-gray-200';
-                                const newId = 'gallery_url_create_' + galleryImageCreateIndex;
-                                newItem.innerHTML = `
-                                    <div class="flex gap-2 items-start">
-                                        <div class="flex-1 space-y-2">
-                                            <div class="flex gap-2">
-                                                <input type="text" id="${newId}" name="gallery_images[${galleryImageCreateIndex}][url]" value="" placeholder="Image URL: assets/AIcontrol_imgs/Products/..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                                                <button type="button" onclick="openImageUploaderCreate('${newId}')" class="px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm whitespace-nowrap">
-                                                    📤 Upload
-                                                </button>
-                                            </div>
-                                            <input type="text" name="gallery_images[${galleryImageCreateIndex}][alt]" value="" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                                        </div>
-                                        <button type="button" onclick="removeGalleryImageCreate(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm">Remove</button>
-                                    </div>
-                                `;
-                                container.appendChild(newItem);
-                                galleryImageCreateIndex++;
-                            }
-
-                            function removeGalleryImageCreate(button) {
-                                const container = document.getElementById('gallery-images-container');
-                                const items = container.querySelectorAll('.gallery-image-item');
-                                if (items.length > 1) {
-                                    button.closest('.gallery-image-item').remove();
-                                } else {
-                                    // Keep at least one input field
-                                    const inputs = button.closest('.gallery-image-item').querySelectorAll('input');
-                                    inputs.forEach(input => input.value = '');
-                                }
-                            }
-                        </script>                        <div>
                             <label class="block text-sm font-medium text-gray-700">Language</label>
                             <select name="language" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="en">English</option>
@@ -538,6 +571,54 @@
                     </div>
                 </div>
 
+                <!-- Statistics Tab -->
+                <div id="content-stats" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4">Product Statistics</h3>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                        <div class="text-gray-500 text-lg mb-2">📊</div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Statistics Not Available</h4>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Product statistics will be available after the product is created and starts receiving views, clicks, and interactions.
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            Once created, you'll see metrics like view count, click count, search count, ratings, and more in this section.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-50">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600">View Count</div>
+                            <div class="text-2xl font-bold text-blue-600">0</div>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600">Click Count</div>
+                            <div class="text-2xl font-bold text-green-600">0</div>
+                        </div>
+
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600">Search Count</div>
+                            <div class="text-2xl font-bold text-purple-600">0</div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600">Order Count</div>
+                            <div class="text-2xl font-bold text-yellow-600">0</div>
+                        </div>
+
+                        <div class="bg-pink-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600">Rating</div>
+                            <div class="text-2xl font-bold text-pink-600">0.0 / 5.0</div>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600">Review Count</div>
+                            <div class="text-2xl font-bold text-indigo-600">0</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Submit Buttons -->
                 <div class="bg-white shadow-sm rounded-lg p-6 mt-4">
                     <div class="flex items-center justify-between">
@@ -547,7 +628,7 @@
                                 Save as Draft
                             </button>
                             <button type="submit" name="action" value="publish" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700">
-                                Publish Product
+                                Create & Publish
                             </button>
                         </div>
                     </div>
@@ -728,17 +809,7 @@
         });
     </script>
 
-    <!-- Image Upload Modal -->
-                        ]
-                    }
-                })
-                .catch(error => {
-                    console.error('CKEditor initialization error:', error);
-                });
-        });
-    </script>
 
-    <!-- Image Upload Modal -->
     <div id="imageUploadModalCreate" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3">

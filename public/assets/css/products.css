@@ -756,21 +756,96 @@
     color: #28a745 !important;
 }
 
-/* Specifications Table */
-.specifications-content .table {
+/* Mobile responsive specifications */
+@media (max-width: 768px) {
+    .specifications-content {
+        padding: 20px;
+        margin: 15px 0;
+    }
+    
+    .spec-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 15px 0;
+    }
+    
+    .spec-label {
+        min-width: auto;
+        margin-right: 0;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    
+    .spec-value {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 769px) {
+    .spec-item:hover {
+        background: #f8f9fa;
+        margin: 0 -15px;
+        padding: 12px 15px;
+        border-radius: 5px;
+        transition: all 0.2s ease;
+    }
+}
+
+/* Simple Specifications Section */
+.specifications-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
     border: 1px solid #e5e5e5;
-    margin-bottom: 0;
 }
 
-.specifications-content .table td {
-    padding: 12px 15px;
-    vertical-align: middle;
+.specifications-content h4 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--tp-brand-primary-color);
 }
 
-.specifications-content .table td:first-child {
-    background: #f8f8f8;
+.spec-list {
+    display: grid;
+    gap: 15px;
+}
+
+.spec-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.spec-item:last-child {
+    border-bottom: none;
+}
+
+.spec-label {
     font-weight: 500;
-    width: 200px;
+    color: #555;
+    min-width: 150px;
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.spec-value {
+    color: #333;
+    flex: 1;
+}
+
+.spec-value a {
+    color: var(--tp-brand-primary-color);
+    text-decoration: none;
+}
+
+.spec-value a:hover {
+    text-decoration: underline;
 }
 
 /* Downloads & Video Section */
@@ -894,10 +969,7 @@
         font-size: 24px;
     }
     
-    .specifications-content .table td:first-child {
-        width: 120px;
-        font-size: 13px;
-    }
+    /* Mobile specifications styling is handled above */
 }
 
 @media (min-width: 576px) {
@@ -1106,17 +1178,41 @@
     }
 }
 
+/* Tablet-specific specifications styling */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .specifications-content {
+        padding: 25px;
+    }
+}
+
 /* Desktop styles */
 @media (min-width: 1025px) {
     .description-content,
-    .features-content,
-    .specifications-content {
+    .features-content {
         padding: 25px;
+    }
+    
+    .specifications-content {
+        padding: 40px;
     }
 
     .description-content img,
     .features-content img {
         max-width: 85%;
+    }
+    
+    /* Enhanced desktop specifications styling */
+    .specifications-content {
+        padding: 35px;
+    }
+    
+    .spec-label {
+        min-width: 180px;
+        font-size: 15px;
+    }
+    
+    .spec-value {
+        font-size: 15px;
     }
 }
 

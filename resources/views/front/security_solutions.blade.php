@@ -109,7 +109,7 @@
                 <!-- hero area start -->
                 <div class="ar-hero-area p-relative" data-background="assets/img/about-us/about-us-4/about-us-4-bg.png">
                     <div class="ar-about-us-4-shape">
-                        <img src="{{ assets('assets/AIcontrol_imgs/Lighting_control_solution/headinglogo.svg') }}" alt="">
+                        <img src="{{ asset('assets/AIcontrol_imgs/Lighting_control_solution/headinglogo.svg') }}" alt="">
                     </div>
                     <div class="container container-1230">
                         <div class="ar-about-us-4-hero-ptb">
@@ -140,7 +140,7 @@
                 <!-- banner area start -->
                 <div class="ar-banner-area">
                     <div class="ar-banner-wrap ar-about-us-4">
-                        <img class="w-100" src="{{ assets('assets/AIcontrol_imgs/Security_solutions/imgs/securityBanner.jpg') }}" alt="Kiểm soát hệ hống an ninh. AI control" data-speed=".8">
+                        <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/securityBanner.jpg') }}" alt="Kiểm soát hệ hống an ninh. AI control" data-speed=".8">
                     </div>
                 </div>
                 <!-- banner area end -->
@@ -170,7 +170,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item tp-benefit-borber-bottom">
                                         <div class="tp-benefit-item-icon">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon1.svg') }}" alt="Icon cường di chuyển">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon1.svg') }}" alt="Icon cường di chuyển">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Cảm biến & cảnh báo chuyển động PIR</h3>
                                     </div>
@@ -178,7 +178,7 @@
                                 <div class="col-lg-3 col-md-6 ">
                                     <div class="tp-benefit-item tp-benefit-borber-bottom">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon2.svg') }}" alt="Icon nhiệt cảm biến khói">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon2.svg') }}" alt="Icon nhiệt cảm biến khói">
                                         </div>
                                         <h4 class="tp-benefit-item-title">Báo khói, khí độc và cảm biến rò rỉ nước</h4>
                                     </div>
@@ -186,7 +186,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item tp-benefit-borber-bottom">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon3.svg') }}" alt="Icon doorbell">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon3.svg') }}" alt="Icon doorbell">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Chuông cửa camera tích hợp điều khiển </h3>
                                     </div>
@@ -194,7 +194,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item tp-benefit-borber-bottom">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon4.svg') }}" alt="Icon khóa thông minh">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon4.svg') }}" alt="Icon khóa thông minh">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Khóa điện tử đa phương thức</h3>
                                     </div>
@@ -202,7 +202,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item br">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon5.svg') }}" alt="Icon kích hoạt cảnh">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon5.svg') }}" alt="Icon kích hoạt cảnh">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Kịch bản tự động hóa an ninh</h3>
                                     </div>
@@ -210,7 +210,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item br">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon6.svg') }}" alt="Icon phone">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon6.svg') }}" alt="Icon phone">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Điều khiển và giám sát qua ứng dụng di động</h3>
                                     </div>
@@ -218,7 +218,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item br">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon7.svg') }}" alt="Icon mở rộng">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon7.svg') }}" alt="Icon mở rộng">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Khả năng mở rộng linh hoạt cho nhiều dự án </h3>
                                             
@@ -227,7 +227,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="tp-benefit-item">
                                         <div class="tp-benefit-item-icon pb-30">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/icons/icon8.svg') }}" alt="Icon cửa">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon8.svg') }}" alt="Icon cửa">
                                         </div>
                                         <h3 class="tp-benefit-item-title">Kiểm soát trạng thái cửa & ra vào </h3>
                                             
@@ -266,7 +266,7 @@
                             <div class="row g-0 align-items-center">
                                 <!-- Image first -->
                                 <div class="col-12 col-md-8">
-                                    <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/imgs/firesensor.jpg') }}" alt="Điều khiển chiếu sáng cho văn phòng" class="img-fluid w-100 h-100 object-fit-cover">
+                                    <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/firesensor.jpg') }}" alt="Điều khiển chiếu sáng cho văn phòng" class="img-fluid w-100 h-100 object-fit-cover">
                                 </div>
                                 <!-- Text second -->
                                 <div class="col-12 col-md-4 tp-funfact-panel-content">
@@ -286,7 +286,7 @@
                             <div class="row g-0 align-items-center">
                                 <!-- Image first -->
                                 <div class="col-12 col-md-8">
-                                    <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/imgs/motionsensor.jpg') }}" alt="Điều khiển chiếu sáng cho nhà hàng & khách sạn" class="img-fluid w-100 h-100 object-fit-cover">
+                                    <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/motionsensor.jpg') }}" alt="Điều khiển chiếu sáng cho nhà hàng & khách sạn" class="img-fluid w-100 h-100 object-fit-cover">
                                 </div>
                                 <!-- Text second -->
                                 <div class="col-12 col-md-4 tp-funfact-panel-content">
@@ -305,7 +305,7 @@
                             <div class="row g-0 align-items-center">
                                 <!-- Image first -->
                                 <div class="col-12 col-md-8">
-                                    <img src="{{ assets('assets/AIcontrol_imgs/Security_solutions/imgs/cameradoorbell.jpg') }}" alt="Điều khiển chiếu sáng cho bệnh viện & trung tâm thương mại" class="img-fluid w-100 h-100 object-fit-cover">
+                                    <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/cameradoorbell.jpg') }}" alt="Điều khiển chiếu sáng cho bệnh viện & trung tâm thương mại" class="img-fluid w-100 h-100 object-fit-cover">
                                 </div>
                                 <!-- Text second -->
                                 <div class="col-12 col-md-4 tp-funfact-panel-content">
@@ -388,52 +388,52 @@
                             <div class="swiper-wrapper slide-transtion">
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/airzone.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/airzone.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/atios.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/atios.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/casambi.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/casambi.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/danlers.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/danlers.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/intesis.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/intesis.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/kanonbus.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/kanonbus.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/remotec.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/remotec.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/uitiot.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/uitiot.png') }}" alt="">
                                     </div>  
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/steinel.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/steinel.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/AIcontrol_imgs/brandslogo/remotec.png') }}" alt="">
+                                        <img src="{{ asset('assets/AIcontrol_imgs/brandslogo/remotec.png') }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -483,7 +483,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".3">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-1.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-1.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Architect</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -495,7 +495,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".4">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-2.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-2.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Interior</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -507,7 +507,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".5">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-3.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-3.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Construction</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -519,7 +519,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".6">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-4.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-4.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Interior</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -550,33 +550,33 @@
     <!-- JS here -->
 
 
-<script src="{{ assets('assets/js/vendor/jquery.js') }}"></script>
-<script src="{{ assets('assets/js/bootstrap-bundle.js') }}"></script>
-<script src="{{ assets('assets/js/swiper-bundle.js') }}"></script>
-<script src="{{ assets('assets/js/plugin.js') }}"></script>
-<script src="{{ assets('assets/js/three.js') }}"></script>
-<script src="{{ assets('assets/js/slick.js') }}"></script>
-<script src="{{ assets('assets/js/scroll-magic.js') }}"></script>
-<script src="{{ assets('assets/js/hover-effect.umd.js') }}"></script>
-<script src="{{ assets('assets/js/magnific-popup.js') }}"></script>
-<script src="{{ assets('assets/js/parallax-slider.js') }}"></script>
-<script src="{{ assets('assets/js/nice-select.js') }}"></script>
-<script src="{{ assets('assets/js/purecounter.js') }}"></script>
-<script src="{{ assets('assets/js/isotope-pkgd.js') }}"></script>
-<script src="{{ assets('assets/js/imagesloaded-pkgd.js') }}"></script>
-<script src="{{ assets('assets/js/ajax-form.js') }}"></script>
-<script src="{{ assets('assets/js/Observer.min.js') }}"></script>
-<script src="{{ assets('assets/js/splitting.min.js') }}"></script>
-<script src="{{ assets('assets/js/webgl.js') }}"></script>
-<script src="{{ assets('assets/js/parallax-scroll.js') }}"></script>
-<script src="{{ assets('assets/js/atropos.js') }}"></script>
-<script src="{{ assets('assets/js/slider-active.js') }}"></script>
-<script src="{{ assets('assets/js/main.js') }}"></script>
-<script src="{{ assets('assets/js/tp-cursor.js') }}"></script>
-<script src="{{ assets('assets/js/portfolio-slider-1.js') }}"></script>
-<script type="module" src="{{ assets('assets/js/distortion-img.js') }}"></script>
-<script type="module" src="{{ assets('assets/js/skew-slider/index.js') }}"></script>
-<script type="module" src="{{ assets('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/three.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+    <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+    <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+    <script src="{{ asset('assets/js/webgl.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+    <script src="{{ asset('assets/js/atropos.js') }}"></script>
+    <script src="{{ asset('assets/js/slider-active.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
+    <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
 
 
 

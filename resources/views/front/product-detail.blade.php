@@ -527,22 +527,23 @@
                                     @if($product->specifications)
                                     <div class="tab-pane fade" id="specs" role="tabpanel">
                                         <div class="specifications-content">
-                                            <table class="table table-bordered">
+                                            <h4>Thông số kỹ thuật</h4>
+                                            <div class="spec-list">
                                                 @foreach($product->specifications as $key => $value)
-                                                <tr>
-                                                    <td style="width: 200px;"><strong>{{ $key }}</strong></td>
-                                                    <td>
+                                                <div class="spec-item">
+                                                    <span class="spec-label">{{ $key }}</span>
+                                                    <span class="spec-value">
                                                         @if(filter_var($value, FILTER_VALIDATE_URL))
-                                                            <a href="{{ $value }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">
+                                                            <a href="{{ $value }}" target="_blank" rel="noopener noreferrer">
                                                                 {{ Str::limit($value, 50) }} ↗
                                                             </a>
                                                         @else
                                                             {{ $value }}
                                                         @endif
-                                                    </td>
-                                                </tr>
+                                                    </span>
+                                                </div>
                                                 @endforeach
-                                            </table>
+                                            </div>
                                         </div>
                                     </div>
                                     @endif
@@ -616,30 +617,30 @@
     <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/productDetails.js') }}"></script>
-    <script src="{{ assets('assets/js/bootstrap-bundle.js') }}"></script>
-    <script src="{{ assets('assets/js/swiper-bundle.js') }}"></script>
-    <script src="{{ assets('assets/js/plugin.js') }}"></script>
-    <script src="{{ assets('assets/js/three.js') }}"></script>
-    <script src="{{ assets('assets/js/slick.js') }}"></script>
-    <script src="{{ assets('assets/js/scroll-magic.js') }}"></script>
-    <script src="{{ assets('assets/js/hover-effect.umd.js') }}"></script>
-    <script src="{{ assets('assets/js/parallax-slider.js') }}"></script>
-    <script src="{{ assets('assets/js/purecounter.js') }}"></script>
-    <script src="{{ assets('assets/js/isotope-pkgd.js') }}"></script>
-    <script src="{{ assets('assets/js/imagesloaded-pkgd.js') }}"></script>
-    <script src="{{ assets('assets/js/Observer.min.js') }}"></script>
-    <script src="{{ assets('assets/js/splitting.min.js') }}"></script>
-    <script src="{{ assets('assets/js/webgl.js') }}"></script>
-    <script src="{{ assets('assets/js/parallax-scroll.js') }}"></script>
-    <script src="{{ assets('assets/js/atropos.js') }}"></script>
-    <script src="{{ assets('assets/js/slider-active.js') }}"></script>
-    <script src="{{ assets('assets/js/main.js') }}"></script>
-    <script src="{{ assets('assets/js/tp-cursor.js') }}"></script>
-    <script src="{{ assets('assets/js/portfolio-slider-1.js') }}"></script>
-    <script src="{{ assets('assets/js/contact.js') }}"></script>
-    <script type="module" src="{{ assets('assets/js/distortion-img.js') }}"></script>
-    <script type="module" src="{{ assets('assets/js/skew-slider/index.js') }}"></script>
-    <script type="module" src="{{ assets('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/three.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+    <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+    <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+    <script src="{{ asset('assets/js/webgl.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+    <script src="{{ asset('assets/js/atropos.js') }}"></script>
+    <script src="{{ asset('assets/js/slider-active.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
+    <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
 
 </body>
 </html>

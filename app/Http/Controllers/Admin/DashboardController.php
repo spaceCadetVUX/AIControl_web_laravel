@@ -178,7 +178,7 @@ class DashboardController extends Controller
             'sitemap_priority' => 'nullable|numeric|min:0|max:1',
             'sitemap_changefreq' => 'nullable|in:always,hourly,daily,weekly,monthly,yearly,never',
             'indexable' => 'nullable|boolean',
-            'status' => 'required|in:draft,published,archived',
+            'status' => 'nullable|in:draft,published,archived',
             'visibility' => 'nullable|in:visible,hidden',
             'featured' => 'nullable|boolean',
             'is_new' => 'nullable|boolean',
@@ -189,10 +189,44 @@ class DashboardController extends Controller
             'gallery_images.*.url' => 'nullable|string|max:500',
             'gallery_images.*.alt' => 'nullable|string|max:255',
             'published_at' => 'nullable|date',
+            'action' => 'nullable|in:draft,publish',
         ]);
 
         // Generate slug from name
         $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+        
+        // Auto-generate SEO fields if not provided (SEO best practices)
+        if (empty($validated['meta_title'])) {
+            $validated['meta_title'] = $request->name . ' | ' . ($request->brand ?? 'Products');
+        }
+        
+        if (empty($validated['meta_description'])) {
+            $description = $request->short_description ?: strip_tags($request->description ?? '');
+            $validated['meta_description'] = \Illuminate\Support\Str::limit($description, 155);
+        }
+        
+        if (empty($validated['canonical_url'])) {
+            $validated['canonical_url'] = url('/product/' . $validated['slug']);
+        }
+        
+        if (empty($validated['og_title'])) {
+            $validated['og_title'] = $validated['meta_title'];
+        }
+        
+        if (empty($validated['og_description'])) {
+            $validated['og_description'] = $validated['meta_description'];
+        }
+        
+        // Auto-generate meta keywords if not provided
+        if (empty($validated['meta_keywords'])) {
+            $keywords = [];
+            if ($request->name) $keywords[] = $request->name;
+            if ($request->brand) $keywords[] = $request->brand;
+            if ($request->function_category) $keywords[] = $request->function_category;
+            if (!empty($keywords)) {
+                $validated['meta_keywords'] = implode(', ', array_unique($keywords));
+            }
+        }
         
         // Convert checkbox values
         $validated['featured'] = $request->has('featured') ? 1 : 0;
@@ -255,14 +289,47 @@ class DashboardController extends Controller
             }
         }
         
-        // Handle action button
+        // Handle action button - override status based on button clicked
         if ($request->action === 'publish') {
             $validated['status'] = 'published';
             if (!$request->published_at) {
                 $validated['published_at'] = now();
             }
+        } else {
+            // Explicitly set as draft when not publishing (draft button or no action)
+            $validated['status'] = 'draft';
+            // Clear published_at if saving as draft
+            $validated['published_at'] = null;
         }
         
+        // SEO validation and warnings
+        if ($validated['status'] === 'published') {
+            $warnings = [];
+            
+            if (empty($validated['meta_title']) && empty($request->name)) {
+                $warnings[] = 'Product name is required for SEO optimization';
+            }
+            
+            if (empty($validated['meta_description']) && empty($request->short_description) && empty($request->description)) {
+                $warnings[] = 'Product description is recommended for better SEO';
+            }
+            
+            if (empty($validated['image_alt']) && !empty($validated['image_url'])) {
+                $warnings[] = 'Image alt text is recommended for accessibility and SEO';
+            }
+            
+            if (!empty($warnings)) {
+                \Illuminate\Support\Facades\Log::info('SEO Warnings for Product Creation', $warnings);
+            }
+        }
+
+        // Log for debugging
+        \Illuminate\Support\Facades\Log::info('Product Creation', [
+            'action' => $request->action,
+            'final_status' => $validated['status'],
+            'published_at' => $validated['published_at'] ?? null
+        ]);
+
         $product = \App\Models\Product::create($validated);
         
         $message = $request->action === 'publish' ? 'Product published successfully!' : 'Product saved as draft!';
@@ -355,7 +422,7 @@ class DashboardController extends Controller
                 'sitemap_priority' => 'nullable|numeric|min:0|max:1',
                 'sitemap_changefreq' => 'nullable|in:always,hourly,daily,weekly,monthly,yearly,never',
                 'indexable' => 'nullable|boolean',
-                'status' => 'required|in:draft,published,archived',
+                'status' => 'nullable|in:draft,published,archived',
                 'visibility' => 'nullable|in:visible,hidden',
                 'featured' => 'nullable|boolean',
                 'is_new' => 'nullable|boolean',
@@ -366,12 +433,52 @@ class DashboardController extends Controller
                 'gallery_images.*.url' => 'nullable|string|max:500',
                 'gallery_images.*.alt' => 'nullable|string|max:255',
                 'published_at' => 'nullable|date',
+                'action' => 'nullable|in:draft,publish',
             ]);
 
             // Update slug if name changed and save old slug
             if ($request->name !== $product->name) {
                 $validated['old_slug'] = $product->slug;
                 $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+            }
+            
+            // Auto-update SEO fields if not provided or if name/content changed (SEO best practices)
+            if (empty($validated['meta_title']) || $request->name !== $product->name) {
+                $validated['meta_title'] = $request->name . ' | ' . ($request->brand ?? 'Products');
+            }
+            
+            if (empty($validated['meta_description']) || 
+                $request->short_description !== $product->short_description) {
+                $description = $request->short_description ?: strip_tags($request->description ?? '');
+                if (!empty($description)) {
+                    $validated['meta_description'] = \Illuminate\Support\Str::limit($description, 155);
+                }
+            }
+            
+            if (empty($validated['canonical_url']) || isset($validated['slug'])) {
+                $slug = $validated['slug'] ?? $product->slug;
+                $validated['canonical_url'] = url('/product/' . $slug);
+            }
+            
+            if (empty($validated['og_title'])) {
+                $validated['og_title'] = $validated['meta_title'] ?? $product->meta_title;
+            }
+            
+            if (empty($validated['og_description'])) {
+                $validated['og_description'] = $validated['meta_description'] ?? $product->meta_description;
+            }
+            
+            // Auto-update meta keywords if not provided or if key attributes changed
+            if (empty($validated['meta_keywords']) || 
+                $request->name !== $product->name || 
+                $request->brand !== $product->brand) {
+                $keywords = [];
+                if ($request->name) $keywords[] = $request->name;
+                if ($request->brand) $keywords[] = $request->brand;
+                if ($request->function_category) $keywords[] = $request->function_category;
+                if (!empty($keywords)) {
+                    $validated['meta_keywords'] = implode(', ', array_unique($keywords));
+                }
             }
             
             // Convert checkbox values
@@ -435,12 +542,16 @@ class DashboardController extends Controller
                 }
             }
             
-            // Handle action button
+            // Handle action button - override status based on button clicked
             if ($request->action === 'publish') {
                 $validated['status'] = 'published';
                 if (!$request->published_at && !$product->published_at) {
                     $validated['published_at'] = now();
                 }
+            } else {
+                // Explicitly set as draft when not publishing (draft button or no action)
+                $validated['status'] = 'draft';
+                // Don't clear published_at for updates if it was previously set
             }
             
             // Log before update

@@ -24,17 +24,17 @@
     <meta property="og:locale" content="vi_VN">
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ assets('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
     <!-- CSS here -->
-    <link rel="stylesheet" href="{{ assets('assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/slick.css') }}"> 
-    <link rel="stylesheet" href="{{ assets('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/font-awesome-pro.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/spacing.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/atropos.min.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <!-- CSS here -->
 </head>
 <!-- tp-magic-cursor -->
@@ -261,12 +261,12 @@
                 <!-- banner area start -->
                 <div class="ar-banner-area">
                     <div class="ar-banner-wrap">
-                        <img class="w-100" src="{{ assets('assets/AIcontrol_imgs/landing/banner.jpg') }}" alt="AiControl banner" data-speed=".8">
+                        <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/landing/banner.jpg') }}" alt="AiControl banner" data-speed=".8">
                     </div>
                     <div class="ar-scroll-image">
                         <div class="ar-banner-shape d-flex align-items-center">
-                            <img src="{{ assets('assets/img/home-08/banner/banner-shape.png') }}" alt="">
-                            <img src="{{ assets('assets/img/home-08/banner/banner-shape.png') }}" alt="">
+                            <img src="{{ asset('assets/img/home-08/banner/banner-shape.png') }}" alt="">
+                            <img src="{{ asset('assets/img/home-08/banner/banner-shape.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                                     <div class="ar-about-top-img text-end">
-                                        <img data-speed=".9" src="{{ assets('assets/AIcontrol_imgs/landing/aboutUSpic1.png') }}" alt="about us img 1">
+                                        <img data-speed=".9" src="{{ asset('assets/AIcontrol_imgs/landing/aboutUSpic1.png') }}" alt="about us img 1">
                                     </div>
                                 </div>
                             </div>
@@ -296,8 +296,8 @@
                         <div class="row align-items-end">
                             <div class="col-xl-5 col-lg-5 col-md-7">
                                 <div class="ar-about-thumb p-relative">
-                                    <img data-speed=".8" src="{{ assets('assets/AIcontrol_imgs/landing/aboutUsPic2.jpg') }}" alt="about us">
-                                    <img class="ar-about-shape" src="{{ assets('assets/img/home-08/about/about-shape.png') }}" alt="about us background shape">
+                                    <img data-speed=".8" src="{{ asset('assets/AIcontrol_imgs/landing/aboutUsPic2.jpg') }}" alt="about us">
+                                    <img class="ar-about-shape" src="{{ asset('assets/img/home-08/about/about-shape.png') }}" alt="about us background shape">
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-10 order-1 order-lg-0">
@@ -423,7 +423,7 @@
                                     </div>
                                     <div class="col-xl-7 order-xl-1 order-0">
                                         <div class="design-project-thumb item-1 text-end">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/dieu_khien_chieu_sang.jpg') }}" alt="Giải pháp điều khiển chiếu sáng">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/dieu_khien_chieu_sang.jpg') }}" alt="Giải pháp điều khiển chiếu sáng">
                                         </div>
                                     </div>
                                 </div>
@@ -439,7 +439,7 @@
                                     </div>
                                     <div class="col-xl-7 order-xl-1 order-0">
                                         <div class="design-project-thumb item-1 text-end">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/RemTudong.jpg') }}" alt="Rèm cửa thông minh">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/RemTudong.jpg') }}" alt="Rèm cửa thông minh">
                                         </div>
                                     </div>
                                 </div>
@@ -448,7 +448,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-7">
                                         <div class="design-project-thumb item-2">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/HVAC.jpg') }}" alt="Điều khiển máy lạnh thông minh">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/HVAC.jpg') }}" alt="Điều khiển máy lạnh thông minh">
                                         </div>
                                     </div>
                                     <div class="col-xl-5">
@@ -464,7 +464,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-7">
                                         <div class="design-project-thumb item-2">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/an_ninh.jpg') }}" alt="An ninh, kiểm soát ra vào với Ring Legrand">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/an_ninh.jpg') }}" alt="An ninh, kiểm soát ra vào với Ring Legrand">
                                         </div>
                                     </div>
                                     <div class="col-xl-5">
@@ -487,7 +487,7 @@
                                     </div>
                                     <div class="col-xl-7 order-xl-1 order-0">
                                         <div class="design-project-thumb item-1 text-end">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/Am_Thanh.jpg') }}" alt="loa bose">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/Am_Thanh.jpg') }}" alt="loa bose">
                                         </div>
                                     </div>
                                 </div>
@@ -503,7 +503,7 @@
                                     </div>
                                     <div class="col-xl-7 order-xl-1 order-0">
                                         <div class="design-project-thumb item-1 text-end">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/Quan_ly_nang_luong.png') }}" alt="Quản lý năng lượng với ABB">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/Quan_ly_nang_luong.png') }}" alt="Quản lý năng lượng với ABB">
                                         </div>
                                     </div>
                                 </div>
@@ -512,7 +512,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-7">
                                         <div class="design-project-thumb item-2">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/BMS.jpg') }}" alt="Building managerment system BMS">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/BMS.jpg') }}" alt="Building managerment system BMS">
                                         </div>
                                     </div>
                                     <div class="col-xl-5">
@@ -528,7 +528,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-7">
                                         <div class="design-project-thumb item-2">
-                                            <img src="{{ assets('assets/AIcontrol_imgs/landing/dieukhienphongkhachsan.jpg') }}" alt="RCU">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/landing/dieukhienphongkhachsan.jpg') }}" alt="RCU">
                                         </div>
                                     </div>
                                     <div class="col-xl-5">
@@ -588,7 +588,7 @@
                                     </div>
                                     <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
                                         <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ assets('assets/img/home-08/project/project-1.jpg') }}" alt="">
+                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-1.jpg') }}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -601,7 +601,7 @@
                                     </div>
                                     <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
                                         <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ assets('assets/img/home-08/project/project-2.jpg') }}" alt="">
+                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-2.jpg') }}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -614,7 +614,7 @@
                                     </div>
                                     <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
                                         <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ assets('assets/img/home-08/project/project-3.jpg') }}" alt="">
+                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-3.jpg') }}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -627,7 +627,7 @@
                                     </div>
                                     <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
                                         <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ assets('assets/img/home-08/project/project-4.jpg') }}" alt="">
+                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-4.jpg') }}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -643,7 +643,7 @@
                     <div class="container container-1430">
                         <div class="ar-award-wrap p-relative pt-140 pb-160">
                             <div class="ar-award-shape-1">
-                                <img src="{{ assets('assets/img/home-08/award/award-shape-1.png') }}" alt="">
+                                <img src="{{ asset('assets/img/home-08/award/award-shape-1.png') }}" alt="">
                             </div>
                             <div class="row">
                                 <div class="col-xl-8">
@@ -751,37 +751,37 @@
                             <div class="swiper-wrapper slide-transtion">
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-1.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-1.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-2.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-2.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-3.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-3.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-4.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-4.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-5.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-5.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-6.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-6.png') }}" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="ar-brand-item">
-                                        <img src="{{ assets('assets/img/home-08/brand/brand-3.png') }}" alt="">
+                                        <img src="{{ asset('assets/img/home-08/brand/brand-3.png') }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -827,7 +827,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".3">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-1.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-1.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Architect</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -839,7 +839,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".4">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-2.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-2.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Interior</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -851,7 +851,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".5">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-3.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-3.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Construction</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -863,7 +863,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".6">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ assets('assets/img/home-08/blog/blog-4.jpg') }}" alt=""></a>
+                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-4.jpg') }}" alt=""></a>
                                         <a class="ar-blog-category" href="blog-details-light.html">Interior</a>
                                     </div>
                                     <div class="ar-blog-content">
@@ -885,34 +885,34 @@
 
 
     <!-- JS here -->
-    <script src="{{ assets('assets/js/vendor/jquery.js') }}"></script>
-    <script src="{{ assets('assets/js/bootstrap-bundle.js') }}"></script>
-    <script src="{{ assets('assets/js/swiper-bundle.js') }}"></script>
-    <script src="{{ assets('assets/js/plugin.js') }}"></script>
-    <script src="{{ assets('assets/js/three.js') }}"></script>
-    <script src="{{ assets('assets/js/slick.js') }}"></script>
-    <script src="{{ assets('assets/js/scroll-magic.js') }}"></script>
-    <script src="{{ assets('assets/js/hover-effect.umd.js') }}"></script>
-    <script src="{{ assets('assets/js/magnific-popup.js') }}"></script>
-    <script src="{{ assets('assets/js/parallax-slider.js') }}"></script>
-    <script src="{{ assets('assets/js/nice-select.js') }}"></script>
-    <script src="{{ assets('assets/js/purecounter.js') }}"></script>
-    <script src="{{ assets('assets/js/isotope-pkgd.js') }}"></script>
-    <script src="{{ assets('assets/js/imagesloaded-pkgd.js') }}"></script>
-    <script src="{{ assets('assets/js/ajax-form.js') }}"></script>
-    <script src="{{ assets('assets/js/Observer.min.js') }}"></script>
-    <script src="{{ assets('assets/js/splitting.min.js') }}"></script>
-    <script src="{{ assets('assets/js/webgl.js') }}"></script>
-    <script src="{{ assets('assets/js/parallax-scroll.js') }}"></script>
-    <script src="{{ assets('assets/js/atropos.js') }}"></script>
-    <script src="{{ assets('assets/js/slider-active.js') }}"></script>
-    <script src="{{ assets('assets/js/main.js') }}"></script>
-    <script src="{{ assets('assets/js/tp-cursor.js') }}"></script>
-    <script src="{{ assets('assets/js/portfolio-slider-1.js') }}"></script>
-    <script src="{{ assets('assets/js/contact.js') }}"></script>
-    <script type="module" src="{{ assets('assets/js/distortion-img.js') }}"></script>
-    <script type="module" src="{{ assets('assets/js/skew-slider/index.js') }}"></script>
-    <script type="module" src="{{ assets('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/three.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+    <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+    <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+    <script src="{{ asset('assets/js/webgl.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+    <script src="{{ asset('assets/js/atropos.js') }}"></script>
+    <script src="{{ asset('assets/js/slider-active.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
+    <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
     <!-- JS here -->
 </body>
 </html>

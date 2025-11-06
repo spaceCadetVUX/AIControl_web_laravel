@@ -103,6 +103,14 @@ class PageController extends Controller
     { 
         return view('front.productDetails'); 
     }
+
+    /**
+     * Display blog page
+     */
+    public function blogs() 
+    { 
+        return view('front.blogs'); 
+    }
 }
 
 

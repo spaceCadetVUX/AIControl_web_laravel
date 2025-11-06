@@ -103,12 +103,13 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Status *</label>
-                            <select name="status" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <label class="block text-sm font-medium text-gray-700">Current Status</label>
+                            <select name="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="draft" {{ old('status', $product->status) == 'draft' ? 'selected' : '' }}>Draft</option>
                                 <option value="published" {{ old('status', $product->status) == 'published' ? 'selected' : '' }}>Published</option>
                                 <option value="archived" {{ old('status', $product->status) == 'archived' ? 'selected' : '' }}>Archived</option>
                             </select>
+                            <p class="mt-1 text-xs text-blue-600">💡 Status will be automatically updated based on the button you click (Draft/Publish)</p>
                         </div>
 
                         <div>
@@ -168,7 +169,8 @@
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Image Alt Text</label>
-                                <input type="text" name="image_alt" value="{{ old('image_alt', $product->image_alt) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <input type="text" name="image_alt" value="{{ old('image_alt', $product->image_alt) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="e.g., Legrand smart dimmer switch with LED display">
+                                <p class="mt-1 text-xs text-gray-500">Describe what's in the image for accessibility & SEO. Include product name and key visual features.</p>
                             </div>
 
                             <div>
@@ -468,23 +470,25 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Meta Title</label>
                             <input type="text" name="meta_title" value="{{ old('meta_title', $product->meta_title) }}" maxlength="60" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <p class="mt-1 text-xs text-gray-500">Recommended: 50-60 characters</p>
+                            <p class="mt-1 text-xs text-gray-500">Recommended: 50-60 characters. <span class="text-green-600">Auto-updated from product name if empty.</span></p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Meta Description</label>
                             <textarea name="meta_description" rows="3" maxlength="160" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('meta_description', $product->meta_description) }}</textarea>
-                            <p class="mt-1 text-xs text-gray-500">Recommended: 150-160 characters</p>
+                            <p class="mt-1 text-xs text-gray-500">Recommended: 150-160 characters. <span class="text-green-600">Auto-updated from short description if empty.</span></p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Meta Keywords</label>
                             <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $product->meta_keywords) }}" placeholder="keyword1, keyword2, keyword3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <p class="mt-1 text-xs text-gray-500"><span class="text-green-600">Auto-updated when product name, brand, or category changes.</span> Separate with commas.</p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Canonical URL</label>
                             <input type="url" name="canonical_url" value="{{ old('canonical_url', $product->canonical_url) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <p class="mt-1 text-xs text-gray-500"><span class="text-green-600">Auto-updated when slug changes.</span> Prevents duplicate content issues.</p>
                         </div>
 
                         <div class="border-t pt-6">
@@ -510,6 +514,21 @@
                         </div>
 
                         <div class="border-t pt-6">
+                            <h4 class="text-md font-semibold mb-4">SEO Checklist</h4>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                                <h5 class="font-medium text-blue-800 mb-2">✅ SEO Best Practices Checklist:</h5>
+                                <ul class="text-sm text-blue-700 space-y-1">
+                                    <li>• Product name is descriptive and includes main keywords</li>
+                                    <li>• Short description summarizes key benefits (used for meta description)</li>
+                                    <li>• Main image has descriptive alt text</li>
+                                    <li>• Gallery images have unique alt text for each image</li>
+                                    <li>• Product specifications are detailed and accurate</li>
+                                    <li>• Tags include relevant search terms</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="border-t pt-6">
                             <h4 class="text-md font-semibold mb-4">Search Engine Visibility</h4>
                             
                             <div id="indexable-warning" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4" style="display: none;">
@@ -522,6 +541,16 @@
                                 <input type="checkbox" id="indexable-checkbox" name="indexable" value="1" {{ old('indexable', $product->indexable) ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 h-5 w-5">
                                 <span class="ml-3 text-sm font-medium text-gray-700">Allow search engines to index this product</span>
                             </label>
+                            
+                            <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-600">
+                                    <strong>Sitemap Priority Guide:</strong><br>
+                                    • 1.0 = Most important (featured/bestseller products)<br>
+                                    • 0.8 = High priority (new/popular products)<br>
+                                    • 0.5 = Normal priority (regular products)<br>
+                                    • 0.3 = Lower priority (older/discontinued items)
+                                </p>
+                            </div>
                             
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
