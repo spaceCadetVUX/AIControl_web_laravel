@@ -175,8 +175,6 @@ class DashboardController extends Controller
             'og_title' => 'nullable|string|max:255',
             'og_description' => 'nullable|string|max:500',
             'structured_data' => 'nullable|string',
-            'sitemap_priority' => 'nullable|numeric|min:0|max:1',
-            'sitemap_changefreq' => 'nullable|in:always,hourly,daily,weekly,monthly,yearly,never',
             'indexable' => 'nullable|boolean',
             'status' => 'nullable|in:draft,published,archived',
             'visibility' => 'nullable|in:visible,hidden',
@@ -332,6 +330,11 @@ class DashboardController extends Controller
 
         $product = \App\Models\Product::create($validated);
         
+        // Sync categories if provided
+        if ($request->has('category_ids')) {
+            $product->categories()->sync($request->category_ids);
+        }
+        
         $message = $request->action === 'publish' ? 'Product published successfully!' : 'Product saved as draft!';
         return redirect()->route('admin.products')->with('success', $message);
         
@@ -419,8 +422,6 @@ class DashboardController extends Controller
                 'og_title' => 'nullable|string|max:255',
                 'og_description' => 'nullable|string|max:500',
                 'structured_data' => 'nullable|string',
-                'sitemap_priority' => 'nullable|numeric|min:0|max:1',
-                'sitemap_changefreq' => 'nullable|in:always,hourly,daily,weekly,monthly,yearly,never',
                 'indexable' => 'nullable|boolean',
                 'status' => 'nullable|in:draft,published,archived',
                 'visibility' => 'nullable|in:visible,hidden',
@@ -562,6 +563,11 @@ class DashboardController extends Controller
             
             $product->update($validated);
             
+            // Sync categories if provided
+            if ($request->has('category_ids')) {
+                $product->categories()->sync($request->category_ids);
+            }
+            
             // Log after update
             \Illuminate\Support\Facades\Log::info('After Update', [
                 'product_after' => $product->fresh()->toArray()
@@ -684,6 +690,226 @@ class DashboardController extends Controller
         $brand->delete();
         
         return redirect()->route('admin.brands')->with('success', 'Brand deleted successfully!');
+    }
+
+    /**
+     * Manage Categories
+     */
+    public function categories()
+    {
+        $categories = \App\Models\Category::with('children', 'parent')
+                                         ->roots()
+                                         ->orderBy('order')
+                                         ->orderBy('name')
+                                         ->get();
+        return view('admin.categories', compact('categories'));
+    }
+
+    /**
+     * Show create category form
+     */
+    public function createCategory(Request $request)
+    {
+        $parentCategories = \App\Models\Category::active()
+                                                ->roots()
+                                                ->orderBy('name')
+                                                ->get();
+        $parentId = $request->get('parent');
+        return view('admin.categories-create', compact('parentCategories', 'parentId'));
+    }
+
+    /**
+     * Store new category
+     */
+    public function storeCategory(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:categories,id',
+            'status' => 'nullable|boolean',
+            'order' => 'nullable|integer|min:0',
+        ]);
+
+        $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+        $validated['status'] = $request->has('status') ? 1 : 0;
+        $validated['order'] = $request->order ?? 0;
+        
+        \App\Models\Category::create($validated);
+        
+        return redirect()->route('admin.categories')->with('success', 'Category created successfully!');
+    }
+
+    /**
+     * Show edit category form
+     */
+    public function editCategory(\App\Models\Category $category)
+    {
+        $parentCategories = \App\Models\Category::active()
+                                                ->roots()
+                                                ->where('id', '!=', $category->id)
+                                                ->orderBy('name')
+                                                ->get();
+        return view('admin.categories-edit', compact('category', 'parentCategories'));
+    }
+
+    /**
+     * Update category
+     */
+    public function updateCategory(Request $request, \App\Models\Category $category)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:categories,id',
+            'status' => 'nullable|boolean',
+            'order' => 'nullable|integer|min:0',
+        ]);
+
+        // Prevent setting self as parent
+        if ($request->parent_id == $category->id) {
+            return back()->withErrors(['parent_id' => 'A category cannot be its own parent.'])->withInput();
+        }
+
+        if ($request->name !== $category->name) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
+        }
+        
+        $validated['status'] = $request->has('status') ? 1 : 0;
+        $validated['order'] = $request->order ?? 0;
+        
+        $category->update($validated);
+        
+        return redirect()->route('admin.categories')->with('success', 'Category updated successfully!');
+    }
+
+    /**
+     * Delete category
+     */
+    public function deleteCategory(\App\Models\Category $category)
+    {
+        // Check if category has products
+        if ($category->products()->count() > 0) {
+            return back()->with('error', 'Cannot delete category with associated products. Please reassign or remove products first.');
+        }
+
+        // Check if category has child categories
+        if ($category->children()->count() > 0) {
+            return back()->with('error', 'Cannot delete category with subcategories. Please delete or reassign subcategories first.');
+        }
+
+        $category->delete();
+        
+        return redirect()->route('admin.categories')->with('success', 'Category deleted successfully!');
+    }
+
+    /**
+     * Display blog categories management
+     */
+    public function blogCategories()
+    {
+        $rootCategories = \App\Models\BlogCategory::roots()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
+
+        return view('admin.blog-categories', compact('rootCategories'));
+    }
+
+    /**
+     * Show form to create a new blog category
+     */
+    public function createBlogCategory(Request $request)
+    {
+        $parentId = $request->get('parent');
+        $parentCategory = $parentId ? \App\Models\BlogCategory::find($parentId) : null;
+        
+        return view('admin.blog-categories-create', compact('parentCategory'));
+    }
+
+    /**
+     * Store a new blog category
+     */
+    public function storeBlogCategory(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:blog_categories,name',
+            'slug' => 'nullable|string|max:255|unique:blog_categories,slug',
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:blog_categories,id',
+            'status' => 'required|boolean',
+            'order' => 'required|integer|min:0',
+        ]);
+
+        // Auto-generate slug if not provided
+        if (empty($validated['slug'])) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        }
+
+        \App\Models\BlogCategory::create($validated);
+
+        $redirectRoute = $request->parent_id 
+            ? route('admin.blog-categories') 
+            : route('admin.blog-categories');
+
+        return redirect($redirectRoute)->with('success', 'Blog category created successfully!');
+    }
+
+    /**
+     * Show form to edit a blog category
+     */
+    public function editBlogCategory(\App\Models\BlogCategory $blogCategory)
+    {
+        // Get all categories except current and its children for parent selection
+        $availableParents = \App\Models\BlogCategory::where('id', '!=', $blogCategory->id)
+            ->whereNull('parent_id')
+            ->get();
+
+        return view('admin.blog-categories-edit', compact('blogCategory', 'availableParents'));
+    }
+
+    /**
+     * Update a blog category
+     */
+    public function updateBlogCategory(Request $request, \App\Models\BlogCategory $blogCategory)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:blog_categories,name,' . $blogCategory->id,
+            'slug' => 'required|string|max:255|unique:blog_categories,slug,' . $blogCategory->id,
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:blog_categories,id',
+            'status' => 'required|boolean',
+            'order' => 'required|integer|min:0',
+        ]);
+
+        // Prevent setting itself as parent
+        if ($validated['parent_id'] == $blogCategory->id) {
+            return back()->with('error', 'A category cannot be its own parent.');
+        }
+
+        $blogCategory->update($validated);
+
+        return redirect()->route('admin.blog-categories')->with('success', 'Blog category updated successfully!');
+    }
+
+    /**
+     * Delete a blog category
+     */
+    public function deleteBlogCategory(\App\Models\BlogCategory $blogCategory)
+    {
+        // Check if category has blogs
+        if ($blogCategory->blogs()->count() > 0) {
+            return back()->with('error', 'Cannot delete category with associated blogs. Please reassign or remove blogs first.');
+        }
+
+        // Check if category has child categories
+        if ($blogCategory->children()->count() > 0) {
+            return back()->with('error', 'Cannot delete category with subcategories. Please delete or reassign subcategories first.');
+        }
+
+        $blogCategory->delete();
+        
+        return redirect()->route('admin.blog-categories')->with('success', 'Blog category deleted successfully!');
     }
 
     /**

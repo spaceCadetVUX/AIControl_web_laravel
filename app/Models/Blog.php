@@ -73,6 +73,14 @@ class Blog extends Model
     }
 
     /**
+     * Relationship with blog categories (many-to-many)
+     */
+    public function blogCategories()
+    {
+        return $this->belongsToMany(BlogCategory::class, 'blog_blog_category');
+    }
+
+    /**
      * Scope for published blogs only
      */
     public function scopePublished($query)

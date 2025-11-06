@@ -109,6 +109,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/brands/{brand}', [DashboardController::class, 'updateBrand'])->name('brands.update');
     Route::delete('/brands/{brand}', [DashboardController::class, 'deleteBrand'])->name('brands.delete');
 
+    // Manage categories
+    Route::get('/categories', [DashboardController::class, 'categories'])->name('categories');
+    Route::get('/categories/create', [DashboardController::class, 'createCategory'])->name('categories.create');
+    Route::post('/categories', [DashboardController::class, 'storeCategory'])->name('categories.store');
+    Route::get('/categories/{category}/edit', [DashboardController::class, 'editCategory'])->name('categories.edit');
+    Route::put('/categories/{category}', [DashboardController::class, 'updateCategory'])->name('categories.update');
+    Route::delete('/categories/{category}', [DashboardController::class, 'deleteCategory'])->name('categories.delete');
+
+    // Manage blog categories
+    Route::get('/blog-categories', [DashboardController::class, 'blogCategories'])->name('blog-categories');
+    Route::get('/blog-categories/create', [DashboardController::class, 'createBlogCategory'])->name('blog-categories.create');
+    Route::post('/blog-categories', [DashboardController::class, 'storeBlogCategory'])->name('blog-categories.store');
+    Route::get('/blog-categories/{blogCategory}/edit', [DashboardController::class, 'editBlogCategory'])->name('blog-categories.edit');
+    Route::put('/blog-categories/{blogCategory}', [DashboardController::class, 'updateBlogCategory'])->name('blog-categories.update');
+    Route::delete('/blog-categories/{blogCategory}', [DashboardController::class, 'deleteBlogCategory'])->name('blog-categories.delete');
+
     // Manage blogs
     Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
     Route::post('/blogs/upload-image', [\App\Http\Controllers\Admin\BlogController::class, 'uploadImage'])->name('blogs.upload-image');

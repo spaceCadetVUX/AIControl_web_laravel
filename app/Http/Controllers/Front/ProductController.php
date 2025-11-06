@@ -30,14 +30,38 @@ class ProductController extends Controller
             $query->whereIn('brand', $brands);
         }
 
-        // Filter by categories
+        // Filter by categories (using relationship)
+        // If a product is assigned to a root category, it should appear when filtering by any of its subcategories
         if ($request->has('category') && $request->category) {
-            $categories = explode(',', $request->category);
-            $query->where(function($q) use ($categories) {
-                foreach ($categories as $category) {
-                    $q->orWhere('categories', 'LIKE', '%' . $category . '%');
+            $categoryIds = array_filter(explode(',', $request->category));
+            if (!empty($categoryIds)) {
+                // Get all selected categories
+                $selectedCategories = \App\Models\Category::whereIn('id', $categoryIds)->get();
+                
+                // Build array of category IDs to search for
+                $searchCategoryIds = [];
+                
+                foreach ($selectedCategories as $category) {
+                    // Add the selected category itself
+                    $searchCategoryIds[] = $category->id;
+                    
+                    // If it's a subcategory, also include its parent
+                    // This way products assigned to parent will show when filtering by child
+                    if ($category->parent_id) {
+                        $searchCategoryIds[] = $category->parent_id;
+                    }
+                    
+                    // If it's a root category, products assigned to it should show
+                    // (already included above)
                 }
-            });
+                
+                // Remove duplicates
+                $searchCategoryIds = array_unique($searchCategoryIds);
+                
+                $query->whereHas('categories', function($q) use ($searchCategoryIds) {
+                    $q->whereIn('categories.id', $searchCategoryIds);
+                });
+            }
         }
 
         // Search by keyword
@@ -79,7 +103,15 @@ class ProductController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('front.shop', compact('products', 'brands'));
+        // Get all active categories for the filter sidebar
+        $categories = \App\Models\Category::active()
+            ->with('children')
+            ->roots()
+            ->orderBy('order')
+            ->orderBy('name')
+            ->get();
+
+        return view('front.shop', compact('products', 'brands', 'categories'));
     }
 
     /**

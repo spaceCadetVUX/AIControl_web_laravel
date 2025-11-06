@@ -124,47 +124,48 @@
                                                 </ul>
                                             </div>
 
-                                            <!-- Filter: Điều khiển -->
+                                            <!-- Filter: Phân loại (Categories) -->
                                             <div class="sidebar-widget">
                                                 <h3 class="widget-title">
-                                                    <i class="fal fa-list"></i> Điều khiển
+                                                    <i class="fal fa-list"></i> Phân loại
                                                 </h3>
                                                 <ul class="filter-list">
                                                     @php
                                                         $selectedCategories = request('category') ? explode(',', request('category')) : [];
                                                     @endphp
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="category[]" value="Chiếu sáng" {{ in_array('Chiếu sáng', $selectedCategories) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            <i class="fal fa-lightbulb"></i> Chiếu sáng
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="category[]" value="Rèm cửa" {{ in_array('Rèm cửa', $selectedCategories) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            <i class="fal fa-blinds"></i> Rèm Tự động
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="category[]" value="HVAC" {{ in_array('HVAC', $selectedCategories) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            <i class="fal fa-temperature-high"></i> HVAC
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="filter-checkbox">
-                                                            <input type="checkbox" name="category[]" value="Cảm biến" {{ in_array('Cảm biến', $selectedCategories) ? 'checked' : '' }}>
-                                                            <span class="checkmark"></span>
-                                                            <i class="fal fa-sensor"></i> Cảm biến
-                                                        </label>
-                                                    </li>
+                                                    @foreach($categories ?? [] as $rootCategory)
+                                                        <li>
+                                                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                                                <label class="filter-checkbox" style="flex: 1;">
+                                                                    <input type="checkbox" name="category[]" value="{{ $rootCategory->id }}" {{ in_array($rootCategory->id, $selectedCategories) ? 'checked' : '' }}>
+                                                                    <span class="checkmark"></span>
+                                                                    <i class="fal fa-folder"></i> <span style="font-weight: 700">{{ $rootCategory->name }}</span>
+                                                                    <span class="count">({{ $rootCategory->total_product_count }})</span>
+                                                                </label>
+                                                                @if($rootCategory->children->count() > 0)
+                                                                    <button type="button" class="category-toggle" data-category-id="{{ $rootCategory->id }}" style="background: none; border: none; cursor: pointer; padding: 5px; color: #666;">
+                                                                        <i class="fal fa-chevron-down"></i>
+                                                                    </button>
+                                                                @endif
+                                                            </div>
+                                                            @if($rootCategory->children->count() > 0)
+                                                                <ul class="subcategory-list" id="subcategory-{{ $rootCategory->id }}" style="margin-left: 20px; list-style: none; display: block;">
+                                                                    @foreach($rootCategory->children as $child)
+                                                                        <li>
+                                                                            <label class="filter-checkbox">
+                                                                                <input type="checkbox" name="category[]" value="{{ $child->id }}" {{ in_array($child->id, $selectedCategories) ? 'checked' : '' }}>
+                                                                                <span class="checkmark"></span>
+                                                                                {{ $child->name }}
+                                                                                <span class="count">({{ $child->product_count }})</span>
+                                                                            </label>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
-                                            </div>
-
-                                            <!-- Hidden field for search query -->
+                                            </div>                                            <!-- Hidden field for search query -->
                                             @if(request('q'))
                                                 <input type="hidden" name="q" value="{{ request('q') }}">
                                             @endif
@@ -415,6 +416,24 @@
                 if (!$(e.target).closest('.tp-offcanvas-2-area, .tp-offcanvas-open-btn').length) {
                     $offcanvas.removeClass('opened');
                     $body.removeClass('offcanvas-opened');
+                }
+            });
+
+            // Category expand/collapse toggle
+            $('.category-toggle').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const categoryId = $(this).data('category-id');
+                const $subcategoryList = $('#subcategory-' + categoryId);
+                const $icon = $(this).find('i');
+                
+                if ($subcategoryList.is(':visible')) {
+                    $subcategoryList.slideUp(200);
+                    $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                } else {
+                    $subcategoryList.slideDown(200);
+                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
                 }
             });
         });

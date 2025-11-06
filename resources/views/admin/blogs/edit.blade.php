@@ -91,6 +91,41 @@
                             </div>
                         </div>
 
+                        <!-- Blog Categories (Checkboxes) -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Blog Categories</label>
+                            <div class="border rounded-md p-4 bg-gray-50 max-h-64 overflow-y-auto">
+                                @if($blogCategories->count() > 0)
+                                    @foreach($blogCategories as $rootCategory)
+                                        <div class="mb-3">
+                                            <label class="flex items-center font-medium text-gray-700">
+                                                <input type="checkbox" name="blog_categories[]" value="{{ $rootCategory->id }}" 
+                                                       {{ in_array($rootCategory->id, old('blog_categories', $blog->blogCategories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                                       class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <i class="fas fa-folder ml-2 text-blue-600"></i>
+                                                <span class="ml-2">{{ $rootCategory->name }}</span>
+                                            </label>
+                                            @if($rootCategory->children->count() > 0)
+                                                <div class="ml-8 mt-2 space-y-2">
+                                                    @foreach($rootCategory->children as $child)
+                                                        <label class="flex items-center text-gray-600">
+                                                            <input type="checkbox" name="blog_categories[]" value="{{ $child->id }}" 
+                                                                   {{ in_array($child->id, old('blog_categories', $blog->blogCategories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                                                   class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                            <span class="ml-2">{{ $child->name }}</span>
+                                                        </label>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <p class="text-sm text-gray-500 italic">No blog categories available. <a href="{{ route('admin.blog-categories.create') }}" class="text-blue-600 hover:text-blue-800">Create one</a></p>
+                                @endif
+                            </div>
+                            <p class="mt-1 text-xs text-gray-500">Select one or more categories for this blog post</p>
+                        </div>
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Excerpt / Short Description *</label>
                             <textarea name="excerpt" rows="3" required 

@@ -23,7 +23,7 @@ class Product extends Model
         'meta_title', 'meta_description', 'meta_keywords', 'canonical_url',
         'og_image', 'og_title', 'og_description', 'structured_data',
         'view_count', 'click_count', 'search_count', 'order_count', 'rating', 'review_count',
-        'sitemap_priority', 'sitemap_changefreq', 'indexable', 'last_crawled_at',
+        'indexable',
         'status', 'visibility', 'featured', 'is_new', 'is_bestseller', 'language',
         'custom_fields', 'published_at'
     ];
@@ -46,7 +46,6 @@ class Product extends Model
         'is_bestseller' => 'boolean',
         'indexable' => 'boolean',
         'published_at' => 'datetime',
-        'last_crawled_at' => 'datetime',
     ];
 
     // Accessor for full image URL
@@ -71,5 +70,11 @@ class Product extends Model
     public function scopeByBrand($query, $brand)
     {
         return $query->where('brand', $brand);
+    }
+
+    // Relationship with categories (many-to-many)
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_product');
     }
 }

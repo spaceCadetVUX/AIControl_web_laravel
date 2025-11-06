@@ -72,7 +72,14 @@ class BlogController extends Controller
             ->unique()
             ->values();
 
-        return view('admin.blogs.create', compact('categories', 'allTags'));
+        // Get blog categories
+        $blogCategories = \App\Models\BlogCategory::roots()
+            ->active()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
+
+        return view('admin.blogs.create', compact('categories', 'allTags', 'blogCategories'));
     }
 
     /**
@@ -138,6 +145,11 @@ class BlogController extends Controller
 
         $blog = Blog::create($validated);
 
+        // Sync blog categories
+        if ($request->has('blog_categories')) {
+            $blog->blogCategories()->sync($request->blog_categories);
+        }
+
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Bài viết đã được tạo thành công!');
     }
@@ -169,7 +181,14 @@ class BlogController extends Controller
             ->unique()
             ->values();
 
-        return view('admin.blogs.edit', compact('blog', 'categories', 'allTags'));
+        // Get blog categories
+        $blogCategories = \App\Models\BlogCategory::roots()
+            ->active()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
+
+        return view('admin.blogs.edit', compact('blog', 'categories', 'allTags', 'blogCategories'));
     }
 
     /**
@@ -230,6 +249,13 @@ class BlogController extends Controller
         $validated['indexable'] = $request->has('indexable') ? true : true;
 
         $blog->update($validated);
+
+        // Sync blog categories
+        if ($request->has('blog_categories')) {
+            $blog->blogCategories()->sync($request->blog_categories);
+        } else {
+            $blog->blogCategories()->sync([]);
+        }
 
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Bài viết đã được cập nhật thành công!');

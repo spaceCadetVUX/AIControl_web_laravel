@@ -93,6 +93,40 @@
                         </div>
 
                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+                            <div class="border border-gray-300 rounded-md p-4 max-h-96 overflow-y-auto bg-gray-50">
+                                @foreach(\App\Models\Category::active()->roots()->orderBy('order')->orderBy('name')->get() as $rootCategory)
+                                    <div class="mb-3">
+                                        <label class="flex items-center space-x-2 font-medium text-gray-700">
+                                            <input type="checkbox" name="category_ids[]" value="{{ $rootCategory->id }}" 
+                                                {{ in_array($rootCategory->id, old('category_ids', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                            <i class="fas fa-folder text-blue-600"></i>
+                                            <span>{{ $rootCategory->name }}</span>
+                                        </label>
+                                        @if($rootCategory->children->count() > 0)
+                                            <div class="ml-8 mt-2 space-y-2">
+                                                @foreach($rootCategory->children as $child)
+                                                    <label class="flex items-center space-x-2 text-gray-600">
+                                                        <input type="checkbox" name="category_ids[]" value="{{ $child->id }}" 
+                                                            {{ in_array($child->id, old('category_ids', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                                            class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                        <i class="fas fa-angle-right text-gray-400"></i>
+                                                        <span>{{ $child->name }}</span>
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                            @error('category_ids') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                            <p class="mt-1 text-xs text-gray-500">
+                                Select one or more categories. <a href="{{ route('admin.categories.create') }}" target="_blank" class="text-blue-600 hover:text-blue-800">Add a new category</a>
+                            </p>
+                        </div>
+
+                        <div>
                             <label class="block text-sm font-medium text-gray-700">Function Category</label>
                             <input type="text" name="function_category" value="{{ old('function_category', $product->function_category) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
@@ -667,13 +701,6 @@
                             <div class="text-sm text-gray-600">Last Updated</div>
                             <div class="text-lg font-semibold">{{ $product->updated_at->format('M d, Y H:i:s') }}</div>
                         </div>
-
-                        @if($product->last_crawled_at)
-                        <div>
-                            <div class="text-sm text-gray-600">Last Crawled At</div>
-                            <div class="text-lg font-semibold">{{ date('M d, Y H:i:s', strtotime($product->last_crawled_at)) }}</div>
-                        </div>
-                        @endif
 
                         @if($product->old_slug)
                         <div>

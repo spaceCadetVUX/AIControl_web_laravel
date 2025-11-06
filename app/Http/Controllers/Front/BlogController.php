@@ -18,13 +18,20 @@ class BlogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(9);
 
-        // Get all categories for sidebar
+        // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)
             ->whereNotNull('category')
             ->select('category')
             ->groupBy('category')
             ->get()
             ->pluck('category');
+
+        // Get blog categories (new structured categories)
+        $blogCategories = \App\Models\BlogCategory::roots()
+            ->active()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
 
         // Get all tags for sidebar
         $allTags = Blog::where('is_published', true)
@@ -41,7 +48,7 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        return view('front.blogs', compact('blogs', 'categories', 'allTags', 'latestPosts'));
+        return view('front.blogs', compact('blogs', 'categories', 'blogCategories', 'allTags', 'latestPosts'));
     }
 
     /**
@@ -101,13 +108,20 @@ class BlogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(9);
 
-        // Get all categories for sidebar
+        // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)
             ->whereNotNull('category')
             ->select('category')
             ->groupBy('category')
             ->get()
             ->pluck('category');
+
+        // Get blog categories (new structured categories)
+        $blogCategories = \App\Models\BlogCategory::roots()
+            ->active()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
 
         // Get all tags for sidebar
         $allTags = Blog::where('is_published', true)
@@ -124,7 +138,7 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        return view('front.blogs', compact('blogs', 'categories', 'allTags', 'latestPosts', 'category'));
+        return view('front.blogs', compact('blogs', 'categories', 'blogCategories', 'allTags', 'latestPosts', 'category'));
     }
 
     /**
@@ -144,13 +158,20 @@ class BlogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(9);
 
-        // Get all categories for sidebar
+        // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)
             ->whereNotNull('category')
             ->select('category')
             ->groupBy('category')
             ->get()
             ->pluck('category');
+
+        // Get blog categories (new structured categories)
+        $blogCategories = \App\Models\BlogCategory::roots()
+            ->active()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
 
         // Get all tags for sidebar
         $allTags = Blog::where('is_published', true)
@@ -167,6 +188,6 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        return view('front.blogs', compact('blogs', 'categories', 'allTags', 'latestPosts', 'searchTerm'));
+        return view('front.blogs', compact('blogs', 'categories', 'blogCategories', 'allTags', 'latestPosts', 'searchTerm'));
     }
 }

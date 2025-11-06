@@ -224,6 +224,72 @@
                                             </div>
                                         </div>
 
+                                        <!-- Mobile Filter Toggle Button -->
+                                        <button id="mobile-filter-toggle" class="btn btn-primary w-100 mb-3 d-md-none" type="button" style="background: #6c63ff; border: none; padding: 12px; border-radius: 8px; font-weight: 600;">
+                                            <i class="fas fa-filter"></i> Lọc theo danh mục
+                                        </button>
+
+                                        <!-- Blog Categories Widget (New Structured) -->
+                                        @if(isset($blogCategories) && $blogCategories->count() > 0)
+                                        <div id="blog-categories-widget" class="sidebar-widget sidebar-widget-box mb-40">
+                                            <h3 class="sidebar-widget-title sidebar-widget-title-styled mb-25">
+                                                Danh mục bài viết
+                                            </h3>
+                                            <form id="blog-category-filter-form" method="GET" action="{{ route('blog.index') }}">
+                                                <div class="blog-categories-filter" style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                                                    @foreach($blogCategories as $rootCategory)
+                                                        <div class="category-group" style="margin-bottom: 15px;">
+                                                            <!-- Root Category Checkbox -->
+                                                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                                                <label style="display: flex; align-items: center; cursor: pointer; font-weight: 600; color: #333; margin: 0; flex: 1;">
+                                                                    <input type="checkbox" name="blog_category[]" value="{{ $rootCategory->id }}" 
+                                                                           class="category-checkbox" 
+                                                                           {{ in_array($rootCategory->id, request('blog_category', [])) ? 'checked' : '' }}
+                                                                           style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
+                                                                    <i class="fas fa-folder" style="margin-right: 6px; color: #6c63ff;"></i>
+                                                                    <span class="category-name">{{ $rootCategory->name }}</span>
+                                                                </label>
+                                                                <span class="badge" style="background: #6c63ff; color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; min-width: 28px; text-align: center;">
+                                                                    {{ $rootCategory->total_blog_count }}
+                                                                </span>
+                                                            </div>
+                                                            
+                                                            <!-- Subcategories Checkboxes -->
+                                                            @if($rootCategory->children->count() > 0)
+                                                                <div class="subcategories" style="padding-left: 28px; margin-top: 5px;">
+                                                                    @foreach($rootCategory->children as $child)
+                                                                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                                                            <label style="display: flex; align-items: center; cursor: pointer; color: #666; margin: 0; font-size: 14px; flex: 1;">
+                                                                                <input type="checkbox" name="blog_category[]" value="{{ $child->id }}" 
+                                                                                       class="category-checkbox"
+                                                                                       {{ in_array($child->id, request('blog_category', [])) ? 'checked' : '' }}
+                                                                                       style="margin-right: 8px; cursor: pointer; width: 16px; height: 16px;">
+                                                                                <span class="category-name">{{ $child->name }}</span>
+                                                                            </label>
+                                                                            <span class="badge" style="background: #6c757d; color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; min-width: 24px; text-align: center;">
+                                                                                {{ $child->blog_count }}
+                                                                            </span>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                
+                                                <!-- Action Buttons -->
+                                                <div class="filter-actions" style="display: flex; gap: 10px; margin-top: 15px;">
+                                                    <button type="submit" class="btn btn-primary" style="flex: 1; background: #6c63ff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; color: white; cursor: pointer; transition: all 0.3s;">
+                                                        <i class="fas fa-check"></i> Áp dụng
+                                                    </button>
+                                                    <button type="button" id="clear-filters" class="btn btn-secondary" style="flex: 1; background: #6c757d; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; color: white; cursor: pointer; transition: all 0.3s;">
+                                                        <i class="fas fa-times"></i> Xóa bộ lọc
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        @endif
+
                                         <!-- Categories Widget -->
                                         @if($categories && $categories->count() > 0)
                                         <div class="sidebar-widget sidebar-widget-box mb-40">
@@ -357,6 +423,177 @@
         <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+
+        <!-- Blog Category Filter Script -->
+        <script>
+        $(document).ready(function() {
+            // Mobile filter toggle
+            $('#mobile-filter-toggle').on('click', function() {
+                $('#blog-categories-widget').slideToggle(300);
+                $(this).find('i').toggleClass('fa-filter fa-times');
+            });
+
+            // Clear filters button
+            $('#clear-filters').on('click', function() {
+                $('.category-checkbox').prop('checked', false);
+                window.location.href = '{{ route('blog.index') }}';
+            });
+
+            // Button hover effects
+            $('.filter-actions button').hover(
+                function() {
+                    $(this).css('transform', 'translateY(-2px)');
+                    $(this).css('box-shadow', '0 4px 12px rgba(0,0,0,0.15)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                    $(this).css('box-shadow', 'none');
+                }
+            );
+
+            // Auto-hide filters on mobile after page load
+            if ($(window).width() < 768) {
+                $('#blog-categories-widget').hide();
+            }
+
+            // Show/hide on window resize
+            $(window).resize(function() {
+                if ($(window).width() >= 768) {
+                    $('#blog-categories-widget').show();
+                    $('#mobile-filter-toggle').hide();
+                } else {
+                    $('#mobile-filter-toggle').show();
+                    // Only hide if not explicitly shown by user
+                    if (!$('#blog-categories-widget').hasClass('user-toggled')) {
+                        $('#blog-categories-widget').hide();
+                    }
+                }
+            });
+
+            // Track user toggle
+            $('#mobile-filter-toggle').on('click', function() {
+                $('#blog-categories-widget').toggleClass('user-toggled');
+            });
+        });
+        </script>
+
+        <!-- Responsive Styles -->
+        <style>
+            /* Desktop styles */
+            @media (min-width: 768px) {
+                #mobile-filter-toggle {
+                    display: none !important;
+                }
+                #blog-categories-widget {
+                    display: block !important;
+                }
+            }
+
+            /* Mobile styles */
+            @media (max-width: 767px) {
+                #blog-categories-widget {
+                    animation: slideDown 0.3s ease-out;
+                }
+                
+                .blog-categories-filter {
+                    max-height: 400px;
+                    overflow-y: auto;
+                }
+
+                .category-group {
+                    padding: 8px 0;
+                }
+
+                .category-name {
+                    font-size: 14px !important;
+                }
+
+                .filter-actions {
+                    position: sticky;
+                    bottom: 0;
+                    background: white;
+                    padding: 10px;
+                    margin: -15px -15px 0 -15px;
+                    border-top: 1px solid #dee2e6;
+                }
+
+                .filter-actions button {
+                    font-size: 14px !important;
+                    padding: 8px 16px !important;
+                }
+
+                #mobile-filter-toggle {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                #mobile-filter-toggle::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.3);
+                    transform: translate(-50%, -50%);
+                    transition: width 0.6s, height 0.6s;
+                }
+
+                #mobile-filter-toggle:active::after {
+                    width: 300px;
+                    height: 300px;
+                }
+            }
+
+            /* Tablet styles */
+            @media (min-width: 768px) and (max-width: 991px) {
+                .category-name {
+                    font-size: 13px !important;
+                }
+
+                .badge {
+                    font-size: 10px !important;
+                    padding: 2px 6px !important;
+                }
+            }
+
+            /* Animation */
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Checkbox styling */
+            .category-checkbox {
+                accent-color: #6c63ff;
+            }
+
+            /* Smooth scrollbar */
+            .blog-categories-filter::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .blog-categories-filter::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 3px;
+            }
+
+            .blog-categories-filter::-webkit-scrollbar-thumb {
+                background: #6c63ff;
+                border-radius: 3px;
+            }
+
+            .blog-categories-filter::-webkit-scrollbar-thumb:hover {
+                background: #5648d9;
+            }
+        </style>
 
     </body>
 </html>
