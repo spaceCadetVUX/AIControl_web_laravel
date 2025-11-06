@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -991,5 +992,397 @@ class DashboardController extends Controller
                 'message' => 'Upload failed: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    // ==================== PROJECT CATEGORIES ====================
+    
+    /**
+     * Display project categories
+     */
+    public function projectCategories()
+    {
+        $categories = \App\Models\ProjectCategory::orderBy('order')->orderBy('name')->paginate(15);
+        return view('admin.project-categories', compact('categories'));
+    }
+
+    /**
+     * Show create project category form
+     */
+    public function createProjectCategory()
+    {
+        return view('admin.project-categories-create');
+    }
+
+    /**
+     * Store new project category
+     */
+    public function storeProjectCategory(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:project_categories,slug',
+            'description' => 'nullable|string',
+            'icon' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
+        ]);
+
+        // Auto-generate slug if empty
+        if (empty($validated['slug'])) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        }
+
+        // Handle checkbox status - checked = 'active', unchecked = 'inactive'
+        $validated['status'] = $request->has('status') ? 'active' : 'inactive';
+
+        \App\Models\ProjectCategory::create($validated);
+
+        return redirect()->route('admin.project-categories')->with('success', 'Project category created successfully!');
+    }
+
+    /**
+     * Show edit project category form
+     */
+    public function editProjectCategory($id)
+    {
+        $category = \App\Models\ProjectCategory::findOrFail($id);
+        return view('admin.project-categories-edit', compact('category'));
+    }
+
+    /**
+     * Update project category
+     */
+    public function updateProjectCategory(Request $request, $id)
+    {
+        $category = \App\Models\ProjectCategory::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:project_categories,slug,' . $id,
+            'description' => 'nullable|string',
+            'icon' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
+        ]);
+
+        // Handle checkbox status - checked = 'active', unchecked = 'inactive'
+        $validated['status'] = $request->has('status') ? 'active' : 'inactive';
+
+        $category->update($validated);
+
+        return redirect()->route('admin.project-categories')->with('success', 'Project category updated successfully!');
+    }
+
+    /**
+     * Delete project category
+     */
+    public function deleteProjectCategory($id)
+    {
+        $category = \App\Models\ProjectCategory::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('admin.project-categories')->with('success', 'Project category deleted successfully!');
+    }
+
+    // ==================== PROJECTS ====================
+    
+    /**
+     * Display projects
+     */
+    public function projects()
+    {
+        $projects = \App\Models\Project::with(['category', 'categorySecondary'])
+            ->orderBy('order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+        
+        return view('admin.projects', compact('projects'));
+    }
+
+    /**
+     * Show create project form
+     */
+    public function createProject()
+    {
+        $categories = \App\Models\ProjectCategory::active()->ordered()->get();
+        return view('admin.projects-create', compact('categories'));
+    }
+
+    /**
+     * Store new project
+     */
+    public function storeProject(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:projects,slug',
+            'short_description' => 'nullable|string|max:500',
+            'project_category_id' => 'nullable|exists:project_categories,id',
+            'project_category_id_2' => 'nullable|exists:project_categories,id',
+            'detail_1_title' => 'nullable|string|max:255',
+            'detail_1_value' => 'nullable|string|max:255',
+            'detail_2_title' => 'nullable|string|max:255',
+            'detail_2_value' => 'nullable|string|max:255',
+            'detail_3_title' => 'nullable|string|max:255',
+            'detail_3_value' => 'nullable|string|max:255',
+            'detail_4_title' => 'nullable|string|max:255',
+            'detail_4_value' => 'nullable|string|max:255',
+            'banner_image' => 'nullable|image|max:2048',
+            'thumbnail_image' => 'nullable|image|max:2048',
+            'overview_title' => 'nullable|string|max:255',
+            'overview_content' => 'nullable|string',
+            'slider_images' => 'nullable|array',
+            'secondary_title' => 'nullable|string|max:255',
+            'detail_steps_title' => 'nullable|array',
+            'detail_steps_description' => 'nullable|array',
+            'gallery_image_1' => 'nullable|image|max:2048',
+            'gallery_image_2' => 'nullable|image|max:2048',
+            'gallery_image_3' => 'nullable|image|max:2048',
+            'status' => 'required|in:draft,published',
+            'featured' => 'nullable',
+            'order' => 'nullable|integer',
+            'meta_title' => 'nullable|string|max:70',  // SEO optimal length
+            'meta_description' => 'nullable|string|max:160',  // SEO optimal length
+            'meta_keywords' => 'nullable|string|max:255',
+            'og_image' => 'nullable|image|max:2048',
+            'published_at' => 'nullable|date',
+        ], [
+            'title.required' => 'Vui lòng nhập tiêu đề dự án',
+            'meta_title.max' => 'Meta title không nên quá 70 ký tự (tối ưu SEO)',
+            'meta_description.max' => 'Meta description không nên quá 160 ký tự (tối ưu SEO)',
+            'short_description.max' => 'Mô tả ngắn không nên quá 500 ký tự',
+        ]);
+
+        // Auto-generate slug if empty
+        if (empty($validated['slug'])) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
+        }
+
+        // Handle featured checkbox
+        $validated['featured'] = $request->has('featured') ? 1 : 0;
+
+        // Handle image uploads - all to public/assets/AIcontrol_imgs/AllProjectImgs
+        if ($request->hasFile('banner_image')) {
+            $file = $request->file('banner_image');
+            $filename = time() . '_banner_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+            $validated['banner_image'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+        } else {
+            unset($validated['banner_image']);
+        }
+
+        if ($request->hasFile('thumbnail_image')) {
+            $file = $request->file('thumbnail_image');
+            $filename = time() . '_thumb_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+            $validated['thumbnail_image'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+        } else {
+            unset($validated['thumbnail_image']);
+        }
+
+        if ($request->hasFile('og_image')) {
+            $file = $request->file('og_image');
+            $filename = time() . '_og_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+            $validated['og_image'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+        } else {
+            unset($validated['og_image']);
+        }
+
+        // Handle gallery images
+        for ($i = 1; $i <= 3; $i++) {
+            if ($request->hasFile('gallery_image_' . $i)) {
+                $file = $request->file('gallery_image_' . $i);
+                $filename = time() . '_gallery' . $i . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+                $validated['gallery_image_' . $i] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+            } else {
+                unset($validated['gallery_image_' . $i]);
+            }
+        }
+
+        // Clean up slider_images array (remove empty values)
+        if (isset($validated['slider_images'])) {
+            $validated['slider_images'] = array_filter($validated['slider_images']);
+        }
+
+        // Build detail_steps array from title and description arrays
+        $detailSteps = [];
+        if (isset($validated['detail_steps_title']) && isset($validated['detail_steps_description'])) {
+            $titles = $validated['detail_steps_title'];
+            $descriptions = $validated['detail_steps_description'];
+            
+            for ($i = 0; $i < count($titles); $i++) {
+                if (!empty($titles[$i]) || !empty($descriptions[$i])) {
+                    $detailSteps[] = [
+                        'title' => $titles[$i] ?? '',
+                        'description' => $descriptions[$i] ?? ''
+                    ];
+                }
+            }
+        }
+        $validated['detail_steps'] = $detailSteps;
+
+        // Remove the separate arrays
+        unset($validated['detail_steps_title']);
+        unset($validated['detail_steps_description']);
+
+        \App\Models\Project::create($validated);
+
+        return redirect()->route('admin.projects')->with('success', 'Dự án đã được tạo thành công!');
+    }
+
+    /**
+     * Show edit project form
+     */
+    public function editProject($id)
+    {
+        $project = \App\Models\Project::findOrFail($id);
+        $categories = \App\Models\ProjectCategory::active()->ordered()->get();
+        return view('admin.projects-edit', compact('project', 'categories'));
+    }
+
+    /**
+     * Update project
+     */
+    public function updateProject(Request $request, $id)
+    {
+        $project = \App\Models\Project::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:projects,slug,' . $id,
+            'short_description' => 'nullable|string',
+            'project_category_id' => 'nullable|exists:project_categories,id',
+            'project_category_id_2' => 'nullable|exists:project_categories,id',
+            'detail_1_title' => 'nullable|string|max:255',
+            'detail_1_value' => 'nullable|string|max:255',
+            'detail_2_title' => 'nullable|string|max:255',
+            'detail_2_value' => 'nullable|string|max:255',
+            'detail_3_title' => 'nullable|string|max:255',
+            'detail_3_value' => 'nullable|string|max:255',
+            'detail_4_title' => 'nullable|string|max:255',
+            'detail_4_value' => 'nullable|string|max:255',
+            'banner_image' => 'nullable|image|max:2048',
+            'thumbnail_image' => 'nullable|image|max:2048',
+            'overview_title' => 'nullable|string|max:255',
+            'overview_content' => 'nullable|string',
+            'slider_images' => 'nullable|array',
+            'secondary_title' => 'nullable|string|max:255',
+            'detail_steps_title' => 'nullable|array',
+            'detail_steps_description' => 'nullable|array',
+            'gallery_image_1' => 'nullable|image|max:2048',
+            'gallery_image_2' => 'nullable|image|max:2048',
+            'gallery_image_3' => 'nullable|image|max:2048',
+            'status' => 'required|in:draft,published',
+            'featured' => 'nullable',
+            'order' => 'nullable|integer',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'og_image' => 'nullable|image|max:2048',
+            'published_at' => 'nullable|date',
+        ]);
+
+        // Auto-generate slug if empty
+        if (empty($validated['slug'])) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
+        }
+
+        // Handle featured checkbox
+        $validated['featured'] = $request->has('featured') ? 1 : 0;
+
+        // Handle image uploads - all to public/assets/AIcontrol_imgs/AllProjectImgs
+        if ($request->hasFile('banner_image')) {
+            // Delete old image if exists
+            if ($project->banner_image && file_exists(public_path($project->banner_image))) {
+                unlink(public_path($project->banner_image));
+            }
+            $file = $request->file('banner_image');
+            $filename = time() . '_banner_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+            $validated['banner_image'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+        } else {
+            unset($validated['banner_image']);
+        }
+
+        if ($request->hasFile('thumbnail_image')) {
+            if ($project->thumbnail_image && file_exists(public_path($project->thumbnail_image))) {
+                unlink(public_path($project->thumbnail_image));
+            }
+            $file = $request->file('thumbnail_image');
+            $filename = time() . '_thumb_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+            $validated['thumbnail_image'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+        } else {
+            unset($validated['thumbnail_image']);
+        }
+
+        if ($request->hasFile('og_image')) {
+            if ($project->og_image && file_exists(public_path($project->og_image))) {
+                unlink(public_path($project->og_image));
+            }
+            $file = $request->file('og_image');
+            $filename = time() . '_og_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+            $validated['og_image'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+        } else {
+            unset($validated['og_image']);
+        }
+
+        // Handle gallery images
+        for ($i = 1; $i <= 3; $i++) {
+            if ($request->hasFile('gallery_image_' . $i)) {
+                $oldImage = $project->{'gallery_image_' . $i};
+                if ($oldImage && file_exists(public_path($oldImage))) {
+                    unlink(public_path($oldImage));
+                }
+                $file = $request->file('gallery_image_' . $i);
+                $filename = time() . '_gallery' . $i . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+                $validated['gallery_image_' . $i] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+            } else {
+                unset($validated['gallery_image_' . $i]);
+            }
+        }
+
+        // Clean up slider_images array (remove empty values)
+        if (isset($validated['slider_images'])) {
+            $validated['slider_images'] = array_filter($validated['slider_images']);
+        }
+
+        // Build detail_steps array from title and description arrays
+        $detailSteps = [];
+        if (isset($validated['detail_steps_title']) && isset($validated['detail_steps_description'])) {
+            $titles = $validated['detail_steps_title'];
+            $descriptions = $validated['detail_steps_description'];
+            
+            for ($i = 0; $i < count($titles); $i++) {
+                if (!empty($titles[$i]) || !empty($descriptions[$i])) {
+                    $detailSteps[] = [
+                        'title' => $titles[$i] ?? '',
+                        'description' => $descriptions[$i] ?? ''
+                    ];
+                }
+            }
+        }
+        $validated['detail_steps'] = $detailSteps;
+
+        // Remove the separate arrays
+        unset($validated['detail_steps_title']);
+        unset($validated['detail_steps_description']);
+
+        $project->update($validated);
+
+        return redirect()->route('admin.projects')->with('success', 'Dự án đã được cập nhật!');
+    }
+
+    /**
+     * Delete project
+     */
+    public function deleteProject($id)
+    {
+        $project = \App\Models\Project::findOrFail($id);
+        $project->delete();
+
+        return redirect()->route('admin.projects')->with('success', 'Dự án đã được xóa!');
     }
 }

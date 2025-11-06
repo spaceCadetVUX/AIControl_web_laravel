@@ -231,7 +231,6 @@
 }
 
 .sidebar-search-input button:hover {
-    transform: translateY(-50%) scale(1.05);
     box-shadow: 0 6px 20px rgba(255,87,34,0.4) !important;
 }
 

@@ -49,6 +49,17 @@ Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(f
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 
 // ----------------------------
+// PROJECT PAGES
+// ----------------------------
+use App\Http\Controllers\Front\ProjectController;
+
+Route::controller(ProjectController::class)->prefix('du-an')->name('projects.')->group(function () {
+    Route::get('/', 'index')->name('index'); // /du-an = projects listing
+    Route::get('/danh-muc/{category}', 'byCategory')->name('category'); // /du-an/danh-muc/{slug}
+    Route::get('/{slug}', 'show')->name('show'); // /du-an/{slug} = project detail
+});
+
+// ----------------------------
 // PRODUCT PAGES
 // ----------------------------
 Route::controller(ProductController::class)->group(function () {
@@ -128,6 +139,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Manage blogs
     Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
     Route::post('/blogs/upload-image', [\App\Http\Controllers\Admin\BlogController::class, 'uploadImage'])->name('blogs.upload-image');
+
+    // Manage project categories
+    Route::get('/project-categories', [DashboardController::class, 'projectCategories'])->name('project-categories');
+    Route::get('/project-categories/create', [DashboardController::class, 'createProjectCategory'])->name('project-categories.create');
+    Route::post('/project-categories', [DashboardController::class, 'storeProjectCategory'])->name('project-categories.store');
+    Route::get('/project-categories/{projectCategory}/edit', [DashboardController::class, 'editProjectCategory'])->name('project-categories.edit');
+    Route::put('/project-categories/{projectCategory}', [DashboardController::class, 'updateProjectCategory'])->name('project-categories.update');
+    Route::delete('/project-categories/{projectCategory}', [DashboardController::class, 'deleteProjectCategory'])->name('project-categories.delete');
+
+    // Manage projects
+    Route::get('/projects', [DashboardController::class, 'projects'])->name('projects');
+    Route::get('/projects/create', [DashboardController::class, 'createProject'])->name('projects.create');
+    Route::post('/projects', [DashboardController::class, 'storeProject'])->name('projects.store');
+    Route::get('/projects/{project}/edit', [DashboardController::class, 'editProject'])->name('projects.edit');
+    Route::put('/projects/{project}', [DashboardController::class, 'updateProject'])->name('projects.update');
+    Route::delete('/projects/{project}', [DashboardController::class, 'deleteProject'])->name('projects.delete');
 
     // Upload image
     Route::post('/upload-image', [DashboardController::class, 'uploadImage'])->name('upload.image');

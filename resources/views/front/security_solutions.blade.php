@@ -21,7 +21,7 @@
     <link rel="canonical" href="https://www.aicontrol.vn/he-thong-an-ninh.html">
 
     <!-- ✅ Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ assets('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
 
     <!-- ✅ Open Graph cho chia sẻ mạng xã hội -->
     <meta property="og:title" content="AIControl | Giải pháp an ninh & kiểm soát ra vào thông minh">
@@ -41,15 +41,15 @@
 
     <!-- CSS here -->
     <!-- CSS here -->
-    <link rel="stylesheet" href="{{ assets('assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/slick.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/font-awesome-pro.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/spacing.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/atropos.min.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ assets('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <!-- CSS here -->
     <!-- CSS here -->
 

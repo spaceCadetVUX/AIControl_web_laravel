@@ -98,111 +98,7 @@
                 <div id="down" class="tp-blog-gird-sidebar-ptb pb-80">
                     <div class="container container-1330">
                         <div class="row">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    @forelse($blogs as $blog)
-                                    <div class="col-md-6 mb-30">
-                                        <div class="tp-blog-masonry-item h-100">
-                                            @if($blog->featured_image)
-                                            <div class="tp-blog-masonry-thumb position-relative">
-                                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                                    <img src="{{ asset($blog->featured_image) }}" alt="{{ $blog->title }}">
-                                                </a>
-                                                @if($blog->category)
-                                                <div class="tp-blog-masonry-tag">
-                                                    <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 15 14" fill="none">
-                                                            <path d="M4.39012 4.13048H4.39847M13.6056 8.14369L8.74375 12.6328C8.6178 12.7492 8.46823 12.8415 8.30359 12.9046C8.13896 12.9676 7.96248 13 7.78426 13C7.60604 13 7.42956 12.9676 7.26493 12.9046C7.10029 12.8415 6.95072 12.7492 6.82477 12.6328L1 7.2609V1H7.78087L13.6056 6.37811C13.8582 6.61273 14 6.93009 14 7.2609C14 7.59171 13.8582 7.90908 13.6056 8.14369Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg> 
-                                                        {{ $blog->category }}
-                                                    </span>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            @endif
-                                            
-                                            <div class="tp-blog-masonry-content">
-                                                <div class="tp-blog-masonry-item-meta d-flex justify-content-between align-items-center mb-20">
-                                                    <div class="tp-blog-masonry-item-user d-flex align-items-center">
-                                                        <div class="tp-blog-masonry-item-user-thumb">
-                                                            <img src="{{ asset('assets/img/blog/blog-masonry/blog-masonry-user-1.jpg') }}" alt="{{ $blog->author->name ?? 'Author' }}">
-                                                        </div>
-                                                        <div class="tp-blog-masonry-item-user-content">
-                                                            <span>{{ $blog->author->name ?? 'Admin' }}</span>
-                                                            <p>{{ $blog->author->role ?? 'Administrator' }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tp-blog-masonry-item-time">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" fill="none">
-                                                                <path d="M9 4.19997V8.99997L12.2 10.6M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg> 
-                                                            {{ $blog->formatted_published_date }}
-                                                        </span>
-                                                    </div>
-                                                </div>
 
-                                                <h4 class="tp-blog-masonry-title mb-15">
-                                                    <a class="tp-line-white" href="{{ route('blog.show', $blog->slug) }}">
-                                                        {{ Str::limit($blog->title, 60) }}
-                                                    </a>
-                                                </h4>
-                                                @if($blog->excerpt)
-                                                <p class="mb-20">{{ Str::limit($blog->excerpt, 120) }}</p>
-                                                @endif
-                                                
-                                                <div class="d-flex justify-content-between align-items-center blog-footer">
-                                                    <div class="tp-blog-masonry-btn">
-                                                        <a href="{{ route('blog.show', $blog->slug) }}">
-                                                            Đọc thêm 
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                                    <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    @if($blog->reading_time)
-                                                    <span class="reading-time">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                                                        </svg>
-                                                        {{ $blog->reading_time }}
-                                                    </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @empty
-                                    <div class="col-12">
-                                        <div class="blog-empty-state alert alert-info text-center p-5">
-                                            <div class="blog-empty-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#ff5722" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                                                </svg>
-                                            </div>
-                                            <h4>Chưa có bài viết nào</h4>
-                                            <p class="mb-0">Hãy quay lại sau để đọc những bài viết mới nhất của chúng tôi!</p>
-                                        </div>
-                                    </div>
-                                    @endforelse
-                                </div>
-                                
-                                @if($blogs->hasPages())
-                                <!-- Pagination -->
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="tp-pagination mt-50">
-                                            {{ $blogs->links() }}
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                            
                             <!-- Sidebar -->
                             <div class="col-lg-4">
                                 <div class="sidebar-blog-grid-wrap">
@@ -249,14 +145,21 @@
                                                                     <i class="fas fa-folder" style="margin-right: 6px; color: #6c63ff;"></i>
                                                                     <span class="category-name">{{ $rootCategory->name }}</span>
                                                                 </label>
-                                                                <span class="badge" style="background: #6c63ff; color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; min-width: 28px; text-align: center;">
-                                                                    {{ $rootCategory->total_blog_count }}
-                                                                </span>
+                                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                                    <span class="badge" style="background: #6c63ff; color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; min-width: 28px; text-align: center;">
+                                                                        {{ $rootCategory->total_blog_count }}
+                                                                    </span>
+                                                                    @if($rootCategory->children->count() > 0)
+                                                                        <button type="button" class="blog-category-toggle" data-category-id="{{ $rootCategory->id }}" style="background: none; border: none; padding: 4px 8px; cursor: pointer; color: #6c63ff; transition: all 0.2s;">
+                                                                            <i class="fas fa-chevron-down" style="font-size: 12px;"></i>
+                                                                        </button>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                             
                                                             <!-- Subcategories Checkboxes -->
                                                             @if($rootCategory->children->count() > 0)
-                                                                <div class="subcategories" style="padding-left: 28px; margin-top: 5px;">
+                                                                <div class="subcategories subcategory-{{ $rootCategory->id }}" style="padding-left: 28px; margin-top: 5px; display: block;">
                                                                     @foreach($rootCategory->children as $child)
                                                                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                                                                             <label style="display: flex; align-items: center; cursor: pointer; color: #666; margin: 0; font-size: 14px; flex: 1;">
@@ -382,6 +285,112 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Blog Masonry Grid -->
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    @forelse($blogs as $blog)
+                                    <div class="col-md-6 mb-30">
+                                        <div class="tp-blog-masonry-item h-100">
+                                            @if($blog->featured_image)
+                                            <div class="tp-blog-masonry-thumb position-relative">
+                                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                                    <img src="{{ asset($blog->featured_image) }}" alt="{{ $blog->title }}">
+                                                </a>
+                                                @if($blog->category)
+                                                <div class="tp-blog-masonry-tag">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 15 14" fill="none">
+                                                            <path d="M4.39012 4.13048H4.39847M13.6056 8.14369L8.74375 12.6328C8.6178 12.7492 8.46823 12.8415 8.30359 12.9046C8.13896 12.9676 7.96248 13 7.78426 13C7.60604 13 7.42956 12.9676 7.26493 12.9046C7.10029 12.8415 6.95072 12.7492 6.82477 12.6328L1 7.2609V1H7.78087L13.6056 6.37811C13.8582 6.61273 14 6.93009 14 7.2609C14 7.59171 13.8582 7.90908 13.6056 8.14369Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg> 
+                                                        {{ $blog->category }}
+                                                    </span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                            @endif
+                                            
+                                            <div class="tp-blog-masonry-content">
+                                                <div class="tp-blog-masonry-item-meta d-flex justify-content-between align-items-center mb-20">
+                                                    <div class="tp-blog-masonry-item-user d-flex align-items-center">
+                                                        <div class="tp-blog-masonry-item-user-thumb">
+                                                            <img src="{{ asset('assets/img/blog/blog-masonry/blog-masonry-user-1.jpg') }}" alt="{{ $blog->author->name ?? 'Author' }}">
+                                                        </div>
+                                                        <div class="tp-blog-masonry-item-user-content">
+                                                            <span>{{ $blog->author->name ?? 'Admin' }}</span>
+                                                            <p>{{ $blog->author->role ?? 'Administrator' }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tp-blog-masonry-item-time">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" fill="none">
+                                                                <path d="M9 4.19997V8.99997L12.2 10.6M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg> 
+                                                            {{ $blog->formatted_published_date }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <h4 class="tp-blog-masonry-title mb-15">
+                                                    <a class="tp-line-white" href="{{ route('blog.show', $blog->slug) }}">
+                                                        {{ Str::limit($blog->title, 60) }}
+                                                    </a>
+                                                </h4>
+                                                @if($blog->excerpt)
+                                                <p class="mb-20">{{ Str::limit($blog->excerpt, 120) }}</p>
+                                                @endif
+                                                
+                                                <div class="d-flex justify-content-between align-items-center blog-footer">
+                                                    <div class="tp-blog-masonry-btn">
+                                                        <a href="{{ route('blog.show', $blog->slug) }}">
+                                                            Đọc thêm 
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                                    <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    @if($blog->reading_time)
+                                                    <span class="reading-time">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                        </svg>
+                                                        {{ $blog->reading_time }}
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @empty
+                                    <div class="col-12">
+                                        <div class="blog-empty-state alert alert-info text-center p-5">
+                                            <div class="blog-empty-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#ff5722" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                </svg>
+                                            </div>
+                                            <h4>Chưa có bài viết nào</h4>
+                                            <p class="mb-0">Hãy quay lại sau để đọc những bài viết mới nhất của chúng tôi!</p>
+                                        </div>
+                                    </div>
+                                    @endforelse
+                                </div>
+                                
+                                @if($blogs->hasPages())
+                                <!-- Pagination -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="tp-pagination mt-50">
+                                            {{ $blogs->links() }}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -427,6 +436,22 @@
         <!-- Blog Category Filter Script -->
         <script>
         $(document).ready(function() {
+            // Blog category expand/collapse toggle
+            $('.blog-category-toggle').on('click', function(e) {
+                e.preventDefault();
+                const categoryId = $(this).data('category-id');
+                const $subcategoryList = $('.subcategory-' + categoryId);
+                const $icon = $(this).find('i');
+                
+                if ($subcategoryList.is(':visible')) {
+                    $subcategoryList.slideUp(200);
+                    $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                } else {
+                    $subcategoryList.slideDown(200);
+                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                }
+            });
+
             // Mobile filter toggle
             $('#mobile-filter-toggle').on('click', function() {
                 $('#blog-categories-widget').slideToggle(300);
@@ -479,6 +504,20 @@
 
         <!-- Responsive Styles -->
         <style>
+            /* Blog category toggle button */
+            .blog-category-toggle {
+                transition: all 0.3s ease;
+            }
+
+            .blog-category-toggle:hover {
+                transform: scale(1.1);
+                color: #5648d9 !important;
+            }
+
+            .blog-category-toggle i {
+                transition: transform 0.2s ease;
+            }
+
             /* Desktop styles */
             @media (min-width: 768px) {
                 #mobile-filter-toggle {

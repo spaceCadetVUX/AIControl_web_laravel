@@ -119,7 +119,7 @@
                             </p>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Function Category</label>
                             <input type="text" name="function_category" value="{{ old('function_category') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
@@ -127,7 +127,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Catalog</label>
                             <input type="text" name="catalog" value="{{ old('catalog') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Initial Status</label>
@@ -565,10 +565,10 @@
                     <h3 class="text-lg font-semibold mb-4">Advanced Settings</h3>
 
                     <div class="space-y-6">
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Tags (comma separated)</label>
                             <input type="text" name="tags" value="{{ old('tags') }}" placeholder="tag1, tag2, tag3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Categories (comma separated)</label>
@@ -588,7 +588,7 @@
                             </select>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Custom Fields (JSON)</label>
                             <textarea name="custom_fields" rows="4" placeholder='{"field1": "value1", "field2": "value2"}' class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('custom_fields') }}</textarea>
                         </div>
@@ -596,7 +596,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Structured Data (JSON-LD)</label>
                             <textarea name="structured_data" rows="6" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 font-mono text-xs">{{ old('structured_data') }}</textarea>
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Published At</label>

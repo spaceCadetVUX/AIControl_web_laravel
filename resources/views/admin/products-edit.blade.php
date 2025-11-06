@@ -126,15 +126,15 @@
                             </p>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Function Category</label>
                             <input type="text" name="function_category" value="{{ old('function_category', $product->function_category) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
+                        </div> --}}
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Catalog</label>
                             <input type="text" name="catalog" value="{{ old('catalog', $product->catalog) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Current Status</label>
@@ -615,7 +615,7 @@
                     <h3 class="text-lg font-semibold mb-4">Advanced Settings</h3>
 
                     <div class="space-y-6">
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Tags (comma separated)</label>
                             <input type="text" name="tags" value="{{ old('tags', is_array($product->tags) ? implode(', ', $product->tags) : $product->tags) }}" placeholder="tag1, tag2, tag3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
@@ -623,7 +623,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Categories (comma separated)</label>
                             <input type="text" name="categories" value="{{ old('categories', is_array($product->categories) ? implode(', ', $product->categories) : $product->categories) }}" placeholder="category1, category2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Related Products (comma separated IDs)</label>
@@ -638,15 +638,15 @@
                             </select>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Custom Fields (JSON)</label>
                             <textarea name="custom_fields" rows="4" placeholder='{"field1": "value1", "field2": "value2"}' class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('custom_fields', $product->custom_fields ? (is_array($product->custom_fields) ? json_encode($product->custom_fields, JSON_PRETTY_PRINT) : $product->custom_fields) : '') }}</textarea>
-                        </div>
+                        </div> --}}
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Structured Data (JSON-LD)</label>
                             <textarea name="structured_data" rows="6" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 font-mono text-xs">{{ old('structured_data', $product->structured_data ? (is_array($product->structured_data) ? json_encode($product->structured_data, JSON_PRETTY_PRINT) : $product->structured_data) : '') }}</textarea>
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Published At</label>

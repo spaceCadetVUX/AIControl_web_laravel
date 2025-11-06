@@ -162,7 +162,7 @@
                                         <span class="dvdr"><i>|</i></span>
                                         <span><a href="{{ route('blogs') }}">Tin tức</a></span>
                                         <span class="dvdr"><i>|</i></span>
-                                        <span>{{ Str::limit($blog->title, 50) }}</span>
+                                        {{-- <span>{{ Str::limit($blog->title, 50) }}</span> --}}
                                     </div>
                                     <div class="tp-breadcrumb-scrolldown smooth">
                                         <a href="#postbox">
@@ -228,7 +228,7 @@
                                     </div>
 
                                     {{-- Post Title --}}
-                                    <h1 class="tp-postbox-title mb-30">{{ $blog->title }}</h1>
+                                    <h2 class="tp-postbox-title mb-30">{{ $blog->title }}</h2>
 
                                     {{-- Post Content --}}
                                     <div class="tp-postbox-content">
