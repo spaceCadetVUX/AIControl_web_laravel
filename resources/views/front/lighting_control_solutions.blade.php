@@ -724,30 +724,28 @@
 
                 <!-- contact-cta area start -->
                  
-
                 <!-- blog area start -->
-                <div class="ar-blog-area pb-100">
+                <div class="ar-blog-area pb-100 pt-120">
                     <div class="container container-1430">
                         <div class="ar-blog-title-wrap ar-title-mlr mb-60">
                             <div class="row align-items-end">
                                 <div class="col-xl-8 col-lg-8 col-md-7">
                                     <div class="ar-blog-title-box">
-                                        
-                                        <h3 class="tp-section-title lts tp_fade_anim"><span>Bài Viết</span> Gần Đây</h3>
+                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">Bài Viết Mới Nhất</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-5">
                                     <div class="ar-blog-btn-box d-flex justify-content-md-end justify-content-start mb-15">
                                         <div class="tp-btn-red-circle-box tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                                            <a class="tp-btn-red-circle-icon" href="blog-grid-light.html">
+                                            <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span>
                                             </a>
-                                            <a class="tp-btn-red-circle-text" href="blog-grid-light.html">XEM TẤT CẢ</a>
-                                            <a class="tp-btn-red-circle-icon" href="blog-grid-light.html">
+                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">Xem tất cả bài viết</a>
+                                            <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -760,54 +758,34 @@
                             </div>
                         </div>
                         <div class="row gx-40">
-                            <div class="col-xl-3 col-lg-6 col-md-6">
-                                <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".3">
-                                    <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-1.jpg') }}" alt=""></a>
-                                        <a class="ar-blog-category" href="blog-details-light.html">Architect</a>
-                                    </div>
-                                    <div class="ar-blog-content">
-                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="blog-details-light.html">Collective Living Challenge In design</a></h3>
-                                        <span class="ar-blog-meta">September 27, 2025</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6">
-                                <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".4">
-                                    <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-2.jpg') }}" alt=""></a>
-                                        <a class="ar-blog-category" href="blog-details-light.html">Interior</a>
-                                    </div>
-                                    <div class="ar-blog-content">
-                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="blog-details-light.html">Challenges of Collective Living in Design</a></h3>
-                                        <span class="ar-blog-meta">September 27, 2025</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6">
-                                <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".5">
-                                    <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-3.jpg') }}" alt=""></a>
-                                        <a class="ar-blog-category" href="blog-details-light.html">Construction</a>
-                                    </div>
-                                    <div class="ar-blog-content">
-                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="blog-details-light.html">Modern Design for Collective Living Spaces</a></h3>
-                                        <span class="ar-blog-meta">September 27, 2025</span>
+                            @forelse(($lightingControlBlog ?? collect()) as $index => $blog)
+                                @php
+                                    $delay = number_format(0.3 + ($index * 0.1), 1);
+                                    $cover = $blog->featured_image ? asset($blog->featured_image) : asset('assets/img/home-08/blog/blog-1.jpg');
+                                    $primaryCategoryModel = $blog->blogCategories->first();
+                                    $primaryCategory = optional($primaryCategoryModel)->name ?? 'Blog';
+                                    $categoryUrl = route('blog.show', $blog->slug);
+                                    $publishedDate = $blog->published_at ? $blog->published_at->format('M d, Y') : ($blog->created_at ? $blog->created_at->format('M d, Y') : null);
+                                @endphp
+                                <div class="col-xl-3 col-lg-6 col-md-6">
+                                    <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".{{ $delay }}">
+                                        <div class="ar-blog-thumb p-relative">
+                                            <a href="{{ route('blog.show', $blog->slug) }}"><img class="w-100" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
+                                            <a class="ar-blog-category" href="{{ $categoryUrl }}">{{ $primaryCategory }}</a>
+                                        </div>
+                                        <div class="ar-blog-content">
+                                            <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route('blog.show', $blog->slug) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
+                                            @if($publishedDate)
+                                                <span class="ar-blog-meta">{{ $publishedDate }}</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6">
-                                <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".6">
-                                    <div class="ar-blog-thumb p-relative">
-                                        <a href="blog-details-light.html"><img class="w-100" src="{{ asset('assets/img/home-08/blog/blog-4.jpg') }}" alt=""></a>
-                                        <a class="ar-blog-category" href="blog-details-light.html">Interior</a>
-                                    </div>
-                                    <div class="ar-blog-content">
-                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="blog-details-light.html">The Future of Collective Living Spaces</a></h3>
-                                        <span class="ar-blog-meta">September 27, 2025</span>
-                                    </div>
+                            @empty
+                                <div class="col-12">
+                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục Landing.</p>
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>

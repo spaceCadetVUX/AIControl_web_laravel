@@ -155,39 +155,35 @@
                                                 </h3>
                                                 <ul class="filter-list">
                                                     @php
-                                                        $selectedCategories = request('category') ? array_map('intval', explode(',', request('category'))) : [];
+                                                        $selectedCategories = request('category') ? explode(',', request('category')) : [];
                                                     @endphp
-                                                    @foreach($categories ?? [] as $rootCategory)
-                                                        <li>
-                                                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                                                <label class="filter-checkbox" style="flex: 1;">
-                                                                    <input type="checkbox" name="category[]" value="{{ $rootCategory->id }}" {{ in_array($rootCategory->id, $selectedCategories) ? 'checked' : '' }}>
+
+                                                    <ul class="filter-list">
+                                                        @foreach($categories ?? [] as $rootCategory)
+                                                            <li>
+                                                                <label class="filter-checkbox">
+                                                                    <input type="checkbox" name="category[]" value="{{ $rootCategory->slug }}" 
+                                                                        {{ in_array($rootCategory->slug, $selectedCategories) ? 'checked' : '' }}>
                                                                     <span class="checkmark"></span>
-                                                                    <i class="fal fa-folder"></i> <span style="font-weight: 700">{{ $rootCategory->name }}</span>
-                                                                    <span class="count">({{ $rootCategory->total_product_count }})</span>
+                                                                    {{ $rootCategory->name }}
                                                                 </label>
+
                                                                 @if($rootCategory->children->count() > 0)
-                                                                    <button type="button" class="category-toggle" data-category-id="{{ $rootCategory->id }}" style="background: none; border: none; cursor: pointer; padding: 5px; color: #666;">
-                                                                        <i class="fal fa-chevron-down"></i>
-                                                                    </button>
+                                                                    <ul class="subcategory-list" style="margin-left: 20px; list-style: none;">
+                                                                        @foreach($rootCategory->children as $child)
+                                                                            <li>
+                                                                                <label class="filter-checkbox">
+                                                                                    <input type="checkbox" name="category[]" value="{{ $child->slug }}" 
+                                                                                        {{ in_array($child->slug, $selectedCategories) ? 'checked' : '' }}>
+                                                                                    <span class="checkmark"></span>
+                                                                                    {{ $child->name }}
+                                                                                </label>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
                                                                 @endif
-                                                            </div>
-                                                            @if($rootCategory->children->count() > 0)
-                                                                <ul class="subcategory-list" id="subcategory-{{ $rootCategory->id }}" style="margin-left: 20px; list-style: none; display: block;">
-                                                                    @foreach($rootCategory->children as $child)
-                                                                        <li>
-                                                                            <label class="filter-checkbox">
-                                                                                <input type="checkbox" name="category[]" value="{{ $child->id }}" {{ in_array($child->id, $selectedCategories) ? 'checked' : '' }}>
-                                                                                <span class="checkmark"></span>
-                                                                                {{ $child->name }}
-                                                                                <span class="count">({{ $child->product_count }})</span>
-                                                                            </label>
-                                                                        </li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            @endif
-                                                        </li>
-                                                    @endforeach
+                                                            </li>
+                                                        @endforeach
                                                 </ul>
                                             </div>                                            <!-- Hidden field for search query -->
                                             @if(request('q'))

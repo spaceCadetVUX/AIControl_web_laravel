@@ -13,12 +13,13 @@ class PageController extends Controller
      */
     public function index() 
     { 
+        // blog filter for landing
         $landingBlogs = Blog::with(['blogCategories:id,name,slug'])
             ->where('is_published', true)
             ->whereHas('blogCategories', function ($query) {
                 $query->where(function ($q) {
-                    $q->where('slug', 'landing')
-                        ->orWhereRaw('LOWER(name) = ?', ['landing']);
+                    $q->where('slug', 'landing-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Landing blog']);
                 });
             })
             ->orderByDesc('published_at')
@@ -34,7 +35,21 @@ class PageController extends Controller
      */
     public function abb() 
     { 
-        return view('front.abb'); 
+        // newest blog filter
+        $NewestBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'newest-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Newest blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+
+        return view('front.abb', compact('NewestBlogs'));
     }
 
     /**
@@ -42,7 +57,21 @@ class PageController extends Controller
      */
     public function legrand() 
     { 
-        return view('front.legrand'); 
+        // newest blog filter
+        $NewestBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'newest-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Newest blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+
+        return view('front.legrand', compact('NewestBlogs'));
     }
 
     /**
@@ -50,7 +79,21 @@ class PageController extends Controller
      */
     public function cpElectronics() 
     { 
-        return view('front.cpElectronics'); 
+        // newest blog filter
+        $NewestBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'newest-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Newest blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+
+        return view('front.cpElectronics', compact('NewestBlogs'));
     }
 
     /**
@@ -58,7 +101,20 @@ class PageController extends Controller
      */
     public function vantage() 
     { 
-        return view('front.vantage'); 
+        // newest blog filter
+        $NewestBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'newest-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Newest blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+        return view('front.vantage', compact('NewestBlogs'));
     }
 
     /**
@@ -66,7 +122,20 @@ class PageController extends Controller
      */
     public function lightingControl() 
     { 
-        return view('front.lighting_control_solutions'); 
+        // newest blog filter
+        $lightingControlBlog = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'dieu-khien-chieu-sang-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Điều khiển chiếu sáng blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+        return view('front.lighting_control_solutions', compact('lightingControlBlog'));
     }
 
     /**
@@ -74,7 +143,20 @@ class PageController extends Controller
      */
     public function shade() 
     { 
-        return view('front.automatic_blind_solutions'); 
+        // newest blog filter
+        $AutoShadeBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'rem-tu-dong')
+                        ->orWhereRaw('LOWER(name) = ?', ['Rèm tự động']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+        return view('front.automatic_blind_solutions', compact('AutoShadeBlogs'));
     }
 
     /**
@@ -82,7 +164,20 @@ class PageController extends Controller
      */
     public function hvacControl() 
     { 
-        return view('front.hvac_control_solutions'); 
+        // blog filter
+        $HvacControlBlog = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'dieu-khien-hvac')
+                        ->orWhereRaw('LOWER(name) = ?', ['Điều khiển HVAC']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+        return view('front.hvac_control_solutions', compact('HvacControlBlog'));
     }
 
     /**
@@ -90,7 +185,20 @@ class PageController extends Controller
      */
     public function security() 
     { 
-        return view('front.security_solutions'); 
+        // blog filter
+        $SecurityBlog = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'an-ninh')
+                        ->orWhereRaw('LOWER(name) = ?', ['An ninh']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+        return view('front.security_solutions', compact('SecurityBlog'));
     }
 
     /**

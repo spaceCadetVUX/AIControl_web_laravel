@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+    
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
@@ -172,8 +175,9 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Full Content *</label>
-                        <textarea id="tinymce-content" name="content" rows="15" required 
+                        <textarea id="tinymce-content" name="content" rows="15"
                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('content') }}</textarea>
+                        <p id="tinymce-error" class="mt-1 text-sm text-red-600 hidden">Full content is required.</p>
                         <p class="mt-1 text-xs text-gray-500">Use headings (H2, H3), paragraphs, lists, images, and links for better SEO and readability.</p>
                         @error('content') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
@@ -340,7 +344,7 @@
         });
 
         // Tags input to array
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.getElementById('blogForm').addEventListener('submit', function(e) {
             console.log('Form submitting...');
             
             // Get the clicked button's action value
@@ -350,9 +354,37 @@
             }
             
             // Sync TinyMCE content to textarea before submit
-            if (tinymce.get('tinymce-content')) {
-                tinymce.get('tinymce-content').save();
+            const editor = tinymce.get('tinymce-content');
+            const contentError = document.getElementById('tinymce-error');
+
+            if (contentError) {
+                contentError.classList.add('hidden');
+            }
+
+            if (editor) {
+                editor.save();
                 console.log('TinyMCE content saved');
+
+                if (!editor.getContent({ format: 'text' }).trim()) {
+                    e.preventDefault();
+                    if (contentError) {
+                        contentError.classList.remove('hidden');
+                    }
+                    editor.focus();
+                    console.log('TinyMCE content validation failed');
+                    return false;
+                }
+            } else {
+                const fallbackTextarea = document.getElementById('tinymce-content');
+                if (!fallbackTextarea.value.trim()) {
+                    e.preventDefault();
+                    if (contentError) {
+                        contentError.classList.remove('hidden');
+                    }
+                    fallbackTextarea.focus();
+                    console.log('Textarea content validation failed');
+                    return false;
+                }
             }
             
             const tagsInput = document.getElementById('tags-input').value;
@@ -371,8 +403,6 @@
             }
             
             console.log('Form is submitting to:', this.action);
-            // Allow the form to submit
-            return true;
         });
 
         // Initialize TinyMCE
@@ -440,6 +470,13 @@
                 setup: function(editor) {
                     editor.on('init', function() {
                         console.log('TinyMCE initialized successfully');
+                    });
+
+                    editor.on('input', function() {
+                        const contentError = document.getElementById('tinymce-error');
+                        if (contentError) {
+                            contentError.classList.add('hidden');
+                        }
                     });
                 }
             });

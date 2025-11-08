@@ -138,9 +138,9 @@
                                                             <!-- Root Category Checkbox -->
                                                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                                                                 <label style="display: flex; align-items: center; cursor: pointer; font-weight: 600; color: #333; margin: 0; flex: 1;">
-                                                                    <input type="checkbox" name="blog_category[]" value="{{ $rootCategory->id }}" 
+                                                                    <input type="checkbox" name="blog_category[]" value="{{ $rootCategory->slug }}" 
                                                                            class="category-checkbox" 
-                                                                           {{ in_array($rootCategory->id, request('blog_category', [])) ? 'checked' : '' }}
+                                                                           {{ in_array($rootCategory->slug, request('blog_category', [])) ? 'checked' : '' }}
                                                                            style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
                                                                     <i class="fas fa-folder" style="margin-right: 6px; color: #6c63ff;"></i>
                                                                     <span class="category-name">{{ $rootCategory->name }}</span>

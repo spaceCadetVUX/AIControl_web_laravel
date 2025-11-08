@@ -63,8 +63,8 @@ Route::controller(ProjectController::class)->prefix('du-an')->name('projects.')-
 // PRODUCT PAGES
 // ----------------------------
 Route::controller(ProductController::class)->group(function () {
-    Route::get('/shop', 'index')->name('shop');
-    Route::get('/product/{slug}', 'show')->name('product.show');
+    Route::get('/san-pham', 'index')->name('shop');
+    Route::get('/san-pham/{slug}', 'show')->name('product.show');
     Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
     Route::get('/search', 'search')->name('product.search');
     Route::get('/api/products/autocomplete', 'autocomplete')->name('product.autocomplete');

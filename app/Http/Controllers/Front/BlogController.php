@@ -17,12 +17,26 @@ class BlogController extends Controller
         $query = Blog::where('is_published', true);
 
         // Filter by blog categories (new structured categories)
+        // if ($request->has('blog_category') && !empty($request->blog_category)) {
+        //     $categoryIds = $request->blog_category;
+        //     $query->whereHas('blogCategories', function($q) use ($categoryIds) {
+        //         $q->whereIn('blog_categories.id', $categoryIds);
+        //     });
+        // }
+
+        // Filter by blog categories (new structured categories) — now using slugs
         if ($request->has('blog_category') && !empty($request->blog_category)) {
-            $categoryIds = $request->blog_category;
+            $categorySlugs = $request->blog_category;
+
+            // Convert slugs to IDs
+            $categoryIds = \App\Models\BlogCategory::whereIn('slug', $categorySlugs)->pluck('id');
+
+            // Apply filtering
             $query->whereHas('blogCategories', function($q) use ($categoryIds) {
                 $q->whereIn('blog_categories.id', $categoryIds);
             });
         }
+
 
         // Get filtered blogs
         $blogs = $query->orderBy('created_at', 'desc')->paginate(9);
