@@ -38,7 +38,9 @@ class BlogController extends Controller
         // Get blog categories (new structured categories)
         $blogCategories = \App\Models\BlogCategory::roots()
             ->active()
-            ->with('children')
+            ->with(['children' => function ($query) {
+                $query->active()->orderBy('order');
+            }])
             ->orderBy('order')
             ->get();
 
@@ -128,7 +130,9 @@ class BlogController extends Controller
         // Get blog categories (new structured categories)
         $blogCategories = \App\Models\BlogCategory::roots()
             ->active()
-            ->with('children')
+            ->with(['children' => function ($query) {
+                $query->active()->orderBy('order');
+            }])
             ->orderBy('order')
             ->get();
 
@@ -178,7 +182,9 @@ class BlogController extends Controller
         // Get blog categories (new structured categories)
         $blogCategories = \App\Models\BlogCategory::roots()
             ->active()
-            ->with('children')
+            ->with(['children' => function ($query) {
+                $query->active()->orderBy('order');
+            }])
             ->orderBy('order')
             ->get();
 

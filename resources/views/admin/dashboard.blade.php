@@ -153,16 +153,16 @@
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                <svg class="h-5 w-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h10"></path>
                                 </svg>
-                                Top 10 Products by Clicks
+                                Top 10 Blogs by Views
                             </h3>
-                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Sorted by Clicks ↓</span>
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Sorted by Views ↓</span>
                         </div>
                         <div style="position: relative; height: 350px; width: 100%; overflow-x: auto; overflow-y: hidden;">
                             <div style="min-width: 600px;">
-                                <canvas id="clickChart"></canvas>
+                                <canvas id="blogViewChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -314,13 +314,11 @@
     <!-- Chart.js Script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
-        // Prepare data from Laravel - Top 10 by Clicks
-        const productClickStats = @json($productClickStats ?? []);
-        const clickProductNames = productClickStats.slice(0, 10).map(p => {
-            const name = p.name || 'Unknown';
-            return name.length > 15 ? name.substring(0, 15) + '...' : name;
-        });
-        const clickCounts = productClickStats.slice(0, 10).map(p => p.click_count || 0);
+        // Prepare data from Laravel - Top 10 Blogs by Views
+        const blogViewStats = @json($blogViewStats ?? []);
+        const blogFullTitles = blogViewStats.map(blog => blog.title || 'Unknown');
+        const blogLabels = blogFullTitles.map(title => title.length > 15 ? title.substring(0, 15) + '...' : title);
+        const blogViewCounts = blogViewStats.map(blog => blog.view_count ?? 0);
 
         // Prepare data from Laravel - Top 10 by Views
         const productViewStats = @json($productViewStats ?? []);
@@ -330,18 +328,18 @@
         });
         const viewCounts = productViewStats.slice(0, 10).map(p => p.view_count || 0);
 
-        // Click Chart
-        const clickCtx = document.getElementById('clickChart');
-        if (clickCtx) {
-            new Chart(clickCtx, {
+        // Blog View Chart
+        const blogCtx = document.getElementById('blogViewChart');
+        if (blogCtx) {
+            new Chart(blogCtx, {
                 type: 'bar',
                 data: {
-                    labels: clickProductNames,
+                    labels: blogLabels,
                     datasets: [{
-                        label: 'Clicks',
-                        data: clickCounts,
-                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                        borderColor: 'rgba(59, 130, 246, 1)',
+                        label: 'Views',
+                        data: blogViewCounts,
+                        backgroundColor: 'rgba(249, 115, 22, 0.8)',
+                        borderColor: 'rgba(249, 115, 22, 1)',
                         borderWidth: 1,
                         borderRadius: 5,
                     }]
@@ -356,8 +354,15 @@
                         },
                         tooltip: {
                             callbacks: {
+                                title: function(items) {
+                                    if (!items.length) {
+                                        return '';
+                                    }
+                                    const index = items[0].dataIndex;
+                                    return blogFullTitles[index] || items[0].label;
+                                },
                                 label: function(context) {
-                                    return 'Clicks: ' + context.parsed.y.toLocaleString();
+                                    return 'Views: ' + Number(context.parsed.y || 0).toLocaleString();
                                 }
                             }
                         }

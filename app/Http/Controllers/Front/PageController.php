@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Blog;
 
 class PageController extends Controller
 {
@@ -12,7 +13,20 @@ class PageController extends Controller
      */
     public function index() 
     { 
-        return view('front.index'); 
+        $landingBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'landing')
+                        ->orWhereRaw('LOWER(name) = ?', ['landing']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+
+        return view('front.index', compact('landingBlogs'));
     }
 
     /**

@@ -74,9 +74,10 @@ class BlogController extends Controller
             ->values();
 
         // Get blog categories
-        $blogCategories = \App\Models\BlogCategory::roots()
-            ->active()
-            ->with('children')
+            $blogCategories = \App\Models\BlogCategory::roots()
+                ->with(['children' => function ($query) {
+                    $query->orderBy('order');
+                }])
             ->orderBy('order')
             ->get();
 
@@ -209,9 +210,10 @@ class BlogController extends Controller
             ->values();
 
         // Get blog categories
-        $blogCategories = \App\Models\BlogCategory::roots()
-            ->active()
-            ->with('children')
+            $blogCategories = \App\Models\BlogCategory::roots()
+                ->with(['children' => function ($query) {
+                    $query->orderBy('order');
+                }])
             ->orderBy('order')
             ->get();
 

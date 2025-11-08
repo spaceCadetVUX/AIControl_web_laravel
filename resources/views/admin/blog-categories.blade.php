@@ -48,7 +48,7 @@
             @forelse($rootCategories as $rootCategory)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                     <!-- Root Category Header -->
-                    <div class="p-6 bg-purple-50 border-b border-purple-100">
+                    <div class="p-6 bg-white-50 border-b border-white-100">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <div>
@@ -103,7 +103,7 @@
                                             <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tbody class="bg-white-50 divide-y divide-white-200">
                                         @foreach($rootCategory->children->sortBy('order') as $child)
                                             <tr class="hover:bg-gray-50">
                                                 <td class="px-4 py-3">

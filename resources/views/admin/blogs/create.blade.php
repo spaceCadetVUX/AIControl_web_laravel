@@ -115,6 +115,9 @@
                                                        class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                 <i class="fas fa-folder ml-2 text-blue-600"></i>
                                                 <span class="ml-2">{{ $rootCategory->name }}</span>
+                                                @unless($rootCategory->status)
+                                                    <span class="ml-2 text-xs uppercase tracking-wide text-gray-500">(Inactive)</span>
+                                                @endunless
                                             </label>
                                             @if($rootCategory->children->count() > 0)
                                                 <div class="ml-8 mt-2 space-y-2">
@@ -124,6 +127,9 @@
                                                                    {{ in_array($child->id, old('blog_categories', [])) ? 'checked' : '' }}
                                                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                             <span class="ml-2">{{ $child->name }}</span>
+                                                            @unless($child->status)
+                                                                <span class="ml-2 text-xs uppercase tracking-wide text-gray-500">(Inactive)</span>
+                                                            @endunless
                                                         </label>
                                                     @endforeach
                                                 </div>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
@@ -28,11 +28,24 @@ class DashboardController extends Controller
             ->take(10)
             ->get(['name', 'click_count', 'view_count', 'brand']);
         
-        // Get product click stats for chart (top 10 by clicks)
-        $productClickStats = \App\Models\Product::select('name', 'click_count', 'view_count', 'brand')
-            ->orderBy('click_count', 'desc')
-            ->take(10)
-            ->get();
+        // Get blog view stats for chart (top 10 published blogs by views)
+        if (Schema::hasColumn('blogs', 'view_count')) {
+            $blogViewStats = \App\Models\Blog::select('title', 'slug', 'view_count')
+                ->where('is_published', true)
+                ->orderByDesc('view_count')
+                ->take(10)
+                ->get();
+        } else {
+            $blogViewStats = \App\Models\Blog::select('title', 'slug')
+                ->where('is_published', true)
+                ->orderByDesc('published_at')
+                ->take(10)
+                ->get()
+                ->map(function ($blog) {
+                    $blog->view_count = 0;
+                    return $blog;
+                });
+        }
         
         // Get product view stats for chart (top 10 by views)
         $productViewStats = \App\Models\Product::select('name', 'click_count', 'view_count', 'brand')
@@ -40,7 +53,7 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
         
-        return view('admin.dashboard', compact('totalProducts', 'publishedProducts', 'totalBlogs', 'publishedBlogs', 'draftBlogs', 'topClickedProducts', 'productClickStats', 'productViewStats'));
+        return view('admin.dashboard', compact('totalProducts', 'publishedProducts', 'totalBlogs', 'publishedBlogs', 'draftBlogs', 'topClickedProducts', 'blogViewStats', 'productViewStats'));
     }
 
     /**
@@ -859,7 +872,9 @@ class DashboardController extends Controller
             $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
         }
 
-        \App\Models\BlogCategory::create($validated);
+    $validated['status'] = $request->boolean('status');
+
+    \App\Models\BlogCategory::create($validated);
 
         $redirectRoute = $request->parent_id 
             ? route('admin.blog-categories') 
@@ -900,7 +915,9 @@ class DashboardController extends Controller
             return back()->with('error', 'A category cannot be its own parent.');
         }
 
-        $blogCategory->update($validated);
+    $validated['status'] = $request->boolean('status');
+
+    $blogCategory->update($validated);
 
         return redirect()->route('admin.blog-categories')->with('success', 'Blog category updated successfully!');
     }

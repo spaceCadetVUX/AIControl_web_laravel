@@ -64,6 +64,7 @@
 
                         <div>
                             <label class="flex items-center">
+                                <input type="hidden" name="status" value="0">
                                 <input type="checkbox" name="status" value="1" {{ old('status', $blogCategory->status) ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <span class="ml-2 text-sm text-gray-700">Active (available for blog selection)</span>
                             </label>

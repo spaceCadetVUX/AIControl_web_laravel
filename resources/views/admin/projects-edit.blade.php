@@ -57,7 +57,7 @@
                             </button>
                         </nav>
                     </div>
-                </div>
+                </div>class="mt-2 mb-2"
 
                 <!-- Basic Info Tab -->
                 <div id="content-basic" class="tab-content bg-white shadow-sm rounded-lg p-6">
@@ -663,4 +663,5 @@
             border-bottom-width: 2px;
         }
     </style>
+    @endpush
 </x-app-layout>
