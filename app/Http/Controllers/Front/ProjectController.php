@@ -66,15 +66,24 @@ class ProjectController extends Controller
         // Increment view count
         $project->incrementViewCount();
 
-        // Get related projects (same category)
-        $relatedProjects = Project::published()
-            ->where('id', '!=', $project->id)
-            ->where(function($query) use ($project) {
-                $query->where('project_category_id', $project->project_category_id)
-                      ->orWhere('project_category_id', $project->project_category_id_2)
-                      ->orWhere('project_category_id_2', $project->project_category_id)
-                      ->orWhere('project_category_id_2', $project->project_category_id_2);
-            })
+        // Get related projects (same primary/secondary categories)
+        $categoryIds = collect([
+            $project->project_category_id,
+            $project->project_category_id_2,
+        ])->filter();
+
+        $relatedQuery = Project::with(['category', 'categorySecondary'])
+            ->where('id', '!=', $project->id);
+
+        if ($categoryIds->isNotEmpty()) {
+            $relatedQuery->where(function($query) use ($categoryIds) {
+                $query->whereIn('project_category_id', $categoryIds)
+                      ->orWhereIn('project_category_id_2', $categoryIds);
+            });
+        }
+
+        $relatedProjects = $relatedQuery
+            ->published()
             ->ordered()
             ->limit(3)
             ->get();

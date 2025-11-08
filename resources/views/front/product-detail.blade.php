@@ -212,7 +212,7 @@
             <main>
                 
                 <!-- Breadcrumb -->
-                <section class="breadcrumb__area pt-120 pb-60" style="background: #f5f5f5;">
+                <section class="breadcrumb__area pt-120 pb-20" style="background: #ffffff;">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
@@ -320,7 +320,7 @@
                                                 <i class="fa fa-star-o text-muted"></i>
                                             @endif
                                         @endfor
-                                        <span class="ms-2">({{ $product->review_count ?? 0 }} đánh giá)</span>
+                                        {{-- <span class="ms-2">({{ $product->review_count ?? 0 }} đánh giá)</span> --}}
                                     </div>
                                     @endif
 
@@ -432,7 +432,7 @@
                                     </div>
 
                                     <!-- View Count -->
-                                    <p class="text-muted"><i class="fa fa-eye"></i> {{ $product->view_count }} lượt xem</p>
+                                    {{-- <p class="text-muted"><i class="fa fa-eye"></i> {{ $product->view_count }} lượt xem</p> --}}
 
                                 </div>
                             </div>
@@ -607,40 +607,37 @@
     </div>
 
     <!-- JS -->
-    <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/plugin.js') }}"></script>
-    <script src="{{ asset('assets/js/slick.js') }}"></script>
-    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
-    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
-    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/productDetails.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/plugin.js') }}"></script>
-    <script src="{{ asset('assets/js/three.js') }}"></script>
-    <script src="{{ asset('assets/js/slick.js') }}"></script>
-    <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
-    <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
-    <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
-    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
-    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
-    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
-    <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
-    <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
-    <script src="{{ asset('assets/js/webgl.js') }}"></script>
-    <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
-    <script src="{{ asset('assets/js/atropos.js') }}"></script>
-    <script src="{{ asset('assets/js/slider-active.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
-    <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
-    <script src="{{ asset('assets/js/contact.js') }}"></script>
-    <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
-    <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
-    <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+<script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+<script src="{{ asset('assets/js/plugin.js') }}"></script>
+<script src="{{ asset('assets/js/slick.js') }}"></script>
+<script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+<script src="{{ asset('assets/js/nice-select.js') }}"></script>
+<script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+<script src="{{ asset('assets/js/productDetails.js') }}"></script>
+<script src="{{ asset('assets/js/three.js') }}"></script>
+<script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+<script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+<script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+<script src="{{ asset('assets/js/purecounter.js') }}"></script>
+<script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+<script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+<script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+<script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+<script src="{{ asset('assets/js/webgl.js') }}"></script>
+<script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+<script src="{{ asset('assets/js/atropos.js') }}"></script>
+<script src="{{ asset('assets/js/slider-active.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
+<script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+<script src="{{ asset('assets/js/contact.js') }}"></script>
+
+<script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+<script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+<script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+
 
 </body>
 </html>

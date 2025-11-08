@@ -69,33 +69,28 @@ class Category extends Model
     }
 
     /**
-     * Get product count for this category including inherited from parent
-     * If this is a subcategory, count includes products assigned to parent
-     * If this is a root category, count includes products assigned to it
+     * Get product count for this specific category only
+     * Does not include parent or children counts
      */
     public function getProductCountAttribute()
     {
-        $count = $this->products()->count();
-        
-        // If this is a subcategory, also count products from parent
-        if ($this->parent_id) {
-            $count += $this->parent->products()->count();
-        }
-        
-        return $count;
+        return $this->products()->count();
     }
 
     /**
      * Get total product count including all children categories
      * For root categories, this includes all products from subcategories
+     * For child categories, this is just their own count
      */
     public function getTotalProductCountAttribute()
     {
         $count = $this->products()->count();
         
-        // Add products from all children
-        foreach ($this->children as $child) {
-            $count += $child->products()->count();
+        // Only add children counts if this is a root category
+        if (is_null($this->parent_id)) {
+            foreach ($this->children as $child) {
+                $count += $child->products()->count();
+            }
         }
         
         return $count;

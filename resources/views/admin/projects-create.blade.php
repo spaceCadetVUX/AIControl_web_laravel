@@ -233,18 +233,42 @@
                     <h3 class="text-lg font-semibold mb-4">Slider & Detail Steps</h3>
                     
                     <div class="space-y-6">
-                        <!-- Slider Images -->
+                        <!-- Slider Images with Upload and Alt Text -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Slider Images (JSON array)</label>
-                            <div id="slider-images-container" class="space-y-2">
-                                <div class="flex items-center space-x-2">
-                                    <input type="text" name="slider_images[]" placeholder="https://example.com/image.jpg" 
-                                        class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <button type="button" onclick="removeSliderImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Xóa</button>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Slider Images</label>
+                            <p class="text-xs text-gray-500 mb-3">Upload ảnh hoặc nhập URL. Mỗi ảnh có thể có text mô tả (alt text) cho SEO.</p>
+                            <div id="slider-images-container" class="space-y-3">
+                                <div class="slider-image-item border border-gray-300 rounded-lg p-4 bg-gray-50">
+                                    <div class="grid grid-cols-12 gap-3">
+                                        <div class="col-span-5">
+                                            <label class="block text-xs font-medium text-gray-600 mb-1">Upload hoặc URL</label>
+                                            <input type="file" name="slider_image_files[]" accept="image/*" 
+                                                onchange="previewSliderImage(this)"
+                                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                            <input type="text" name="slider_image_urls[]" placeholder="hoặc nhập URL: https://..." 
+                                                class="mt-2 block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        </div>
+                                        <div class="col-span-5">
+                                            <label class="block text-xs font-medium text-gray-600 mb-1">Alt Text (Mô tả ảnh)</label>
+                                            <input type="text" name="slider_image_alts[]" placeholder="VD: Phòng khách thông minh biệt thự Vinhomes" 
+                                                class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        </div>
+                                        <div class="col-span-2 flex items-end">
+                                            <button type="button" onclick="removeSliderImage(this)" 
+                                                class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 slider-preview hidden">
+                                        <img src="" alt="" class="h-20 rounded border border-gray-300">
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" onclick="addSliderImage()" class="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">+ Thêm hình Slider</button>
-                            <p class="mt-1 text-xs text-gray-500">Nhập URL hoặc upload file sau</p>
+                            <button type="button" onclick="addSliderImage()" 
+                                class="mt-3 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 text-sm font-medium">
+                                <i class="fas fa-plus mr-1"></i> Thêm hình Slider
+                            </button>
                         </div>
 
                         <!-- Secondary Title -->
@@ -354,6 +378,8 @@
         </div>
     </div>
 
+
+
     @push('scripts')
     <script>
         // Tab switching
@@ -417,24 +443,61 @@
             }
         });
 
-        // Slider images management
+        // Slider images management with preview
         function addSliderImage() {
             const container = document.getElementById('slider-images-container');
             const div = document.createElement('div');
-            div.className = 'flex items-center space-x-2';
+            div.className = 'slider-image-item border border-gray-300 rounded-lg p-4 bg-gray-50';
             div.innerHTML = `
-                <input type="text" name="slider_images[]" placeholder="https://example.com/image.jpg" 
-                    class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                <button type="button" onclick="removeSliderImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Xóa</button>
+                <div class="grid grid-cols-12 gap-3">
+                    <div class="col-span-5">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Upload hoặc URL</label>
+                        <input type="file" name="slider_image_files[]" accept="image/*" 
+                            onchange="previewSliderImage(this)"
+                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        <input type="text" name="slider_image_urls[]" placeholder="hoặc nhập URL: https://..." 
+                            class="mt-2 block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="col-span-5">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Alt Text (Mô tả ảnh)</label>
+                        <input type="text" name="slider_image_alts[]" placeholder="VD: Phòng khách thông minh biệt thự Vinhomes" 
+                            class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="col-span-2 flex items-end">
+                        <button type="button" onclick="removeSliderImage(this)" 
+                            class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2 slider-preview hidden">
+                    <img src="" alt="" class="h-20 rounded border border-gray-300">
+                </div>
             `;
             container.appendChild(div);
         }
 
         function removeSliderImage(button) {
-            if (document.querySelectorAll('#slider-images-container > div').length > 1) {
-                button.parentElement.remove();
+            const items = document.querySelectorAll('.slider-image-item');
+            if (items.length > 1) {
+                button.closest('.slider-image-item').remove();
             } else {
                 alert('Phải có ít nhất một trường slider image');
+            }
+        }
+
+        function previewSliderImage(input) {
+            const item = input.closest('.slider-image-item');
+            const preview = item.querySelector('.slider-preview');
+            const img = preview.querySelector('img');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
@@ -495,4 +558,9 @@
             border-bottom-width: 2px;
         }
     </style>
+    @endpush
 </x-app-layout>
+
+
+
+    

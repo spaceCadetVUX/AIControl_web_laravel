@@ -206,7 +206,17 @@
                                             @foreach($project->slider_images as $sliderImage)
                                             <div class="swiper-slide">
                                                 <div class="tp-pd-2-slider-thumb">
-                                                    <img src="{{ asset($sliderImage) }}" alt="{{ $project->title }}">
+                                                    @php
+                                                        // Handle both old string format and new object format
+                                                        $imageUrl = is_array($sliderImage) ? ($sliderImage['url'] ?? '') : $sliderImage;
+                                                        $imageAlt = is_array($sliderImage) ? ($sliderImage['alt'] ?? $project->title) : $project->title;
+                                                        
+                                                        // Use asset() helper for local paths, direct URL for external
+                                                        $imageSrc = (str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://')) 
+                                                            ? $imageUrl 
+                                                            : asset($imageUrl);
+                                                    @endphp
+                                                    <img src="{{ $imageSrc }}" alt="{{ $imageAlt }}">
                                                 </div>
                                             </div>
                                             @endforeach
@@ -249,31 +259,31 @@
                 @endif
 
 
-                <!-- Project Gallery from database (gallery_1, gallery_2, gallery_3) -->
-                @if($project->gallery_1 || $project->gallery_2 || $project->gallery_3)
+                <!-- Project Gallery from database (gallery_image_1, gallery_image_2, gallery_image_3) -->
+                @if($project->gallery_image_1 || $project->gallery_image_2 || $project->gallery_image_3)
                 <div class="tp-pd-2-thumb-ptb pb-120">
                     <div class="container container-1230">
                         <div class="row gx-20">
-                            @if($project->gallery_1)
+                            @if($project->gallery_image_1)
                             <div class="col-lg-12">
                                 <div class="tp-pd-2-thumb-item mb-20">
-                                    <img data-speed=".8" src="{{ asset($project->gallery_1) }}" alt="{{ $project->title }}">
+                                    <img data-speed=".8" src="{{ asset($project->gallery_image_1) }}" alt="{{ $project->title }}">
                                 </div>
                             </div>
                             @endif
                             
-                            @if($project->gallery_2)
+                            @if($project->gallery_image_2)
                             <div class="col-lg-6">
                                 <div class="tp-pd-2-thumb-item mb-20">
-                                    <img data-speed=".8" src="{{ asset($project->gallery_2) }}" alt="{{ $project->title }}">
+                                    <img data-speed=".8" src="{{ asset($project->gallery_image_2) }}" alt="{{ $project->title }}">
                                 </div>
                             </div>
                             @endif
                             
-                            @if($project->gallery_3)
+                            @if($project->gallery_image_3)
                             <div class="col-lg-6">
                                 <div class="tp-pd-2-thumb-item mb-20">
-                                    <img data-speed=".8" src="{{ asset($project->gallery_3) }}" alt="{{ $project->title }}">
+                                    <img data-speed=".8" src="{{ asset($project->gallery_image_3) }}" alt="{{ $project->title }}">
                                 </div>
                             </div>
                             @endif

@@ -357,9 +357,20 @@ class DashboardController extends Controller
     /**
      * Show edit product form
      */
-    public function editProduct(\App\Models\Product $product)
+    public function editProduct($id)
     {
+        // Load product fresh with categories relationship
+        $product = \App\Models\Product::with('categories')->findOrFail($id);
         $brands = \App\Models\Brand::active()->orderBy('name')->get();
+        
+        // Debug log - safe null check
+        \Illuminate\Support\Facades\Log::info('Edit Product - Categories loaded', [
+            'product_id' => $product->id,
+            'categories_count' => $product->categories ? $product->categories->count() : 0,
+            'category_ids' => $product->categories ? $product->categories->pluck('id')->toArray() : [],
+            'category_names' => $product->categories ? $product->categories->pluck('name')->toArray() : []
+        ]);
+        
         return view('admin.products-edit', compact('product', 'brands'));
     }
 
@@ -407,6 +418,8 @@ class DashboardController extends Controller
                 'min_order_quantity' => 'nullable|integer|min:1',
                 'tags' => 'nullable|string',
                 'categories' => 'nullable|string',
+                'category_ids' => 'nullable|array',
+                'category_ids.*' => 'nullable|integer|exists:categories,id',
                 'related_products' => 'nullable|string',
                 'weight' => 'nullable|string|max:50',
                 'dimensions' => 'nullable|string|max:100',
@@ -490,7 +503,7 @@ class DashboardController extends Controller
             $validated['indexable'] = $request->has('indexable') ? 1 : 0;
             
             // Convert comma-separated strings to arrays for JSON fields
-            $jsonFields = ['tags', 'categories', 'related_products'];
+            $jsonFields = ['tags', 'related_products']; // Removed 'categories' - using relationship
             foreach ($jsonFields as $field) {
                 if (isset($validated[$field]) && is_string($validated[$field])) {
                     $validated[$field] = array_filter(array_map('trim', explode(',', $validated[$field])));
@@ -564,10 +577,9 @@ class DashboardController extends Controller
             
             $product->update($validated);
             
-            // Sync categories if provided
-            if ($request->has('category_ids')) {
-                $product->categories()->sync($request->category_ids);
-            }
+            // Sync categories - if no categories selected, detach all
+            $categoryIds = $request->input('category_ids', []);
+            $product->categories()->sync($categoryIds);
             
             // Log after update
             \Illuminate\Support\Facades\Log::info('After Update', [
@@ -1019,21 +1031,18 @@ class DashboardController extends Controller
     public function storeProjectCategory(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:project_categories,name',
             'slug' => 'nullable|string|max:255|unique:project_categories,slug',
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'order' => 'nullable|integer',
         ]);
 
-        // Auto-generate slug if empty
         if (empty($validated['slug'])) {
             $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
         }
 
-        // Handle checkbox status - checked = 'active', unchecked = 'inactive'
         $validated['status'] = $request->has('status') ? 'active' : 'inactive';
-
         \App\Models\ProjectCategory::create($validated);
 
         return redirect()->route('admin.project-categories')->with('success', 'Project category created successfully!');
@@ -1056,16 +1065,14 @@ class DashboardController extends Controller
         $category = \App\Models\ProjectCategory::findOrFail($id);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:project_categories,name,' . $id,
             'slug' => 'required|string|max:255|unique:project_categories,slug,' . $id,
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'order' => 'nullable|integer',
         ]);
 
-        // Handle checkbox status - checked = 'active', unchecked = 'inactive'
         $validated['status'] = $request->has('status') ? 'active' : 'inactive';
-
         $category->update($validated);
 
         return redirect()->route('admin.project-categories')->with('success', 'Project category updated successfully!');
@@ -1129,7 +1136,9 @@ class DashboardController extends Controller
             'thumbnail_image' => 'nullable|image|max:2048',
             'overview_title' => 'nullable|string|max:255',
             'overview_content' => 'nullable|string',
-            'slider_images' => 'nullable|array',
+            'slider_image_files.*' => 'nullable|image|max:2048',
+            'slider_image_urls.*' => 'nullable|string',
+            'slider_image_alts.*' => 'nullable|string',
             'secondary_title' => 'nullable|string|max:255',
             'detail_steps_title' => 'nullable|array',
             'detail_steps_description' => 'nullable|array',
@@ -1158,6 +1167,11 @@ class DashboardController extends Controller
 
         // Handle featured checkbox
         $validated['featured'] = $request->has('featured') ? 1 : 0;
+
+        // Auto-set published_at if status is published and published_at is not set
+        if ($validated['status'] === 'published' && empty($validated['published_at'])) {
+            $validated['published_at'] = now();
+        }
 
         // Handle image uploads - all to public/assets/AIcontrol_imgs/AllProjectImgs
         if ($request->hasFile('banner_image')) {
@@ -1199,10 +1213,54 @@ class DashboardController extends Controller
             }
         }
 
-        // Clean up slider_images array (remove empty values)
-        if (isset($validated['slider_images'])) {
-            $validated['slider_images'] = array_filter($validated['slider_images']);
+        // Handle slider images with file uploads and alt texts
+        $sliderImages = [];
+        $sliderFiles = $request->file('slider_image_files', []);
+        $sliderUrls = $request->input('slider_image_urls', []);
+        $sliderAlts = $request->input('slider_image_alts', []);
+        
+        foreach ($sliderFiles as $index => $file) {
+            $imageData = [];
+            
+            // Handle file upload
+            if ($file && $file->isValid()) {
+                $filename = time() . '_slider' . $index . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+                $imageData['url'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+            } 
+            // Handle URL input if no file uploaded
+            elseif (!empty($sliderUrls[$index])) {
+                $imageData['url'] = $sliderUrls[$index];
+            }
+            
+            // Add alt text if provided
+            if (!empty($sliderAlts[$index])) {
+                $imageData['alt'] = $sliderAlts[$index];
+            }
+            
+            // Only add if we have at least a URL
+            if (!empty($imageData['url'])) {
+                $sliderImages[] = $imageData;
+            }
         }
+        
+        // Also process standalone URLs (if no file was uploaded for that index)
+        foreach ($sliderUrls as $index => $url) {
+            // Skip if we already processed this index via file upload
+            if (isset($sliderFiles[$index]) && $sliderFiles[$index] && $sliderFiles[$index]->isValid()) {
+                continue;
+            }
+            
+            if (!empty($url)) {
+                $imageData = ['url' => $url];
+                if (!empty($sliderAlts[$index])) {
+                    $imageData['alt'] = $sliderAlts[$index];
+                }
+                $sliderImages[] = $imageData;
+            }
+        }
+        
+        $validated['slider_images'] = $sliderImages;
 
         // Build detail_steps array from title and description arrays
         $detailSteps = [];
@@ -1265,7 +1323,10 @@ class DashboardController extends Controller
             'thumbnail_image' => 'nullable|image|max:2048',
             'overview_title' => 'nullable|string|max:255',
             'overview_content' => 'nullable|string',
-            'slider_images' => 'nullable|array',
+            'slider_image_files.*' => 'nullable|image|max:2048',
+            'slider_image_urls.*' => 'nullable|string|max:500',
+            'slider_image_alts.*' => 'nullable|string|max:255',
+            'existing_slider_images' => 'nullable|array',
             'secondary_title' => 'nullable|string|max:255',
             'detail_steps_title' => 'nullable|array',
             'detail_steps_description' => 'nullable|array',
@@ -1289,6 +1350,11 @@ class DashboardController extends Controller
 
         // Handle featured checkbox
         $validated['featured'] = $request->has('featured') ? 1 : 0;
+
+        // Auto-set published_at if status is published and published_at is not set
+        if ($validated['status'] === 'published' && empty($validated['published_at']) && empty($project->published_at)) {
+            $validated['published_at'] = now();
+        }
 
         // Handle image uploads - all to public/assets/AIcontrol_imgs/AllProjectImgs
         if ($request->hasFile('banner_image')) {
@@ -1344,10 +1410,56 @@ class DashboardController extends Controller
             }
         }
 
-        // Clean up slider_images array (remove empty values)
-        if (isset($validated['slider_images'])) {
-            $validated['slider_images'] = array_filter($validated['slider_images']);
+        // Process slider images with file uploads and alt texts
+        $sliderFiles = $request->file('slider_image_files', []);
+        $sliderUrls = $request->input('slider_image_urls', []);
+        $sliderAlts = $request->input('slider_image_alts', []);
+        $existingSliderImages = $request->input('existing_slider_images', []);
+        
+        $sliderImages = [];
+        
+        // First, preserve existing images that weren't removed
+        if (is_array($existingSliderImages)) {
+            foreach ($existingSliderImages as $existing) {
+                if (is_string($existing)) {
+                    // Old format: simple string URL
+                    $sliderImages[] = ['url' => $existing, 'alt' => ''];
+                } elseif (is_array($existing) && isset($existing['url'])) {
+                    // New format: object with url and alt
+                    $sliderImages[] = $existing;
+                }
+            }
         }
+        
+        // Process new uploads/URLs
+        $maxCount = max(count($sliderFiles), count($sliderUrls), count($sliderAlts));
+        for ($index = 0; $index < $maxCount; $index++) {
+            $imageData = [];
+            
+            // Check if there's a file upload
+            if (isset($sliderFiles[$index]) && $sliderFiles[$index] && $sliderFiles[$index]->isValid()) {
+                $file = $sliderFiles[$index];
+                $filename = time() . '_slider' . $index . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/AIcontrol_imgs/AllProjectImgs'), $filename);
+                $imageData['url'] = 'assets/AIcontrol_imgs/AllProjectImgs/' . $filename;
+            } 
+            // Otherwise check if there's a URL
+            elseif (!empty($sliderUrls[$index])) {
+                $imageData['url'] = $sliderUrls[$index];
+            }
+            
+            // Add alt text if provided
+            if (!empty($sliderAlts[$index])) {
+                $imageData['alt'] = $sliderAlts[$index];
+            }
+            
+            // Only add if we have a URL
+            if (!empty($imageData['url'])) {
+                $sliderImages[] = $imageData;
+            }
+        }
+        
+        $validated['slider_images'] = $sliderImages;
 
         // Build detail_steps array from title and description arrays
         $detailSteps = [];

@@ -11,12 +11,21 @@ class BlogController extends Controller
     /**
      * Display a listing of published blogs
      */
-    public function index()
+    public function index(Request $request)
     {
-        // TEMPORARY: Using is_published check instead of published() scope
-        $blogs = Blog::where('is_published', true)
-            ->orderBy('created_at', 'desc')
-            ->paginate(9);
+        // Start with published blogs query
+        $query = Blog::where('is_published', true);
+
+        // Filter by blog categories (new structured categories)
+        if ($request->has('blog_category') && !empty($request->blog_category)) {
+            $categoryIds = $request->blog_category;
+            $query->whereHas('blogCategories', function($q) use ($categoryIds) {
+                $q->whereIn('blog_categories.id', $categoryIds);
+            });
+        }
+
+        // Get filtered blogs
+        $blogs = $query->orderBy('created_at', 'desc')->paginate(9);
 
         // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)

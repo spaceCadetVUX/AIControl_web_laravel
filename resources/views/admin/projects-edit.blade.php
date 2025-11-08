@@ -167,8 +167,14 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Banner Image</label>
                             @if($project->banner_image)
+                                @php
+                                    $bannerPath = $project->banner_image;
+                                    $bannerUrl = \Illuminate\Support\Str::startsWith($bannerPath, ['http://', 'https://'])
+                                        ? $bannerPath
+                                        : asset(ltrim($bannerPath, '/'));
+                                @endphp
                                 <div class="mt-2 mb-2">
-                                    <img src="{{ asset('storage/' . $project->banner_image) }}" alt="Current Banner" class="h-32 rounded border">
+                                    <img src="{{ $bannerUrl }}" alt="Current Banner" class="h-32 rounded border">
                                     <p class="text-xs text-gray-500 mt-1">Current banner image</p>
                                 </div>
                             @endif
@@ -180,8 +186,14 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Thumbnail</label>
                             @if($project->thumbnail_image)
+                                @php
+                                    $thumbPath = $project->thumbnail_image;
+                                    $thumbUrl = \Illuminate\Support\Str::startsWith($thumbPath, ['http://', 'https://'])
+                                        ? $thumbPath
+                                        : asset(ltrim($thumbPath, '/'));
+                                @endphp
                                 <div class="mt-2 mb-2">
-                                    <img src="{{ asset('storage/' . $project->thumbnail_image) }}" alt="Current Thumbnail" class="h-32 rounded border">
+                                    <img src="{{ $thumbUrl }}" alt="Current Thumbnail" class="h-32 rounded border">
                                     <p class="text-xs text-gray-500 mt-1">Current thumbnail</p>
                                 </div>
                             @endif
@@ -194,9 +206,17 @@
                             @for($i = 1; $i <= 3; $i++)
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Gallery {{ $i }}</label>
-                                    @if($project->{'gallery_image_' . $i})
+                                    @php
+                                        $galleryPath = $project->{'gallery_image_' . $i};
+                                        if ($galleryPath) {
+                                            $galleryUrl = \Illuminate\Support\Str::startsWith($galleryPath, ['http://', 'https://'])
+                                                ? $galleryPath
+                                                : asset(ltrim($galleryPath, '/'));
+                                        }
+                                    @endphp
+                                    @if(!empty($galleryPath))
                                         <div class="mt-2 mb-2">
-                                            <img src="{{ asset('storage/' . $project->{'gallery_image_' . $i}) }}" alt="Gallery {{ $i }}" class="h-24 rounded border">
+                                            <img src="{{ $galleryUrl }}" alt="Gallery {{ $i }}" class="h-24 rounded border">
                                         </div>
                                     @endif
                                     <input type="file" name="gallery_image_{{ $i }}" accept="image/*"
@@ -256,28 +276,84 @@
                     <h3 class="text-lg font-semibold mb-4">Slider & Detail Steps</h3>
                     
                     <div class="space-y-6">
-                        <!-- Slider Images -->
+                        <!-- Slider Images with Upload and Alt Text -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Slider Images (JSON array)</label>
-                            <div id="slider-images-container" class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Slider Images</label>
+                            <p class="text-xs text-gray-500 mb-3">Upload ảnh hoặc nhập URL. Mỗi ảnh có thể có text mô tả (alt text) cho SEO.</p>
+                            <div id="slider-images-container" class="space-y-3">
                                 @if($project->slider_images && is_array($project->slider_images) && count($project->slider_images) > 0)
                                     @foreach($project->slider_images as $image)
-                                        <div class="flex items-center space-x-2">
-                                            <input type="text" name="slider_images[]" value="{{ $image }}" placeholder="https://example.com/image.jpg" 
-                                                class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                            <button type="button" onclick="removeSliderImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Remove</button>
+                                        <div class="slider-image-item border border-gray-300 rounded-lg p-4 bg-gray-50">
+                                            <div class="grid grid-cols-12 gap-3">
+                                                <div class="col-span-5">
+                                                    <label class="block text-xs font-medium text-gray-600 mb-1">Upload hoặc URL</label>
+                                                    @if(is_string($image))
+                                                        <!-- Old format: just string URL -->
+                                                        <input type="text" name="slider_image_urls[]" value="{{ $image }}" placeholder="https://..." 
+                                                            class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                        <input type="file" name="slider_image_files[]" accept="image/*" 
+                                                            onchange="previewSliderImage(this)"
+                                                            class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                                    @else
+                                                        <!-- New format: object with url and alt -->
+                                                        <input type="text" name="slider_image_urls[]" value="{{ $image['url'] ?? '' }}" placeholder="https://..." 
+                                                            class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                        <input type="file" name="slider_image_files[]" accept="image/*" 
+                                                            onchange="previewSliderImage(this)"
+                                                            class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                                    @endif
+                                                    @if(is_array($image) && isset($image['url']) && !str_starts_with($image['url'], 'http'))
+                                                        <div class="mt-2">
+                                                            <img src="{{ asset($image['url']) }}" alt="{{ $image['alt'] ?? '' }}" class="h-20 rounded border">
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="col-span-5">
+                                                    <label class="block text-xs font-medium text-gray-600 mb-1">Alt Text (Mô tả ảnh)</label>
+                                                    <input type="text" name="slider_image_alts[]" 
+                                                        value="{{ is_array($image) ? ($image['alt'] ?? '') : '' }}"
+                                                        placeholder="VD: Phòng khách thông minh biệt thự Vinhomes" 
+                                                        class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                </div>
+                                                <div class="col-span-2 flex items-end">
+                                                    <button type="button" onclick="removeSliderImage(this)" 
+                                                        class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
+                                                        Xóa
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     @endforeach
                                 @else
-                                    <div class="flex items-center space-x-2">
-                                        <input type="text" name="slider_images[]" placeholder="https://example.com/image.jpg" 
-                                            class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <button type="button" onclick="removeSliderImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Remove</button>
+                                    <div class="slider-image-item border border-gray-300 rounded-lg p-4 bg-gray-50">
+                                        <div class="grid grid-cols-12 gap-3">
+                                            <div class="col-span-5">
+                                                <label class="block text-xs font-medium text-gray-600 mb-1">Upload hoặc URL</label>
+                                                <input type="file" name="slider_image_files[]" accept="image/*" 
+                                                    onchange="previewSliderImage(this)"
+                                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                                <input type="text" name="slider_image_urls[]" placeholder="hoặc nhập URL: https://..." 
+                                                    class="mt-2 block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                            </div>
+                                            <div class="col-span-5">
+                                                <label class="block text-xs font-medium text-gray-600 mb-1">Alt Text (Mô tả ảnh)</label>
+                                                <input type="text" name="slider_image_alts[]" placeholder="VD: Phòng khách thông minh biệt thự Vinhomes" 
+                                                    class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                            </div>
+                                            <div class="col-span-2 flex items-end">
+                                                <button type="button" onclick="removeSliderImage(this)" 
+                                                    class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
+                                                    Xóa
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 @endif
                             </div>
-                            <button type="button" onclick="addSliderImage()" class="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">+ Add Slider Image</button>
-                            <p class="mt-1 text-xs text-gray-500">Enter image URL or upload files later</p>
+                            <button type="button" onclick="addSliderImage()" 
+                                class="mt-3 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 text-sm font-medium">
+                                <i class="fas fa-plus mr-1"></i> Thêm hình Slider
+                            </button>
                         </div>
 
                         <!-- Secondary Title -->
@@ -359,8 +435,14 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">OG Image (Open Graph)</label>
                             @if($project->og_image)
+                                @php
+                                    $ogPath = $project->og_image;
+                                    $ogUrl = \Illuminate\Support\Str::startsWith($ogPath, ['http://', 'https://'])
+                                        ? $ogPath
+                                        : asset(ltrim($ogPath, '/'));
+                                @endphp
                                 <div class="mt-2 mb-2">
-                                    <img src="{{ asset('storage/' . $project->og_image) }}" alt="Current OG Image" class="h-32 rounded border">
+                                    <img src="{{ $ogUrl }}" alt="Current OG Image" class="h-32 rounded border">
                                     <p class="text-xs text-gray-500 mt-1">Current OG image</p>
                                 </div>
                             @endif
@@ -466,24 +548,61 @@
             updateCount(metaDescInput, metaDescCount, 160);
         }
 
-        // Slider images management
+        // Slider images management with preview
         function addSliderImage() {
             const container = document.getElementById('slider-images-container');
             const div = document.createElement('div');
-            div.className = 'flex items-center space-x-2';
+            div.className = 'slider-image-item border border-gray-300 rounded-lg p-4 bg-gray-50';
             div.innerHTML = `
-                <input type="text" name="slider_images[]" placeholder="https://example.com/image.jpg" 
-                    class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                <button type="button" onclick="removeSliderImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Remove</button>
+                <div class="grid grid-cols-12 gap-3">
+                    <div class="col-span-5">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Upload hoặc URL</label>
+                        <input type="file" name="slider_image_files[]" accept="image/*" 
+                            onchange="previewSliderImage(this)"
+                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        <input type="text" name="slider_image_urls[]" placeholder="hoặc nhập URL: https://..." 
+                            class="mt-2 block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="col-span-5">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Alt Text (Mô tả ảnh)</label>
+                        <input type="text" name="slider_image_alts[]" placeholder="VD: Phòng khách thông minh biệt thự Vinhomes" 
+                            class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="col-span-2 flex items-end">
+                        <button type="button" onclick="removeSliderImage(this)" 
+                            class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2 slider-preview hidden">
+                    <img src="" alt="" class="h-20 rounded border border-gray-300">
+                </div>
             `;
             container.appendChild(div);
         }
 
         function removeSliderImage(button) {
-            if (document.querySelectorAll('#slider-images-container > div').length > 1) {
-                button.parentElement.remove();
+            const items = document.querySelectorAll('.slider-image-item');
+            if (items.length > 1) {
+                button.closest('.slider-image-item').remove();
             } else {
-                alert('Must have at least one slider image field');
+                alert('Phải có ít nhất một trường slider image');
+            }
+        }
+
+        function previewSliderImage(input) {
+            const item = input.closest('.slider-image-item');
+            const preview = item.querySelector('.slider-preview');
+            const img = preview ? preview.querySelector('img') : null;
+            
+            if (input.files && input.files[0] && img) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
             }
         }
 

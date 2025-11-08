@@ -94,12 +94,17 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+                            @php
+                                // Get current category IDs - now properly loaded from controller
+                                $currentCategoryIds = $product->categories ? $product->categories->pluck('id')->toArray() : [];
+                            @endphp
+                            
                             <div class="border border-gray-300 rounded-md p-4 max-h-96 overflow-y-auto bg-gray-50">
                                 @foreach(\App\Models\Category::active()->roots()->orderBy('order')->orderBy('name')->get() as $rootCategory)
                                     <div class="mb-3">
                                         <label class="flex items-center space-x-2 font-medium text-gray-700">
                                             <input type="checkbox" name="category_ids[]" value="{{ $rootCategory->id }}" 
-                                                {{ in_array($rootCategory->id, old('category_ids', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                                {{ in_array($rootCategory->id, old('category_ids', $currentCategoryIds)) ? 'checked' : '' }}
                                                 class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                             <i class="fas fa-folder text-blue-600"></i>
                                             <span>{{ $rootCategory->name }}</span>
@@ -109,7 +114,7 @@
                                                 @foreach($rootCategory->children as $child)
                                                     <label class="flex items-center space-x-2 text-gray-600">
                                                         <input type="checkbox" name="category_ids[]" value="{{ $child->id }}" 
-                                                            {{ in_array($child->id, old('category_ids', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                                            {{ in_array($child->id, old('category_ids', $currentCategoryIds)) ? 'checked' : '' }}
                                                             class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                         <i class="fas fa-angle-right text-gray-400"></i>
                                                         <span>{{ $child->name }}</span>
@@ -197,7 +202,9 @@
                                     </button>
                                 </div>
                                 @if($product->image_url)
-                                    <img src="{{ $product->image_url }}" alt="{{ $product->image_alt }}" class="mt-2 h-24 w-24 object-cover rounded border">
+                                    <img src="{{ str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url) }}" 
+                                         alt="{{ $product->image_alt }}" 
+                                         class="mt-2 h-24 w-24 object-cover rounded border">
                                 @endif
                             </div>
 

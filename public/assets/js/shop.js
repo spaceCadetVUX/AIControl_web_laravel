@@ -43,21 +43,25 @@
 
             // Get selected brands
             const brands = formData.getAll('brand[]').filter(Boolean);
+            console.log('Selected brands:', brands);
             if (brands.length > 0) {
                 params.append('brand', brands.join(','));
             }
 
             // Get selected categories
             const categories = formData.getAll('category[]').filter(Boolean);
+            console.log('Selected categories:', categories);
             if (categories.length > 0) {
                 params.append('category', categories.join(','));
             }
 
             // Build URL and redirect
-            const baseUrl = window.location.href.split('?')[0];
+            // Remove both query string and hash from current URL to get clean base
+            const baseUrl = window.location.origin + window.location.pathname;
             const queryString = params.toString();
             const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
             
+            console.log('Redirecting to:', url);
             window.location.href = url;
         });
     }

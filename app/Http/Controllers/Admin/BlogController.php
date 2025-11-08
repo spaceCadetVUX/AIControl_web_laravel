@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BlogController extends Controller
 {
@@ -87,6 +88,13 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        // Debug logging
+        Log::info('Blog Store Request Data:', [
+            'all_data' => $request->all(),
+            'action' => $request->input('action'),
+            'has_action' => $request->has('action'),
+        ]);
+
         $validated = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'nullable|unique:blogs,slug',
@@ -130,6 +138,11 @@ class BlogController extends Controller
         $action = $request->input('action', 'publish');
         $validated['is_published'] = ($action === 'publish') ? true : false;
         
+        Log::info('Blog Store Action Processing:', [
+            'action' => $action,
+            'is_published' => $validated['is_published'],
+        ]);
+        
         // Set published date - check for empty string or null
         if ($validated['is_published']) {
             if (empty($validated['published_at']) || $validated['published_at'] === '') {
@@ -144,14 +157,28 @@ class BlogController extends Controller
         $validated['indexable'] = $request->has('indexable') ? true : true; // Default to true
 
         $blog = Blog::create($validated);
+        
+        Log::info('Blog Created:', [
+            'id' => $blog->id,
+            'title' => $blog->title,
+            'is_published' => $blog->is_published,
+            'published_at' => $blog->published_at,
+        ]);
 
         // Sync blog categories
         if ($request->has('blog_categories')) {
             $blog->blogCategories()->sync($request->blog_categories);
+            Log::info('Blog Categories Synced:', [
+                'categories' => $request->blog_categories,
+            ]);
         }
 
+        $message = $validated['is_published'] 
+            ? 'Bài viết đã được xuất bản thành công!' 
+            : 'Bài viết đã được lưu nháp thành công!';
+
         return redirect()->route('admin.blogs.index')
-            ->with('success', 'Bài viết đã được tạo thành công!');
+            ->with('success', $message);
     }
 
     /**

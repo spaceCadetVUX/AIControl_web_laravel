@@ -14,52 +14,43 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        // Debug logging
+        Log::info('Shop filter request', [
+            'brand' => $request->brand,
+            'category' => $request->category,
+            'q' => $request->q,
+            'sort' => $request->sort,
+            'all_params' => $request->all()
+        ]);
+
         // Validate input
         $request->validate([
-            'brand' => 'nullable|string|max:255',
-            'category' => 'nullable|string|max:255',
+            'brand' => 'nullable|string',
+            'category' => 'nullable|string',
             'q' => 'nullable|string|max:255',
             'sort' => 'nullable|in:newest,popular,price-low,price-high'
         ]);
 
-        $query = Product::published();
+        $query = Product::published()->with('categories');
 
-        // Filter by brands
-        if ($request->has('brand') && $request->brand) {
-            $brands = explode(',', $request->brand);
-            $query->whereIn('brand', $brands);
+        // Filter by brands (convert comma-separated to array)
+        if ($request->has('brand') && !empty($request->brand)) {
+            $brandArray = explode(',', $request->brand);
+            $brandArray = array_filter($brandArray); // Remove empty values
+            if (!empty($brandArray)) {
+                Log::info('Filtering by brands', ['brands' => $brandArray]);
+                $query->whereIn('brand', $brandArray);
+            }
         }
 
-        // Filter by categories (using relationship)
-        // If a product is assigned to a root category, it should appear when filtering by any of its subcategories
-        if ($request->has('category') && $request->category) {
-            $categoryIds = array_filter(explode(',', $request->category));
-            if (!empty($categoryIds)) {
-                // Get all selected categories
-                $selectedCategories = \App\Models\Category::whereIn('id', $categoryIds)->get();
-                
-                // Build array of category IDs to search for
-                $searchCategoryIds = [];
-                
-                foreach ($selectedCategories as $category) {
-                    // Add the selected category itself
-                    $searchCategoryIds[] = $category->id;
-                    
-                    // If it's a subcategory, also include its parent
-                    // This way products assigned to parent will show when filtering by child
-                    if ($category->parent_id) {
-                        $searchCategoryIds[] = $category->parent_id;
-                    }
-                    
-                    // If it's a root category, products assigned to it should show
-                    // (already included above)
-                }
-                
-                // Remove duplicates
-                $searchCategoryIds = array_unique($searchCategoryIds);
-                
-                $query->whereHas('categories', function($q) use ($searchCategoryIds) {
-                    $q->whereIn('categories.id', $searchCategoryIds);
+        // Filter by categories (convert comma-separated to array)
+        if ($request->has('category') && !empty($request->category)) {
+            $categoryArray = explode(',', $request->category);
+            $categoryArray = array_filter(array_map('intval', $categoryArray)); // Convert to integers
+            if (!empty($categoryArray)) {
+                Log::info('Filtering by categories', ['categories' => $categoryArray]);
+                $query->whereHas('categories', function($q) use ($categoryArray) {
+                    $q->whereIn('categories.id', $categoryArray);
                 });
             }
         }
@@ -99,16 +90,17 @@ class ProductController extends Controller
         $products = $query->paginate(9)->withQueryString();
 
         // Get all active brands for the filter sidebar
-        $brands = \App\Models\Brand::active()
+        $brands = \App\Models\Brand::where('status', 1)
             ->orderBy('name')
             ->get();
 
-        // Get all active categories for the filter sidebar
-        $categories = \App\Models\Category::active()
-            ->with('children')
-            ->roots()
+        // Get all active categories with product counts (hierarchical)
+        $categories = \App\Models\Category::whereNull('parent_id')
+            ->where('status', 1)
+            ->with(['children' => function($query) {
+                $query->where('status', 1)->orderBy('order');
+            }])
             ->orderBy('order')
-            ->orderBy('name')
             ->get();
 
         return view('front.shop', compact('products', 'brands', 'categories'));
@@ -159,11 +151,20 @@ class ProductController extends Controller
             ->paginate(12);
 
         // Get all active brands for the filter sidebar
-        $brands = \App\Models\Brand::active()
+        $brands = \App\Models\Brand::where('status', 1)
             ->orderBy('name')
             ->get();
 
-        return view('front.shop', compact('products', 'brand', 'brands'));
+        // Get all active categories with product counts (hierarchical)
+        $categories = \App\Models\Category::whereNull('parent_id')
+            ->where('status', 1)
+            ->with(['children' => function($query) {
+                $query->where('status', 1)->orderBy('order');
+            }])
+            ->orderBy('order')
+            ->get();
+
+        return view('front.shop', compact('products', 'brand', 'brands', 'categories'));
     }
 
     /**
@@ -196,11 +197,20 @@ class ProductController extends Controller
             ->paginate(12);
 
         // Get all active brands for the filter sidebar
-        $brands = \App\Models\Brand::active()
+        $brands = \App\Models\Brand::where('status', 1)
             ->orderBy('name')
             ->get();
 
-        return view('front.shop', compact('products', 'keyword', 'brands'));
+        // Get all active categories with product counts (hierarchical)
+        $categories = \App\Models\Category::whereNull('parent_id')
+            ->where('status', 1)
+            ->with(['children' => function($query) {
+                $query->where('status', 1)->orderBy('order');
+            }])
+            ->orderBy('order')
+            ->get();
+
+        return view('front.shop', compact('products', 'keyword', 'brands', 'categories'));
     }
 
     /**

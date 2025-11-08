@@ -337,6 +337,12 @@
         document.querySelector('form').addEventListener('submit', function(e) {
             console.log('Form submitting...');
             
+            // Get the clicked button's action value
+            const submitter = e.submitter;
+            if (submitter) {
+                console.log('Submit button:', submitter.name, '=', submitter.value);
+            }
+            
             // Sync TinyMCE content to textarea before submit
             if (tinymce.get('tinymce-content')) {
                 tinymce.get('tinymce-content').save();
@@ -359,6 +365,8 @@
             }
             
             console.log('Form is submitting to:', this.action);
+            // Allow the form to submit
+            return true;
         });
 
         // Initialize TinyMCE
