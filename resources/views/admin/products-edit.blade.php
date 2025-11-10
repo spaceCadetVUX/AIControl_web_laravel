@@ -14,13 +14,13 @@
     <script src="https://cdn.tiny.cloud/1/sgrz0gpyn1159lugws1kjcka6lqmi221jrtqvt85ildm1rki/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <form method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <!-- Tab Navigation -->
-                <div class="bg-white shadow-sm rounded-lg mb-4">
+                <div class="bg-white shadow-sm rounded-lg mb-4  max-w-7xl p-6 mx-auto">
                     <div class="border-b border-gray-200">
                         <nav class="flex -mb-px">
                             <button type="button" onclick="showTab('basic')" id="tab-basic" class="tab-button active border-b-2 border-blue-500 py-4 px-6 text-sm font-medium text-blue-600">
@@ -46,7 +46,7 @@
                 </div>
 
                 <!-- Basic Info Tab -->
-                <div id="content-basic" class="tab-content bg-white shadow-sm rounded-lg p-6">
+                <div id="content-basic" class="tab-content bg-white shadow-sm rounded-lg max-w-7xl p-6 mx-auto ">
                     <h3 class="text-lg font-semibold mb-4">Basic Information</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -95,26 +95,37 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
                             @php
-                                // Get current category IDs - now properly loaded from controller
-                                $currentCategoryIds = $product->categories ? $product->categories->pluck('id')->toArray() : [];
+                                // Get current category IDs directly from the relationship (fresh DB query)
+                                // This avoids relying on a potentially stale loaded relation.
+                                $currentCategoryIds = $product->categories()->pluck('categories.id')->toArray();
+
+                                // Build a collection of selected IDs (preserve old input if validation failed)
+                                $selectedCategoryIds = collect(old('category_ids', $currentCategoryIds))
+                                    ->map(function ($v) { return intval($v); })
+                                    ->unique()
+                                    ->values();
                             @endphp
-                            
-                            <div class="border border-gray-300 rounded-md p-4 max-h-96 overflow-y-auto bg-gray-50">
-                                @foreach(\App\Models\Category::active()->roots()->orderBy('order')->orderBy('name')->get() as $rootCategory)
-                                    <div class="mb-3">
-                                        <label class="flex items-center space-x-2 font-medium text-gray-700">
-                                            <input type="checkbox" name="category_ids[]" value="{{ $rootCategory->id }}" 
-                                                {{ in_array($rootCategory->id, old('category_ids', $currentCategoryIds)) ? 'checked' : '' }}
-                                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                            <i class="fas fa-folder text-blue-600"></i>
-                                            <span>{{ $rootCategory->name }}</span>
-                                        </label>
+
+                                <script>
+                                    // Debug helper: print current category IDs in the browser console
+                                    console.log('currentCategoryIds:', @json($currentCategoryIds));
+                                </script>
+
+                            @foreach(\App\Models\Category::active()->roots()->orderBy('order')->orderBy('name')->get() as $rootCategory)
+                                <div class="mb-3">
+                                    <label class="flex items-center space-x-2 font-medium text-gray-700">
+                                        <input type="checkbox" name="category_ids[]" value="{{ $rootCategory->id }}" 
+                                            {{ $selectedCategoryIds->contains($rootCategory->id) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <i class="fas fa-folder text-blue-600"></i>
+                                        <span>{{ $rootCategory->name }}</span>
+                                    </label>
                                         @if($rootCategory->children->count() > 0)
                                             <div class="ml-8 mt-2 space-y-2">
                                                 @foreach($rootCategory->children as $child)
                                                     <label class="flex items-center space-x-2 text-gray-600">
                                                         <input type="checkbox" name="category_ids[]" value="{{ $child->id }}" 
-                                                            {{ in_array($child->id, old('category_ids', $currentCategoryIds)) ? 'checked' : '' }}
+                                                            {{ $selectedCategoryIds->contains($child->id) ? 'checked' : '' }}
                                                             class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                         <i class="fas fa-angle-right text-gray-400"></i>
                                                         <span>{{ $child->name }}</span>
@@ -177,7 +188,7 @@
                 </div>
 
                 <!-- Content & Media Tab -->
-                <div id="content-content" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                <div id="content-content" class="tab-content hidden bg-white shadow-sm rounded-lg max-w-7xl p-6 mx-auto">
                     <h3 class="text-lg font-semibold mb-4">Content & Media</h3>
 
                     <div class="space-y-6">
@@ -424,7 +435,7 @@
                 </div>
 
                 <!-- Pricing & Inventory Tab -->
-                <div id="content-pricing" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                <div id="content-pricing" class="tab-content hidden bg-white shadow-sm rounded-lg max-w-7xl p-6 mx-auto">
                     <h3 class="text-lg font-semibold mb-4">Pricing & Inventory</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -504,7 +515,7 @@
                 </div>
 
                 <!-- SEO & Meta Tab -->
-                <div id="content-seo" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                <div id="content-seo" class="tab-content hidden bg-white shadow-sm rounded-lg max-w-7xl p-6 mx-auto">
                     <h3 class="text-lg font-semibold mb-4">SEO & Meta Data</h3>
 
                     <div class="space-y-6">
@@ -618,7 +629,7 @@
                 </div>
 
                 <!-- Advanced Tab -->
-                <div id="content-advanced" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                <div id="content-advanced" class="tab-content hidden bg-white shadow-sm rounded-lg max-w-7xl p-6 mx-auto">
                     <h3 class="text-lg font-semibold mb-4">Advanced Settings</h3>
 
                     <div class="space-y-6">
@@ -663,7 +674,7 @@
                 </div>
 
                 <!-- Statistics Tab -->
-                <div id="content-stats" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                <div id="content-stats" class="tab-content hidden bg-white shadow-sm rounded-lg max-w-7xl p-6 mx-auto">
                     <h3 class="text-lg font-semibold mb-4">Product Statistics</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -719,7 +730,7 @@
                 </div>
 
                 <!-- Submit Buttons -->
-                <div class="bg-white shadow-sm rounded-lg p-6 mt-4">
+                <div class="bg-white shadow-sm rounded-lg p-6 mt-4 max-w-7xl mx-auto">
                     <div class="flex items-center justify-between">
                         <a href="{{ route('admin.products') }}" class="text-gray-600 hover:text-gray-800">Cancel</a>
                         <div class="flex space-x-3">
@@ -829,8 +840,22 @@
                     setTimeout(() => {
                         closeImageUploader();
                     }, 2000);
+                } else if (data.exists) {
+                    // File exists on server - prompt user to rename and upload with new name
+                    showUploadMessage(data.message, 'warning');
+                    document.getElementById('renameContainer').classList.remove('hidden');
+                    document.getElementById('renameInput').value = data.filename || data.originalName || '';
+                    // Bind rename button
+                    document.getElementById('renameUploadBtn').onclick = function() {
+                        const newName = document.getElementById('renameInput').value.trim();
+                        if (!newName) {
+                            showUploadMessage('Please enter a filename', 'error');
+                            return;
+                        }
+                        uploadWithFilename(newName);
+                    };
                 } else {
-                    showUploadMessage(data.message, 'error');
+                    showUploadMessage(data.message || 'Upload failed', 'error');
                 }
             })
             .catch(error => {
@@ -852,6 +877,48 @@
             }
             
             messageDiv.textContent = message;
+        }
+
+        function uploadWithFilename(filename) {
+            const fileInput = document.getElementById('imageFileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                showUploadMessage('Please select an image file', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('filename', filename);
+
+            document.getElementById('uploadProgress').classList.remove('hidden');
+            document.getElementById('uploadMessage').classList.add('hidden');
+
+            fetch('{{ route("admin.upload.image") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('uploadProgress').classList.add('hidden');
+                if (data.success) {
+                    document.getElementById(currentTargetInput).value = data.path;
+                    showUploadMessage(data.message, 'success');
+                    setTimeout(() => closeImageUploader(), 1500);
+                } else if (data.exists) {
+                    showUploadMessage(data.message, 'error');
+                } else {
+                    showUploadMessage(data.message || 'Upload failed', 'error');
+                }
+            })
+            .catch(error => {
+                document.getElementById('uploadProgress').classList.add('hidden');
+                showUploadMessage('Upload failed: ' + error.message, 'error');
+            });
         }
 
         // TinyMCE Rich Text Editor
@@ -908,21 +975,19 @@
         });
     </script>
 
-    <!-- TinyMCE CDN -->
-                        ]
-                    }
-                })
-                .catch(error => {
-                    console.error('CKEditor initialization error:', error);
-                });
-        });
-    </script>
 
     <!-- TinyMCE CDN -->
     <div id="imageUploadModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3">
                 <div class="flex justify-between items-center mb-4">
+                    <div id="renameContainer" class="hidden mt-3">
+                        <label class="block text-sm font-medium text-gray-700">Filename (change to avoid conflict)</label>
+                        <div class="flex gap-2 mt-1">
+                            <input type="text" id="renameInput" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                            <button type="button" id="renameUploadBtn" class="px-3 py-2 bg-blue-600 text-white rounded-md">Upload with new name</button>
+                        </div>
+                    </div>
                     <h3 class="text-lg font-semibold text-gray-900">Upload Image</h3>
                     <button onclick="closeImageUploader()" class="text-gray-400 hover:text-gray-600">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

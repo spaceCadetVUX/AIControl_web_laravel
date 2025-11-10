@@ -202,7 +202,7 @@
                 const highlightedName = highlightText(product.name, keyword);
                 const highlightedSku = highlightText(product.sku || '', keyword);
                 const highlightedBrand = highlightText(product.brand || '', keyword);
-                const productUrl = `/product/${product.slug}`;
+                const productUrl = `/san-pham/${product.slug}`;
                 const imageUrl = product.image_url || '/assets/img/no-image.png';
                 
                 html += `

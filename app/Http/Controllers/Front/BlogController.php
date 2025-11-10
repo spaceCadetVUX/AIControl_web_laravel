@@ -38,8 +38,8 @@ class BlogController extends Controller
         }
 
 
-        // Get filtered blogs
-        $blogs = $query->orderBy('created_at', 'desc')->paginate(9);
+    // Get filtered blogs
+    $blogs = $query->orderBy('created_at', 'desc')->paginate(6);
 
         // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)
@@ -131,7 +131,7 @@ class BlogController extends Controller
         $blogs = Blog::where('is_published', true)
             ->where('category', $category)
             ->orderBy('created_at', 'desc')
-            ->paginate(9);
+            ->paginate(6);
 
         // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)
@@ -183,7 +183,7 @@ class BlogController extends Controller
                     ->orWhere('content', 'LIKE', "%{$searchTerm}%");
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(9);
+            ->paginate(6);
 
         // Get all categories for sidebar (old text-based)
         $categories = Blog::where('is_published', true)

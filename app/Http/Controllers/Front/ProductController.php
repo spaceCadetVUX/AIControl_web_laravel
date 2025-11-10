@@ -43,15 +43,34 @@ class ProductController extends Controller
             }
         }
 
-        // Filter by categories (convert comma-separated to array)
+        // Filter by categories using slugs (convert comma-separated to array)
         if ($request->has('category') && !empty($request->category)) {
-            $categoryArray = explode(',', $request->category);
-            $categoryArray = array_filter(array_map('intval', $categoryArray)); // Convert to integers
-            if (!empty($categoryArray)) {
-                Log::info('Filtering by categories', ['categories' => $categoryArray]);
-                $query->whereHas('categories', function($q) use ($categoryArray) {
-                    $q->whereIn('categories.id', $categoryArray);
-                });
+            $categorySlugs = explode(',', $request->category);
+            // keep as slugs (strings) and remove empty values
+            $categorySlugs = array_filter(array_map('trim', $categorySlugs));
+
+            if (!empty($categorySlugs)) {
+                // Resolve slugs to IDs, and include direct children IDs so parent selection includes child products
+                $categoryIds = [];
+                $categories = \App\Models\Category::whereIn('slug', $categorySlugs)->with('children')->get();
+
+                foreach ($categories as $cat) {
+                    $categoryIds[] = $cat->id;
+                    // If category has children, include them as well (two-level tree expected)
+                    if ($cat->children && $cat->children->count() > 0) {
+                        $categoryIds = array_merge($categoryIds, $cat->children->pluck('id')->toArray());
+                    }
+                }
+
+                // Deduplicate and ensure integers
+                $categoryIds = array_values(array_unique(array_map('intval', $categoryIds)));
+
+                if (!empty($categoryIds)) {
+                    Log::info('Filtering by category ids (including children)', ['category_slugs' => $categorySlugs, 'category_ids' => $categoryIds]);
+                    $query->whereHas('categories', function($q) use ($categoryIds) {
+                        $q->whereIn('categories.id', $categoryIds);
+                    });
+                }
             }
         }
 

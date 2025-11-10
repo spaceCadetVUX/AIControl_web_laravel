@@ -77,7 +77,11 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 @if($brand->logo_url)
-                                                    <img src="{{ $brand->logo_url }}" alt="{{ $brand->name }}" class="h-8 w-8 rounded object-cover mr-3">
+                                                    @php
+                                                        $brandLogo = $brand->logo_url;
+                                                        $logoSrc = str_starts_with($brandLogo, 'http') ? $brandLogo : asset(ltrim($brandLogo, '/'));
+                                                    @endphp
+                                                    <img src="{{ $logoSrc }}" alt="{{ $brand->name }}" class="rounded mr-3" style="max-height:32px; max-width:48px; height:auto; width:auto; object-fit:contain;" onerror="this.style.display='none'">
                                                 @endif
                                                 <div>
                                                     <div class="text-sm font-medium text-gray-900">{{ $brand->name }}</div>

@@ -49,7 +49,7 @@ class BlogController extends Controller
             ->whereNotNull('category')
             ->pluck('category');
 
-        $blogs = $query->latest()->paginate(15);
+        $blogs = $query->latest()->paginate(12);
 
         return view('admin.blogs.index', compact('blogs', 'categories'));
     }

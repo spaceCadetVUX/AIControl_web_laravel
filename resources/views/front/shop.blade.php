@@ -26,6 +26,76 @@
 
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script> --}}
 
+    <style>
+        /* Mobile full-screen sidebar modal styles */
+        .sidebar-overlay { display: none; }
+
+        @media (max-width: 991px) {
+            /* Show the mobile filter toggle on small screens */
+            .mobile-filter-toggle { display: inline-flex; margin-bottom: 12px; }
+
+            /* Fullscreen sidebar when opened-mobile is applied */
+            #shopSidebar.opened-mobile {
+                position: fixed;
+                inset: 0; /* top:0; right:0; bottom:0; left:0 */
+                width: 100vw;
+                height: 100vh;
+                z-index: 20000; /* above most header elements */
+                background: #ffffff;
+                padding: 20px 16px 24px 16px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+                box-sizing: border-box;
+            }
+
+            /* Overlay to dim background */
+            .sidebar-overlay.opened-mobile {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 19999; /* below the sidebar */
+            }
+
+            /* Close button styling inside modal */
+            .sidebar-close-btn {
+                position: absolute;
+                top: 14px;
+                right: 14px;
+                z-index: 10000;
+                background: transparent;
+                border: none;
+                font-size: 20px;
+                color: #333;
+            }
+
+            /* Make filter actions sticky at bottom for easy access */
+            .filter-actions {
+                position: sticky;
+                bottom: 0;
+                background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 60%);
+                padding-top: 12px;
+                padding-bottom: 12px;
+                display: flex;
+                gap: 8px;
+                justify-content: center;
+            }
+
+            .filter-actions .btn-apply-filter,
+            .filter-actions .btn-clear-filter {
+                flex: 1 1 auto;
+            }
+
+            /* Extra close button for mobile (visible inside modal) */
+            #mobileFilterDone { display: inline-flex; }
+        }
+
+        @media (min-width: 992px) {
+            .mobile-filter-toggle { display: none; }
+        }
+    </style>
+
 
 </head>
 
@@ -139,7 +209,14 @@
                                                         <label class="filter-checkbox">
                                                             <input type="checkbox" name="brand[]" value="{{ $brand->name }}" {{ in_array($brand->name, $selectedBrands) ? 'checked' : '' }}>
                                                             <span class="checkmark"></span>
-                                                            {{ $brand->name }}
+                                                            @if(!empty($brand->logo_url))
+                                                                @php
+                                                                    $logoSrc = str_starts_with($brand->logo_url, 'http') ? $brand->logo_url : asset($brand->logo_url);
+                                                                @endphp
+                                                                <img src="{{ $logoSrc }}" alt="{{ $brand->name }}" style="max-height:20px; display:inline-block; vertical-align:middle; margin-left:8px; object-fit:contain;" />
+                                                            @else
+                                                                <span style="margin-left:8px;">{{ $brand->name }}</span>
+                                                            @endif
                                                         </label>
                                                     </li>
                                                     @empty
@@ -155,6 +232,7 @@
                                                 </h3>
                                                 <ul class="filter-list">
                                                     @php
+                                                        // Selected categories are slugs now (comma-separated)
                                                         $selectedCategories = request('category') ? explode(',', request('category')) : [];
                                                     @endphp
 
@@ -184,7 +262,7 @@
                                                                 @endif
                                                             </li>
                                                         @endforeach
-                                                </ul>
+                                                    </ul>
                                             </div>                                            <!-- Hidden field for search query -->
                                             @if(request('q'))
                                                 <input type="hidden" name="q" value="{{ request('q') }}">
@@ -198,6 +276,10 @@
                                                 <a href="{{ route('shop') }}" class="btn-clear-filter">
                                                     <i class="fal fa-redo"></i> Xóa bộ lọc
                                                 </a>
+                                                <!-- Mobile-only Done/Close button -->
+                                                <button type="button" id="mobileFilterDone" class="btn-apply-filter" style="display:none;">
+                                                    <i class="fal fa-times"></i> Đóng
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -455,6 +537,24 @@
                     $subcategoryList.slideDown(200);
                     $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
                 }
+            });
+
+            // Mobile filter modal behavior
+            const $shopSidebar = $('#shopSidebar');
+            const $sidebarOverlay = $('#sidebarOverlay');
+
+            $('#mobileFilterToggle').on('click', function(e) {
+                e.preventDefault();
+                $shopSidebar.addClass('opened-mobile');
+                $sidebarOverlay.addClass('opened-mobile');
+                $('body').css('overflow', 'hidden');
+            });
+
+            $('#sidebarCloseBtn, #sidebarOverlay, #mobileFilterDone').on('click', function(e) {
+                e.preventDefault();
+                $shopSidebar.removeClass('opened-mobile');
+                $sidebarOverlay.removeClass('opened-mobile');
+                $('body').css('overflow', '');
             });
         });
     </script>

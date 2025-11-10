@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
 
 </head>
 
@@ -380,11 +381,52 @@
                                 </div>
                                 
                                 @if($blogs->hasPages())
-                                <!-- Pagination -->
+                                <!-- Pagination (styled like shop) -->
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="tp-pagination mt-50">
-                                            {{ $blogs->links() }}
+                                        <div class="shop-pagination">
+                                            <nav aria-label="Phân trang bài viết">
+                                                <ul class="pagination">
+                                                    <!-- Previous Button -->
+                                                    @if($blogs->onFirstPage())
+                                                        <li class="disabled" aria-disabled="true">
+                                                            <span><i class="fal fa-angle-left"></i> Trước</span>
+                                                        </li>
+                                                    @else
+                                                        <li>
+                                                            <a href="{{ $blogs->previousPageUrl() }}" rel="prev">
+                                                                <i class="fal fa-angle-left"></i> Trước
+                                                            </a>
+                                                        </li>
+                                                    @endif
+
+                                                    <!-- Page Numbers -->
+                                                    @foreach($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
+                                                        @if($page == $blogs->currentPage())
+                                                            <li class="active" aria-current="page">
+                                                                <span>{{ $page }}</span>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a href="{{ $url }}">{{ $page }}</a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+
+                                                    <!-- Next Button -->
+                                                    @if($blogs->hasMorePages())
+                                                        <li>
+                                                            <a href="{{ $blogs->nextPageUrl() }}" rel="next">
+                                                                Sau <i class="fal fa-angle-right"></i>
+                                                            </a>
+                                                        </li>
+                                                    @else
+                                                        <li class="disabled" aria-disabled="true">
+                                                            <span>Sau <i class="fal fa-angle-right"></i></span>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>

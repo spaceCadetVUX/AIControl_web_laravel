@@ -177,6 +177,9 @@
                                     <img src="{{ $bannerUrl }}" alt="Current Banner" class="h-32 rounded border">
                                     <p class="text-xs text-gray-500 mt-1">Current banner image</p>
                                 </div>
+                                <div class="mt-2 mb-4">
+                                    <button type="button" onclick="removeProjectImage({{ $project->id }}, 'banner_image', this)" class="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">Remove Banner</button>
+                                </div>
                             @endif
                             <input type="file" name="banner_image" accept="image/*" 
                                 class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
@@ -195,6 +198,9 @@
                                 <div class="mt-2 mb-2">
                                     <img src="{{ $thumbUrl }}" alt="Current Thumbnail" class="h-32 rounded border">
                                     <p class="text-xs text-gray-500 mt-1">Current thumbnail</p>
+                                </div>
+                                <div class="mt-2 mb-4">
+                                    <button type="button" onclick="removeProjectImage({{ $project->id }}, 'thumbnail_image', this)" class="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">Remove Thumbnail</button>
                                 </div>
                             @endif
                             <input type="file" name="thumbnail_image" accept="image/*"
@@ -217,6 +223,9 @@
                                     @if(!empty($galleryPath))
                                         <div class="mt-2 mb-2">
                                             <img src="{{ $galleryUrl }}" alt="Gallery {{ $i }}" class="h-24 rounded border">
+                                        </div>
+                                        <div class="mt-2 mb-4">
+                                            <button type="button" onclick="removeProjectImage({{ $project->id }}, 'gallery_image_{{ $i }}', this)" class="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">Remove</button>
                                         </div>
                                     @endif
                                     <input type="file" name="gallery_image_{{ $i }}" accept="image/*"
@@ -316,7 +325,7 @@
                                                         class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                 </div>
                                                 <div class="col-span-2 flex items-end">
-                                                    <button type="button" onclick="removeSliderImage(this)" 
+                                                    <button type="button" onclick="removeProjectImage({{ $project->id }}, 'slider_images', this, {{ $loop->index }})" 
                                                         class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
                                                         Xóa
                                                     </button>
@@ -444,6 +453,9 @@
                                 <div class="mt-2 mb-2">
                                     <img src="{{ $ogUrl }}" alt="Current OG Image" class="h-32 rounded border">
                                     <p class="text-xs text-gray-500 mt-1">Current OG image</p>
+                                </div>
+                                <div class="mt-2 mb-4">
+                                    <button type="button" onclick="removeProjectImage({{ $project->id }}, 'og_image', this)" class="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">Remove OG Image</button>
                                 </div>
                             @endif
                             <input type="file" name="og_image" accept="image/*"
@@ -656,6 +668,48 @@
                 file_picker_types: 'image'
             });
         });
+
+        // Remove a project image via AJAX
+        function removeProjectImage(projectId, field, btn, index) {
+            if (!confirm('Are you sure you want to remove this image? This will delete the file if it is stored locally.')) return;
+
+            const url = "{{ url('admin/projects') }}" + '/' + projectId + '/delete-image';
+            const token = '{{ csrf_token() }}';
+
+            const payload = { field: field };
+            if (typeof index !== 'undefined') payload.index = index;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(res => res.json())
+            .then(json => {
+                if (json && json.success) {
+                    // If removing a slider image, remove the whole slider-item
+                    if (field === 'slider_images') {
+                        const item = btn.closest('.slider-image-item');
+                        if (item) item.remove();
+                    } else {
+                        // Remove the image preview block near the button
+                        const preview = btn.closest('.mt-2.mb-2') || btn.previousElementSibling || btn.parentElement;
+                        if (preview) preview.remove();
+                    }
+                    // Remove the button itself if still present
+                    if (btn && btn.remove) btn.remove();
+                    alert(json.message || 'Image removed');
+                } else {
+                    alert(json.message || 'Could not remove image');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('Request failed: ' + (err.message || 'unknown'));
+            });
+        }
     </script>
 
     <style>

@@ -622,9 +622,70 @@ class DashboardController extends Controller
      */
     public function deleteProduct(\App\Models\Product $product)
     {
-        $product->delete();
-        
-        return redirect()->route('admin.products')->with('success', 'Product deleted successfully!');
+        try {
+            // Collect image paths from product
+            $imagePaths = [];
+
+            // Main image
+            if (!empty($product->image_url)) {
+                $imagePaths[] = $product->image_url;
+            }
+
+            // Gallery images - stored as JSON or array
+            $gallery = $product->gallery_images;
+            if (is_string($gallery)) {
+                $decoded = json_decode($gallery, true);
+                $gallery = json_last_error() === JSON_ERROR_NONE ? $decoded : [];
+            }
+            if (is_array($gallery)) {
+                foreach ($gallery as $g) {
+                    $url = null;
+                    if (is_array($g) && isset($g['url'])) {
+                        $url = $g['url'];
+                    } elseif (is_string($g)) {
+                        $url = $g;
+                    }
+                    if ($url) $imagePaths[] = $url;
+                }
+            }
+
+            // Normalize and unique paths
+            $imagePaths = array_values(array_unique(array_filter($imagePaths)));
+
+            foreach ($imagePaths as $path) {
+                // Skip remote URLs
+                if (strpos($path, '://') !== false) continue;
+
+                // Normalize leading slash
+                $relative = ltrim($path, '/');
+                $publicFile = public_path($relative);
+
+                // Check if any other product uses this path (exclude current product)
+                $otherUsage = \App\Models\Product::where('id', '!=', $product->id)
+                    ->where(function($q) use ($relative) {
+                        $q->where('image_url', $relative)
+                          ->orWhere('image_url', '/' . $relative)
+                          ->orWhere('gallery_images', 'LIKE', '%"' . $relative . '"%')
+                          ->orWhere('gallery_images', 'LIKE', '%"/' . $relative . '"%');
+                    })->exists();
+
+                if (!$otherUsage && file_exists($publicFile)) {
+                    try {
+                        @unlink($publicFile);
+                    } catch (\Exception $e) {
+                        \Illuminate\Support\Facades\Log::warning('Failed to delete product image file: ' . $publicFile . ' - ' . $e->getMessage());
+                    }
+                }
+            }
+
+            // Now delete the product record (this will remove pivot rows)
+            $product->delete();
+
+            return redirect()->route('admin.products')->with('success', 'Product deleted successfully!');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Product deletion error: ' . $e->getMessage());
+            return redirect()->route('admin.products')->with('error', 'Error deleting product: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -663,14 +724,20 @@ class DashboardController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:brands,name',
             'description' => 'nullable|string',
-            'logo_url' => 'nullable|url|max:500',
+            // logo_url may be a remote URL or a relative local path (assets/...)
+            'logo_url' => 'nullable|string|max:500',
             'website' => 'nullable|url|max:500',
             'status' => 'nullable|boolean',
         ]);
 
         $validated['slug'] = \Illuminate\Support\Str::slug($request->name);
         $validated['status'] = $request->has('status') ? 1 : 0;
-        
+
+        // If the user indicated they removed the logo before saving, ensure it's null
+        if ($request->boolean('remove_logo')) {
+            $validated['logo_url'] = null;
+        }
+
         \App\Models\Brand::create($validated);
         
         return redirect()->route('admin.brands')->with('success', 'Brand created successfully!');
@@ -692,7 +759,8 @@ class DashboardController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:brands,name,' . $brand->id,
             'description' => 'nullable|string',
-            'logo_url' => 'nullable|url|max:500',
+            // allow relative paths like assets/AIcontrol_imgs/ALLBrandImgs/...
+            'logo_url' => 'nullable|string|max:500',
             'website' => 'nullable|url|max:500',
             'status' => 'nullable|boolean',
         ]);
@@ -703,6 +771,20 @@ class DashboardController extends Controller
         
         $validated['status'] = $request->has('status') ? 1 : 0;
         
+        // If the admin requested removal of the current logo, delete the file (local only) and clear the value
+        if ($request->boolean('remove_logo')) {
+            if (!empty($brand->logo_url) && strpos($brand->logo_url, '://') === false) {
+                $relative = ltrim($brand->logo_url, '/');
+                $publicFile = public_path($relative);
+                if (file_exists($publicFile)) {
+                    try { @unlink($publicFile); } catch (\Exception $e) {
+                        \Illuminate\Support\Facades\Log::warning('Failed to delete brand logo file: ' . $publicFile . ' - ' . $e->getMessage());
+                    }
+                }
+            }
+            $validated['logo_url'] = null;
+        }
+
         $brand->update($validated);
         
         return redirect()->route('admin.brands')->with('success', 'Brand updated successfully!');
@@ -937,9 +1019,11 @@ class DashboardController extends Controller
             return back()->with('error', 'Cannot delete category with subcategories. Please delete or reassign subcategories first.');
         }
 
-        $blogCategory->delete();
-        
-        return redirect()->route('admin.blog-categories')->with('success', 'Blog category deleted successfully!');
+    // Perform permanent deletion (forceDelete) because we use SoftDeletes on BlogCategory
+    // This removes the row from the database instead of just setting deleted_at.
+    $blogCategory->forceDelete();
+
+    return redirect()->route('admin.blog-categories')->with('success', 'Blog category permanently deleted.');
     }
 
     /**
@@ -948,8 +1032,9 @@ class DashboardController extends Controller
     public function uploadImage(Request $request)
     {
         try {
+            // Allow common raster formats plus SVG for brand logos
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // Max 5MB
+                'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg|max:5120', // Max 5MB
             ]);
 
             if (!$request->hasFile('image')) {
@@ -964,8 +1049,17 @@ class DashboardController extends Controller
             $extension = $image->getClientOriginalExtension();
             $baseFileName = pathinfo($originalName, PATHINFO_FILENAME);
             
-            // Define the upload directory
-            $uploadPath = public_path('assets/aicontrol_imgs/AllProductImages');
+            // Determine target folder (default: AllProductImages)
+            $target = $request->input('target', null);
+            if ($target === 'brand') {
+                // Brand logos go to ALLBrandImgs
+                $uploadPath = public_path('assets/AIcontrol_imgs/ALLBrandImgs');
+                $responseBase = 'assets/AIcontrol_imgs/ALLBrandImgs/';
+            } else {
+                // Default products folder (existing behavior)
+                $uploadPath = public_path('assets/aicontrol_imgs/AllProductImages');
+                $responseBase = 'assets/aicontrol_imgs/AllProductImages/';
+            }
             
             // Create directory if it doesn't exist
             if (!file_exists($uploadPath)) {
@@ -976,38 +1070,66 @@ class DashboardController extends Controller
             $fileName = $originalName;
             $filePath = $uploadPath . '/' . $fileName;
             $fileExists = file_exists($filePath);
-            
-            // If file exists, create a unique name
-            if ($fileExists) {
-                $counter = 1;
-                while (file_exists($uploadPath . '/' . $fileName)) {
-                    $fileName = $baseFileName . '_' . $counter . '.' . $extension;
-                    $counter++;
+
+            // If a desired filename was provided, use it (after sanitizing)
+            $desired = $request->input('filename');
+            if ($desired) {
+                // Ensure the desired filename has the same extension
+                $desired = basename($desired); // sanitize
+                $desiredExt = pathinfo($desired, PATHINFO_EXTENSION);
+                if (strtolower($desiredExt) !== strtolower($extension)) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Filename extension does not match uploaded file.',
+                    ], 422);
                 }
-                
-                // Move the file with new name
+
+                $fileName = $desired;
+                $filePath = $uploadPath . '/' . $fileName;
+                if (file_exists($filePath)) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'A file with the requested filename already exists. Please choose a different name.',
+                        'path' => $responseBase . $fileName,
+                        'filename' => $fileName,
+                        'exists' => true
+                    ], 409);
+                }
+
+                // Move file with desired name
                 $image->move($uploadPath, $fileName);
-                
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Warning: A file with the same name already exists. Renamed to: ' . $fileName,
-                    'path' => 'assets/aicontrol_imgs/AllProductImages/' . $fileName,
-                    'filename' => $fileName,
-                    'originalName' => $originalName,
-                    'renamed' => true
-                ]);
-            } else {
-                // Move the file with original name
-                $image->move($uploadPath, $fileName);
-                
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Image uploaded successfully',
-                    'path' => 'assets/aicontrol_imgs/AllProductImages/' . $fileName,
+                    'path' => $responseBase . $fileName,
                     'filename' => $fileName,
                     'renamed' => false
                 ]);
             }
+
+            // No desired filename provided: check if file exists and return conflict
+            if ($fileExists) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A file with the same name already exists. Please rename your file before uploading or provide a different filename.',
+                    'path' => $responseBase . $fileName,
+                    'filename' => $fileName,
+                    'originalName' => $originalName,
+                    'exists' => true
+                ], 409);
+            }
+
+            // Move the file with original name
+            $image->move($uploadPath, $fileName);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Image uploaded successfully',
+                'path' => $responseBase . $fileName,
+                'filename' => $fileName,
+                'renamed' => false
+            ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
@@ -1116,7 +1238,7 @@ class DashboardController extends Controller
         $projects = \App\Models\Project::with(['category', 'categorySecondary'])
             ->orderBy('order')
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->paginate(6);
         
         return view('admin.projects', compact('projects'));
     }
@@ -1505,13 +1627,175 @@ class DashboardController extends Controller
     }
 
     /**
+     * Delete a single image attached to a project (banner, thumbnail, og, gallery_image_1..3 or slider_images by index)
+     * Expects POST payload: field (string) and optional index (int) when field is 'slider_images'
+     */
+    public function deleteProjectImage(Request $request, $id)
+    {
+        $project = \App\Models\Project::findOrFail($id);
+
+        $field = $request->input('field');
+
+        // Allow slider_images (requires index) or the individual image fields
+        $allowed = ['banner_image', 'thumbnail_image', 'og_image', 'gallery_image_1', 'gallery_image_2', 'gallery_image_3', 'slider_images'];
+
+        if (!in_array($field, $allowed)) {
+            return response()->json(['success' => false, 'message' => 'Invalid image field specified.'], 422);
+        }
+
+        // Handle slider_images removal by index
+        if ($field === 'slider_images') {
+            $index = $request->input('index');
+            if (!is_numeric($index)) {
+                return response()->json(['success' => false, 'message' => 'Index is required for slider_images.'], 422);
+            }
+
+            $slider = $project->slider_images;
+            if (is_string($slider)) {
+                $decoded = json_decode($slider, true);
+                $slider = json_last_error() === JSON_ERROR_NONE ? $decoded : [];
+            }
+
+            if (!is_array($slider) || !array_key_exists($index, $slider)) {
+                return response()->json(['success' => false, 'message' => 'Slider image not found at that index.'], 404);
+            }
+
+            $item = $slider[$index];
+            $url = is_array($item) ? ($item['url'] ?? null) : $item;
+
+            // If remote URL, just remove from array
+            if ($url && strpos($url, '://') !== false) {
+                array_splice($slider, $index, 1);
+                $project->slider_images = $slider;
+                $project->save();
+                return response()->json(['success' => true, 'message' => 'Slider image removed (remote URL).']);
+            }
+
+            if ($url) {
+                $relative = ltrim($url, '/');
+                $publicFile = public_path($relative);
+                if (file_exists($publicFile)) {
+                    try { @unlink($publicFile); } catch (\Exception $e) {
+                        \Illuminate\Support\Facades\Log::warning('Failed to delete slider image file: ' . $publicFile . ' - ' . $e->getMessage());
+                    }
+                }
+            }
+
+            // Remove the item and save
+            array_splice($slider, $index, 1);
+            $project->slider_images = $slider;
+            $project->save();
+
+            return response()->json(['success' => true, 'message' => 'Slider image removed successfully.']);
+        }
+
+        // Single-field handling (banner/thumb/og/gallery)
+        $current = $project->{$field};
+
+        if (empty($current)) {
+            return response()->json(['success' => false, 'message' => 'No image found for this field.'], 404);
+        }
+
+        // If remote URL, don't attempt to unlink file system; just clear the DB value
+        if (strpos($current, '://') !== false) {
+            $project->{$field} = null;
+            $project->save();
+            return response()->json(['success' => true, 'message' => 'Image cleared (remote URL).']);
+        }
+
+        $relative = ltrim($current, '/');
+        $publicFile = public_path($relative);
+
+        if (file_exists($publicFile)) {
+            try {
+                @unlink($publicFile);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::warning('Failed to delete project image file: ' . $publicFile . ' - ' . $e->getMessage());
+            }
+        }
+
+        $project->{$field} = null;
+        $project->save();
+
+        return response()->json(['success' => true, 'message' => 'Image removed successfully.']);
+    }
+
+    /**
      * Delete project
      */
     public function deleteProject($id)
     {
-        $project = \App\Models\Project::findOrFail($id);
-        $project->delete();
+        try {
+            $project = \App\Models\Project::findOrFail($id);
 
-        return redirect()->route('admin.projects')->with('success', 'Dự án đã được xóa!');
+            // Collect image paths to remove (banner, thumbnail, og, gallery, slider)
+            $imagePaths = [];
+
+            if (!empty($project->banner_image)) $imagePaths[] = $project->banner_image;
+            if (!empty($project->thumbnail_image)) $imagePaths[] = $project->thumbnail_image;
+            if (!empty($project->og_image)) $imagePaths[] = $project->og_image;
+
+            for ($i = 1; $i <=3; $i++) {
+                $g = $project->{'gallery_image_' . $i};
+                if (!empty($g)) $imagePaths[] = $g;
+            }
+
+            // Slider images may be stored as array or JSON string
+            $slider = $project->slider_images;
+            if (is_string($slider)) {
+                $decoded = json_decode($slider, true);
+                $slider = json_last_error() === JSON_ERROR_NONE ? $decoded : [];
+            }
+            if (is_array($slider)) {
+                foreach ($slider as $s) {
+                    if (is_array($s) && isset($s['url'])) $imagePaths[] = $s['url'];
+                    elseif (is_string($s)) $imagePaths[] = $s;
+                }
+            }
+
+            // Normalize and unique
+            $imagePaths = array_values(array_unique(array_filter($imagePaths)));
+
+            foreach ($imagePaths as $path) {
+                // Skip remote URLs
+                if (strpos($path, '://') !== false) continue;
+
+                $relative = ltrim($path, '/');
+                $publicFile = public_path($relative);
+
+                // Check if any other project uses this path (exclude current project)
+                $otherUsage = \App\Models\Project::where('id', '!=', $project->id)
+                    ->where(function($q) use ($relative) {
+                        $q->where('banner_image', $relative)
+                          ->orWhere('banner_image', '/' . $relative)
+                          ->orWhere('thumbnail_image', $relative)
+                          ->orWhere('thumbnail_image', '/' . $relative)
+                          ->orWhere('og_image', $relative)
+                          ->orWhere('og_image', '/' . $relative)
+                          ->orWhere('gallery_image_1', $relative)
+                          ->orWhere('gallery_image_1', '/' . $relative)
+                          ->orWhere('gallery_image_2', $relative)
+                          ->orWhere('gallery_image_2', '/' . $relative)
+                          ->orWhere('gallery_image_3', $relative)
+                          ->orWhere('gallery_image_3', '/' . $relative)
+                          ->orWhere('slider_images', 'LIKE', '%"' . $relative . '"%')
+                          ->orWhere('slider_images', 'LIKE', '%"/' . $relative . '"%');
+                    })->exists();
+
+                if (!$otherUsage && file_exists($publicFile)) {
+                    try { @unlink($publicFile); } catch (\Exception $e) {
+                        \Illuminate\Support\Facades\Log::warning('Failed to delete project image file: ' . $publicFile . ' - ' . $e->getMessage());
+                    }
+                }
+            }
+
+            // Permanently delete the project row from DB
+            $project->forceDelete();
+
+            return redirect()->route('admin.projects')->with('success', 'Dự án đã được xóa!');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Project deletion error: ' . $e->getMessage());
+            return redirect()->route('admin.projects')->with('error', 'Error deleting project: ' . $e->getMessage());
+        }
     }
 }
