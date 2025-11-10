@@ -157,6 +157,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/projects/{project}', [DashboardController::class, 'deleteProject'])->name('projects.delete');
     // Remove a single image from a project (banner/thumbnail/gallery/og)
     Route::post('/projects/{project}/delete-image', [DashboardController::class, 'deleteProjectImage'])->name('projects.delete-image');
+    // Remove a single image from a product (main image or gallery item by index)
+    Route::post('/products/{product}/delete-image', [DashboardController::class, 'deleteProductImage'])->name('products.delete-image');
 
     // Upload image
     Route::post('/upload-image', [DashboardController::class, 'uploadImage'])->name('upload.image');

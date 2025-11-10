@@ -213,9 +213,12 @@
                                     </button>
                                 </div>
                                 @if($product->image_url)
-                                    <img src="{{ str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url) }}" 
-                                         alt="{{ $product->image_alt }}" 
-                                         class="mt-2 h-24 w-24 object-cover rounded border">
+                                 <div class="mt-2 flex items-center gap-3">
+                                    <img id="main-image-preview" src="{{ str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url) }}" 
+                                        alt="{{ $product->image_alt }}" 
+                                        class="h-24 w-24 object-cover rounded border">
+                                    <button type="button" onclick="removeProductImage({{ $product->id }}, 'image_url', this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove Image</button>
+                                 </div>
                                 @endif
                             </div>
 
@@ -279,7 +282,11 @@
                                             </div>
                                             <input type="text" name="gallery_images[{{ $index }}][alt]" value="{{ $imageAlt }}" placeholder="Alt text: Describe the image for SEO and accessibility" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
                                         </div>
-                                        <button type="button" onclick="removeGalleryImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                        @if(!empty($imageUrl))
+                                            <button type="button" onclick="removeProductImage({{ $product->id }}, 'gallery_images', this, {{ $index }})" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                        @else
+                                            <button type="button" onclick="removeGalleryImage(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
+                                        @endif
                                     </div>
                                 </div>
                                 @endforeach
@@ -972,6 +979,47 @@
                 remove_script_host: false,
                 relative_urls: false,
             });
+
+            // Add product image removal helper used by Remove buttons in this form
+            window.removeProductImage = function(productId, field, btn, index) {
+                if (!confirm('Are you sure you want to remove this image?')) return;
+
+                const url = "{{ url('admin/products') }}" + '/' + productId + '/delete-image';
+                const payload = { field: field };
+                if (typeof index !== 'undefined') payload.index = index;
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // If gallery index was removed, remove the gallery item node
+                        if (field === 'gallery_images') {
+                            const node = btn.closest('.gallery-image-item');
+                            if (node) node.remove();
+                        } else if (field === 'image_url') {
+                            const preview = document.getElementById('main-image-preview');
+                            if (preview) preview.remove();
+                            // Also clear the input value
+                            const input = document.getElementById('main_image_url');
+                            if (input) input.value = '';
+                        }
+                        alert(data.message || 'Image removed');
+                    } else {
+                        alert(data.message || 'Failed to remove image');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Error removing image: ' + (err.message || 'unknown'));
+                });
+            };
         });
     </script>
 

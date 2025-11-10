@@ -1721,6 +1721,95 @@ class DashboardController extends Controller
     }
 
     /**
+     * Delete a single image attached to a product (main image or gallery_images by index)
+     * Expects POST payload: field (string) and optional index (int) when field is 'gallery_images'
+     */
+    public function deleteProductImage(Request $request, $id)
+    {
+        $product = \App\Models\Product::findOrFail($id);
+
+        $field = $request->input('field');
+
+        $allowed = ['image_url', 'gallery_images'];
+        if (!in_array($field, $allowed)) {
+            return response()->json(['success' => false, 'message' => 'Invalid image field specified.'], 422);
+        }
+
+        // Handle gallery_images removal by index
+        if ($field === 'gallery_images') {
+            $index = $request->input('index');
+            if (!is_numeric($index)) {
+                return response()->json(['success' => false, 'message' => 'Index is required for gallery_images.'], 422);
+            }
+
+            $gallery = $product->gallery_images;
+            if (is_string($gallery)) {
+                $decoded = json_decode($gallery, true);
+                $gallery = json_last_error() === JSON_ERROR_NONE ? $decoded : [];
+            }
+
+            if (!is_array($gallery) || !array_key_exists($index, $gallery)) {
+                return response()->json(['success' => false, 'message' => 'Gallery image not found at that index.'], 404);
+            }
+
+            $item = $gallery[$index];
+            $url = is_array($item) ? ($item['url'] ?? null) : $item;
+
+            // If remote URL, just remove from array
+            if ($url && strpos($url, '://') !== false) {
+                array_splice($gallery, $index, 1);
+                $product->gallery_images = $gallery;
+                $product->save();
+                return response()->json(['success' => true, 'message' => 'Gallery image removed (remote URL).']);
+            }
+
+            if ($url) {
+                $relative = ltrim($url, '/');
+                $publicFile = public_path($relative);
+                if (file_exists($publicFile)) {
+                    try { @unlink($publicFile); } catch (\Exception $e) {
+                        \Illuminate\Support\Facades\Log::warning('Failed to delete gallery image file: ' . $publicFile . ' - ' . $e->getMessage());
+                    }
+                }
+            }
+
+            // Remove the item and save
+            array_splice($gallery, $index, 1);
+            $product->gallery_images = $gallery;
+            $product->save();
+
+            return response()->json(['success' => true, 'message' => 'Gallery image removed successfully.']);
+        }
+
+        // Single-field handling (main image)
+        $current = $product->{$field};
+
+        if (empty($current)) {
+            return response()->json(['success' => false, 'message' => 'No image found for this field.'], 404);
+        }
+
+        if (strpos($current, '://') !== false) {
+            $product->{$field} = null;
+            $product->save();
+            return response()->json(['success' => true, 'message' => 'Image cleared (remote URL).']);
+        }
+
+        $relative = ltrim($current, '/');
+        $publicFile = public_path($relative);
+
+        if (file_exists($publicFile)) {
+            try { @unlink($publicFile); } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::warning('Failed to delete product image file: ' . $publicFile . ' - ' . $e->getMessage());
+            }
+        }
+
+        $product->{$field} = null;
+        $product->save();
+
+        return response()->json(['success' => true, 'message' => 'Image removed successfully.']);
+    }
+
+    /**
      * Delete project
      */
     public function deleteProject($id)
