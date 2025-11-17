@@ -93,7 +93,7 @@
     @include('front.includes.header')
     <!-- header area end -->
 
-
+    @include('front.includes.popup')
 
 
 
@@ -178,7 +178,7 @@
                                             đáng tin cậy, dễ triển khai trong các khu vực cố định hoặc căn bản.
                                         </p>
                                     </div>
-                                    <div class="tp-service-4-solution-item-btn">
+                                    {{-- <div class="tp-service-4-solution-item-btn">
                                         <a class="tp-line-black" href="service-details-light.html">
                                             XEM CHI TIẾT
                                             <span>
@@ -187,7 +187,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end lighting control solution 1 -->
@@ -205,7 +205,7 @@
                                             Điều khiển độ sáng bằng tín hiệu analog 0–10V, đáp ứng mượt, dễ tích hợp với cảm biến và bộ điều khiển trung tâm.
                                         </p>
                                     </div>
-                                    <div class="tp-service-4-solution-item-btn">
+                                    {{-- <div class="tp-service-4-solution-item-btn">
                                         <a class="tp-line-black" href="service-details-light.html">
                                             XEM CHI TIẾT
                                             <span>
@@ -214,7 +214,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end lighting control solution 2 -->
@@ -232,7 +232,7 @@
                                             Chuẩn điều khiển kỹ thuật số cho phép quản lý từng đèn độc lập và lập trình kịch bản chiếu sáng thông minh.
                                         </p>
                                     </div>
-                                    <div class="tp-service-4-solution-item-btn">
+                                    {{-- <div class="tp-service-4-solution-item-btn">
                                         <a class="tp-line-black" href="service-details-light.html">
                                             XEM CHI TIẾT
                                             <span>
@@ -241,7 +241,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end lighting control solution 3 -->
@@ -259,7 +259,7 @@
                                             Dimmer cắt pha cho LED và đèn sợi đốt, điều chỉnh ánh sáng trơn tru, phù hợp ứng dụng dân dụng và thương mại nhỏ.
                                         </p>
                                     </div>
-                                    <div class="tp-service-4-solution-item-btn">
+                                    {{-- <div class="tp-service-4-solution-item-btn">
                                         <a class="tp-line-black" href="service-details-light.html">
                                             XEM CHI TIẾT
                                             <span>
@@ -268,7 +268,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end lighting control solution 4 -->
@@ -286,7 +286,7 @@
                                             Chuẩn điều khiển chuyên nghiệp cho chiếu sáng kiến trúc và sân khấu, tạo hiệu ứng màu  chính xác
                                         </p>
                                     </div>
-                                    <div class="tp-service-4-solution-item-btn">
+                                    {{-- <div class="tp-service-4-solution-item-btn">
                                         <a class="tp-line-black" href="service-details-light.html">
                                             XEM CHI TIẾT
                                             <span>
@@ -295,7 +295,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end lighting control solution 5 -->
@@ -313,7 +313,7 @@
                                             Chuẩn điều khiển LED kỹ thuật số, tạo hiệu ứng ánh sáng sống động, chính xác, linh hoạt, chuyên nghiệp.
                                         </p>
                                     </div>
-                                    <div class="tp-service-4-solution-item-btn">
+                                    {{-- <div class="tp-service-4-solution-item-btn">
                                         <a class="tp-line-black" href="service-details-light.html">
                                             XEM CHI TIẾT
                                             <span>
@@ -322,7 +322,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end lighting control solution 6 -->
@@ -451,49 +451,53 @@
                             <div class="tp-slider-elegant-inner-wrap">
                                 <div class="tp-slider-elegant-item">
                                     <div class="tp-slider-elegant-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-gallery-light.html">
+                                        <a class="cursor-hide">
                                             <img src="{{ asset('assets/AIcontrol_imgs/onoff.jpg') }}" alt="hình minh họa bật tắt">
                                         </a>
                                     </div>
                                     <div class="tp-slider-elegant-content">
                                         <h3 class="tp-slider-elegant-title">
-                                            <a href="portfolio-details-gallery-light.html">Đèn On/Off</a>
+                                            {{-- <a href="portfolio-details-gallery-light.html">Đèn On/Off</a> --}}
+                                            <p>Đèn On/Off</p>
                                         </h4>
                                     </div>
                                 </div>
                                 <div class="tp-slider-elegant-item">
                                     <div class="tp-slider-elegant-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-gallery-light.html">
+                                        <a class="cursor-hide">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Lighting_control_solution/turnablewhite1.jpg') }}" alt="hình minh họa turnable white">
                                         </a>
                                     </div>
                                     <div class="tp-slider-elegant-content">
                                         <h3 class="tp-slider-elegant-title">
-                                            <a href="portfolio-details-gallery-light.html">Turnable White</a>
+                                            {{-- <a href="portfolio-details-gallery-light.html">Turnable White</a> --}}
+                                            <p>Turnable White</p>
                                         </h3>
                                     </div>
                                 </div>
                                 <div class="tp-slider-elegant-item">
                                     <div class="tp-slider-elegant-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-gallery-light.html">
+                                        <a class="cursor-hide">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Lighting_control_solution/DIMMING-Picsart-AiImageEnhancer.jpg') }}" alt="hình minh họa dimming">
                                         </a>
                                     </div>
                                     <div class="tp-slider-elegant-content">
                                         <h3 class="tp-slider-elegant-title">
-                                            <a href="portfolio-details-gallery-light.html">Dimming</a>
+                                            {{-- <a href="portfolio-details-gallery-light.html">Dimming</a> --}}
+                                            <p>Dimming</p>
                                         </h3>
                                     </div>
                                 </div>
                                 <div class="tp-slider-elegant-item">
                                     <div class="tp-slider-elegant-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-gallery-light.html">
+                                        <a class="cursor-hide">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Lighting_control_solution/RGBRGBW.jpg') }}" alt="hình minh họa RGB & RGBW">
                                         </a>
                                     </div>
                                     <div class="tp-slider-elegant-content">
                                         <h3 class="tp-slider-elegant-title">
-                                            <a href="portfolio-details-gallery-light.html">RGB & RGBW</a>
+                                            {{-- <a href="portfolio-details-gallery-light.html">RGB & RGBW</a> --}}
+                                            <p>RGB & RGBW</p>
                                         </h3>
                                     </div>
                                 </div>
@@ -783,7 +787,7 @@
                                 </div>
                             @empty
                                 <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục Landing.</p>
+                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục này.</p>
                                 </div>
                             @endforelse
                         </div>
@@ -835,6 +839,7 @@
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+<script src="{{ asset('assets/js/contact.js') }}"></script>
 
 
 

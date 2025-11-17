@@ -369,6 +369,7 @@ li,
   --tp-brand-primary-color: #34679A;      
   --tp-navi-background-color: #14293D;
   --tp-secondary-color: #2AB7CA;
+  --tp-secondary-light-color: #6bd3e0;
   --accent-color: #F6C90E;
   --temp1: #F0A500;
   --section-background: #8DA9C4;
@@ -1197,7 +1198,7 @@ input[type=color] {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--tp-common-white);
-  background-color: var(--tp-common-black);
+  background-color: var(--tp-brand-primary-color);
   font-family: var(--tp-ff-inter);
 }
 @media (max-width: 767px) {
@@ -1209,7 +1210,7 @@ input[type=color] {
 .tp-btn-black-solid:hover {
   color: var(--tp-common-white);
   border-color: var(--tp-secondary-color);
-  background-color: var(--tp-secondary-color);
+  background: linear-gradient(135deg, var(--tp-brand-primary-color), var(--tp-secondary-color));
 }
 .tp-btn-black-solid:focus {
   color: var(--tp-common-white);
@@ -1358,7 +1359,7 @@ input[type=color] {
   display: inline-block;
   text-transform: uppercase;
   color: var(--tp-common-black);
-  font-family: var(--tp-ff-clash-medium);
+  font-family: var(--tp-ff-inter);
   border: 1px solid rgba(25, 25, 25, 0.1);
 }
 .tp-btn-border-2:hover {
@@ -1985,6 +1986,14 @@ input[type=color] {
   font-family: var(--tp-ff-inter);
   border: 1px solid var(--tp-brand-primary-color);
 }
+
+/* Use brand primary color on award item hover to match design */
+/* .ar-award-item:hover,
+.ar-award-item:hover .ar-award-box-left .ar-award-title,
+.ar-award-item:hover .ar-award-box-right .ar-award-category {
+  background-color: var(--tp-brand-primary-color) !important;
+} */
+
 .tp-btn-white-border {
   font-size: 15px;
   font-weight: 500;
@@ -2655,64 +2664,60 @@ input[type=color] {
 /*----------------------------------------*/
 #preloader {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 1000;
-  background-color: var(--tp-theme-green);
+  background: #34679A; /* primary brand color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .preloader {
-  width: 50px;
-  height: 50px;
-  display: inline-block;
-  padding: 0px;
-  text-align: left;
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -25px;
-  margin-top: -25px;
+  position: relative;
+  width: 100px;
+  height: 100px;
 }
 
 .preloader span {
   position: absolute;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background: var(--tp-common-black);
-  animation: preloader 1.3s linear infinite;
-  -webkit-animation: preloader 1.3s linear infinite;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform-origin: -40px 0; /* orbit radius */
+  animation: orbitScale 1.8s linear infinite, colorShift 3s ease-in-out infinite alternate;
 }
 
-.preloader span:last-child {
-  animation-delay: -0.9s;
-  -webkit-animation-delay: -0.9s;
+.preloader span:nth-child(1) { animation-delay: 0s; background: #FF6B6B; }
+.preloader span:nth-child(2) { animation-delay: 0.3s; background: #FFD93D; }
+.preloader span:nth-child(3) { animation-delay: 0.6s; background: #6BCB77; }
+.preloader span:nth-child(4) { animation-delay: 0.9s; background: #4D96FF; }
+.preloader span:nth-child(5) { animation-delay: 1.2s; background: #FF6EC7; }
+
+@keyframes orbitScale {
+  0% {
+    transform: rotate(0deg) translateX(40px) scale(0.5);
+    opacity: 0.6;
+  }
+  50% {
+    transform: rotate(180deg) translateX(40px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) translateX(40px) scale(0.5);
+    opacity: 0.6;
+  }
 }
 
-@keyframes preloader {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1, 1);
-    opacity: 0;
-  }
+@keyframes colorShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
-@-webkit-keyframes preloader {
-  0% {
-    -webkit-transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    -webkit-transform: scale(1, 1);
-    opacity: 0;
-  }
-}
+
+
 /*--- end of preloader ---*/
 /*----------------------------------------*/
 /*  2.5 Background
@@ -3423,7 +3428,7 @@ input[type=color] {
   font-size: 26px;
   line-height: 1;
   display: inline-block;
-  color: var(--tp-common-red-2);
+  color: linear-gradient(90deg, var(--tp-brand-primary-color, #2AB7CA) 0%, var(--tp-secondary-light-color, #6bd3e0) 100%) !important;
   font-family: var(--tp-ff-satisfy);
 }
 .tp-section-subtitle-teko {
@@ -3875,6 +3880,16 @@ input[type=color] {
   }
 }
 .tp-section-title-clash-600 {
+  font-weight: 600;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  /* text-transform: uppercase; */
+  color: var(--tp-common-black);
+  font-family: var(--tp-ff-inter);
+}
+
+.tp-section-title-clash-400 {
   font-weight: 400;
   font-size: 60px;
   line-height: 1;
@@ -9360,7 +9375,7 @@ body.tp-magic-cursor #magic-cursor {
   background-color: var(--tp-common-white);
 }
 .tp-footer-area.tp-footer-white-style .tp-footer-widget-social a:hover {
-  background-color: var(--tp-common-red-3);
+  background-color: var(--tp-brand-primary-color);
 }
 .tp-footer-area.tp-footer-white-style .tp-footer-widget-menu ul li a {
   background-color: var(--tp-common-white);
@@ -9476,7 +9491,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 .tp-footer-widget-social a:hover {
   color: var(--tp-common-white);
-  background-color: var(--tp-common-red-3);
+  background-color: var(--tp-brand-primary-color);
 }
 .tp-footer-widget-menu ul li {
   list-style-type: none;
@@ -9838,7 +9853,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 .tp-footer-style-6 .tp-footer-widget-social a:hover {
   color: var(--tp-common-white);
-  background-color: var(--tp-common-red);
+  background-color: var(--tp-brand-primary-color);
 }
 .tp-footer-style-6 .tp-footer-widget-info a {
   color: var(--tp-common-cream);
@@ -11476,7 +11491,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 .st-footer-widget-social .tp-footer-widget-social a:hover {
   color: var(--tp-common-white);
-  background-color: var(--tp-common-brown);
+  background-color: var(--tp-brand-primary-color);
 }
 .st-footer-top-border {
   border-bottom: 1px solid rgba(69, 48, 48, 0.15);
@@ -25516,7 +25531,7 @@ body.tp-magic-cursor #magic-cursor {
   height: 0;
   width: 100%;
   transition: 0.3s ease-in-out;
-  background-color: var(--tp-common-red-2);
+  background-color: var(--tp-brand-primary-color);
 }
 .ar-award-item:hover::after {
   height: 100%;
@@ -25630,7 +25645,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 .st-award-wrapper .ar-award-right-wrap .ar-award-item::after {
   border-radius: 15px;
-  background-color: var(--tp-common-brown);
+  background-color: var(--tp-brand-primary-color);
 }
 .st-award-wrapper .ar-award-right-wrap .ar-award-item:first-child:hover {
   border-color: transparent;
@@ -27187,8 +27202,8 @@ body.tp-magic-cursor #magic-cursor {
   border: 1px solid rgba(17, 16, 19, 0.08);
 }
 .tp-team-details-info-social .tp-footer-widget-social a:hover {
-  border-color: var(--tp-common-red-3);
-  background-color: var(--tp-common-red-3);
+  border-color: var(--tp-brand-primary-color);
+  background-color: var(--tp-brand-primary-color);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
   .tp-team-details-wrap {
@@ -43359,7 +43374,7 @@ body.tp-magic-cursor #magic-cursor {
   border: 1.5px solid #0e0f11;
 }
 .agntix-light .tp-btn-sky-border:hover {
-  background-color: var(--tp-secondary-color);
+  background: linear-gradient(135deg, var(--tp-brand-primary-color), var(--tp-secondary-color));
   color: var(--tp-common-white);
   border-color: var(--tp-secondary-color);
 }
@@ -44801,7 +44816,7 @@ body.tp-magic-cursor #magic-cursor {
   color: rgba(0, 0, 0, 0.4);
 }
 .agntix-light .sidebar-widget-category ul li a:hover span:last-child {
-  color: var(--tp-common-red-3);
+  color: var(--tp-brand-primary-color);
 }
 .agntix-light .sidebar-widget-category ul li a:hover {
   color: var(--tp-common-red-3);
@@ -44836,7 +44851,7 @@ body.tp-magic-cursor #magic-cursor {
   color: var(--tp-common-black);
 }
 .agntix-light .tp-blog-heading-wrap .tp-section-subtitle.pre::before {
-  background: #ff5722;
+  background: var(--tp-secondary-color);
 }
 .agntix-light .tp-blog-title a {
   background-color: #F6F6F9;
@@ -45374,3 +45389,5 @@ body.tp-magic-cursor #magic-cursor {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+

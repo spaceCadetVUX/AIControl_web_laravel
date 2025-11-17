@@ -10,9 +10,9 @@
                         </div>
                         <div class="ar-footer-widget-content">
                             <p>
-                                Our goal is to exceed expectations <br>
+                                {{-- Our goal is to exceed expectations <br>
                                 and create spaces that are both beautiful <br>
-                                and practical.
+                                and practical. --}}
                             </p>
                         </div>
                         <div class="ar-footer-widget-form">
@@ -33,8 +33,8 @@
                         <h4 class="ar-footer-widget-title">Về chúng tôi</h4>
                         <div class="ar-footer-widget-menu">
                             <ul>
-                                <li><a href="#">Giới thiệu</a></li>
-                                <li><a href="#">Blogs</a></li>
+                                <li><a href="">Giới thiệu</a></li>
+                                <li><a href="{{ route('blog.index') }}">Blogs</a></li>
                             </ul>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="ar-footer-widget-info">
                                 <a class="" target="_blank" href="tel:(+068)56819696">Địa chỉ: 56 Trần Cao Vân, Phường Hiệp Phú, TP. Thủ Đức, TP. Hồ Chí Minh</a>
-                                <a class="" target="_blank" href="mailto:hello@agncy.com">sales@knxstore.vn</a>
+                                <a class="" target="_blank" href="mailto:hello@agncy.com">Email: sales@knxstore.vn</a>
                             </div>
                         </div>
                     </div>

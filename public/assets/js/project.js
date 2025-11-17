@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     // Mobile sidebar toggle
     $('#mobile-sidebar-toggle').on('click', function() {
         const $sidebar = $('#projects-sidebar');
@@ -29,7 +30,6 @@ $(document).ready(function() {
             $('#projects-sidebar').show();
             $('#mobile-sidebar-toggle').removeClass('active');
         } else {
-            // Reset to hidden state on mobile
             if (!$('#mobile-sidebar-toggle').hasClass('active')) {
                 $('#projects-sidebar').hide();
             }
@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     // Search form enhancement
     $('.sidebar-search input[name="search"]').on('keypress', function(e) {
-        if (e.which === 13) { // Enter key
+        if (e.which === 13) { 
             $(this).closest('form').submit();
         }
     });
@@ -75,4 +75,5 @@ $(document).ready(function() {
             }, 100);
         }
     });
+
 });

@@ -39,7 +39,7 @@
                                 </button>
                             </div>
                             <div class="tp-header-8-btn">
-                                <a class="tp-btn-border-2" href="{{ route('contact') }}" id="callNowBtn">
+                                <a class="tp-btn-border-2" id="openPopupBtn">
                                     GỌI NGAY
                                     <span>
                                         <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,6 @@
                                     </span>
                                 </a>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -58,7 +57,7 @@
     <nav class="tp-mobile-menu-active d-none">
         <ul>
             <li>
-                <a href="{{ route('home') }}">Trang chủ</a>
+                <a style="color: black" href="{{ route('home') }}">Trang chủ</a>
             </li>
             <li class="has-dropdown p-static is-active">
                 <a href="#">Giải pháp</a>
@@ -79,10 +78,10 @@
                 </ul>
             </li>
             <li class="is-active">
-                <a href="#">Sản phẩm</a>
+                <a href="{{ route('shop') }}">Sản phẩm</a>
             </li>
             <li class="is-active">
-                <a href="#">Dự án</a>
+                <a href="{{ route('projects.index') }}">Dự án</a>
             </li>
             <li class="is-active">
                 <a href="#">Blogs</a>
@@ -98,6 +97,7 @@
             </li>
         </ul>
     </nav>
+        <!-- contact_modal -->
     <!-- header area end -->
 </header>
 <!-- header area end -->

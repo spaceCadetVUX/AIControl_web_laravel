@@ -166,7 +166,7 @@
                                                 Thiết kế hiện đại, chuyển động êm. Phù hợp cửa lớn, giếng trời. Điều khiển tự động qua app hoặc giọng nói.
                                             </p>
                                             <hr>
-                                            <div class="tp-service-4-solution-item-btn">
+                                            {{-- <div class="tp-service-4-solution-item-btn">
                                                 <a class="tp-line-black text-decoration-none" href="service-details-light.html">
                                                 XEM CHI TIẾT
                                                 <span>
@@ -175,7 +175,7 @@
                                                     </svg>
                                                 </span>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                             </div>
                                             <div class="card-img">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/horizontalShde.jpg') }}" class="img-fluid" alt="rèm đóng mở Ngang">
@@ -193,7 +193,7 @@
                                                 Mềm mại, sang trọng. Tùy chỉnh theo không gian. Motorized tạo hiệu ứng mở/đóng ấn tượng, tăng riêng tư & kiểm soát ánh sáng.
                                             </p>
                                             <hr>
-                                            <div class="tp-service-4-solution-item-btn">
+                                            {{-- <div class="tp-service-4-solution-item-btn">
                                                 <a class="tp-line-black text-decoration-none" href="service-details-light.html">
                                                 XEM CHI TIẾT
                                                 <span>
@@ -202,7 +202,7 @@
                                                     </svg>
                                                 </span>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                             </div>
                                             <div class="card-img">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/verticalShade.jpg') }}" class="img-fluid" alt="rèm đóng mở dọc">
@@ -515,7 +515,7 @@
                                 </div>
                             @empty
                                 <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục Landing.</p>
+                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục này.</p>
                                 </div>
                             @endforelse
                         </div>
@@ -567,6 +567,7 @@
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+<script src="{{ asset('assets/js/contact.js') }}"></script>
 
 
 

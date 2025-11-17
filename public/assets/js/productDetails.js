@@ -24,7 +24,7 @@
         });
         
         // Add active class to clicked thumbnail
-        imgElement.parentElement.style.borderColor = '#FF5722';
+        imgElement.parentElement.style.borderColor = 'rgba(228, 87, 44, 1)ff';
         imgElement.parentElement.classList.add('active');
     };
 

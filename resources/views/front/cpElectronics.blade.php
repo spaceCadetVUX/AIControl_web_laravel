@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <!-- CSS here -->
     <!-- CSS here -->
 
@@ -78,6 +79,8 @@
     @include('front.includes.header')
     <!-- header area end -->
 
+    @include('front.includes.popup')
+
 
 
 
@@ -98,7 +101,7 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <div class="ar-about-us-4-title-box d-flex align-items-center mb-15">
-                                            <span class="tp-section-subtitle pre tp_fade_anim">Cp Electronics detalis</span>
+                                            <span class="tp-section-subtitle pre tp_fade_anim">Thông tin đối tác</span>
                                             <div class="ar-about-us-4-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                     <rect y="4" width="80" height="1" fill="#111013" />
@@ -106,7 +109,7 @@
                                                 </svg>
                                             </div>
                                         </div>
-                                        <h3 class="tp-career-title fs-70">Thông Tin Hãng</h3>
+                                        <h2 class="tp-career-title fs-70">Đối Tác</h2>
                                     </div>
                                 </div>
                             </div>
@@ -126,35 +129,29 @@
                                     </div>
                                     <div class="tp-team-details-info d-flex justify-content-between">
                                         <div class="tp-team-details-info-contact">
-                                            <a href="tel:0123456789"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path d="M2.43248 7.95965C1.76852 6.80251 1.44793 5.85764 1.25462 4.89985C0.968722 3.4833 1.62299 2.09956 2.70686 1.21663C3.16494 0.843468 3.69006 0.970963 3.96095 1.45668L4.57249 2.55324C5.05722 3.4224 5.29958 3.85698 5.25151 4.31771C5.20344 4.77845 4.87658 5.1537 4.22286 5.9042L2.43248 7.95965ZM2.43248 7.95965C3.7764 10.3018 5.88543 12.4109 8.23152 13.7557M8.23152 13.7557C9.38926 14.4193 10.3346 14.7397 11.2929 14.9329C12.7102 15.2187 14.0947 14.5647 14.978 13.4814C15.3514 13.0236 15.2238 12.4987 14.7379 12.228L13.6407 11.6168C12.7711 11.1323 12.3363 10.8901 11.8753 10.9381C11.4144 10.9862 11.0389 11.3128 10.288 11.9662L8.23152 13.7557Z" stroke="#FF5722" stroke-width="1.5" stroke-linejoin="round" />
-                                                </svg> +(302) 555-0107</a>
-                                            <a href="mailto:agntix@studio.com"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
-                                                    <path d="M2.58672 1H14.593C15.4184 1 16.0938 1.675 16.0938 2.5V11.5C16.0938 12.325 15.4184 13 14.593 13H2.58672C1.76129 13 1.08594 12.325 1.08594 11.5V2.5C1.08594 1.675 1.76129 1 2.58672 1Z" stroke="#FF5722" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path d="M16.0938 2.5L8.58984 7.75L1.08594 2.5" stroke="#FF5722" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg> agntixs@studio.com</a>
+                                            <a href="tel:+84918918755" aria-label="Call (+84) 0918 918 755">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M2.43248 7.95965C1.76852 6.80251 1.44793 5.85764 1.25462 4.89985C0.968722 3.4833 1.62299 2.09956 2.70686 1.21663C3.16494 0.843468 3.69006 0.970963 3.96095 1.45668L4.57249 2.55324C5.05722 3.4224 5.29958 3.85698 5.25151 4.31771C5.20344 4.77845 4.87658 5.1537 4.22286 5.9042L2.43248 7.95965ZM2.43248 7.95965C3.7764 10.3018 5.88543 12.4109 8.23152 13.7557M8.23152 13.7557C9.38926 14.4193 10.3346 14.7397 11.2929 14.9329C12.7102 15.2187 14.0947 14.5647 14.978 13.4814C15.3514 13.0236 15.2238 12.4987 14.7379 12.228L13.6407 11.6168C12.7711 11.1323 12.3363 10.8901 11.8753 10.9381C11.4144 10.9862 11.0389 11.3128 10.288 11.9662L8.23152 13.7557Z" stroke="#34679A" stroke-width="1.5" stroke-linejoin="round" />
+                                                </svg>
+                                                (+84) 0918 918 755
+                                            </a>
                                         </div>
                                         <div class="tp-team-details-info-social">
                                             <div class="tp-footer-widget-social">
-                                                <a href="#">
+                                                <a href="https://www.facebook.com/aicontrol.vn">
                                                     <span>
-                                                        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.82727 6.83333C1.14284 6.83333 1 6.96763 1 7.61111V8.77778C1 9.42126 1.14284 9.55556 1.82727 9.55556H3.48182V14.2222C3.48182 14.8657 3.62466 15 4.30909 15H5.96364C6.64807 15 6.79091 14.8657 6.79091 14.2222V9.55556H8.64871C9.1678 9.55556 9.30155 9.4607 9.44416 8.99145L9.7987 7.82478C10.043 7.02095 9.89246 6.83333 9.00326 6.83333H6.79091V4.88889C6.79091 4.45933 7.16129 4.11111 7.61818 4.11111H9.97273C10.6572 4.11111 10.8 3.97681 10.8 3.33333V1.77778C10.8 1.1343 10.6572 1 9.97273 1H7.61818C5.33373 1 3.48182 2.74111 3.48182 4.88889V6.83333H1.82727Z" stroke="currentcolor" stroke-width="1.5" stroke-linejoin="round"></path>
-                                                        </svg>
+                                                        <img src="{{ asset('assets/AIcontrol_imgs/sociallogo/facebook_aicontrol.svg') }}" alt="Facebook" width="18" height="18" />
+                                                        
                                                     </span>
                                                 </a>
                                                 <a href="#">
                                                     <span>
-                                                        <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.41177 0H0L5.23083 6.87316L0.334618 12.6389H2.59681L6.29998 8.27809L9.58823 12.5988H14L8.6172 5.52593L8.62673 5.53813L13.2614 0.0802914H10.9992L7.55741 4.13336L4.41177 0ZM2.43522 1.20371H3.80866L11.5648 11.395H10.1913L2.43522 1.20371Z" fill="currentcolor"></path>
-                                                        </svg>
+                                                        <img src="{{ asset('assets/AIcontrol_imgs/sociallogo/zalo_aicontrol.webp') }}" alt="Zalo" width="18" height="18" />
                                                     </span>
                                                 </a>
                                                 <a href="#">
                                                     <span>
-                                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.9989 10.0113C16.2575 9.87227 15.4949 9.7998 14.7168 9.7998C10.435 9.7998 6.62665 11.9938 4.19922 15.3997M14.5997 3.39941C12.0962 6.33329 8.33416 8.19931 4.12763 8.19931C3.05145 8.19931 2.00436 8.07718 1 7.84627M11.0941 17.0005C11.2946 16.0293 11.3999 15.0235 11.3999 13.9931C11.3999 8.94036 8.86738 4.47788 5 1.80078M16.9997 8.99983C16.9997 13.418 13.418 16.9997 8.99983 16.9997C4.58165 16.9997 1 13.418 1 8.99983C1 4.58165 4.58165 1 8.99983 1C13.418 1 16.9997 4.58165 16.9997 8.99983Z" stroke="currentcolor" stroke-width="1.5" stroke-linejoin="round"></path>
-                                                        </svg>
+                                                         <img src="{{ asset('assets/AIcontrol_imgs/sociallogo/youtube_aicontrol.svg') }}" alt="Youtube" width="18" height="18" />
                                                     </span>
                                                 </a>
                                             </div>
@@ -165,12 +162,12 @@
                             <div class="col-lg-6">
                                 <div class="tp-team-details-wrapper">
                                     <div class="tp-team-details-text">
-                                        <h4 class="tp-team-details-text-title" style="font-size: 70px;">Cp Electronics</h4>
+                                        <h1 class="tp-team-details-text-title" style="font-size: 70px;">Cp Electronics</h1>
                                         <p>Là thương hiệu chuyên về điều khiển chiếu sáng và kiểm soát năng lượng hiệu quả, với kinh nghiệm trên 50 năm trong lĩnh vực này.</p>
                                         <p>Năm 2016, CP Electronics được tập đoàn Legrand mua lại, trở thành mảnh ghép quan trọng trong hệ sinh thái Legrand Integrated Solutions, mang lại sức mạnh công nghệ cho giải pháp ánh sáng & kiểm soát tòa nhà. Trọng tâm giá trị của CP Electronics là: tiết kiệm năng lượng, linh hoạt trong thiết kế & tích hợp, và điều khiển thông minh cho cả môi trường thương mại, công cộng và dân dụng. </p>
                                     </div>
                                     <div class="tp-team-details-more mb-50">
-                                        <h4 class="tp-team-details-more-title">Ưu điểm vượt trội CP Electronics</h4>
+                                        <h3 class="tp-team-details-more-title">Ưu điểm vượt trội CP Electronics</h3>
                                         <ul>
                                             <li>Giải pháp điều khiển chiếu sáng và tiết kiệm năng lượng thông minh</li>
                                             <li>Tùy chỉnh linh hoạt, dễ tích hợp với hệ thống BMS và Legrand</li>
@@ -179,7 +176,7 @@
                                         </ul>
                                     </div>
                                     <div class="tp-team-details-more mb-50">
-                                        <h4 class="tp-team-details-more-title">Ứng dụng CP Electronics trong các công trình</h4>
+                                        <h3 class="tp-team-details-more-title">Ứng dụng CP Electronics trong các công trình</h3>
                                         <ul>
                                             <li>Văn phòng, tòa nhà thương mại</li>
                                             <li>Trường học, bệnh viện, cơ sở công cộng</li>
@@ -202,7 +199,7 @@
                                 <div class="col-xl-7">
                                     <div class="dgm-service-title-box service-4-heading z-index-1 mb-70">
                                         <span class="tp-section-subtitle subtitle-grey mb-15 text-black tp_fade_anim" data-delay=".3">Hãng</span>
-                                        <h4 class="tp-section-title-grotesk text-black tp_fade_anim" data-delay=".5">
+                                        <h2 class="tp-section-title-grotesk text-black tp_fade_anim" data-delay=".5">
                                             Giải pháp nổi bật của
                                             <span class="p-relative">
                                                 Cp Electronics
@@ -218,7 +215,7 @@
                                                     </svg>
                                                 </span>
                                             </span>
-                                        </h4>
+                                        </h2>
                                     </div>
                                 </div>
                             </div>
@@ -233,14 +230,14 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span class="">01</span>
-                                                        <h4 class="dgm-service-title-sm "><a href="service-details-light.html">Chiếu sáng<br>Tiết kiệm năng lương</a>
-                                                        </h4>
+                                                        <h3 class="dgm-service-title-sm "><a href="{{ route('lightingControl') }}">Chiếu sáng<br>Tiết kiệm năng lương</a>
+                                                        </h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="dgm-service-content-right black-text d-flex align-items-center justify-content-between">
                                                         <p>Với việc sử dụng cảm biến có thể giảm tới ~45% năng lượng chiếu sáng phụ thuộc vào việc sử dụng và ánh sáng thiên nhiên.</p> 
-                                                        <a class="dgm-service-link" href="service-details-light.html">
+                                                        <a class="dgm-service-link" href="{{ route('lightingControl') }}">
                                                             <span>
                                                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -262,13 +259,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span>02</span>
-                                                        <h4 class="dgm-service-title-sm"><a href="service-details-light.html">Điều khiển<br>HAVC</a></h4>
+                                                        <h3 class="dgm-service-title-sm"><a href="{{ route('hvacControl') }}">Điều khiển<br>HAVC</a></h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="dgm-service-content-right black-text d-flex align-items-center justify-content-between">
                                                         <p>Quản lý điều hòa, thông gió và nhiệt độ thông minh. Tự động cân bằng môi trường, tiết kiệm điện năng và tăng hiệu suất vận hành.</p>
-                                                        <a class="dgm-service-link" href="service-details-light.html">
+                                                        <a class="dgm-service-link" href="{{ route('hvacControl') }}">
                                                             <span>
                                                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -290,7 +287,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span>03</span>
-                                                        <h4 class="dgm-service-title-sm"><a href="service-details-light.html">Quản lý<br>Năng lượng</a></h4>
+                                                        <h3 class="dgm-service-title-sm"><a href="service-details-light.html">Quản lý<br>Năng lượng</a></h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -318,13 +315,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span>04</span>
-                                                        <h4 class="dgm-service-title-sm"><a href="service-details-light.html">Hệ thống<br>An ninh</a></h4>
+                                                        <h3 class="dgm-service-title-sm"><a href="{{ route('security') }}">Hệ thống<br>An ninh</a></h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="dgm-service-content-right black-text d-flex align-items-center justify-content-between">
                                                         <p>Tích hợp giám sát, báo cháy, kiểm soát ra vào và camera. Bảo vệ toàn diện, đảm bảo an toàn cho con người và tài sản.</p>
-                                                        <a class="dgm-service-link" href="service-details-light.html">
+                                                        <a class="dgm-service-link" href="{{ route('security') }}">
                                                             <span>
                                                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -346,7 +343,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span>05</span>
-                                                        <h4 class="dgm-service-title-sm"><a href="service-details-light.html">BMS</a></h4>
+                                                        <h3 class="dgm-service-title-sm"><a href="service-details-light.html">BMS</a></h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -489,10 +486,10 @@
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
 
 
     <!-- JS here -->
-
     <!-- JS here -->
 
 </body>

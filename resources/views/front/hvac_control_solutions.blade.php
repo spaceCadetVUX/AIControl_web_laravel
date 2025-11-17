@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
     <!-- CSS here -->
     <!-- CSS here -->
 
@@ -93,6 +94,7 @@
     @include('front.includes.header')
     <!-- header area end -->
 
+    @include('front.includes.popup')
 
 
 
@@ -227,7 +229,7 @@
                                                 Điều khiển thông minh cho máy lạnh dân dụng, thích hợp cho nhiều hãng máy.
                                             </p>
                                             <hr>
-                                            <div class="tp-service-4-solution-item-btn">
+                                            {{-- <div class="tp-service-4-solution-item-btn">
                                                 <a class="tp-line-black text-decoration-none" href="service-details-light.html">
                                                 XEM CHI TIẾT
                                                 <span>
@@ -236,7 +238,7 @@
                                                     </svg>
                                                 </span>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                             </div>
                                             <div class="card-img">
                                             <img src="{{ asset('assets/AIcontrol_imgs/HVAC/maylanhcucbo.jpg') }}" class="img-fluid" alt="Building">
@@ -254,7 +256,7 @@
                                                 Điều khiển tập trung, cung cấp khả năng điều khiển thông cho toàn bộ hệ thống dàn lạnh một một cách riêng biệt cho từng dàn lạnh.
                                             </p>
                                             <hr>
-                                            <div class="tp-service-4-solution-item-btn">
+                                            {{-- <div class="tp-service-4-solution-item-btn">
                                                 <a class="tp-line-black text-decoration-none" href="service-details-light.html">
                                                 XEM CHI TIẾT
                                                 <span>
@@ -263,7 +265,7 @@
                                                     </svg>
                                                 </span>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                             </div>
                                             <div class="card-img">
                                             <img src="{{ asset('assets/AIcontrol_imgs/HVAC/maylanhtaptrung.jpg') }}" class="img-fluid" alt="Building">
@@ -344,7 +346,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">HVAC TYPE</span>
+                                        {{-- <span class="tp-section-subtitle pre">HVAC TYPE</span> --}}
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -687,6 +689,7 @@
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+<script src="{{ asset('assets/js/contact.js') }}"></script>
 
     <!-- JS here -->
     <!-- JS here -->

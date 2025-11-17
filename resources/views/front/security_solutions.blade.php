@@ -96,6 +96,7 @@
     @include('front.includes.header')
     <!-- header area end -->
 
+    @include('front.includes.popup')
 
 
 
@@ -503,7 +504,7 @@
                                 </div>
                             @empty
                                 <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục Landing.</p>
+                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục này.</p>
                                 </div>
                             @endforelse
                         </div>
@@ -555,6 +556,7 @@
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
 
 
 

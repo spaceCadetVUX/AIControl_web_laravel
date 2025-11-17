@@ -23,78 +23,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
+    
 
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script> --}}
 
-    <style>
-        /* Mobile full-screen sidebar modal styles */
-        .sidebar-overlay { display: none; }
-
-        @media (max-width: 991px) {
-            /* Show the mobile filter toggle on small screens */
-            .mobile-filter-toggle { display: inline-flex; margin-bottom: 12px; }
-
-            /* Fullscreen sidebar when opened-mobile is applied */
-            #shopSidebar.opened-mobile {
-                position: fixed;
-                inset: 0; /* top:0; right:0; bottom:0; left:0 */
-                width: 100vw;
-                height: 100vh;
-                z-index: 20000; /* above most header elements */
-                background: #ffffff;
-                padding: 20px 16px 24px 16px;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-                box-sizing: border-box;
-            }
-
-            /* Overlay to dim background */
-            .sidebar-overlay.opened-mobile {
-                display: block;
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.5);
-                z-index: 19999; /* below the sidebar */
-            }
-
-            /* Close button styling inside modal */
-            .sidebar-close-btn {
-                position: absolute;
-                top: 14px;
-                right: 14px;
-                z-index: 10000;
-                background: transparent;
-                border: none;
-                font-size: 20px;
-                color: #333;
-            }
-
-            /* Make filter actions sticky at bottom for easy access */
-            .filter-actions {
-                position: sticky;
-                bottom: 0;
-                background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 60%);
-                padding-top: 12px;
-                padding-bottom: 12px;
-                display: flex;
-                gap: 8px;
-                justify-content: center;
-            }
-
-            .filter-actions .btn-apply-filter,
-            .filter-actions .btn-clear-filter {
-                flex: 1 1 auto;
-            }
-
-            /* Extra close button for mobile (visible inside modal) */
-            #mobileFilterDone { display: inline-flex; }
-        }
-
-        @media (min-width: 992px) {
-            .mobile-filter-toggle { display: none; }
-        }
-    </style>
 
 
 </head>
@@ -102,6 +34,7 @@
 <body>
     @include('front.includes.offcanvas')
     @include('front.includes.header')
+    @include('front.includes.popup')
     
     <div id="smooth-wrapper">
         <div id="smooth-content">
@@ -481,6 +414,7 @@
 <script src="{{ asset('assets/js/contact.js') }}"></script>
 <script src="{{ asset('assets/js/shop.js') }}"></script>
 <script src="{{ asset('assets/js/productDetails.js') }}"></script>
+<script src="{{ asset('assets/js/contact.js') }}"></script>
 
 <!-- Module scripts -->
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
@@ -488,75 +422,5 @@
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
 
 
-    
-    
- 
-    
-    <!-- Offcanvas Toggle -->
-    <script>
-        // Offcanvas functionality
-        $(document).ready(function() {
-            const $offcanvas = $('.tp-offcanvas-2-area');
-            const $body = $('body');
-
-            // Open offcanvas
-            $('.tp-offcanvas-open-btn').on('click', function(e) {
-                e.preventDefault();
-                $offcanvas.addClass('opened');
-                $body.addClass('offcanvas-opened');
-            });
-
-            // Close offcanvas
-            $('.tp-offcanvas-2-close-btn').on('click', function(e) {
-                e.preventDefault();
-                $offcanvas.removeClass('opened');
-                $body.removeClass('offcanvas-opened');
-            });
-
-            // Close on outside click
-            $(document).on('click', function(e) {
-                if (!$(e.target).closest('.tp-offcanvas-2-area, .tp-offcanvas-open-btn').length) {
-                    $offcanvas.removeClass('opened');
-                    $body.removeClass('offcanvas-opened');
-                }
-            });
-
-            // Category expand/collapse toggle
-            $('.category-toggle').on('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const categoryId = $(this).data('category-id');
-                const $subcategoryList = $('#subcategory-' + categoryId);
-                const $icon = $(this).find('i');
-                
-                if ($subcategoryList.is(':visible')) {
-                    $subcategoryList.slideUp(200);
-                    $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                } else {
-                    $subcategoryList.slideDown(200);
-                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                }
-            });
-
-            // Mobile filter modal behavior
-            const $shopSidebar = $('#shopSidebar');
-            const $sidebarOverlay = $('#sidebarOverlay');
-
-            $('#mobileFilterToggle').on('click', function(e) {
-                e.preventDefault();
-                $shopSidebar.addClass('opened-mobile');
-                $sidebarOverlay.addClass('opened-mobile');
-                $('body').css('overflow', 'hidden');
-            });
-
-            $('#sidebarCloseBtn, #sidebarOverlay, #mobileFilterDone').on('click', function(e) {
-                e.preventDefault();
-                $shopSidebar.removeClass('opened-mobile');
-                $sidebarOverlay.removeClass('opened-mobile');
-                $('body').css('overflow', '');
-            });
-        });
-    </script>
 </body>
 </html>

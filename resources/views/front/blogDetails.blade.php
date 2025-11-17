@@ -195,13 +195,13 @@
 
                                     {{-- Post Meta --}}
                                     <div class="tp-postbox-meta mb-30">
-                                        <span class="tp-postbox-meta-author">
+                                        {{-- <span class="tp-postbox-meta-author">
                                             <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M7.4104 8C9.81731 8 11.7708 6.20914 11.7708 4C11.7708 1.79086 9.81731 0 7.4104 0C5.00349 0 3.04993 1.79086 3.04993 4C3.04993 6.20914 5.00349 8 7.4104 8Z" fill="currentColor"/>
                                                 <path d="M14.0611 15.25C14.0611 15.664 13.7065 16 13.2708 16C12.8352 16 12.4805 15.664 12.4805 15.25C12.4805 12.903 10.3294 11 7.6104 11H7.2104C4.49142 11 2.34033 12.903 2.34033 15.25C2.34033 15.664 1.98565 16 1.54993 16C1.11422 16 0.759537 15.664 0.759537 15.25C0.759537 12.0745 3.61891 9.5 7.2104 9.5H7.6104C11.2019 9.5 14.0611 12.0745 14.0611 15.25Z" fill="currentColor"/>
                                             </svg>
                                             Bởi <a href="#">{{ $blog->author->name ?? 'Admin' }}</a>
-                                        </span>
+                                        </span> --}}
                                         <span class="tp-postbox-meta-date">
                                             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15 7.6087V14.7391C15 15.4304 14.4404 16 13.7609 16H2.23913C1.54783 16 1 15.4304 1 14.7391V7.6087M15 7.6087V4.13043C15 3.43913 14.4404 2.86957 13.7609 2.86957H2.23913C1.54783 2.86957 1 3.43913 1 4.13043V7.6087M15 7.6087H1M11.5217 1V4.73913M4.47826 1V4.73913" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -346,7 +346,8 @@
                                                 <ul class="category-list">
                                                     @foreach($categories as $cat)
                                                     <li>
-                                                        <a class="d-flex align-items-center justify-content-between" href="{{ route('blog.category', $cat) }}">
+                                                        {{-- Add 'active' class when the category link matches the current URL --}}
+                                                        <a class="d-flex align-items-center justify-content-between {{ url()->current() == route('blog.category', $cat) ? 'active' : '' }}" href="{{ route('blog.category', $cat) }}">
                                                             <span class="category-icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -472,6 +473,7 @@
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
 
 </body>
 

@@ -38,7 +38,7 @@
     <!-- CSS here -->
 </head>
 <!-- tp-magic-cursor -->
-<body class="" data-bg-color="#ffffffff">
+<body class="" data-bg-color="#ffffff">
 
     <!-- preloader -->
     <div id="preloader">
@@ -65,15 +65,15 @@
     @include('front.includes.offcanvas')
     @include('front.includes.header')
 
-    <!-- contact_modal -->
-    <div id="callPopup" class="popup-overlay">
+    {{-- <div id="callPopup" class="popup-overlay">
         <div class="popup-content">
             <h3>Chọn phương thức liên hệ</h3>
             <button id="callOption">Gọi 0918918755</button>
             <button id="zaloOption">Liên hệ qua Zalo</button>
             <span class="popup-close">&times;</span>
         </div>
-    </div>
+    </div> --}}
+    @include('front.includes.popup')
 
     <!-- search area start -->
     <div class="tp-search-area p-relative">
@@ -199,7 +199,7 @@
                 </div>  
                 <!-- category area end -->
                 <!-- brand area start -->
-                <div class="ar-brand-area ar-brand-style">
+                {{-- <div class="ar-brand-area ar-brand-style">
                     <div class="tp-brand-wrapper primary-bg z-index-1">
                         <div class="swiper-container tp-brand-active">
                             <div class="swiper-wrapper slide-transtion">
@@ -256,7 +256,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- brand area end -->
                 <!-- banner area start -->
                 <div class="ar-banner-area">
@@ -281,7 +281,7 @@
                                 <div class="col-xl-8 col-lg-8">
                                     <div class="ar-about-title-box">
                                         <h2 class="tp-section-title lts tp_fade_anim txt_pr_color">AIControl</h2>
-                                        <h3 class="tp-section-title-clash-600 fs-60 fw-400 mb-0 pb-40 " data-delay=".4">
+                                        <h3 class="tp-section-title-clash-400 fs-60 fw-400 mb-0 pb-40 " data-delay=".4">
                                             Đem đến cho bạn các giải pháp điều khiển & quản lý thông minh hàng đầu thế giới.
                                         </h3>
                                     </div>
@@ -452,7 +452,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-5">
-                                        <div class="design-project-content pl-200">
+                                        <div class="design-project-content">
                                             <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">Điều khiển HVAC</a></h3>
                                             <span class="tp_reveal_anim">Điều khiển thông minh cho máy lạnh cục bộ và tập trung</span>
                                             <a class="tp-btn-sky-border height-50" href="{{ route('hvacControl') }}">Xem ngay</a>
@@ -648,7 +648,6 @@
                             <div class="row">
                                 <div class="col-xl-8">
                                     <div class="ar-award-title-box mb-50">
-                                        <span class="tp-section-subtitle-satisfy mb-20 tp_fade_anim" data-delay=".3">International Awards</span>
                                         <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">Chứng Chỉ Được Công Nhận</h3>
                                     </div>
                                 </div>
@@ -745,7 +744,7 @@
                 <!-- award area end -->
 
                 <!-- brand area start -->
-                <div class="ar-brand-area mb-160">
+                {{-- <div class="ar-brand-area mb-160">
                     <div class="ar-brand-bg" data-background="assets/img/home-08/hero/hero-bg-shape.png">
                         <div class="swiper-container ar-brand-active">
                             <div class="swiper-wrapper slide-transtion">
@@ -787,7 +786,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- brand area end -->
 
                 <!-- blog area start -->
@@ -837,7 +836,7 @@
                                     <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".{{ $delay }}">
                                         <div class="ar-blog-thumb p-relative">
                                             <a href="{{ route('blog.show', $blog->slug) }}"><img class="w-100" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
-                                            <a class="ar-blog-category" href="{{ $categoryUrl }}">{{ $primaryCategory }}</a>
+                                           
                                         </div>
                                         <div class="ar-blog-content">
                                             <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route('blog.show', $blog->slug) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
@@ -889,7 +888,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
-    <script src="{{ asset('assets/js/contact.js') }}"></script>
+
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>

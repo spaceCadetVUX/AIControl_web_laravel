@@ -131,6 +131,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/products.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
+
 
 </head>
 
@@ -161,6 +164,8 @@
     <!-- Offcanvas & Header -->
     @include('front.includes.offcanvas')
     @include('front.includes.header')
+    @include('front.includes.popup')
+
 
 
     <!-- contact_modal -->
@@ -211,7 +216,7 @@
         <div id="smooth-content">
             <main>
                 
-                <!-- Breadcrumb -->
+                <!-- Breadcrumb -->shop-sidebar
                 <section class="breadcrumb__area pt-120 pb-20" style="background: #ffffff;">
                     <div class="container">
                         <div class="row">
@@ -558,13 +563,43 @@
                                                 <div class="ratio ratio-16x9">
                                                     @if(str_contains($product->video_url, 'youtube.com') || str_contains($product->video_url, 'youtu.be'))
                                                         @php
+                                                            // Extract YouTube video ID
                                                             preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $product->video_url, $matches);
                                                             $videoId = $matches[1] ?? null;
+                                                            // Build external watch URL
+                                                            $watchUrl = $videoId ? 'https://www.youtube.com/watch?v=' . $videoId : $product->video_url;
+                                                            // Use product main image as clickable thumbnail (banner). If none, try YouTube thumbnail.
+                                                            $thumb = '';
+                                                            if($product->image_url) {
+                                                                $thumb = str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url);
+                                                            } elseif ($videoId) {
+                                                                $thumb = 'https://img.youtube.com/vi/' . $videoId . '/maxresdefault.jpg';
+                                                            }
                                                         @endphp
+
                                                         @if($videoId)
-                                                            <iframe src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                            {{-- Clickable banner that opens the YouTube watch page in a new tab to avoid embed restrictions --}}
+                                                            <a href="{{ $watchUrl }}" target="_blank" rel="noopener noreferrer" class="d-block" style="text-decoration:none;color:inherit;">
+                                                                <div style="position:relative;width:100%;height:100%;min-height:360px;background:#000;display:flex;align-items:center;justify-content:center;">
+                                                                    @if($thumb)
+                                                                        <img src="{{ $thumb }}" alt="Video thumbnail" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.95;">
+                                                                    @else
+                                                                        <div style="width:100%;height:100%;background:#111;" aria-hidden="true"></div>
+                                                                    @endif
+                                                                    <div style="position:absolute;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                                                                        <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <circle cx="48" cy="48" r="46" stroke="rgba(255,255,255,0.9)" stroke-width="4" fill="rgba(0,0,0,0.35)" />
+                                                                            <path d="M40 34L64 48L40 62V34Z" fill="white"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        @else
+                                                            {{-- Fallback: if no videoId but URL contains youtube, open link directly --}}
+                                                            <p><a href="{{ $product->video_url }}" target="_blank" rel="noopener noreferrer">Open video</a></p>
                                                         @endif
                                                     @else
+                                                        {{-- Non-YouTube video: keep inline player --}}
                                                         <video controls style="width: 100%;">
                                                             <source src="{{ asset('storage/' . $product->video_url) }}" type="video/mp4">
                                                             Trình duyệt của bạn không hỗ trợ video.
@@ -633,7 +668,6 @@
 <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
 <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
 <script src="{{ asset('assets/js/contact.js') }}"></script>
-
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>

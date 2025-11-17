@@ -26,15 +26,25 @@ class BlogController extends Controller
 
         // Filter by blog categories (new structured categories) — now using slugs
         if ($request->has('blog_category') && !empty($request->blog_category)) {
+            // Accept both array (blog_category[]=a&blog_category[]=b) and comma-separated string (blog_category=a,b)
             $categorySlugs = $request->blog_category;
 
-            // Convert slugs to IDs
-            $categoryIds = \App\Models\BlogCategory::whereIn('slug', $categorySlugs)->pluck('id');
+            if (!is_array($categorySlugs)) {
+                // If a single string was submitted, split into array by comma
+                $categorySlugs = array_filter(array_map('trim', explode(',', $categorySlugs)));
+            }
 
-            // Apply filtering
-            $query->whereHas('blogCategories', function($q) use ($categoryIds) {
-                $q->whereIn('blog_categories.id', $categoryIds);
-            });
+            // If after normalization we still have values, convert slugs to IDs
+            if (!empty($categorySlugs)) {
+                $categoryIds = \App\Models\BlogCategory::whereIn('slug', $categorySlugs)->pluck('id');
+
+                // Apply filtering (only if we resolved any IDs)
+                if ($categoryIds->isNotEmpty()) {
+                    $query->whereHas('blogCategories', function($q) use ($categoryIds) {
+                        $q->whereIn('blog_categories.id', $categoryIds);
+                    });
+                }
+            }
         }
 
 
@@ -173,7 +183,7 @@ class BlogController extends Controller
      */
     public function search(Request $request)
     {
-        $searchTerm = $request->input('q');
+        $searchTerm = request()->input('q');
 
         // TEMPORARY: Using is_published check instead of published() scope
         $blogs = Blog::where('is_published', true)

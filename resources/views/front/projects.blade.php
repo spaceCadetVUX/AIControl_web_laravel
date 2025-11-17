@@ -20,8 +20,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/project.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
 </head>
 
@@ -59,28 +60,27 @@
      <!-- header area start -->
     @include('front.includes.header')
     <!-- header area end -->
+
+    @include('front.includes.popup')
    
 
     <div id="smooth-wrapper">
         <div id="smooth-content">
-
             <main>
-
                 <!-- breadcrumb area start -->
                 <div class="tp-breadcrumb-area tp-breadcrumb-ptb include-bg" data-background="{{ asset('assets/img/about-us/about-us-4/about-us-4-bg.png') }}">
                     <div class="container container-1330">
                         <div class="row justify-content-center">
                             <div class="col-xxl-12">
                                 <div class="tp-blog-heading-wrap p-relative pb-130">
-                                    <span class="tp-section-subtitle pre tp_fade_anim">Dự án của chúng tôi <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
+                                    <span class="tp-section-subtitle pre tp_fade_anim">Dự án của chúng tôi <svg xmlns="http://www.w3.org/2000/svg"  width="81" height="9" viewBox="0 0 81 9" fill="none">
                                             <rect y="4.04333" width="80" height="1" fill="black" />
                                             <path d="M77 8.00783L80.5 4.52527L77 1.04271" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </span>
 
-                                    <h3 class="tp-blog-title tp_fade_anim smooth">Khám phá <img src="{{ asset('assets/img/about-us/about-us-4/about-us-4-shape-1.png') }}" alt=""> <br> <a href="#down"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M9.99999 1V19M9.99999 19L1 10M9.99999 19L19 10" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg></a> các dự án tiêu biểu...</h3>
+                                    <h1 class="tp-blog-title tp_fade_anim smooth">Khám phá <img src="{{ asset('assets/AIcontrol_imgs/Lighting_control_solution/headinglogo.svg') }}" alt=""> <br> 
+                                                các dự án tiêu biểu...</h1>
 
                                     <div class="tp-blog-shape">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="109" height="109" viewBox="0 0 109 109" fill="none">
@@ -117,13 +117,13 @@
                                         
                                         <!-- Search Widget -->
                                         <div class="sidebar-widget sidebar-search-widget mb-40">
-                                            <div class="sidebar-search">
+                                            <div class="search-form" style="position: relative;">
                                                 <form action="{{ route('projects.index') }}" method="GET">
                                                     <div class="sidebar-search-input position-relative">
                                                         <input type="text" name="search" placeholder="Tìm kiếm dự án..." value="{{ request('search') }}">
                                                         <button type="submit">
                                                             <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M18.9999 19L14.6499 14.65M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                <path d="M18.9999 19L14.6499 14.65M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" box-shadow="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg>
                                                         </button>
                                                     </div>
@@ -147,7 +147,14 @@
                                                                 </svg>
                                                                 Tất cả dự án
                                                             </span>
-                                                            <span class="category-count">{{ $categories->sum('projects_count') }}</span>
+                                                            <span class="d-flex align-items-center gap-2">
+                                                                <span class="category-count">{{ $categories->sum('projects_count') }}</span>
+                                                                <span class="category-arrow">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 12 12" fill="none">
+                                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                </span>
+                                                            </span>
                                                         </a>
                                                     </li>
                                                     @foreach($categories as $cat)
@@ -163,7 +170,15 @@
                                                                 @endif
                                                                 {{ $cat->name }}
                                                             </span>
-                                                            <span class="category-count">{{ $cat->projects_count }}</span>
+                                                            <span class="d-flex align-items-center gap-2">
+                                                                {{-- If you prefer counts per category, uncomment and use the count span below --}}
+                                                                {{-- <span class="category-count">{{ $cat->projects_count }}</span> --}}
+                                                                <span class="category-arrow">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 12 12" fill="none">
+                                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                </span>
+                                                            </span>
                                                         </a>
                                                     </li>
                                                     @endforeach
@@ -374,9 +389,9 @@
         <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-
+        <script src="{{ asset('assets/js/contact.js') }}"></script>
         <!-- Project Scripts -->
-        <script>
+        {{-- <script>
         $(document).ready(function() {
             // Mobile sidebar toggle
             $('#mobile-sidebar-toggle').on('click', function() {
@@ -455,266 +470,6 @@
                 }
             });
         });
-        </script>
-
-        <!-- Responsive Styles -->
-        <style>
-            /* Mobile Filter Toggle Button */
-            .mobile-filter-btn {
-                background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
-                border: none;
-                padding: 15px 20px;
-                font-size: 16px;
-                font-weight: 600;
-                color: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                transition: all 0.3s ease;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .mobile-filter-btn:hover,
-            .mobile-filter-btn.active {
-                background: linear-gradient(135deg, #f4511e 0%, #ff5722 100%);
-                box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
-                transform: translateY(-2px);
-            }
-
-            .mobile-filter-btn i.fas.fa-filter {
-                font-size: 18px;
-                margin-right: 10px;
-            }
-
-            .mobile-filter-btn .filter-text {
-                flex-grow: 1;
-                text-align: center;
-            }
-
-            .mobile-filter-btn .toggle-icon {
-                font-size: 14px;
-                transition: transform 0.3s ease;
-            }
-
-            .mobile-filter-btn:active {
-                transform: translateY(0);
-            }
-
-            /* Ripple effect for button */
-            .mobile-filter-btn::before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 0;
-                height: 0;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.3);
-                transform: translate(-50%, -50%);
-                transition: width 0.6s, height 0.6s;
-            }
-
-            .mobile-filter-btn:active::before {
-                width: 300px;
-                height: 300px;
-            }
-
-            /* Sidebar Responsive Styles */
-            @media (max-width: 991px) {
-                #projects-sidebar {
-                    margin-bottom: 30px;
-                    animation: slideDown 0.3s ease-out;
-                }
-
-                .sidebar-blog-grid-wrap {
-                    background: #f8f9fa;
-                    padding: 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                }
-
-                .sidebar-widget {
-                    margin-bottom: 25px !important;
-                }
-
-                .sidebar-widget-title {
-                    font-size: 18px !important;
-                }
-
-                /* Search input adjustments */
-                .sidebar-search-input input {
-                    padding: 12px 50px 12px 15px !important;
-                    font-size: 14px !important;
-                }
-
-                .sidebar-search-input button {
-                    right: 5px !important;
-                    top: 50% !important;
-                    transform: translateY(-50%) !important;
-                }
-
-                /* Category list mobile adjustments */
-                .category-list li a {
-                    padding: 12px 15px !important;
-                    font-size: 14px !important;
-                }
-
-                .category-count {
-                    font-size: 12px !important;
-                }
-
-                /* Featured projects mobile */
-                .rc-post {
-                    padding-bottom: 15px !important;
-                    margin-bottom: 15px !important;
-                    border-bottom: 1px solid #e0e0e0;
-                }
-
-                .rc-post:last-child {
-                    border-bottom: none;
-                    margin-bottom: 0 !important;
-                    padding-bottom: 0 !important;
-                }
-
-                .rc-post-thumb {
-                    width: 80px !important;
-                    height: 80px !important;
-                    flex-shrink: 0;
-                }
-
-                .rc-post-title {
-                    font-size: 14px !important;
-                }
-            }
-
-            /* Desktop: Always show sidebar */
-            @media (min-width: 992px) {
-                .mobile-filter-btn {
-                    display: none !important;
-                }
-
-                #projects-sidebar {
-                    display: block !important;
-                }
-            }
-
-            /* Tablet adjustments */
-            @media (min-width: 768px) and (max-width: 991px) {
-                .col-md-6 {
-                    flex: 0 0 50% !important;
-                    max-width: 50% !important;
-                }
-            }
-
-            /* Mobile: Single column */
-            @media (max-width: 767px) {
-                .col-md-6 {
-                    flex: 0 0 100% !important;
-                    max-width: 100% !important;
-                }
-
-                .tp-blog-masonry-item {
-                    margin-bottom: 25px;
-                }
-
-                .sidebar-widget-box {
-                    padding: 15px;
-                }
-            }
-
-            /* Slide down animation */
-            @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            /* Category list active state */
-            .category-list a.active {
-                background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
-                color: white !important;
-                border-radius: 6px;
-            }
-
-            .category-list a.active .category-icon svg,
-            .category-list a.active .category-icon i {
-                color: white !important;
-            }
-
-            .category-list a.active .category-count {
-                background: rgba(255, 255, 255, 0.2);
-                color: white !important;
-            }
-
-            /* Category list hover effect */
-            .category-list a {
-                transition: all 0.3s ease;
-                border-radius: 6px;
-                margin-bottom: 8px;
-                display: flex;
-            }
-
-            .category-list a:hover {
-                background: #f8f9fa;
-                transform: translateX(5px);
-                padding-left: 20px !important;
-            }
-
-            /* Search button styling */
-            .sidebar-search-input button {
-                background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
-                transition: all 0.3s ease;
-            }
-
-            .sidebar-search-input button:hover {
-                background: linear-gradient(135deg, #f4511e 0%, #ff5722 100%);
-                transform: scale(1.05);
-            }
-
-            /* Search input focus */
-            .sidebar-search-input input:focus {
-                border-color: #34679A !important;
-                box-shadow: 0 0 0 0.2rem rgba(25, 163, 255, 0.25) !important;
-                outline: none;
-            }
-
-            /* Sidebar widget box styling */
-            .sidebar-widget-box {
-                background: white;
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-                transition: all 0.3s ease;
-            }
-
-            .sidebar-widget-box:hover {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                transform: translateY(-2px);
-            }
-
-            /* Featured project thumbnail */
-            .rc-post-thumb img {
-                border-radius: 8px;
-                transition: all 0.3s ease;
-            }
-
-            .rc-post-thumb:hover img {
-                transform: scale(1.05);
-            }
-
-            /* Smooth scrolling */
-            html {
-                scroll-behavior: smooth;
-            }
-        </style>
-
+        </script> --}}
     </body>
 </html>

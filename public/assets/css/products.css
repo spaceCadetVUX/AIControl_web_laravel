@@ -1313,3 +1313,24 @@
 .specifications-content * {
     max-width: 100%;
 }
+
+
+
+/* Highlight active thumbnail with brand blue border and subtle ring */
+.product-images .gallery-thumbnails .gallery-item img {
+    border: 2px solid transparent;
+    transition: border-color .15s ease, box-shadow .15s ease;
+    display: block;
+}
+
+.product-images .gallery-thumbnails .gallery-item.active img {
+    border-color: var(--tp-brand-primary-color);
+    /* Tailwind blue-600 */
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+}
+
+/* Slight hover affordance for thumbnails */
+.product-images .gallery-thumbnails .gallery-item img:hover {
+    transform: translateY(-2px);
+    transition: transform .12s ease;
+}

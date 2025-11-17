@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
 </head>
 
@@ -60,6 +61,7 @@
     @include('front.includes.header')
     <!-- header area end -->
    
+    @include('front.includes.popup')
 
     <div id="smooth-wrapper">
         <div id="smooth-content">
@@ -78,14 +80,13 @@
                                         </svg>
                                     </span>
 
-                                    <h3 class="tp-blog-title tp_fade_anim smooth">Khám phá <img src="{{ asset('assets/img/about-us/about-us-4/about-us-4-shape-1.png') }}" alt=""> <br> <a href="#down"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M9.99999 1V19M9.99999 19L1 10M9.99999 19L19 10" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg></a> tin tức mới nhất...</h3>
+                                    <h1 class="tp-blog-title tp_fade_anim smooth">Khám phá <img src="{{ asset('assets/AIcontrol_imgs/Lighting_control_solution/headinglogo.svg') }}" alt=""> <br> 
+                                            Tin tức mới nhất...</h1>
 
                                     <div class="tp-blog-shape">
-                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="109" height="109" viewBox="0 0 109 109" fill="none">
+                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="109" height="109" viewBox="0 0 109 109" fill="none">
                                                 <path d="M46.8918 0.652597C52.0111 11.5756 61.1509 45.3262 42.3414 57.6622C32.5453 63.8237 11.8693 68.6772 1.79348 40.7372C-2.00745 30.1973 6.53261 20.5828 26.243 25.965C37.6149 29.0703 65.0949 36.1781 78.8339 57.5398C86.0851 68.8141 93.074 92.3859 89.9278 107.942M89.9278 107.942C90.8943 100.431 95.9994 85.8585 108.687 87.6568M89.9278 107.942C90.4304 103.013 86.878 91.2724 68.6481 83.7468M63.5129 27.0092C68.0375 28.7613 82.5356 36.982 88.0712 51.886" stroke="black" stroke-width="1.5" />
-                                            </svg></span>
+                                        </svg></span>
                                     </div>
                                 </div>
                             </div>
@@ -140,14 +141,14 @@
                                                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                                                                 <label style="display: flex; align-items: center; cursor: pointer; font-weight: 600; color: #333; margin: 0; flex: 1;">
                                                                     <input type="checkbox" name="blog_category[]" value="{{ $rootCategory->slug }}" 
-                                                                           class="category-checkbox" 
-                                                                           {{ in_array($rootCategory->slug, request('blog_category', [])) ? 'checked' : '' }}
-                                                                           style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
-                                                                    <i class="fas fa-folder" style="margin-right: 6px; color: #6c63ff;"></i>
+                                                                        class="category-checkbox" 
+                                                                        {{ in_array($rootCategory->slug, (array) request('blog_category')) ? 'checked' : '' }}
+                                                                        style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
+                                                                    <i class="fas fa-folder" style="margin-right: 6px; color: var(--tp-brand-primary-color);"></i>
                                                                     <span class="category-name">{{ $rootCategory->name }}</span>
                                                                 </label>
                                                                 <div style="display: flex; align-items: center; gap: 8px;">
-                                                                    <span class="badge" style="background: #6c63ff; color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; min-width: 28px; text-align: center;">
+                                                                    <span class="badge" style="background: var(--tp-brand-primary-color); color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; min-width: 28px; text-align: center;">
                                                                         {{ $rootCategory->total_blog_count }}
                                                                     </span>
                                                                     @if($rootCategory->children->count() > 0)
@@ -164,9 +165,9 @@
                                                                     @foreach($rootCategory->children as $child)
                                                                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                                                                             <label style="display: flex; align-items: center; cursor: pointer; color: #666; margin: 0; font-size: 14px; flex: 1;">
-                                                                                <input type="checkbox" name="blog_category[]" value="{{ $child->id }}" 
+                                                                                <input type="checkbox" name="blog_category[]" value="{{ $child->slug }}" 
                                                                                        class="category-checkbox"
-                                                                                       {{ in_array($child->id, request('blog_category', [])) ? 'checked' : '' }}
+                                                                                       {{ in_array($child->slug, (array) request('blog_category')) ? 'checked' : '' }}
                                                                                        style="margin-right: 8px; cursor: pointer; width: 16px; height: 16px;">
                                                                                 <span class="category-name">{{ $child->name }}</span>
                                                                             </label>
@@ -183,7 +184,7 @@
                                                 
                                                 <!-- Action Buttons -->
                                                 <div class="filter-actions" style="display: flex; gap: 10px; margin-top: 15px;">
-                                                    <button type="submit" class="btn btn-primary" style="flex: 1; background: #6c63ff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; color: white; cursor: pointer; transition: all 0.3s;">
+                                                    <button type="submit" class="btn btn-primary" style="flex: 1; background: var(--tp-brand-primary-color); border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; color: white; cursor: pointer; transition: all 0.3s;">
                                                         <i class="fas fa-check"></i> Áp dụng
                                                     </button>
                                                     <button type="button" id="clear-filters" class="btn btn-secondary" style="flex: 1; background: #6c757d; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; color: white; cursor: pointer; transition: all 0.3s;">
@@ -204,7 +205,8 @@
                                                 <ul class="category-list">
                                                     @foreach($categories as $cat)
                                                     <li>
-                                                        <a class="d-flex align-items-center justify-content-between" href="{{ route('blog.category', $cat) }}">
+                                                        {{-- Apply 'active' class when this category route matches the current URL --}}
+                                                        <a class="d-flex align-items-center justify-content-between {{ url()->current() == route('blog.category', $cat) ? 'active' : '' }}" href="{{ route('blog.category', $cat) }}">
                                                             <span class="category-icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -301,9 +303,11 @@
                                                 <div class="tp-blog-masonry-tag">
                                                     <span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 15 14" fill="none">
-                                                            <path d="M4.39012 4.13048H4.39847M13.6056 8.14369L8.74375 12.6328C8.6178 12.7492 8.46823 12.8415 8.30359 12.9046C8.13896 12.9676 7.96248 13 7.78426 13C7.60604 13 7.42956 12.9676 7.26493 12.9046C7.10029 12.8415 6.95072 12.7492 6.82477 12.6328L1 7.2609V1H7.78087L13.6056 6.37811C13.8582 6.61273 14 6.93009 14 7.2609C14 7.59171 13.8582 7.90908 13.6056 8.14369Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            <path d="M4.39012 4.13048H4.39847M13.6056 8.14369L8.74375 12.6328C8.6178 12.7492 8.46823 12.8415 8.30359 12.9046C8.13896 12.9676 7.96248 13 7.78426 13C7.60604 13 7.42956 12.9676 7.26493 12.9046C7.10029 12.8415 6.95072 12.7492 6.82477 12.6328L1 7.2609V1H7.78087L13.6056 6.37811C13.8582 6.61273 14 6.93009 14 7.2609C14 7.59171 13.8582 7.90908 13.6056 8.14369Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            {{ $blog->category }}
                                                         </svg> 
                                                         {{ $blog->category }}
+                                                        
                                                     </span>
                                                 </div>
                                                 @endif
@@ -312,7 +316,7 @@
                                             
                                             <div class="tp-blog-masonry-content">
                                                 <div class="tp-blog-masonry-item-meta d-flex justify-content-between align-items-center mb-20">
-                                                    <div class="tp-blog-masonry-item-user d-flex align-items-center">
+                                                    {{-- <div class="tp-blog-masonry-item-user d-flex align-items-center">
                                                         <div class="tp-blog-masonry-item-user-thumb">
                                                             <img src="{{ asset('assets/img/blog/blog-masonry/blog-masonry-user-1.jpg') }}" alt="{{ $blog->author->name ?? 'Author' }}">
                                                         </div>
@@ -320,11 +324,11 @@
                                                             <span>{{ $blog->author->name ?? 'Admin' }}</span>
                                                             <p>{{ $blog->author->role ?? 'Administrator' }}</p>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="tp-blog-masonry-item-time">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" fill="none">
-                                                                <path d="M9 4.19997V8.99997L12.2 10.6M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                <path d="M9 4.19997V8.99997L12.2 10.6M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="var(--tp-brand-primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg> 
                                                             {{ $blog->formatted_published_date }}
                                                         </span>
@@ -343,7 +347,7 @@
                                                 <div class="d-flex justify-content-between align-items-center blog-footer">
                                                     <div class="tp-blog-masonry-btn">
                                                         <a href="{{ route('blog.show', $blog->slug) }}">
-                                                            Đọc thêm 
+                                                            <span style="color: var(--tp-brand-primary-color)">Đọc thêm</span>
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                                     <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -474,207 +478,12 @@
         <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-
-        <!-- Blog Category Filter Script -->
+        <script src="{{ asset('assets/js/contact.js') }}"></script>
         <script>
-        $(document).ready(function() {
-            // Blog category expand/collapse toggle
-            $('.blog-category-toggle').on('click', function(e) {
-                e.preventDefault();
-                const categoryId = $(this).data('category-id');
-                const $subcategoryList = $('.subcategory-' + categoryId);
-                const $icon = $(this).find('i');
-                
-                if ($subcategoryList.is(':visible')) {
-                    $subcategoryList.slideUp(200);
-                    $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                } else {
-                    $subcategoryList.slideDown(200);
-                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                }
-            });
-
-            // Mobile filter toggle
-            $('#mobile-filter-toggle').on('click', function() {
-                $('#blog-categories-widget').slideToggle(300);
-                $(this).find('i').toggleClass('fa-filter fa-times');
-            });
-
-            // Clear filters button
-            $('#clear-filters').on('click', function() {
-                $('.category-checkbox').prop('checked', false);
-                window.location.href = '{{ route('blog.index') }}';
-            });
-
-            // Button hover effects
-            $('.filter-actions button').hover(
-                function() {
-                    $(this).css('transform', 'translateY(-2px)');
-                    $(this).css('box-shadow', '0 4px 12px rgba(0,0,0,0.15)');
-                },
-                function() {
-                    $(this).css('transform', 'translateY(0)');
-                    $(this).css('box-shadow', 'none');
-                }
-            );
-
-            // Auto-hide filters on mobile after page load
-            if ($(window).width() < 768) {
-                $('#blog-categories-widget').hide();
-            }
-
-            // Show/hide on window resize
-            $(window).resize(function() {
-                if ($(window).width() >= 768) {
-                    $('#blog-categories-widget').show();
-                    $('#mobile-filter-toggle').hide();
-                } else {
-                    $('#mobile-filter-toggle').show();
-                    // Only hide if not explicitly shown by user
-                    if (!$('#blog-categories-widget').hasClass('user-toggled')) {
-                        $('#blog-categories-widget').hide();
-                    }
-                }
-            });
-
-            // Track user toggle
-            $('#mobile-filter-toggle').on('click', function() {
-                $('#blog-categories-widget').toggleClass('user-toggled');
-            });
-        });
+            window.blogIndexRoute = "{{ route('blog.index') }}";
         </script>
+        <script src="{{ asset('assets/js/blogs.js') }}"></script>
 
-        <!-- Responsive Styles -->
-        <style>
-            /* Blog category toggle button */
-            .blog-category-toggle {
-                transition: all 0.3s ease;
-            }
-
-            .blog-category-toggle:hover {
-                transform: scale(1.1);
-                color: #5648d9 !important;
-            }
-
-            .blog-category-toggle i {
-                transition: transform 0.2s ease;
-            }
-
-            /* Desktop styles */
-            @media (min-width: 768px) {
-                #mobile-filter-toggle {
-                    display: none !important;
-                }
-                #blog-categories-widget {
-                    display: block !important;
-                }
-            }
-
-            /* Mobile styles */
-            @media (max-width: 767px) {
-                #blog-categories-widget {
-                    animation: slideDown 0.3s ease-out;
-                }
-                
-                .blog-categories-filter {
-                    max-height: 400px;
-                    overflow-y: auto;
-                }
-
-                .category-group {
-                    padding: 8px 0;
-                }
-
-                .category-name {
-                    font-size: 14px !important;
-                }
-
-                .filter-actions {
-                    position: sticky;
-                    bottom: 0;
-                    background: white;
-                    padding: 10px;
-                    margin: -15px -15px 0 -15px;
-                    border-top: 1px solid #dee2e6;
-                }
-
-                .filter-actions button {
-                    font-size: 14px !important;
-                    padding: 8px 16px !important;
-                }
-
-                #mobile-filter-toggle {
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                #mobile-filter-toggle::after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 0;
-                    height: 0;
-                    border-radius: 50%;
-                    background: rgba(255,255,255,0.3);
-                    transform: translate(-50%, -50%);
-                    transition: width 0.6s, height 0.6s;
-                }
-
-                #mobile-filter-toggle:active::after {
-                    width: 300px;
-                    height: 300px;
-                }
-            }
-
-            /* Tablet styles */
-            @media (min-width: 768px) and (max-width: 991px) {
-                .category-name {
-                    font-size: 13px !important;
-                }
-
-                .badge {
-                    font-size: 10px !important;
-                    padding: 2px 6px !important;
-                }
-            }
-
-            /* Animation */
-            @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            /* Checkbox styling */
-            .category-checkbox {
-                accent-color: #6c63ff;
-            }
-
-            /* Smooth scrollbar */
-            .blog-categories-filter::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            .blog-categories-filter::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 3px;
-            }
-
-            .blog-categories-filter::-webkit-scrollbar-thumb {
-                background: #6c63ff;
-                border-radius: 3px;
-            }
-
-            .blog-categories-filter::-webkit-scrollbar-thumb:hover {
-                background: #5648d9;
-            }
-        </style>
 
     </body>
 </html>
