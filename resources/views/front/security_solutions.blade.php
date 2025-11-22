@@ -21,7 +21,7 @@
     <link rel="canonical" href="https://www.aicontrol.vn/he-thong-an-ninh.html">
 
     <!-- ✅ Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- ✅ Open Graph cho chia sẻ mạng xã hội -->
     <meta property="og:title" content="AIControl | Giải pháp an ninh & kiểm soát ra vào thông minh">
@@ -129,7 +129,7 @@
                                                     <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#34679A" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </div> -->
-                                            <p>Kiểm soát hộ thống an ninh và ra rào tích hợp</p>
+                                            <p>Kiểm soát hệ thống an ninh và ra vào tích hợp</p>
                                         </div>
                                     </div>
                                 </div>
@@ -241,14 +241,16 @@
                 <!-- functions area end -->
 
 
-                <!-- funfact area start -->
-                <div class="tp-funfact-area">
-                    <div class="container container-1230">
+                
+                <!-- portfolio details 3 portfolio-->
+                <div class="tp-pd-3-portfolio-area pt-200 pb-80">
+                    <div class="container container-1200">
+                       
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">TƯƠNG THÍCH</span>
+                                        <span class="tp-section-subtitle pre">TƯƠNG THÍCH RỘNG</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -256,73 +258,88 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Phù hợp với nhiều <br><span>Loại đèn & Mục Đích Sử Dụng</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">Ứng Dụng Đa Dạng<br><span>Với Nhiều Loại Công Trình</span></h2>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tp-funfact-panel-wrap" style="width: 300%;">
-                        <!-- case study 1 start -->
-                        <div class="tp-funfact-panel">
-                            <div class="row g-0 align-items-center">
-                                <!-- Image first -->
-                                <div class="col-12 col-md-8">
-                                    <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/firesensor.jpg') }}" alt="Điều khiển chiếu sáng cho văn phòng" class="img-fluid w-100 h-100 object-fit-cover">
-                                </div>
-                                <!-- Text second -->
-                                <div class="col-12 col-md-4 tp-funfact-panel-content">
-                                    <h3 class="tp-funfact-panel-number">01</h3>
-                                    <h4 class="tp-funfact-panel-title">Hệ thống báo cháy tự động</h4>
-                                    <p class="tp-funfact-panel-description">
-                                        Tự động kích hoạt còi báo động, gửi cảnh báo qua app và điều
-                                        khiển tự động mở cửa thoát hiểm, tắt nguồn điện khu vực nguy hiểm.
-                                        Ứng dụng: Chung cư, khách sạn, nhà máy, biệt thự cao cấp.
-                                    </p>
+                    
+                        <!-- hvac type 1 start -->
+                        <div class="tp-pd-3-portfolio-item-wrap">
+                            <div class="tp-pd-3-portfolio-item mb-120">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-thumb">
+                                            <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/firesensor.jpg') }}" alt="báo khói">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
+                                            <span class="tp-section-subtitle pre">01</span>
+                                            <h3 class="tp-pd-3-title">Hệ thống báo cháy tự động</h3>
+                                            <div class="tp-pd-3-overview-text">
+                                                <p> Tự động kích hoạt còi báo động, gửi cảnh báo qua app
+                                                    và điều khiển tự động mở cửa thoát hiểm, tắt nguồn điện khu vực nguy hiểm.
+                                                    Ứng dụng: Chung cư, khách sạn, nhà máy, biệt thự cao cấp.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- case study 1 end -->
-                        <!-- case study 2 start  -->
-                        <div class="tp-funfact-panel">
-                            <div class="row g-0 align-items-center">
-                                <!-- Image first -->
-                                <div class="col-12 col-md-8">
-                                    <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/motionsensor.jpg') }}" alt="Điều khiển chiếu sáng cho nhà hàng & khách sạn" class="img-fluid w-100 h-100 object-fit-cover">
-                                </div>
-                                <!-- Text second -->
-                                <div class="col-12 col-md-4 tp-funfact-panel-content">
-                                    <h3 class="tp-funfact-panel-number">02</h3>
-                                    <h4 class="tp-funfact-panel-title">Hệ thống báo động đột nhập</h4>
-                                    <p class="tp-funfact-panel-description">
-                                        Khi phát hiện xâm nhập trái phép, hệ thống kích hoạt báo động, gửi thông báo đến điện thoại và ghi hình sự kiện.
+                        <!-- hvac type 1 end -->
+                         <!-- hvac type 2 start -->
+                        <div class="tp-pd-3-portfolio-item-wrap pt-120">
+                            <div class="tp-pd-3-portfolio-item mb-120">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
+                                            <span class="tp-section-subtitle pre">02</span>
+                                            <h3 class="tp-pd-3-title">Hệ thống báo động đột nhập</h3>
+                                            <div class="tp-pd-3-overview-text">
+                                                <p>  Khi phát hiện xâm nhập trái phép, hệ thống kích hoạt báo động, gửi thông báo đến điện thoại và ghi hình sự kiện.
                                         Ứng dụng: văn phòng, trung tâm thương mại, Bệnh viện, nhà xưởng.
-                                    </p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-thumb">
+                                            <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/motionsensor.jpg') }}" alt="máy lạnh âm trần">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- case study 2 end  -->
-                        <!-- case study 3 start  -->
-                        <div class="tp-funfact-panel">
-                            <div class="row g-0 align-items-center">
-                                <!-- Image first -->
-                                <div class="col-12 col-md-8">
-                                    <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/cameradoorbell.jpg') }}" alt="Điều khiển chiếu sáng cho bệnh viện & trung tâm thương mại" class="img-fluid w-100 h-100 object-fit-cover">
-                                </div>
-                                <!-- Text second -->
-                                <div class="col-12 col-md-4 tp-funfact-panel-content">
-                                    <h3 class="tp-funfact-panel-number">03</h3>
-                                    <h4 class="tp-funfact-panel-title">Chuông cửa có hình & Camera giám sát</h4>
-                                    <p class="tp-funfact-panel-description">
-                                            Kết nối hệ thống an ninh, tự động ghi hình hoặc kích hoạt cảnh báo nếu phát hiện hành vi đáng ngờ.
-                                            Ứng dụng:khu dân cư cao cấp, Khách sạn, ...
-                                    </p>
+                        <!-- hvac type 2 start -->
+                         <!-- hvac type 3 start -->
+                        <div class="tp-pd-3-portfolio-item-wrap">
+                            <div class="tp-pd-3-portfolio-item mb-120">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-thumb">
+                                            <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Security_solutions/imgs/cameradoorbell.jpg') }}" alt="máy lạnh áp trần">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
+                                            <span class="tp-section-subtitle pre">03</span>
+                                            <h3 class="tp-pd-3-title">Chuông cửa có hình & Camera giám sát</h3>
+                                            <div class="tp-pd-3-overview-text">
+                                                <p> Kết nối hệ thống an ninh, tự động ghi hình hoặc kích hoạt cảnh báo nếu phát hiện hành vi đáng ngờ. Ứng dụng:khu dân cư cao cấp, Khách sạn, ...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- case study 3 end  -->
+                        <!-- hvac type 3 end -->
+
                     </div>
                 </div>
-                <!-- funfact area end -->
+                <!-- portfolio details 3 portfolio-->
+                
 
                 <!-- work area start -->
                 <div class="tp-work-area pt-120 pb-145 tp-panel-pin-area">
@@ -556,7 +573,7 @@
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-    <script src="{{ asset('assets/js/contact.js') }}"></script>
+
 
 
 

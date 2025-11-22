@@ -7,27 +7,27 @@
     <title>Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- ✅ SEO Meta Tags -->
+    <!-- SEO Meta Tags -->
     <meta name="description" content="AIControl cung cấp giải pháp điều khiển thông minh giúp tối ưu năng lượng, chiếu sáng và an ninh cho mọi công trình thương mại, văn phòng, và nhà máy.">
     <meta name="keywords" content="giải pháp điều khiển, nhà thông minh, điều khiển chiếu sáng, Điều khiển HVAC, Rèm thông minh, tiết kiệm năng lượng, AIControl, BMS, smart building, automation, Điều khiển khách sạn, ABB, Legrand, cp electronics, vantage">
     <meta name="author" content="AIControl">
-
-    <!-- ✅ Canonical (avoid duplicate URLs) -->
+    <!-- Canonical (avoid duplicate URLs) -->
     <link rel="canonical" href="https://aicontrol.vn/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
 
-    <!-- ✅ Open Graph (Facebook, Zalo, etc.) -->
+    <!-- Open Graph (Facebook, Zalo, etc.) -->
     <meta property="og:title" content="Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl">
     <meta property="og:description" content="Giải pháp tự động hóa, tiết kiệm năng lượng và nâng cao tiện ích cho công trình thương mại, văn phòng và nhà máy.">
-    <meta property="og:image" content="https://yourdomain.com/assets/img/preview.jpg">
-    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:image" content="https://aicontrol.vn/assets/AIcontrol_imgs/aicontrol-co-mau.svg">
+    <meta property="og:url" content="https://aicontrol.vn/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="vi_VN">
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
@@ -35,9 +35,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
+
+
+
     <!-- CSS here -->
 </head>
 <!-- tp-magic-cursor -->
+
 <body class="" data-bg-color="#ffffff">
 
     <!-- preloader -->
@@ -49,7 +54,6 @@
     </div>
     <!-- preloader end  -->
 
- 
     <!-- back to top start -->
     <div class="back-to-top-wrapper">
         <button id="back_to_top" type="button" class="back-to-top-btn">
@@ -60,19 +64,9 @@
     </div>
     <!-- back to top end -->
 
-    
-    {{-- header and canvas --}}
+    {{-- header and canvas - popup --}}
     @include('front.includes.offcanvas')
     @include('front.includes.header')
-
-    {{-- <div id="callPopup" class="popup-overlay">
-        <div class="popup-content">
-            <h3>Chọn phương thức liên hệ</h3>
-            <button id="callOption">Gọi 0918918755</button>
-            <button id="zaloOption">Liên hệ qua Zalo</button>
-            <span class="popup-close">&times;</span>
-        </div>
-    </div> --}}
     @include('front.includes.popup')
 
     <!-- search area start -->
@@ -121,7 +115,7 @@
                                     <div class="ar-hero-title-box text-center tp_fade_anim" data-delay=".3">
                                         <h1 class="ar-hero-title mb-15">
                                             Giải pháp điều khiển & quản lý thông minh <br> <span class="subh1">Cho các công trình thương mại, khách sạn...</span>
-                                        </h1>   
+                                        </h1>
                                     </div>
                                     <div class="ar-hero-btn text-center tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
                                         <a class="tp-btn-black-solid" href="#Solutions-area">Xem các giải pháp</a>
@@ -140,7 +134,7 @@
                             <div class="col-xl-12">
                                 <div class="ar-category-wrap d-flex justify-content-between align-items-center">
                                     <div class="ar-category-item">
-                                        <a href="#">
+                                        <a>
                                             <i>
                                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M11.5298 21H3.10996C1.94998 21 1 20.07 1 18.93V4.0903C1 1.47034 2.94997 0.280362 5.33992 1.45034L9.77985 3.6303C10.7398 4.10029 11.5298 5.35027 11.5298 6.41025V21ZM11.5298 21L17.8403 20.9998C20.0003 20.9998 21.0003 19.9998 21.0003 17.8399V14.0599C21.0003 13.9899 21.0003 13.9299 20.9903 13.8699M11.5298 21L11.5304 9.42002L12.0004 9.52002M12.0004 9.52002L16.5003 10.53M12.0004 9.52002L12.001 13.7495C12.001 14.9894 13.011 15.9994 14.2509 15.9994C15.4909 15.9994 16.5009 14.9894 16.5009 13.7495L16.5003 10.53M16.5003 10.53L18.5303 10.98C19.8503 11.27 20.9303 11.95 20.9903 13.8699M16.5003 10.53L16.5 13.7502C16.5 14.9902 17.51 16.0002 18.75 16.0002C19.9499 16.0002 20.9303 15.0499 20.9903 13.8699M4.53027 8.00049H8.00021M4.53027 12.0005H8.00021" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -150,7 +144,7 @@
                                         </a>
                                     </div>
                                     <div class="ar-category-item">
-                                        <a href="#">
+                                        <a>
                                             <i>
                                                 <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M6.67871 14.8853C6.67871 14.4711 7.01449 14.1353 7.42871 14.1353H13.2437C13.6579 14.1353 13.9937 14.4711 13.9937 14.8853C13.9937 15.2995 13.6579 15.6353 13.2437 15.6353H7.42871C7.01449 15.6353 6.67871 15.2995 6.67871 14.8853Z" fill="currentColor" fill-opacity="1" />
@@ -161,7 +155,7 @@
                                         </a>
                                     </div>
                                     <div class="ar-category-item">
-                                        <a href="#">
+                                        <a>
                                             <i>
                                                 <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M7 21V11H13V21M1 8L10 1L19 8V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8Z" stroke="currentColor" stroke-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -171,7 +165,7 @@
                                         </a>
                                     </div>
                                     <div class="ar-category-item">
-                                        <a href="#">
+                                        <a>
                                             <i>
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M12.92 2.25984L19.43 5.76984C20.19 6.17984 20.19 7.34984 19.43 7.75984L12.92 11.2698C12.34 11.5798 11.66 11.5798 11.08 11.2698L4.57 7.75984C3.81 7.34984 3.81 6.17984 4.57 5.76984L11.08 2.25984C11.66 1.94984 12.34 1.94984 12.92 2.25984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -183,7 +177,7 @@
                                         </a>
                                     </div>
                                     <div class="ar-category-item">
-                                        <a href="#">
+                                        <a>
                                             <i>
                                                 <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path opacity="1" d="M1 1H21M3.03999 4.33H18.97C19.85 4.33 20.38 5.3 19.9 6.04L11.94 18.43C11.5 19.11 10.51 19.11 10.07 18.43L2.10997 6.04C1.62997 5.3 2.15999 4.33 3.03999 4.33Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
@@ -196,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
                 <!-- category area end -->
                 <!-- brand area start -->
                 {{-- <div class="ar-brand-area ar-brand-style">
@@ -271,7 +265,7 @@
                     </div>
                 </div>
                 <!-- banner area end -->
-                 
+
 
                 <!-- about area start -->
                 <div class="ar-about-area pt-120 pb-160">
@@ -281,7 +275,7 @@
                                 <div class="col-xl-8 col-lg-8">
                                     <div class="ar-about-title-box">
                                         <h2 class="tp-section-title lts tp_fade_anim txt_pr_color">AIControl</h2>
-                                        <h3 class="tp-section-title-clash-400 fs-60 fw-400 mb-0 pb-40 " data-delay=".4">
+                                        <h3 class="tp-section-title-clash-400 fs-40 fw-400 mb-0 pb-40 " data-delay=".4">
                                             Đem đến cho bạn các giải pháp điều khiển & quản lý thông minh hàng đầu thế giới.
                                         </h3>
                                     </div>
@@ -312,7 +306,7 @@
                                             AI Control kiến tạo tương lai với giải pháp điều khiển thông minh hàng đầu.
                                         </p>
                                     </div>
-                                    <div class="tp-btn-red-circle-box tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
+                                    {{-- <div class="tp-btn-red-circle-box tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
                                         <a class="tp-btn-red-circle-icon" href="about-us-light.html">
                                             <span>
                                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -328,7 +322,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-5 order-0 order-lg-0">
@@ -392,22 +386,6 @@
                                         </h2>
                                     </div>
                                 </div>
-                                <!-- <div class="col-xl-3 col-lg-3 col-md-3">
-                                    <div class="tp-portfolio-metro-social text-md-end pb-50">
-                                        <div>
-                                            <a href="#">Linkedin</a>
-                                        </div>
-                                        <div>
-                                            <a href="#">Instagram</a>
-                                        </div>
-                                        <div>
-                                            <a href="#">Dribbble</a>
-                                        </div>
-                                        <div>
-                                            <a href="#">Behance</a>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                         <div id="top" class="design-project-item-wrap">
@@ -415,9 +393,9 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
                                         <div class="design-project-content pr-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">
-                                                  Điều khiển chiếu sáng </a></h3>
-                                            <span class="tp_reveal_anim">Bật tắt - Độ sáng - CCT - RGB/RGBW</span>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('lightingControl') }}">
+                                                    Điều khiển chiếu sáng </a></h3>
+                                            <span class="tp_reveal_anim fw-light">Bật tắt - Độ sáng - CCT - RGB/RGBW</span>
                                             <a class="tp-btn-sky-border height-50" href="{{ route('lightingControl') }}">Xem ngay</a>
                                         </div>
                                     </div>
@@ -432,8 +410,8 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
                                         <div class="design-project-content pr-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">Rèm tự động</a></h3>
-                                            <span class="tp_reveal_anim">Điều khiển thông minh - tự động</span>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('shade') }}">Rèm tự động</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Điều khiển thông minh - tự động</span>
                                             <a class="tp-btn-sky-border height-50" href="{{ route('shade') }}">Xem ngay</a>
                                         </div>
                                     </div>
@@ -452,9 +430,9 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-5">
-                                        <div class="design-project-content">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">Điều khiển HVAC</a></h3>
-                                            <span class="tp_reveal_anim">Điều khiển thông minh cho máy lạnh cục bộ và tập trung</span>
+                                        <div class="design-project-content pl-200">
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('hvacControl') }}">Điều khiển <br> HVAC</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Điều khiển thông minh cho máy lạnh cục bộ và tập trung</span>
                                             <a class="tp-btn-sky-border height-50" href="{{ route('hvacControl') }}">Xem ngay</a>
                                         </div>
                                     </div>
@@ -469,8 +447,8 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">An ninh</a></h3>
-                                            <span class="tp_reveal_anim">Kiểm soát ra vào & khóa Thông minh</span>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('security') }}">An ninh</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Kiểm soát ra vào & khóa Thông minh</span>
                                             <a class="tp-btn-sky-border height-50" href="{{ route('security') }}">Xem ngay</a>
                                         </div>
                                     </div>
@@ -479,9 +457,9 @@
                             <div class="design-project-item mb-120">
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
-                                        <div class="design-project-content">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">Âm thanh</a></h3>
-                                            <span class="tp_reveal_anim">Âm thanh cho công trình thương mại & công cộng</span>
+                                        <div class="design-project-content pr-200">
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="#">Âm thanh</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Âm thanh cho công trình thương mại & công cộng</span>
                                             <a class="tp-btn-sky-border height-50" href="#">Xem ngay</a>
                                         </div>
                                     </div>
@@ -495,9 +473,9 @@
                             <div class="design-project-item mb-120">
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
-                                        <div class="design-project-content">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">Quản lý năng lượng</a></h3>
-                                            <span class="tp_reveal_anim">Giám sát, điều khiển & tối ưu năng lượng</span>
+                                        <div class="design-project-content pr-200">
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="#">Quản lý năng lượng</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Giám sát, điều khiển & tối ưu năng lượng</span>
                                             <a class="tp-btn-sky-border height-50" href="#">Xem ngay</a>
                                         </div>
                                     </div>
@@ -517,8 +495,8 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">BMS</a></h3>
-                                            <span class="tp_reveal_anim">Quản lý tòa nhà BMS</span>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="#">BMS</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Quản lý tòa nhà BMS</span>
                                             <a class="tp-btn-sky-border height-50" href="#">Xem ngay</a>
                                         </div>
                                     </div>
@@ -533,109 +511,18 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="portfolio-details-modern-light.html">Điều khiển phòng khách sạn</a></h3>
-                                            <span class="tp_reveal_anim">Ứng dụng nhiều công nghệ & tối ưu trải nghiệm cho khách hàng</span>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="#">Điều khiển phòng khách sạn</a></h3>
+                                            <span class="tp_reveal_anim fw-light">Ứng dụng nhiều công nghệ & tối ưu trải nghiệm cho khách hàng</span>
                                             <a class="tp-btn-sky-border height-50" href="#">Xem ngay</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <!-- solutions area end -->
 
-                <!-- project area start -->
-                <div class="ar-project-area pt-150 pb-55">
-                    <div class="container container-1430">
-                        <div class="ar-project-title-wrap ar-title-mlr mb-65">
-                            <div class="row align-items-end">
-                                <div class="col-xl-6 col-lg-8 col-md-7">
-                                    <div class="ar-project-title-box">
-                                        <h2 class="tp-section-title-clash-600 mb-0 tp_fade_anim" data-delay=".4">Các Công Trình <br> Tiêu Biểu</h2>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-4 col-md-5">
-                                    <div class="ar-project-btn-box d-flex justify-content-md-end justify-content-start mb-15">
-                                        <div class="tp-btn-red-circle-box tp_fade_anim" data-delay=".4" data-fade-from="top" data-ease="bounce">
-                                            <a class="tp-btn-red-circle-icon" href="portfolio-col-3-light.html">
-                                                <span>
-                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                            <a class="tp-btn-red-circle-text" href="portfolio-col-3-light.html">Tất cả dự án</a>
-                                            <a class="tp-btn-red-circle-icon" href="portfolio-col-3-light.html">
-                                                <span>
-                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row gx-40">
-                            <div class="col-md-6">
-                                <div class="ar-project-item mb-60">
-                                    <div class="ar-project-category d-flex align-items-center justify-content-between">
-                                        <span>Interior design</span>
-                                        <i>2025</i>
-                                    </div>
-                                    <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-1.jpg') }}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="ar-project-item mb-60">
-                                    <div class="ar-project-category d-flex align-items-center justify-content-between">
-                                        <span>Stylish Interior</span>
-                                        <i>2025</i>
-                                    </div>
-                                    <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-2.jpg') }}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="ar-project-item mb-60">
-                                    <div class="ar-project-category d-flex align-items-center justify-content-between">
-                                        <span>Interior Transformation</span>
-                                        <i>2025</i>
-                                    </div>
-                                    <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-3.jpg') }}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="ar-project-item mb-60">
-                                    <div class="ar-project-category d-flex align-items-center justify-content-between">
-                                        <span>Interior Spaces</span>
-                                        <i>2025</i>
-                                    </div>
-                                    <div class="ar-project-thumb not-hide-cursor" data-cursor="View<br>Demo">
-                                        <a class="cursor-hide" href="portfolio-details-classic-stack-light.html">
-                                            <img class="w-100" src="{{ asset('assets/img/home-08/project/project-4.jpg') }}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- project area end -->
+
 
 
                 <!-- award area start -->
@@ -648,7 +535,7 @@
                             <div class="row">
                                 <div class="col-xl-8">
                                     <div class="ar-award-title-box mb-50">
-                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">Chứng Chỉ Được Công Nhận</h3>
+                                        <h2 class="tp-section-title tp-text-revel-anim" data-delay=".4">Chứng Chỉ Được Công Nhận</h2>
                                     </div>
                                 </div>
                             </div>
@@ -659,13 +546,13 @@
                                             <div class="row align-items-center">
                                                 <div class="col-md-8">
                                                     <div class="ar-award-box-left z-index-3">
-                                                        <span class="ar-award-year">2005</span>
-                                                        <span class="ar-award-title">Architecture project of the year</span>
+                                                        <span class="ar-award-year">2014</span>
+                                                        <span class="ar-award-title">Vantage </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="ar-award-box-right z-index-3 d-flex align-items-center justify-content-between">
-                                                        <span class="ar-award-category">Architecture</span>
+                                                        <span class="ar-award-category">Certificate</span>
                                                         <span class="ar-award-icon">
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -679,13 +566,13 @@
                                             <div class="row align-items-center">
                                                 <div class="col-md-8">
                                                     <div class="ar-award-box-left z-index-3">
-                                                        <span class="ar-award-year">2010</span>
-                                                        <span class="ar-award-title">Architecture MasterPriz</span>
+                                                        <span class="ar-award-year">2020</span>
+                                                        <span class="ar-award-title">Sanvant</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="ar-award-box-right z-index-3 d-flex align-items-center justify-content-between">
-                                                        <span class="ar-award-category">Interior</span>
+                                                        <span class="ar-award-category">Certificate</span>
                                                         <span class="ar-award-icon">
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -699,13 +586,13 @@
                                             <div class="row align-items-center">
                                                 <div class="col-md-8">
                                                     <div class="ar-award-box-left z-index-3">
-                                                        <span class="ar-award-year">2014</span>
-                                                        <span class="ar-award-title">Best project of the year</span>
+                                                        <span class="ar-award-year">2024</span>
+                                                        <span class="ar-award-title">Casambi</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="ar-award-box-right z-index-3 d-flex align-items-center justify-content-between">
-                                                        <span class="ar-award-category">Landscape</span>
+                                                        <span class="ar-award-category">Certificate</span>
                                                         <span class="ar-award-icon">
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -719,13 +606,13 @@
                                             <div class="row align-items-center">
                                                 <div class="col-md-8">
                                                     <div class="ar-award-box-left z-index-3">
-                                                        <span class="ar-award-year">2020</span>
-                                                        <span class="ar-award-title">Architecture MasterPrize</span>
+                                                        <span class="ar-award-year">2025</span>
+                                                        <span class="ar-award-title">Lutron</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="ar-award-box-right z-index-3 d-flex align-items-center justify-content-between">
-                                                        <span class="ar-award-category">Architecture</span>
+                                                        <span class="ar-award-category">Certificate</span>
                                                         <span class="ar-award-icon">
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -787,7 +674,7 @@
                         </div>
                     </div>
                 </div> --}}
-                <!-- brand area end -->
+                                <!-- brand area end -->
 
                 <!-- blog area start -->
                 <div class="ar-blog-area pb-100">
@@ -824,41 +711,41 @@
                         </div>
                         <div class="row gx-40">
                             @forelse(($landingBlogs ?? collect()) as $index => $blog)
-                                @php
-                                    $delay = number_format(0.3 + ($index * 0.1), 1);
-                                    $cover = $blog->featured_image ? asset($blog->featured_image) : asset('assets/img/home-08/blog/blog-1.jpg');
-                                    $primaryCategoryModel = $blog->blogCategories->first();
-                                    $primaryCategory = optional($primaryCategoryModel)->name ?? 'Blog';
-                                    $categoryUrl = route('blog.show', $blog->slug);
-                                    $publishedDate = $blog->published_at ? $blog->published_at->format('M d, Y') : ($blog->created_at ? $blog->created_at->format('M d, Y') : null);
-                                @endphp
-                                <div class="col-xl-3 col-lg-6 col-md-6">
-                                    <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".{{ $delay }}">
-                                        <div class="ar-blog-thumb p-relative">
-                                            <a href="{{ route('blog.show', $blog->slug) }}"><img class="w-100" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
-                                           
-                                        </div>
-                                        <div class="ar-blog-content">
-                                            <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route('blog.show', $blog->slug) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
-                                            @if($publishedDate)
-                                                <span class="ar-blog-meta">{{ $publishedDate }}</span>
-                                            @endif
-                                        </div>
+                            @php
+                            $delay = number_format(0.3 + ($index * 0.1), 1);
+                            $cover = $blog->featured_image ? asset($blog->featured_image) : asset('assets/img/home-08/blog/blog-1.jpg');
+                            $primaryCategoryModel = $blog->blogCategories->first();
+                            $primaryCategory = optional($primaryCategoryModel)->name ?? 'Blog';
+                            $categoryUrl = route('blog.show', $blog->slug);
+                            $publishedDate = $blog->published_at ? $blog->published_at->format('M d, Y') : ($blog->created_at ? $blog->created_at->format('M d, Y') : null);
+                            @endphp
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".{{ $delay }}">
+                                    <div class="ar-blog-thumb p-relative">
+                                        <a href="{{ route('blog.show', $blog->slug) }}"><img class="w-100" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
+
+                                    </div>
+                                    <div class="ar-blog-content">
+                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route('blog.show', $blog->slug) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
+                                        @if($publishedDate)
+                                        <span class="ar-blog-meta">{{ $publishedDate }}</span>
+                                        @endif
                                     </div>
                                 </div>
+                            </div>
                             @empty
-                                <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục Landing.</p>
-                                </div>
+                            <div class="col-12">
+                                <p class="text-center text-muted">Hiện chưa có bài viết nào</p>
+                            </div>
                             @endforelse
                         </div>
                     </div>
                 </div>
-                <!-- blog area end -->
-            </main>
-            {{-- footer --}}
-            @include('front.includes.footer')
-        </div>
+    <!-- blog area end -->
+    </main>
+    {{-- footer --}}
+    @include('front.includes.footer')
+    </div>
     </div>
 
 
@@ -888,10 +775,10 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
-
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
     <!-- JS here -->
 </body>
+
 </html>

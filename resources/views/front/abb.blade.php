@@ -12,8 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
     <!-- Canonical URL -->
     <link rel="canonical" href="https://aicontrol.vn/abb">
 
@@ -34,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <!-- CSS here -->
@@ -133,7 +132,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                     <path d="M2.43248 7.95965C1.76852 6.80251 1.44793 5.85764 1.25462 4.89985C0.968722 3.4833 1.62299 2.09956 2.70686 1.21663C3.16494 0.843468 3.69006 0.970963 3.96095 1.45668L4.57249 2.55324C5.05722 3.4224 5.29958 3.85698 5.25151 4.31771C5.20344 4.77845 4.87658 5.1537 4.22286 5.9042L2.43248 7.95965ZM2.43248 7.95965C3.7764 10.3018 5.88543 12.4109 8.23152 13.7557M8.23152 13.7557C9.38926 14.4193 10.3346 14.7397 11.2929 14.9329C12.7102 15.2187 14.0947 14.5647 14.978 13.4814C15.3514 13.0236 15.2238 12.4987 14.7379 12.228L13.6407 11.6168C12.7711 11.1323 12.3363 10.8901 11.8753 10.9381C11.4144 10.9862 11.0389 11.3128 10.288 11.9662L8.23152 13.7557Z" stroke="#34679A" stroke-width="1.5" stroke-linejoin="round" />
                                                 </svg>
-                                                (+84) 0918 918 755
+                                                (+84) 0287 3007 475
                                             </a>
                                         </div>
                                         <div class="tp-team-details-info-social">
@@ -471,12 +470,11 @@
     <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
     <script src="{{ asset('assets/js/webgl.js') }}"></script>
     <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
-    <script src="{{ asset('assets/js/atropos.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/atropos.js') }}"></script> --}}
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
-    <script src="{{ asset('assets/js/contact.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>

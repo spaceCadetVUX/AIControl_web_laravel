@@ -1,0 +1,207 @@
+/*----------------------------------------------------
+  FUNFACT – BASE STYLING (Mobile First)
+----------------------------------------------------*/
+
+/* Image inside round frame */
+.tp-funfact-img img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
+/* Larger screens: increase size */
+@media (min-width: 992px) {
+  .tp-funfact-img img {
+    max-width: 144px;
+  }
+}
+
+/*----------------------------------------------------
+  GREEN BLOCK WRAPPER
+----------------------------------------------------*/
+.tp-funfact-green-wrap {
+  padding: 50px 0;
+  border-bottom: 10px solid #fff;
+}
+
+/* Desktop: right border instead */
+@media (min-width: 1200px) {
+  .tp-funfact-green-wrap {
+    padding-top: 20px;
+    border-bottom: none;
+    border-right: 10px solid #fff;
+  }
+}
+
+/*----------------------------------------------------
+  TEXT
+----------------------------------------------------*/
+.tp-funfact-subtitle {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  color: var(--tp-common-black);
+}
+
+.tp-funfact-title {
+  font-weight: 700;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  color: var(--tp-common-black);
+}
+
+/* Desktop text sizes */
+@media (min-width: 768px) {
+  .tp-funfact-title {
+    font-size: 32px;
+  }
+}
+
+/*----------------------------------------------------
+  BIG NUMBER
+----------------------------------------------------*/
+.tp-funfact-number span {
+  font-weight: 700;
+  font-size: 110px;
+  line-height: 1;
+  margin: 0;
+  display: inline-block;
+  letter-spacing: -0.05em;
+  color: var(--tp-common-red-3);
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .tp-funfact-number span {
+    font-size: 200px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .tp-funfact-number span {
+    font-size: 400px;
+  }
+}
+
+/* Stroked letter inside */
+.tp-funfact-number span i {
+  color: var(--tp-common-red-3);
+  -webkit-text-stroke: 6px #F8F8FB;
+  font-style: normal;
+  display: inline-block;
+}
+
+/*----------------------------------------------------
+  PANEL – BASE
+----------------------------------------------------*/
+.tp-funfact-panel {
+  width: 100%;
+  background-color: var(--tp-navi-background-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image inside panel */
+.tp-funfact-panel img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/*----------------------------------------------------
+  PANEL CONTENT
+----------------------------------------------------*/
+.tp-funfact-panel-content {
+  padding: 30px 20px;
+  color: var(--tp-white-text-color);
+  font-family: var(--tp-ff-inter, 'Inter', sans-serif);
+  text-align: center;
+}
+
+.tp-funfact-panel-number {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #383636;
+}
+
+.tp-funfact-panel-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.tp-funfact-panel-description {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #E0E6ED;
+}
+
+/* Tablet & Desktop sizes */
+@media (min-width: 768px) {
+  .tp-funfact-panel-content {
+    padding: 60px 40px;
+    text-align: left;
+  }
+
+  .tp-funfact-panel-number {
+    font-size: 4.5rem;
+  }
+
+  .tp-funfact-panel-title {
+    font-size: 2.5rem;
+  }
+}
+
+/*----------------------------------------------------
+  PANEL WRAPPER – SLIDES / MULTI PANELS
+----------------------------------------------------*/
+.tp-funfact-panel-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Desktop: horizontal panels */
+@media (min-width: 1200px) {
+  .tp-funfact-panel-wrap {
+    flex-direction: row;
+    width: 400%;
+  }
+}
+
+/*----------------------------------------------------
+  REMOVE BIG IMAGE ON MOBILE
+----------------------------------------------------*/
+@media (max-width: 767px) {
+  .tp-funfact-big-img {
+    display: none;
+  }
+}
+
+/*----------------------------------------------------
+  COLOR MODIFIERS
+----------------------------------------------------*/
+.tp-funfact-green-wrap.pink-style .tp-funfact-subtitle,
+.tp-funfact-green-wrap.pink-style .tp-funfact-title,
+.tp-funfact-green-wrap.pink-style .tp-funfact-number span,
+.tp-funfact-green-wrap.pink-style .tp-funfact-number span i {
+  color: var(--tp-theme-pink);
+}
+
+.tp-funfact-green-wrap.yellow-style .tp-funfact-subtitle,
+.tp-funfact-green-wrap.yellow-style .tp-funfact-title,
+.tp-funfact-green-wrap.yellow-style .tp-funfact-number span,
+.tp-funfact-green-wrap.yellow-style .tp-funfact-number span i {
+  color: var(--tp-theme-yellow);
+}

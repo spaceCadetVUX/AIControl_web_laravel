@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
 
     <!-- ✅ Mô tả trang (SEO Description) -->
@@ -129,7 +129,7 @@
                                                     <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#34679A" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </div>
-                                            <p>Quản lý điều chỉnh nhiệt độ, độ ẩm và <br>
+                                            <p class="ml-20">Quản lý điều chỉnh nhiệt độ, độ ẩm và <br>
                                                 luồng gió. Mang lại sự thoải mái, <br>
                                                 tiết kiệm năng lượng và dễ dàng quản lý.</p>
                                         </div>
@@ -689,7 +689,7 @@
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-<script src="{{ asset('assets/js/contact.js') }}"></script>
+
 
     <!-- JS here -->
     <!-- JS here -->

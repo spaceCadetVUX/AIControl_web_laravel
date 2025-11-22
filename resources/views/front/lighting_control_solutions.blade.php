@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://www.aicontrol.vn/dieu-khien-chieu-sang.html">
 
     <!-- ✅ Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- ✅ Open Graph (Facebook, Zalo, LinkedIn) -->
     <meta property="og:title" content="AIControl | Giải pháp điều khiển chiếu sáng cho công trình thương mại">
@@ -171,7 +171,8 @@
                                     </div>
                                     <div class="tp-service-4-solution-item-content">
                                         <h3 class="tp-service-4-solution-item-title">
-                                            <a class="tp-line-black" href="service-details-light.html">Điều khiển ON/OFF</a>
+                                            <a class="tp-line-black">Điều khiển ON/OFF</a>
+                                            {{-- href="service-details-light.html" --}}
                                         </h3>
                                         <p>
                                             Điều khiển bật/tắt nguồn chiếu sáng đơn giản, 
@@ -199,7 +200,7 @@
                                     </div>
                                     <div class="tp-service-4-solution-item-content">
                                         <h3 class="tp-service-4-solution-item-title">
-                                            <a class="tp-line-black" href="service-details-light.html">Điều khiển 0 -10 V</a>
+                                            <a class="tp-line-black">Điều khiển 0 -10 V</a>
                                         </h3>
                                         <p>
                                             Điều khiển độ sáng bằng tín hiệu analog 0–10V, đáp ứng mượt, dễ tích hợp với cảm biến và bộ điều khiển trung tâm.
@@ -226,7 +227,7 @@
                                     </div>
                                     <div class="tp-service-4-solution-item-content">
                                         <h3 class="tp-service-4-solution-item-title">
-                                            <a class="tp-line-black" href="service-details-light.html">Điều khiển DALI</a>
+                                            <a class="tp-line-black">Điều khiển DALI</a>
                                         </h3>
                                         <p>
                                             Chuẩn điều khiển kỹ thuật số cho phép quản lý từng đèn độc lập và lập trình kịch bản chiếu sáng thông minh.
@@ -253,7 +254,7 @@
                                     </div>
                                     <div class="tp-service-4-solution-item-content">
                                         <h3 class="tp-service-4-solution-item-title">
-                                            <a class="tp-line-black" href="service-details-light.html">Điều khiển TRIAC</a>
+                                            <a class="tp-line-black">Điều khiển TRIAC</a>
                                         </h3>
                                         <p>
                                             Dimmer cắt pha cho LED và đèn sợi đốt, điều chỉnh ánh sáng trơn tru, phù hợp ứng dụng dân dụng và thương mại nhỏ.
@@ -280,7 +281,7 @@
                                     </div>
                                     <div class="tp-service-4-solution-item-content">
                                         <h3 class="tp-service-4-solution-item-title">
-                                            <a class="tp-line-black" href="service-details-light.html">Điều khiển DMX</a>
+                                            <a class="tp-line-black">Điều khiển DMX</a>
                                         </h3>
                                         <p>
                                             Chuẩn điều khiển chuyên nghiệp cho chiếu sáng kiến trúc và sân khấu, tạo hiệu ứng màu  chính xác
@@ -307,7 +308,7 @@
                                     </div>
                                     <div class="tp-service-4-solution-item-content">
                                         <h3 class="tp-service-4-solution-item-title">
-                                            <a class="tp-line-black" href="service-details-light.html">Điều Khiển SPI</a>
+                                            <a class="tp-line-black">Điều Khiển SPI</a>
                                         </h3>
                                         <p>
                                             Chuẩn điều khiển LED kỹ thuật số, tạo hiệu ứng ánh sáng sống động, chính xác, linh hoạt, chuyên nghiệp.
@@ -839,7 +840,7 @@
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-<script src="{{ asset('assets/js/contact.js') }}"></script>
+
 
 
 

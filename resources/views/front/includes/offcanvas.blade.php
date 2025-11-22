@@ -49,22 +49,22 @@
                 <h4 class="tp-offcanvas-2-right-info-title">Liên hệ ngay</h4>
                 <div class="tp-offcanvas-2-right-info-item">
                     <label class="mb-10">Hotline</label>
-                    <a class="tp-line-white" href="tel:42345678910">0918.918.755</a>
+                    <a class="tp-line-white" href="tel:02873007475">0287.3007.475</a>
                 </div>
                 <div class="tp-offcanvas-2-right-info-item">
                     <label class="mb-10">Email</label>
-                    <a class="tp-line-white" href="mailto:hello@gmail.com">sales@knxstore.vn</a>
+                    <a class="tp-line-white" href="mailto:hello@aicontrol.vn">hello@aicontrol.vn</a>
                 </div>
                 <div class="tp-offcanvas-2-right-info-item">
                     <label class="mb-10">Địa chỉ</label>
-                    <a class="tp-line-white" href="https://www.google.com.bd/maps/@23.7806365,90.4193257,12z?entry=ttu&g_ep=EgoyMDI1MDQwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
-                       110 Trương Văn Bang, Thạnh Mỹ Lợi, Thủ Đức, TP HCM <br>
+                    <a class="tp-line-white" href="https://www.google.com/maps/search/+The+Sun+Avenue+S5.01.02+28+-+Mai+Ch%C3%AD+Th%E1%BB%8D/@10.7851206,106.748232,166m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+                       The Sun Avenue S5.01.02 28 - Mai Chí Thọ <br>
                     </a>
                 </div>
-                <div class="tp-offcanvas-2-right-info-item">
+                {{-- <div class="tp-offcanvas-2-right-info-item">
                     <label class="mb-15"></label>
                     <div class="tp-offcanvas-2-right-social">
-                        <a href="#" aria-label="Facebook">
+                        <a href="https://www.facebook.com/aicontrol.vn" aria-label="Facebook">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -72,7 +72,7 @@
                             fill="currentColor" />
                         </svg>
                         </a>
-                        <a href="#" aria-label="YouTube">
+                        <a href="https://www.youtube.com/@aicontrol9411" aria-label="YouTube">
                         <svg width="18" height="13" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -82,16 +82,16 @@
                         </svg>
                         </a>
 
-                        <a href="#">
-                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M12.8438 5.15771C13.396 5.15771 13.8438 4.71 13.8438 4.15771C13.8438 3.60543 13.396 3.15771 12.8438 3.15771V5.15771ZM12.8348 3.15771C12.2825 3.15771 11.8348 3.60543 11.8348 4.15771C11.8348 4.71 12.2825 5.15771 12.8348 5.15771V3.15771ZM8.5 15C6.70396 15 5.45753 14.9979 4.51848 14.8716C3.60819 14.7492 3.13786 14.5269 2.80546 14.1945L1.39124 15.6088C2.15719 16.3747 3.11992 16.7016 4.25198 16.8538C5.35528 17.0021 6.7605 17 8.5 17V15ZM0 8.5C0 10.2395 -0.00212373 11.6447 0.146211 12.748C0.298413 13.8801 0.625299 14.8428 1.39124 15.6088L2.80546 14.1945C2.47305 13.8621 2.25076 13.3918 2.12838 12.4815C2.00212 11.5425 2 10.296 2 8.5H0ZM15 8.5C15 10.296 14.9979 11.5425 14.8716 12.4815C14.7492 13.3918 14.5269 13.8621 14.1945 14.1945L15.6088 15.6088C16.3747 14.8428 16.7016 13.8801 16.8538 12.748C17.0021 11.6447 17 10.2395 17 8.5H15ZM8.5 17C10.2395 17 11.6447 17.0021 12.748 16.8538C13.8801 16.7016 14.8428 16.3747 15.6088 15.6088L14.1945 14.1945C13.8621 14.5269 13.3918 14.7492 12.4815 14.8716C11.5425 14.9979 10.296 15 8.5 15V17ZM8.5 2C10.296 2 11.5425 2.00212 12.4815 2.12838C13.3918 2.25076 13.8621 2.47305 14.1945 2.80546L15.6088 1.39124C14.8428 0.625299 13.8801 0.298413 12.748 0.146211C11.6447 -0.00212374 10.2395 0 8.5 0V2ZM17 8.5C17 6.7605 17.0021 5.35528 16.8538 4.25198C16.7016 3.11992 16.3747 2.15719 15.6088 1.39124L14.1945 2.80546C14.5269 3.13786 14.7492 3.60819 14.8716 4.51848C14.9979 5.45753 15 6.70396 15 8.5H17ZM8.5 0C6.7605 0 5.35528 -0.00212374 4.25198 0.146211C3.11992 0.298413 2.15719 0.625299 1.39124 1.39124L2.80546 2.80546C3.13786 2.47305 3.60819 2.25076 4.51848 2.12838C5.45753 2.00212 6.70396 2 8.5 2V0ZM2 8.5C2 6.70396 2.00212 5.45753 2.12838 4.51848C2.25076 3.60819 2.47305 3.13786 2.80546 2.80546L1.39124 1.39124C0.625299 2.15719 0.298413 3.11992 0.146211 4.25198C-0.00212373 5.35528 0 6.7605 0 8.5H2ZM11.0545 8.50136C11.0545 9.91114 9.91163 11.054 8.50185 11.054V13.054C11.0162 13.054 13.0545 11.0157 13.0545 8.50136H11.0545ZM8.50185 11.054C7.09207 11.054 5.94922 9.91114 5.94922 8.50136H3.94922C3.94922 11.0157 5.9875 13.054 8.50185 13.054V11.054ZM5.94922 8.50136C5.94922 7.09158 7.09207 5.94873 8.50185 5.94873V3.94873C5.9875 3.94873 3.94922 5.98701 3.94922 8.50136H5.94922ZM8.50185 5.94873C9.91163 5.94873 11.0545 7.09158 11.0545 8.50136H13.0545C13.0545 5.98701 11.0162 3.94873 8.50185 3.94873V5.94873ZM12.8438 3.15771H12.8348V5.15771H12.8438V3.15771Z"
-                            fill="currentColor" />
+                        <a href="https://zalo.me/0918918755">
+                        <svg width="60" height="20" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+                        <text x="50%" y="50%" font-size="80" font-family="Arial, sans-serif" fill="#000" text-anchor="middle" dominant-baseline="middle">
+                            Zalo
+                        </text>
                         </svg>
+
                         </a>
                     </div>
-                    </div>
+                    </div> --}}
 
             </div>
         </div>

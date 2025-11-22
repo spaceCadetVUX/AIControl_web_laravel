@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GPT-4o Popup Demo</title>
+   
     <!-- Adding Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
@@ -292,12 +292,12 @@
         }
 
         document.getElementById('zaloButton').addEventListener('click', function () {
-            window.open('https://zalo.me/0918918755', '_blank');
+            window.open('https://zalo.me/02873007475', '_blank');
         });
 
 
         document.getElementById('callButton').addEventListener('click', function () {
-            window.location.href = 'tel:0918918755';
+            window.location.href = 'tel:02873007475';
         });
 
 

@@ -14,7 +14,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
     
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
@@ -387,39 +387,37 @@
  
 
 
-<script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
-<script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
-<script src="{{ asset('assets/js/plugin.js') }}"></script>
-<script src="{{ asset('assets/js/three.js') }}"></script>
-<script src="{{ asset('assets/js/slick.js') }}"></script>
-<script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
-<script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
-<script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
-<script src="{{ asset('assets/js/purecounter.js') }}"></script>
-<script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
-<script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
-<script src="{{ asset('assets/js/Observer.min.js') }}"></script>
-<script src="{{ asset('assets/js/splitting.min.js') }}"></script>
-<script src="{{ asset('assets/js/webgl.js') }}"></script>
-<script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
-<script src="{{ asset('assets/js/atropos.js') }}"></script>
-<script src="{{ asset('assets/js/slider-active.js') }}"></script>
-<script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
-<script src="{{ asset('assets/js/nice-select.js') }}"></script>
-<script src="{{ asset('assets/js/ajax-form.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
-<script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
-<script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
-<script src="{{ asset('assets/js/contact.js') }}"></script>
-<script src="{{ asset('assets/js/shop.js') }}"></script>
-<script src="{{ asset('assets/js/productDetails.js') }}"></script>
-<script src="{{ asset('assets/js/contact.js') }}"></script>
-
-<!-- Module scripts -->
-<script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
-<script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
-<script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/three.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+    <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+    <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+    <script src="{{ asset('assets/js/webgl.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+    <script src="{{ asset('assets/js/atropos.js') }}"></script>
+    <script src="{{ asset('assets/js/slider-active.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
+    <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
+    <script src="{{ asset('assets/js/shop.js') }}"></script>
+    <script src="{{ asset('assets/js/productDetails.js') }}"></script>
+    <!-- Module scripts -->
+    <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
 
 
 </body>

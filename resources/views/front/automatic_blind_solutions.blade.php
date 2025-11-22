@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://www.aicontrol.vn/rem-tu-dong.html">
 
     <!-- ✅ Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- ✅ Open Graph (mạng xã hội, Zalo, Facebook, LinkedIn) -->
     <meta property="og:title" content="AIControl | Hệ thống rèm tự động thông minh cho công trình thương mại">
@@ -44,9 +44,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
+    
     <!-- CSS here -->
     <!-- CSS here -->
 
@@ -137,7 +138,7 @@
                 <!-- banner area end -->
 
                 <!-- service solution area start -->
-                <section class="tp-service-4-solution-area pt-135 pb-140">
+                <section class="tp-service-4-solution-area pt-100 pb-140">
                     <div class="container container-1320">
                         <div class="row">
                             <div class="col-lg-12">
@@ -230,7 +231,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Các<span>Tính Năng</span> <br>của <span>Rèm Tự Động</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">Các <span>Tính Năng</span> <br>của <span>Rèm Tự Động</span></h2>
                                 </div>
                             </div>
                         </div>  
@@ -275,8 +276,12 @@
                 <!-- benefit area end -->
 
                 <!-- funfact area start -->
-                <div class="tp-funfact-area" style="width: 100%;">
-                    <div class="container container-1230">
+            
+
+
+                <div class="tp-pd-3-portfolio-area pt-50 pb-60">
+                    <div class="container container-1200">
+                        <div class="container container-1230">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
@@ -289,48 +294,56 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Phù hợp với nhiều <br><span>Loại đèn & Mục Đích Sử Dụng</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">Phù hợp với nhiều <br><span>Không gian & Vị trí</span></h2>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tp-funfact-panel-wrap" style="width: 200%;">
-                        <!-- case study 1 start -->
-                        <div class="tp-funfact-panel">
-                            <div class="row g-0 align-items-center">
-                                <!-- Image first -->
-                                <div class="col-12 col-md-8">
-                                    <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy2.jpg') }}" alt="Điều khiển chiếu sáng cho văn phòng" class="img-fluid w-100 h-100 object-fit-cover">
-                                </div>
-                                <!-- Text second -->
-                                <div class="col-12 col-md-4 tp-funfact-panel-content">
-                                    <h3 class="tp-funfact-panel-number">01</h3>
-                                    <h4 class="tp-funfact-panel-title">Rèm Cuốn (Roller Shades)</h4>
-                                    <p class="tp-funfact-panel-description">
-                                        Tinh chỉnh nâng hạ nhẹ nhàng với độ êm tuyệt đối, mang lại sự thoải mái chuẩn xác và đẳng cấp trong từng chuyển động.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- case study 1 end -->
-                        <!-- case study 2 start  -->
-                        <div class="tp-funfact-panel">
-                            <div class="row g-0 align-items-center">
-                                <!-- Image first -->
-                                <div class="col-12 col-md-8">
-                                    <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy1.jpg') }}" alt="Điều khiển chiếu sáng cho nhà hàng & khách sạn" class="img-fluid w-100 h-100 object-fit-cover">
-                                </div>
-                                <!-- Text second -->
-                                <div class="col-12 col-md-4 tp-funfact-panel-content">
-                                    <h3 class="tp-funfact-panel-number">02</h3>
-                                    <h4 class="tp-funfact-panel-title">Rèm Vải Dọc (Drapery)</h4>
-                                    <p class="tp-funfact-panel-description">
-                                       Không chỉ đóng mở qua lại hệ thống rèm còn có khả năng tùy chỉnh độ sáng bằng cách lật các lá của rèm thông qua điều chỉnh hoặc cảm biến ánh sáng
-                                    </p>
+                        <div class="tp-pd-3-portfolio-item-wrap">
+                            <div class="tp-pd-3-portfolio-item mb-120">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-thumb">
+                                            <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy2.jpg') }}" alt="Điều khiển chiếu sáng cho văn phòng"  class="w-100">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
+                                            <span class="tp-pd-3-subtitle">01</span>
+                                            <h4 class="tp-pd-3-title">Rèm Cuốn (Roller Shades)</h4>
+                                            <div class="tp-pd-3-overview-text">
+                                                <p> Tinh chỉnh nâng hạ nhẹ nhàng với độ êm tuyệt đối, <br>
+                                                    mang lại sự thoải mái chuẩn xác và đẳng cấp trong từng chuyển động.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- case study 2 end  -->
+                        <div class="tp-pd-3-portfolio-item-wrap pt-120">
+                            <div class="tp-pd-3-portfolio-item mb-120">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
+                                           <span class="tp-pd-3-subtitle">02</span>
+                                            <h4 class="tp-pd-3-title">Rèm Vải Dọc (Drapery)</h4>
+                                            <div class="tp-pd-3-overview-text">
+                                                <p> Không chỉ đóng mở qua lại hệ thống rèm còn <br> 
+                                                    có khả năng tùy chỉnh độ sáng bằng cách lật các <br>
+                                                    lá của rèm thông qua điều chỉnh hoặc cảm biến ánh sáng
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="tp-pd-3-portfolio-thumb">
+                                            <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy1.jpg') }}" alt="">
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -535,8 +548,6 @@
 
 
     <!-- JS here -->
-
-
     <!-- JS here -->
 
 
@@ -559,7 +570,6 @@
 <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
 <script src="{{ asset('assets/js/webgl.js') }}"></script>
 <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
-<script src="{{ asset('assets/js/atropos.js') }}"></script>
 <script src="{{ asset('assets/js/slider-active.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
@@ -567,14 +577,7 @@
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-<script src="{{ asset('assets/js/contact.js') }}"></script>
-
-
-
     <!-- JS here -->
-
     <!-- JS here -->
-
 </body>
-
 </html>

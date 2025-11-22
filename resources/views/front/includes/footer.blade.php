@@ -44,8 +44,8 @@
                         <h4 class="ar-footer-widget-title">Chăm sóc khách hàng</h4>
                         <div class="ar-footer-widget-menu">
                             <ul>
-                                <li><a href="#">Liên hệ & tư vấn</a></li>
-                                <li><a href="#">Các chính sách</a></li>
+                                <li><a href="tel:02873007475">Liên hệ & tư vấn</a></li>
+                                {{-- <li><a href="#">Các chính sách</a></li> --}}
                         
                             </ul>
                         </div>
@@ -56,16 +56,17 @@
                         <h4 class="ar-footer-widget-title">Địa chỉ & liên lạc</h4>
                         <div class="ar-footer-widget-info-box">
                             <div class="ar-footer-widget-info mb-20">
-                                <a class="https://www.google.com/maps" target="_blank" href="#">
-                                    SDT: 0918.918.755
+                                <a href="tel:02873007475">
+                                    SDT: 02873007475
                                 </a>
-                                <a class="https://www.google.com/maps" target="_blank" href="#">
+
+                                <a class="https://www.google.com/maps" target="_blank" href="https://zalo.me/0918918755">
                                     ZALO: Tư vấn & Nhận phản hồi
                                 </a>
                             </div>
                             <div class="ar-footer-widget-info">
-                                <a class="" target="_blank" href="tel:(+068)56819696">Địa chỉ: 56 Trần Cao Vân, Phường Hiệp Phú, TP. Thủ Đức, TP. Hồ Chí Minh</a>
-                                <a class="" target="_blank" href="mailto:hello@agncy.com">Email: sales@knxstore.vn</a>
+                                <a class="" target="_blank" href="https://www.google.com/maps/search/+The+Sun+Avenue+S5.01.02+28+-+Mai+Ch%C3%AD+Th%E1%BB%8D/@10.7851206,106.748232,166m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D">Địa chỉ: The Sun Avenue S5.01.02 28 - Mai Chí Thọ</a>
+                                <a class="" target="_blank" href="mailto:hello@aicontrol.vn">Email: hello@aicontrol.vn</a>
                             </div>
                         </div>
                     </div>
@@ -78,16 +79,16 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="ar-copyright-text text-lg-start text-center">
-                        <p>ThemePure © {{ date('Y') }}. All rights reserved.</p>
+                        {{-- <p>ThemePure © {{ date('Y') }}. All rights reserved.</p> --}}
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="ar-copyright-social text-center text-lg-end">
-                        <a href="#">ZALO</a>
-                        <a href="#">FaceBook</a>
-                        <a href="#">YouTube</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="{{ route('admin.login') }}" class="text-xs opacity-50">Admin</a>
+                        <a href="https://zalo.me/0918918755">ZALO</a>
+                        <a href="https://www.facebook.com/aicontrol.vn">FaceBook</a>
+                        <a href="https://www.youtube.com/@aicontrol9411">YouTube</a>
+                        {{-- <a href="#">LinkedIn</a> --}}
+                        {{-- <a href="{{ route('admin.login') }}" class="text-xs opacity-50">Admin</a> --}}
                     </div>
                 </div>
             </div>

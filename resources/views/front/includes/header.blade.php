@@ -84,9 +84,9 @@
                 <a href="{{ route('projects.index') }}">Dự án</a>
             </li>
             <li class="is-active">
-                <a href="#">Blogs</a>
+                <a href="{{ route('blogs') }}">Blogs</a>
             </li>
-            <li class="has-dropdown is-active">
+            {{-- <li class="has-dropdown is-active">
                 <a href="#">Về chúng tôi</a>
                 <ul class="tp-submenu submenu">
                     <li><a href="#">Giới thiệu</a></li>
@@ -94,7 +94,7 @@
                     <li><a href="{{ route('contact') }}">Liên hệ</a></li>
                     <li><a href="#">FAQ's</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </nav>
         <!-- contact_modal -->

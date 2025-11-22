@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://aicontrol.vn/vantage">
@@ -352,25 +352,15 @@
                     </div>
                 </div>
                 <!-- blog area end -->
-
-
             </main>
             <!-- footer area start -->
             @include('front.includes.footer')   
             <!-- footer area end -->
-            
-
         </div>
     </div>
 
-
-
     <!-- JS here -->
-
-
     <!-- JS here -->
-
-
     <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
     <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
@@ -398,7 +388,7 @@
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
-    <script src="{{ asset('assets/js/contact.js') }}"></script>
+
 
     <!-- JS here -->
 
