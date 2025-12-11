@@ -1,38 +1,36 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="{{ current_locale() }}">
 
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>AIControl | Hệ thống rèm tự động cho công trình thương mại và nhà thông minh</title>
-    <meta name="description" content="">
+    <base href="{{ url('/') }}/">
+    <title>{{ __('shade.meta_title') }}</title>
+    <meta name="description" content="{{ __('shade.meta_description') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- ✅ Mô tả trang (SEO Description) -->
-    <meta name="description" content="AIControl cung cấp giải pháp rèm tự động thông minh cho nhà ở, văn phòng và công trình thương mại. Hỗ trợ điều khiển bằng công tắc, điện thoại, cảm biến ánh sáng và hệ thống BMS.">
-
     <!-- ✅ Từ khóa (SEO Keywords) -->
-    <meta name="keywords" content="AIControl, rèm tự động, rèm thông minh, rèm điện, điều khiển rèm, rèm tòa nhà, rèm khách sạn, rèm văn phòng, smart curtain, BMS, smart building, home automation, điều khiển rèm thông minh">
+    <meta name="keywords" content="{{ __('shade.meta_keywords') }}">
 
 
     <!-- ✅ Canonical URL -->
-    <link rel="canonical" href="https://www.aicontrol.vn/rem-tu-dong.html">
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- ✅ Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- ✅ Open Graph (mạng xã hội, Zalo, Facebook, LinkedIn) -->
-    <meta property="og:title" content="AIControl | Hệ thống rèm tự động thông minh cho công trình thương mại">
-    <meta property="og:description" content="Giải pháp rèm tự động của AIControl mang đến sự tiện nghi, sang trọng và tiết kiệm năng lượng, dễ dàng tích hợp vào hệ thống nhà thông minh.">
+    <meta property="og:title" content="{{ __('shade.og_title') }}">
+    <meta property="og:description" content="{{ __('shade.og_description') }}">
     <meta property="og:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-curtain.jpg">
-    <meta property="og:url" content="https://www.aicontrol.vn/rem-tu-dong.html">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
     <!-- ✅ Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AIControl | Rèm tự động cho nhà thông minh và công trình thương mại">
-    <meta name="twitter:description" content="Giải pháp rèm tự động cao cấp tích hợp BMS và điều khiển từ xa, giúp tối ưu ánh sáng và tiết kiệm năng lượng.">
+    <meta name="twitter:title" content="{{ __('shade.og_title') }}">
+    <meta name="twitter:description" content="{{ __('shade.og_description') }}">
     <meta name="twitter:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-curtain.jpg">
 
 
@@ -41,10 +39,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
     
@@ -108,8 +107,8 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <h1 class="heading-h1">
-                                        <span class="heading-h1-highlight">RÈM CỬA</span><br>
-                                        TỰ ĐỘNG
+                                        <span class="heading-h1-highlight">{{ __('shade.hero_highlight') }}</span><br>
+                                        {{ __('shade.hero_title') }}
                                         </h1>
                                         <div class="heading-h1-box d-flex justify-content-end">
                                             <!-- <span class="tp-section-subtitle pre">Mang Lại Cho Bạn Sự</span> -->
@@ -119,8 +118,7 @@
                                                     <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#34679A" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </div>
-                                            <p>Vận hành mượt mà, tinh tế<br>
-                                                Tạo không gian tiên nghi và đẳng cấp</p>
+                                            <p>{!! __('shade.hero_description') !!}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +142,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">Phân Loại</span>
+                                        <span class="tp-section-subtitle pre">{{ __('shade.types_subtitle') }}</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -152,7 +150,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Hệ Thống<br> <span>Rèm Tự Động</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">{!! __('shade.types_title') !!}</h2>
                                 </div>
                             </div>
                         </div>  
@@ -162,9 +160,9 @@
                                         <div class="card custom-card border-0 shadow-sm h-100 position-relative">
                                             <h4 class="bg-number">01</h4>
                                             <div class="card-body position-relative p-5">
-                                            <h3 class="fw-bold mb-2">Rèm Ngang</h3>
+                                            <h3 class="fw-bold mb-2">{{ __('shade.type1_title') }}</h3>
                                             <p class="text-muted mb-4">
-                                                Thiết kế hiện đại, chuyển động êm. Phù hợp cửa lớn, giếng trời. Điều khiển tự động qua app hoặc giọng nói.
+                                                {{ __('shade.type1_desc') }}
                                             </p>
                                             <hr>
                                             {{-- <div class="tp-service-4-solution-item-btn">
@@ -189,9 +187,9 @@
                                         <div class="card custom-card border-0 shadow-sm h-100 position-relative">
                                             <h4 class="bg-number">02</h4>
                                             <div class="card-body position-relative p-5">
-                                            <h3 class="fw-bold mb-2">Rèm Dọc</h3>
+                                            <h3 class="fw-bold mb-2">{{ __('shade.type2_title') }}</h3>
                                             <p class="text-muted mb-4">
-                                                Mềm mại, sang trọng. Tùy chỉnh theo không gian. Motorized tạo hiệu ứng mở/đóng ấn tượng, tăng riêng tư & kiểm soát ánh sáng.
+                                                {{ __('shade.type2_desc') }}
                                             </p>
                                             <hr>
                                             {{-- <div class="tp-service-4-solution-item-btn">
@@ -223,7 +221,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">TÍNH NĂNG</span>
+                                        <span class="tp-section-subtitle pre">{{ __('shade.features_subtitle') }}</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -231,7 +229,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Các <span>Tính Năng</span> <br>của <span>Rèm Tự Động</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">{!! __('shade.features_title') !!}</h2>
                                 </div>
                             </div>
                         </div>  
@@ -242,7 +240,7 @@
                                         <div class="tp-benefit-item-icon">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/icons/blind_icon1.svg') }}" alt="Icon cường độ ánh sáng">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Điều khiển bằng nút bấm, remote hoặc app</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('shade.feature1') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 ">
@@ -250,7 +248,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/icons/blind_icon2.svg') }}" alt="Icon nhiệt độ màu">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Tích hợp điều khiển bằng  giọng nói</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('shade.feature2') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -258,7 +256,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/icons/blind_icon3.svg') }}" alt="Icon màu sắc ánh sáng">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Hẹn giờ và lập lịch tự động</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('shade.feature3') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -266,7 +264,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/icons/blind_icon4.svg') }}" alt="Icon màu sắc ánh sáng">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Tư điều chỉnh theo cảm biến</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('shade.feature4') }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -353,7 +351,7 @@
                         <div class="row">
                             <div class="col-lg-6 container-1230">
                                 <div class="tp-work-title-box tp-panel-pin">
-                                     <h2 class="tp-section-title lts tp_fade_anim"><span>Lợi ích</span><br>Mang lại</h2>
+                                     <h2 class="tp-section-title lts tp_fade_anim">{!! __('shade.benefits_title') !!}</h2>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -364,8 +362,8 @@
                                             <i>01</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Vận hành siêu êm</h3>
-                                            <p>Động cơ “whisper-quiet” giúp rèm hoạt động gần như không gây tiếng động.</p>
+                                            <h3 class="tp-work-title">{{ __('shade.benefit1_title') }}</h3>
+                                            <p>{{ __('shade.benefit1_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -374,8 +372,8 @@
                                             <i>02</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Tự động hóa thông minh</h3>
-                                            <p>Tích hợp với hệ thống điều khiển ánh sáng, cảm biến ánh sáng, và lập lịch hoạt động.</p>
+                                            <h3 class="tp-work-title">{{ __('shade.benefit2_title') }}</h3>
+                                            <p>{{ __('shade.benefit2_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -384,8 +382,8 @@
                                             <i>03</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Tăng tính riêng tư & thẩm mỹ</h3>
-                                            <p>Rèm vải tạo cảm giác mềm mại, sang trọng cho không gian nội thất.</p>
+                                            <h3 class="tp-work-title">{{ __('shade.benefit3_title') }}</h3>
+                                            <p>{{ __('shade.benefit3_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -394,8 +392,8 @@
                                             <i>04</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Tùy chỉnh theo yêu cầu</h3>
-                                            <p>Phù hợp với mọi loại công trình: từ văn phòng, khách sạn đến biệt thự cao cấp.</p>
+                                            <h3 class="tp-work-title">{{ __('shade.benefit4_title') }}</h3>
+                                            <p>{{ __('shade.benefit4_desc') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -476,7 +474,7 @@
                             <div class="row align-items-end">
                                 <div class="col-xl-8 col-lg-8 col-md-7">
                                     <div class="ar-blog-title-box">
-                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">Bài Viết Mới Nhất</h3>
+                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">{{ __('shade.blog_title') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-5">
@@ -489,7 +487,7 @@
                                                     </svg>
                                                 </span>
                                             </a>
-                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">Xem tất cả bài viết</a>
+                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">{{ __('shade.blog_view_all') }}</a>
                                             <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -572,6 +570,7 @@
 <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
 <script src="{{ asset('assets/js/slider-active.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/header-search.js') }}"></script>
 <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
 <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>

@@ -202,6 +202,22 @@ class PageController extends Controller
     }
 
     /**
+     * Display BMS page
+     */
+    public function bms() 
+    { 
+        return view('front.bms'); 
+    }
+
+    /**
+     * Display Hotel Control page
+     */
+    public function hotelControl() 
+    { 
+        return view('front.holtelcontrol'); 
+    }
+
+    /**
      * Display contact us page
      */
     public function contact() 

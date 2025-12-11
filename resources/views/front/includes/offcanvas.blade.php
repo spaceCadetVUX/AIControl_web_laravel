@@ -14,7 +14,7 @@
                 <div class="tp-offcanvas-2-close d-md-none text-end">
                     <button class="tp-offcanvas-2-close-btn">
                         <span class="text">
-                            <span>Đóng</span>
+                            <span>{{ __('header.offcanvas_close') }}</span>
                         </span>
                         <span class="d-inline-block">
                             <span>
@@ -34,7 +34,7 @@
         <div class="tp-offcanvas-2-right right-box d-none d-md-block p-relative">
             <div class="tp-offcanvas-2-close text-end">
                 <button class="tp-offcanvas-2-close-btn">
-                    <span class="text"><span>Đóng</span></span>
+                    <span class="text"><span>{{ __('header.offcanvas_close') }}</span></span>
                     <span class="d-inline-block">
                         <span>
                             <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,17 +46,17 @@
                 </button>
             </div>
             <div class="tp-offcanvas-2-right-info-box mt-160">
-                <h4 class="tp-offcanvas-2-right-info-title">Liên hệ ngay</h4>
+                <h4 class="tp-offcanvas-2-right-info-title">{{ __('header.offcanvas_contact_title') }}</h4>
                 <div class="tp-offcanvas-2-right-info-item">
-                    <label class="mb-10">Hotline</label>
+                    <label class="mb-10">{{ __('header.offcanvas_hotline') }}</label>
                     <a class="tp-line-white" href="tel:02873007475">0287.3007.475</a>
                 </div>
                 <div class="tp-offcanvas-2-right-info-item">
-                    <label class="mb-10">Email</label>
+                    <label class="mb-10">{{ __('header.offcanvas_email') }}</label>
                     <a class="tp-line-white" href="mailto:hello@aicontrol.vn">hello@aicontrol.vn</a>
                 </div>
                 <div class="tp-offcanvas-2-right-info-item">
-                    <label class="mb-10">Địa chỉ</label>
+                    <label class="mb-10">{{ __('header.offcanvas_address') }}</label>
                     <a class="tp-line-white" href="https://www.google.com/maps/search/+The+Sun+Avenue+S5.01.02+28+-+Mai+Ch%C3%AD+Th%E1%BB%8D/@10.7851206,106.748232,166m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" target="_blank">
                        The Sun Avenue S5.01.02 28 - Mai Chí Thọ <br>
                     </a>

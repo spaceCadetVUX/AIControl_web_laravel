@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="zxx">
+<html class="no-js agntix-light" lang="vi">
 
 <head>
 
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
@@ -473,6 +473,7 @@
         <script src="{{ asset('assets/js/atropos.js') }}"></script>
         <script src="{{ asset('assets/js/slider-active.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
+        <script src="{{ asset('assets/js/header-search.js') }}"></script>
         <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
         <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>

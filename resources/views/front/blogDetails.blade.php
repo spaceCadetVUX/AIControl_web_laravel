@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="zxx">
+<html class="no-js agntix-light" lang="vi">
 
 <head>
 
@@ -98,10 +98,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
 
 </head>
@@ -247,13 +247,14 @@
                                     </div>
                                     @endif
 
-                                    {{-- Social Share --}}
+                                    {{-- Social Share --}}s
                                     <div class="tp-postbox-share mt-40 d-flex align-items-center justify-content-between">
                                         <h4 class="tp-postbox-share-title">Chia sẻ:</h4>
                                         <div class="tp-postbox-share-social">
                                             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($blog->canonical_url ?? url()->current()) }}" target="_blank" rel="noopener">
                                                 <i class="fab fa-facebook-f"></i>
                                             </a>
+                                            
                                             <a href="https://twitter.com/intent/tweet?url={{ urlencode($blog->canonical_url ?? url()->current()) }}&text={{ urlencode($blog->title) }}" target="_blank" rel="noopener">
                                                 <i class="fab fa-twitter"></i>
                                             </a>
@@ -468,6 +469,7 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>

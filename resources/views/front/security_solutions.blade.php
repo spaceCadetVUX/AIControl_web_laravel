@@ -1,21 +1,19 @@
 <!doctype html>
-<html class="no-js" lang="vi">
+<html class="no-js" lang="{{ current_locale() }}">
 
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>AIControl | Giải pháp an ninh & kiểm soát ra vào thông minh</title>
+    <base href="{{ url('/') }}/">
+    <title>{{ __('security.meta_title') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- ✅ Mô tả trang -->
-    <meta name="description" content="AIControl cung cấp giải pháp an ninh toàn diện: hệ thống báo cháy, báo động, kiểm soát ra vào, camera giám sát và chuông cửa thông minh cho tòa nhà, văn phòng và nhà ở.">
+    <!-- ✅ Mô tả trang -->
+    <meta name="description" content="{{ __('security.meta_description') }}">
 
     <!-- ✅ Từ khóa (keywords) -->
-    <meta name="keywords" content="AIControl, hệ thống an ninh, kiểm soát ra vào, báo cháy, báo động, camera giám sát, chuông cửa, cảm biến đột nhập, nhà thông minh, BMS, security system, access control">
-
-    <!-- ✅ Viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="{{ __('security.meta_keywords') }}">
 
     <!-- ✅ Canonical URL -->
     <link rel="canonical" href="https://www.aicontrol.vn/he-thong-an-ninh.html">
@@ -24,16 +22,16 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- ✅ Open Graph cho chia sẻ mạng xã hội -->
-    <meta property="og:title" content="AIControl | Giải pháp an ninh & kiểm soát ra vào thông minh">
-    <meta property="og:description" content="Hệ thống an ninh AIControl tích hợp báo cháy, báo động, kiểm soát ra vào và camera giám sát, mang đến an toàn tuyệt đối cho công trình.">
+    <meta property="og:title" content="{{ __('security.og_title') }}">
+    <meta property="og:description" content="{{ __('security.og_description') }}">
     <meta property="og:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-security.jpg">
-    <meta property="og:url" content="https://www.aicontrol.vn/he-thong-an-ninh.html">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
     <!-- ✅ Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AIControl | Giải pháp an ninh & kiểm soát ra vào thông minh">
-    <meta name="twitter:description" content="Giải pháp an ninh toàn diện với báo cháy, báo động, camera, và quản lý ra vào thông minh.">
+    <meta name="twitter:title" content="{{ __('security.og_title') }}">
+    <meta name="twitter:description" content="{{ __('security.og_description') }}">
     <meta name="twitter:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-security.jpg">
 
     <!-- Place favicon.ico in the root directory -->
@@ -44,11 +42,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <!-- CSS here -->
     <!-- CSS here -->
@@ -118,18 +117,11 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <h1 class="heading-h1">
-                                        KIỂM SOÁT<br>
-                                        <span class="heading-h1-highlight">RA VÀO & AN NINH</span>
+                                        {{ __('security.hero_title_line1') }}<br>
+                                        <span class="heading-h1-highlight">{{ __('security.hero_title_line2') }}</span>
                                         </h1>
                                         <div class="heading-h1-box d-flex justify-content-end">
-                                            <!-- <span class="tp-section-subtitle pre">Mang Lại Cho Bạn Sự</span>
-                                            <div class="ar-about-us-4-icon pd-10">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="9" viewBox="0 0 81 9" fill="none">
-                                                    <rect y="4" width="80" height="1" fill="#34679A" />
-                                                    <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#34679A" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </div> -->
-                                            <p>Kiểm soát hệ thống an ninh và ra vào tích hợp</p>
+                                            <p>{{ __('security.hero_description') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +146,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">TÍNH NĂNG</span>
+                                        <span class="tp-section-subtitle pre">{{ __('security.features_subtitle') }}</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -162,7 +154,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Tính Năng của <br><span>Hệ Thống An Ninh</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">{!! __('security.features_title') !!}</h2>
                                 </div>
                             </div>
                         </div>  
@@ -173,7 +165,7 @@
                                         <div class="tp-benefit-item-icon">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon1.svg') }}" alt="Icon cường di chuyển">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Cảm biến & cảnh báo chuyển động PIR</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature1') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 ">
@@ -181,7 +173,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon2.svg') }}" alt="Icon nhiệt cảm biến khói">
                                         </div>
-                                        <h4 class="tp-benefit-item-title">Báo khói, khí độc và cảm biến rò rỉ nước</h4>
+                                        <h4 class="tp-benefit-item-title">{{ __('security.feature2') }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -189,7 +181,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon3.svg') }}" alt="Icon doorbell">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Chuông cửa camera tích hợp điều khiển </h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature3') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -197,7 +189,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon4.svg') }}" alt="Icon khóa thông minh">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Khóa điện tử đa phương thức</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature4') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -205,7 +197,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon5.svg') }}" alt="Icon kích hoạt cảnh">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Kịch bản tự động hóa an ninh</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature5') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -213,7 +205,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon6.svg') }}" alt="Icon phone">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Điều khiển và giám sát qua ứng dụng di động</h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature6') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -221,7 +213,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon7.svg') }}" alt="Icon mở rộng">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Khả năng mở rộng linh hoạt cho nhiều dự án </h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature7') }}</h3>
                                             
                                     </div>
                                 </div>
@@ -230,7 +222,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/Security_solutions/icons/icon8.svg') }}" alt="Icon cửa">
                                         </div>
-                                        <h3 class="tp-benefit-item-title">Kiểm soát trạng thái cửa & ra vào </h3>
+                                        <h3 class="tp-benefit-item-title">{{ __('security.feature8') }}</h3>
                                             
                                     </div>
                                 </div>
@@ -250,7 +242,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">TƯƠNG THÍCH RỘNG</span>
+                                        <span class="tp-section-subtitle pre">{{ __('security.applications_subtitle') }}</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -258,7 +250,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Ứng Dụng Đa Dạng<br><span>Với Nhiều Loại Công Trình</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">{!! __('security.applications_title') !!}</h2>
                                 </div>
                             </div>
                         </div>
@@ -275,12 +267,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
                                             <span class="tp-section-subtitle pre">01</span>
-                                            <h3 class="tp-pd-3-title">Hệ thống báo cháy tự động</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('security.app1_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p> Tự động kích hoạt còi báo động, gửi cảnh báo qua app
-                                                    và điều khiển tự động mở cửa thoát hiểm, tắt nguồn điện khu vực nguy hiểm.
-                                                    Ứng dụng: Chung cư, khách sạn, nhà máy, biệt thự cao cấp.
-                                                </p>
+                                                <p>{{ __('security.app1_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -295,11 +284,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
                                             <span class="tp-section-subtitle pre">02</span>
-                                            <h3 class="tp-pd-3-title">Hệ thống báo động đột nhập</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('security.app2_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p>  Khi phát hiện xâm nhập trái phép, hệ thống kích hoạt báo động, gửi thông báo đến điện thoại và ghi hình sự kiện.
-                                        Ứng dụng: văn phòng, trung tâm thương mại, Bệnh viện, nhà xưởng.
-                                                </p>
+                                                <p>{{ __('security.app2_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -324,10 +311,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
                                             <span class="tp-section-subtitle pre">03</span>
-                                            <h3 class="tp-pd-3-title">Chuông cửa có hình & Camera giám sát</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('security.app3_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p> Kết nối hệ thống an ninh, tự động ghi hình hoặc kích hoạt cảnh báo nếu phát hiện hành vi đáng ngờ. Ứng dụng:khu dân cư cao cấp, Khách sạn, ...
-                                                </p>
+                                                <p>{{ __('security.app3_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -347,7 +333,7 @@
                         <div class="row">
                             <div class="col-lg-6 container-1230">
                                 <div class="tp-work-title-box tp-panel-pin">
-                                     <h2 class="tp-section-title lts tp_fade_anim"><span>Lợi ích</span><br>Mang lại</h2>
+                                     <h2 class="tp-section-title lts tp_fade_anim">{!! __('security.benefits_title') !!}</h2>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -358,8 +344,8 @@
                                             <i>01</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">An toàn chủ động</h3>
-                                            <p>Phát hiện chuyển động, khói, khí độc và rò rỉ nước giúp ngăn ngừa sự cố trước khi chúng xảy ra.</p>
+                                            <h3 class="tp-work-title">{{ __('security.benefit1_title') }}</h3>
+                                            <p>{{ __('security.benefit1_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -368,8 +354,8 @@
                                             <i>02</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Giám sát mọi lúc, mọi nơi</h3>
-                                            <p>Ứng dụng di động cho phép kiểm tra và điều khiển hệ thống từ xa, đảm bảo kiểm soát liên tục.</p>
+                                            <h3 class="tp-work-title">{{ __('security.benefit2_title') }}</h3>
+                                            <p>{{ __('security.benefit2_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -378,8 +364,8 @@
                                             <i>03</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Tự động hóa thông minh</h3>
-                                            <p>Thiết lập các kịch bản phản ứng tự động giúp hệ thống hoạt động hiệu quả mà không cần can thiệp thủ công.</p>
+                                            <h3 class="tp-work-title">{{ __('security.benefit3_title') }}</h3>
+                                            <p>{{ __('security.benefit3_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -388,8 +374,8 @@
                                             <i>04</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h3 class="tp-work-title">Quản lý truy cập hiệu quả</h3>
-                                            <p>Theo dõi trạng thái cửa ra vào, kiểm soát quyền truy cập và tăng cường bảo mật.</p>
+                                            <h3 class="tp-work-title">{{ __('security.benefit4_title') }}</h3>
+                                            <p>{{ __('security.benefit4_desc') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -469,7 +455,7 @@
                             <div class="row align-items-end">
                                 <div class="col-xl-8 col-lg-8 col-md-7">
                                     <div class="ar-blog-title-box">
-                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">Bài Viết Mới Nhất</h3>
+                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">{{ __('security.blog_title') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-5">
@@ -482,7 +468,7 @@
                                                     </svg>
                                                 </span>
                                             </a>
-                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">Xem tất cả bài viết</a>
+                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">{{ __('security.blog_view_all') }}</a>
                                             <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -521,7 +507,7 @@
                                 </div>
                             @empty
                                 <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục này.</p>
+                                    <p class="text-center text-muted">{{ __('security.blog_no_posts') }}</p>
                                 </div>
                             @endforelse
                         </div>
@@ -568,6 +554,7 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>

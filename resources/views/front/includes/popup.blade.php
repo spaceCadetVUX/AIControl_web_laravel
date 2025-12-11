@@ -292,7 +292,7 @@
         }
 
         document.getElementById('zaloButton').addEventListener('click', function () {
-            window.open('https://zalo.me/02873007475', '_blank');
+            window.open('https://zalo.me/0918918755', '_blank');
         });
 
 

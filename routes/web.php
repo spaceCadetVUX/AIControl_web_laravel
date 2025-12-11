@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\PageController;
 use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\BlogController;
+use App\Http\Controllers\Front\ProjectController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 
@@ -17,58 +19,65 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-// ----------------------------
-// FRONT PAGES (public)
-// ----------------------------
-Route::controller(PageController::class)->group(function () {
-    Route::get('/', 'index')->name('home');
-    Route::get('/abb', 'abb')->name('abb');
-    Route::get('/legrand', 'legrand')->name('legrand');
-    Route::get('/cp-electronics', 'cpElectronics')->name('cpElectronics');
-    Route::get('/vantage', 'vantage')->name('vantage');
-    Route::get('/dieu-khien-chieu-sang', 'lightingControl')->name('lightingControl');
-    Route::get('/rem-tu-dong', 'shade')->name('shade');
-    Route::get('/dieu-khien-hvac', 'hvacControl')->name('hvacControl');
-    Route::get('/he-thong-an-ninh', 'security')->name('security');
-    Route::get('/contact', 'contact')->name('contact');
-});
+// Helper function to register routes for both default locale (vi) and other locales
+$registerLocalizedRoutes = function () {
+    // ----------------------------
+    // FRONT PAGES (public)
+    // ----------------------------
+    Route::controller(PageController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::get('/abb', 'abb')->name('abb');
+        Route::get('/legrand', 'legrand')->name('legrand');
+        Route::get('/cp-electronics', 'cpElectronics')->name('cpElectronics');
+        Route::get('/vantage', 'vantage')->name('vantage');
+        Route::get('/dieu-khien-chieu-sang', 'lightingControl')->name('lightingControl');
+        Route::get('/rem-tu-dong', 'shade')->name('shade');
+        Route::get('/dieu-khien-hvac', 'hvacControl')->name('hvacControl');
+        Route::get('/he-thong-an-ninh', 'security')->name('security');
+        Route::get('/bms', 'bms')->name('bms');
+        Route::get('/dieu-khien-khach-san', 'hotelControl')->name('hotelControl');
+        Route::get('/contact', 'contact')->name('contact');
+    });
 
-// ----------------------------
-// BLOG PAGES
-// ----------------------------
-use App\Http\Controllers\Front\BlogController;
+    // ----------------------------
+    // BLOG PAGES
+    // ----------------------------
+    Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
+        Route::get('/', 'index')->name('index'); // /blog = blog listing
+        Route::get('/category/{category}', 'byCategory')->name('category'); // /blog/category/{name}
+        Route::get('/search', 'search')->name('search'); // /blog/search?q=keyword
+        Route::get('/{slug}', 'show')->name('show'); // /blog/{slug} = blog detail
+    });
 
-Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
-    Route::get('/', 'index')->name('index'); // /blog = blog listing
-    Route::get('/category/{category}', 'byCategory')->name('category'); // /blog/category/{name}
-    Route::get('/search', 'search')->name('search'); // /blog/search?q=keyword
-    Route::get('/{slug}', 'show')->name('show'); // /blog/{slug} = blog detail
-});
+    // Legacy route for backwards compatibility
+    Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 
-// Legacy route for backwards compatibility
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
+    // ----------------------------
+    // PROJECT PAGES
+    // ----------------------------
+    Route::controller(ProjectController::class)->prefix('du-an')->name('projects.')->group(function () {
+        Route::get('/', 'index')->name('index'); // /du-an = projects listing
+        Route::get('/danh-muc/{category}', 'byCategory')->name('category'); // /du-an/danh-muc/{slug}
+        Route::get('/{slug}', 'show')->name('show'); // /du-an/{slug} = project detail
+    });
 
-// ----------------------------
-// PROJECT PAGES
-// ----------------------------
-use App\Http\Controllers\Front\ProjectController;
+    // ----------------------------
+    // PRODUCT PAGES
+    // ----------------------------
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/san-pham', 'index')->name('shop');
+        Route::get('/san-pham/{slug}', 'show')->name('product.show');
+        Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
+        Route::get('/search', 'search')->name('product.search');
+        Route::get('/api/products/autocomplete', 'autocomplete')->name('product.autocomplete');
+    });
+};
 
-Route::controller(ProjectController::class)->prefix('du-an')->name('projects.')->group(function () {
-    Route::get('/', 'index')->name('index'); // /du-an = projects listing
-    Route::get('/danh-muc/{category}', 'byCategory')->name('category'); // /du-an/danh-muc/{slug}
-    Route::get('/{slug}', 'show')->name('show'); // /du-an/{slug} = project detail
-});
+// Register routes for default locale (Vietnamese - no prefix)
+$registerLocalizedRoutes();
 
-// ----------------------------
-// PRODUCT PAGES
-// ----------------------------
-Route::controller(ProductController::class)->group(function () {
-    Route::get('/san-pham', 'index')->name('shop');
-    Route::get('/san-pham/{slug}', 'show')->name('product.show');
-    Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
-    Route::get('/search', 'search')->name('product.search');
-    Route::get('/api/products/autocomplete', 'autocomplete')->name('product.autocomplete');
-});
+// Register routes for English with /en prefix
+Route::prefix('en')->group($registerLocalizedRoutes);
 
 // ----------------------------
 // PROFILE PAGES (protected by auth)

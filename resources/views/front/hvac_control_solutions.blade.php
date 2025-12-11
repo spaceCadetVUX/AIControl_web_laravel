@@ -1,33 +1,31 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="zxx">
+<html class="no-js agntix-light" lang="{{ current_locale() }}">
 
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>AIControl | Hệ thống điều khiển và quản lý HVAC thông minh cho công trình thương mại</title>
-    <meta name="description" content="">
+    <base href="{{ url('/') }}/">
+    <title>{{ __('hvac.meta_title') }}</title>
+    <meta name="description" content="{{ __('hvac.meta_description') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
 
-    <!-- ✅ Mô tả trang (SEO Description) -->
-    <meta name="description" content="AIControl cung cấp giải pháp điều khiển và quản lý HVAC thông minh cho tòa nhà, văn phòng, khách sạn, giúp tối ưu năng lượng, giám sát nhiệt độ, lưu lượng gió và vận hành hiệu quả hệ thống điều hòa trung tâm.">
-
     <!-- ✅ Từ khóa (SEO Keywords) -->
-    <meta name="keywords" content="AIControl, HVAC, điều khiển HVAC, quản lý HVAC, điều hòa trung tâm, hệ thống thông gió, tiết kiệm năng lượng, BMS, smart building, automation, điều khiển tòa nhà, hệ thống điều hòa không khí, điều khiển thông minh, building management system">
+    <meta name="keywords" content="{{ __('hvac.meta_keywords') }}">
 
     <!-- ✅ Canonical URL -->
-    <link rel="canonical" href="https://www.aicontrol.vn/dieu-khien-hvac.html">
+    <link rel="canonical" href="{{ url()->current() }}">
 
 
     <!-- ✅ Open Graph (chia sẻ mạng xã hội, Zalo, Facebook, LinkedIn) -->
-    <meta property="og:title" content="AIControl | Hệ thống điều khiển và quản lý HVAC thông minh">
-    <meta property="og:description" content="Giải pháp HVAC của AIControl giúp điều khiển và giám sát điều hòa trung tâm hiệu quả, tiết kiệm năng lượng và dễ dàng tích hợp BMS.">
+    <meta property="og:title" content="{{ __('hvac.og_title') }}">
+    <meta property="og:description" content="{{ __('hvac.og_description') }}">
     <meta property="og:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-hvac.jpg">
-    <meta property="og:url" content="https://www.aicontrol.vn/dieu-khien-hvac.html">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
     <!-- ✅ Twitter Card -->
@@ -42,11 +40,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
     <!-- CSS here -->
@@ -118,20 +116,18 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <h1 class="heading-h1">
-                                        ĐIỀU KHIỂN<br>
-                                        NHIỆT ĐỘ<span class="heading-h1-highlight"> HVAC</span>
+                                        {{ __('hvac.hero_title') }}<br>
+                                        <span class="heading-h1-highlight"> {{ __('hvac.hero_highlight') }}</span>
                                         </h1>
                                         <div class=".heading-h1-box d-flex justify-content-end">
-                                            <span class="tp-section-subtitle pre">HVAC</span>
+                                            <span class="tp-section-subtitle pre">{{ __('hvac.hero_subtitle') }}</span>
                                             <div class="ar-about-us-4-icon pd-10">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="9" viewBox="0 0 81 9" fill="none">
                                                     <rect y="4" width="80" height="1" fill="#34679A" />
                                                     <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#34679A" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </div>
-                                            <p class="ml-20">Quản lý điều chỉnh nhiệt độ, độ ẩm và <br>
-                                                luồng gió. Mang lại sự thoải mái, <br>
-                                                tiết kiệm năng lượng và dễ dàng quản lý.</p>
+                                            <p class="ml-20">{{ __('hvac.hero_description') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +200,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">Phân Loại</span>
+                                        <span class="tp-section-subtitle pre">{{ __('hvac.compatibility_subtitle') }}</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -212,7 +208,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Khả Năng<br><span>Tương Thích Rộng</span></h2>
+                                    <h2 class="tp-section-title lts tp_fade_anim">{!! __('hvac.compatibility_title') !!}</h2>
                                 </div>
                             </div>
                         </div>  
@@ -224,9 +220,9 @@
                                         <div class="card custom-card border-0 shadow-sm h-100 position-relative">
                                             <h4 class="bg-number">01</h4>
                                             <div class="card-body position-relative p-5">
-                                            <h3 class="fw-bold mb-2">Máy lạnh cục bộ</h3>
+                                            <h3 class="fw-bold mb-2">{{ __('hvac.compatibility_card1_title') }}</h3>
                                             <p class="text-muted mb-4">
-                                                Điều khiển thông minh cho máy lạnh dân dụng, thích hợp cho nhiều hãng máy.
+                                                {{ __('hvac.compatibility_card1_desc') }}
                                             </p>
                                             <hr>
                                             {{-- <div class="tp-service-4-solution-item-btn">
@@ -251,9 +247,9 @@
                                         <div class="card custom-card border-0 shadow-sm h-100 position-relative">
                                             <h4 class="bg-number">02</h4>
                                             <div class="card-body position-relative p-5">
-                                            <h3 class="fw-bold mb-2">Máy lạnh tập trung</h3>
+                                            <h3 class="fw-bold mb-2">{{ __('hvac.compatibility_card2_title') }}</h3>
                                             <p class="text-muted mb-4">
-                                                Điều khiển tập trung, cung cấp khả năng điều khiển thông cho toàn bộ hệ thống dàn lạnh một một cách riêng biệt cho từng dàn lạnh.
+                                                {{ __('hvac.compatibility_card2_desc') }}
                                             </p>
                                             <hr>
                                             {{-- <div class="tp-service-4-solution-item-btn">
@@ -287,7 +283,7 @@
                             <div class="col-lg-12">
                                 <div class="tp-benefit-heading mb-85">
                                     <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">TÍNH NĂNG</span>
+                                        <span class="tp-section-subtitle pre">{{ __('hvac.features_subtitle') }}</span>
                                         <div class="ar-about-us-4-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                                 <rect y="4" width="80" height="1" fill="#111013" />
@@ -295,7 +291,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <h3 class="tp-section-title lts tp_fade_anim">Tính Năng của <span>điều khiển</span> <br><span>HVAC</span> thông minh</h3>
+                                    <h3 class="tp-section-title lts tp_fade_anim">{!! __('hvac.features_title') !!}</h3>
                                 </div>
                             </div>
                         </div>  
@@ -306,7 +302,7 @@
                                         <div class="tp-benefit-item-icon">
                                             <img src="{{ asset('assets/AIcontrol_imgs/HVAC/icons/icon1.svg') }}" alt="">
                                         </div>
-                                        <h4 class="tp-benefit-item-title">Điều khiển nhiệt độ làm mát & sưởi ẩm</h4>
+                                        <h4 class="tp-benefit-item-title">{{ __('hvac.feature1') }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 ">
@@ -314,7 +310,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/HVAC/icons/icon2.svg') }}" alt="">
                                         </div>
-                                        <h4 class="tp-benefit-item-title">Điều khiển tốc độ gió & Swing</h4>
+                                        <h4 class="tp-benefit-item-title">{{ __('hvac.feature2') }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -322,7 +318,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/HVAC/icons/icon3.svg') }}" alt="">
                                         </div>
-                                        <h4 class="tp-benefit-item-title">Lập lịch, kích hoạt scene - tự động hóa</h4>
+                                        <h4 class="tp-benefit-item-title">{{ __('hvac.feature3') }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -330,7 +326,7 @@
                                         <div class="tp-benefit-item-icon pb-30">
                                             <img src="{{ asset('assets/AIcontrol_imgs/HVAC/icons/icon4.svg') }}" alt="">
                                         </div>
-                                        <h4 class="tp-benefit-item-title">Điều khiển qua: Bảng điều khiển & App từ xa</h4>
+                                        <h4 class="tp-benefit-item-title">{{ __('hvac.feature4') }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -370,10 +366,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
                                             <span class="tp-section-subtitle pre">HVAC TYPE</span>
-                                            <h3 class="tp-pd-3-title">Máy lạnh treo tường</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('hvac.type1_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p> Cho khả Năng điều Khiển Đa dạng đến từ nhiều hãng <br>
-                                                </p>
+                                                <p>{{ __('hvac.type1_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -388,10 +383,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
                                             <span class="tp-section-subtitle pre">HVAC TYPE</span>
-                                            <h3 class="tp-pd-3-title">Máy lạnh âm trần</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('hvac.type2_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p> Đa phương thức điều khiển cùng Module IR hoặc Có dây tích hợp bên trong <br>
-                                                </p>
+                                                <p>{{ __('hvac.type2_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -416,11 +410,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
                                             <span class="tp-section-subtitle pre">HVAC TYPE</span>
-                                            <h3 class="tp-pd-3-title">Máy lạnh áp trần</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('hvac.type3_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p> Điều khiển và quản lý tập trung cho toàn bộ <br>
-                                                    hệ thống dàn lạnh
-                                                </p>
+                                                <p>{{ __('hvac.type3_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -435,11 +427,9 @@
                                     <div class="col-lg-6">
                                         <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
                                             <span class="tp-section-subtitle pre">HVAC TYPE</span>
-                                            <h3 class="tp-pd-3-title">Máy lạnh giấu ống thông gió</h3>
+                                            <h3 class="tp-pd-3-title">{{ __('hvac.type4_title') }}</h3>
                                             <div class="tp-pd-3-overview-text">
-                                                <p> Tương thích hầu hết các hãng hãng đang có trên thị trường,<br>
-                                                    Cùng nhiều giao thức điều khiển đa dạng
-                                                </p>
+                                                <p>{{ __('hvac.type4_desc') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -462,7 +452,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="tp-work-title-box tp-panel-pin">
-                                     <h3 class="tp-section-title lts tp_fade_anim"><span>Lợi ích</span><br>Mang lại</h3>
+                                     <h3 class="tp-section-title lts tp_fade_anim">{!! __('hvac.benefits_title') !!}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -473,8 +463,8 @@
                                             <i>01</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Tiết kiệm năng lượng</h4>
-                                            <p>Hệ thống tự động tắt hoặc giảm công suất khi không có người trong phòng, giúp giảm đáng kể chi phí điện năng.</p>
+                                            <h4 class="tp-work-title">{{ __('hvac.benefit1_title') }}</h4>
+                                            <p>{{ __('hvac.benefit1_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -483,8 +473,8 @@
                                             <i>02</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Điều khiển tập trung</h4>
-                                            <p>Quản lý toàn bộ các dàn lạnh trong tòa nhà hoặc từng khu vực ngay trên màn hình trung tâm hoặc ứng dụng, thay vì thao tác thủ công từng máy.</p>
+                                            <h4 class="tp-work-title">{{ __('hvac.benefit2_title') }}</h4>
+                                            <p>{{ __('hvac.benefit2_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -493,8 +483,8 @@
                                             <i>03</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Hoạt động tự động</h4>
-                                            <p>Có thể cài đặt lịch làm việc theo giờ, theo khu vực hoặc theo ngày trong tuần, giúp vận hành ổn định và giảm sai sót do thao tác người dùng.</p>
+                                            <h4 class="tp-work-title">{{ __('hvac.benefit3_title') }}</h4>
+                                            <p>{{ __('hvac.benefit3_desc') }}</p>
                                         </div>
                                     </div>
                                     <div class="tp-work-item tp-panel-pin mb-15">
@@ -503,8 +493,8 @@
                                             <i>04</i>
                                         </div>
                                         <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Tối ưu trải nghiệm người dùng</h4>
-                                            <p>Mỗi phòng hoặc khu vực có thể điều chỉnh riêng, dễ sử dụng qua công tắc cảm ứng hoặc điện thoại, phù hợp cả cho nhà ở và công trình lớn.</p>
+                                            <h4 class="tp-work-title">{{ __('hvac.benefit4_title') }}</h4>
+                                            <p>{{ __('hvac.benefit4_desc') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -585,7 +575,7 @@
                             <div class="row align-items-end">
                                 <div class="col-xl-8 col-lg-8 col-md-7">
                                     <div class="ar-blog-title-box">
-                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">Bài Viết Mới Nhất</h3>
+                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">{{ __('hvac.blog_title') }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-5">
@@ -598,7 +588,7 @@
                                                     </svg>
                                                 </span>
                                             </a>
-                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">Xem tất cả bài viết</a>
+                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}">{{ __('hvac.blog_view_all') }}</a>
                                             <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -637,7 +627,7 @@
                                 </div>
                             @empty
                                 <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục Landing.</p>
+                                    <p class="text-center text-muted">{{ __('hvac.blog_no_posts') }}</p>
                                 </div>
                             @endforelse
                         </div>
@@ -684,6 +674,7 @@
 <script src="{{ asset('assets/js/atropos.js') }}"></script>
 <script src="{{ asset('assets/js/slider-active.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/header-search.js') }}"></script>
 <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
 <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>

@@ -1,8 +1,9 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="vi">
+<html class="no-js agntix-light" lang="{{ current_locale() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <base href="{{ url('/') }}/">
     <title>@yield('title', 'AIControl - Giải pháp điều khiển thông minh')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -14,13 +15,19 @@
     <!-- Canonical -->
     <link rel="canonical" href="@yield('canonical', url()->current())">
     
+    <!-- Hreflang Tags for SEO -->
+    <link rel="alternate" hreflang="vi" href="{{ switch_locale_url('vi') }}" />
+    <link rel="alternate" hreflang="en" href="{{ switch_locale_url('en') }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ switch_locale_url('vi') }}" />
+    
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('og_title', config('app.name'))">
     <meta property="og:description" content="@yield('og_description', 'Giải pháp tự động hóa, tiết kiệm năng lượng và nâng cao tiện ích.')">
     <meta property="og:image" content="@yield('og_image', asset('assets/img/preview.jpg'))">
     <meta property="og:url" content="@yield('og_url', url()->current())">
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="vi_VN">
+    <meta property="og:locale" content="{{ current_locale() === 'vi' ? 'vi_VN' : 'en_US' }}">
+    <meta property="og:locale:alternate" content="{{ current_locale() === 'vi' ? 'en_US' : 'vi_VN' }}">
     
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
@@ -29,7 +36,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
