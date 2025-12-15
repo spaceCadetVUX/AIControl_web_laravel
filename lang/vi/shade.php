@@ -11,8 +11,7 @@ return [
     'og_description' => 'Giải pháp rèm tự động của AIControl mang đến sự tiện nghi, sang trọng và tiết kiệm năng lượng, dễ dàng tích hợp vào hệ thống nhà thông minh.',
 
     // Hero Section
-    'hero_title' => 'RÈM CỬA',
-    'hero_highlight' => 'TỰ ĐỘNG',
+    'hero_content' => '<span class="heading-h1-highlight">RÈM CỬA</span> <br> TỰ ĐỘNG',
     'hero_description' => 'Vận hành mượt mà, tinh tế<br>Tạo không gian tiên nghi và đẳng cấp',
 
     // Types Section
@@ -30,6 +29,20 @@ return [
     'feature2' => 'Hẹn giờ tự động theo lịch',
     'feature3' => 'Điều chỉnh đóng/mở theo cường độ ánh sáng',
     'feature4' => 'Tích hợp với hệ thống thông minh (BMS, Alexa, Google)',
+
+    // ... existing keys ...
+
+    // Compatibility Section
+    'compatibility_subtitle' => 'TƯƠNG THÍCH',
+    'compatibility_title' => 'Phù hợp với nhiều <br><span>Không gian & Vị trí</span>',
+
+    // Item 1
+    'item1_title' => 'Rèm Cuốn (Roller Shades)',
+    'item1_desc' => 'Tinh chỉnh nâng hạ nhẹ nhàng với độ êm tuyệt đối, <br> mang lại sự thoải mái chuẩn xác và đẳng cấp trong từng chuyển động.',
+
+    // Item 2
+    'item2_title' => 'Rèm Vải Dọc (Drapery)',
+    'item2_desc' => 'Không chỉ đóng mở qua lại hệ thống rèm còn <br> có khả năng tùy chỉnh độ sáng bằng cách lật các <br> lá của rèm thông qua điều chỉnh hoặc cảm biến ánh sáng',
 
     // Benefits Section
     'benefits_title' => '<span>Lợi ích</span><br>Mang lại',

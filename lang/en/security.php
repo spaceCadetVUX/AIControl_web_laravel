@@ -11,8 +11,7 @@ return [
     'og_description' => 'AIControl security system integrates fire alarms, intrusion detection, access control and surveillance cameras, providing absolute safety for buildings.',
 
     // Hero Section
-    'hero_title_line1' => 'ACCESS CONTROL',
-    'hero_title_line2' => '& SECURITY',
+    'hero_content' => '<span class="heading-h1-highlight">SECURITY & ACCESS CONTROL</span> SYSTEM',
     'hero_description' => 'Integrated security and access control system',
 
     // Features Section

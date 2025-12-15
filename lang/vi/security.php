@@ -11,8 +11,7 @@ return [
     'og_description' => 'Hệ thống an ninh AIControl tích hợp báo cháy, báo động, kiểm soát ra vào và camera giám sát, mang đến an toàn tuyệt đối cho công trình.',
 
     // Hero Section
-    'hero_title_line1' => 'KIỂM SOÁT',
-    'hero_title_line2' => 'RA VÀO & AN NINH',
+    'hero_content' => 'HỆ THỐNG <br> <span class="heading-h1-highlight">KIỂM SOÁT RA VÀO & AN NINH</span>',
     'hero_description' => 'Kiểm soát hệ thống an ninh và ra vào tích hợp',
 
     // Features Section

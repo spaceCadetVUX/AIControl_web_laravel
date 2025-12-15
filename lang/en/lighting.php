@@ -11,9 +11,7 @@ return [
     'og_description' => 'Optimize energy and automate smart lighting for buildings, shopping centers, offices with AIControl solutions.',
 
     // Hero Section
-    'hero_title_line1' => 'LIGHTING',
-    'hero_title_line2' => 'CONTROL',
-    'hero_title_highlight' => 'SOLUTIONS',
+    'hero_content' => '<span class="heading-h1-highlight">LIGHTING</span> <br> CONTROL SOLUTIONS',
     'hero_subtitle' => 'Bringing You',
     'hero_description' => 'Optimize light & experience.<br>Elevate spaces and save energy',
 
@@ -47,7 +45,7 @@ return [
     'feature2' => 'Color temperature adjustment',
     'feature3' => 'Light color adjustment',
     'feature4' => 'Daylight harvesting - optimize lighting',
-    'feature5' => 'On-off by motion & light',
+    'feature5' => 'Control lighting based on motion & surroundings.',
     'feature6' => 'Scheduled lighting control',
     'feature7' => 'Scene - contextual control',
     'feature8' => 'Control via App, switches, control panels',
@@ -78,7 +76,7 @@ return [
     'case4_desc' => 'Helps optimize energy and enhance work productivity. Lights automatically adjust brightness according to natural light and sensors, ensuring a comfortable, economical and environmentally friendly work environment.',
 
     // Benefits Section
-    'benefits_title' => '<span>Benefits</span><br>Delivered',
+    'benefits_title' => '<span>Key</span><br>Benefits',
     
     'benefit1_title' => 'Energy Savings',
     'benefit1_desc' => 'Automatically adjusts brightness according to natural light, presence or schedule — minimizing wasted electricity.',
@@ -96,4 +94,5 @@ return [
     'blog_title' => 'Latest Blog Posts',
     'blog_view_all' => 'View all posts',
     'blog_no_posts' => 'No posts available in this category yet.',
+    
 ];

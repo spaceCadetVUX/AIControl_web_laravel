@@ -601,7 +601,7 @@
                                 <span class="ml-3 text-sm font-medium text-gray-700">Allow search engines to index this product</span>
                             </label>
                             
-                            <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                            {{-- <div class="mt-4 p-3 bg-gray-50 rounded-lg">
                                 <p class="text-xs text-gray-600">
                                     <strong>Sitemap Priority Guide:</strong><br>
                                     • 1.0 = Most important (featured/bestseller products)<br>
@@ -609,7 +609,7 @@
                                     • 0.5 = Normal priority (regular products)<br>
                                     • 0.3 = Lower priority (older/discontinued items)
                                 </p>
-                            </div>
+                            </div> --}}
                             
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {

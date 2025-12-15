@@ -11,9 +11,7 @@ return [
     'og_description' => 'Tối ưu năng lượng và tự động hóa chiếu sáng thông minh cho tòa nhà, trung tâm thương mại, văn phòng với giải pháp AIControl.',
 
     // Hero Section
-    'hero_title_line1' => 'GIẢI PHÁP',
-    'hero_title_line2' => 'ĐIỀU KHIỂN',
-    'hero_title_highlight' => 'CHIẾU SÁNG',
+'hero_content' => 'GIẢI PHÁP ĐIỀU KHIỂN <br> <span class="heading-h1-highlight">CHIẾU SÁNG</span>',
     'hero_subtitle' => 'Mang Lại Cho Bạn Sự',
     'hero_description' => 'Tối ưu hóa ánh sáng & trải nghiệm.<br>Nâng tầm không gian và tiết kiệm năng lượng',
 
@@ -47,7 +45,7 @@ return [
     'feature2' => 'Điều chỉnh nhiệt độ màu',
     'feature3' => 'Điều chỉnh màu sắc ánh sáng',
     'feature4' => 'Daylight harvesting - tối ưu ánh sáng',
-    'feature5' => 'Bật-tắt theo chuyển động & ánh sáng',
+    'feature5' => 'Điều khiển ánh sáng theo chuyển động & ngoại cảnh',
     'feature6' => 'Lặp lịch điều khiển chiếu sáng',
     'feature7' => 'Scence - điều khiển theo ngữ cảnh',
     'feature8' => 'Điều khiển qua App, công tắc, bẳng điều khiển',
@@ -96,4 +94,7 @@ return [
     'blog_title' => 'Bài Viết Mới Nhất',
     'blog_view_all' => 'Xem tất cả bài viết',
     'blog_no_posts' => 'Hiện chưa có bài viết nào trong danh mục này.',
+
+
+    
 ];

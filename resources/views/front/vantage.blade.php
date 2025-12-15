@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="vi">
+<html class="no-js" lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">

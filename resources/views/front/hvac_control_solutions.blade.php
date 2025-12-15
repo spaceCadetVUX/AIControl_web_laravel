@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="{{ current_locale() }}">
+<html class="no-js agntix-light" lang="{{ app()->getLocale() }}">
 
 <head>
 
@@ -115,9 +115,11 @@
                             <div class="row justify-content-center">
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
+                                        {{-- <div style="background: red; color: white; padding: 10px;">
+                                            Current Locale: {{ app()->getLocale() }}
+                                        </div> --}}
                                         <h1 class="heading-h1">
-                                        {{ __('hvac.hero_title') }}<br>
-                                        <span class="heading-h1-highlight"> {{ __('hvac.hero_highlight') }}</span>
+                                            {!! __('hvac.hero_content') !!}
                                         </h1>
                                         <div class=".heading-h1-box d-flex justify-content-end">
                                             <span class="tp-section-subtitle pre">{{ __('hvac.hero_subtitle') }}</span>

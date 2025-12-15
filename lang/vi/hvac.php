@@ -9,8 +9,8 @@ return [
     'og_description' => 'Giải pháp HVAC của AIControl giúp điều khiển và giám sát điều hòa trung tâm hiệu quả, tiết kiệm năng lượng và dễ dàng tích hợp BMS.',
     
     // Hero Section
-    'hero_title' => 'ĐIỀU KHIỂN NHIỆT ĐỘ',
-    'hero_highlight' => 'HVAC',
+   // In resources/lang/vi/hvac.php
+    'hero_content' => 'ĐIỀU KHIỂN NHIỆT ĐỘ <br> <span class="heading-h1-highlight">HVAC</span>',
     'hero_subtitle' => 'HVAC',
     'hero_description' => 'Quản lý điều chỉnh nhiệt độ, độ ẩm và chất lượng không khí cho tòa nhà',
     

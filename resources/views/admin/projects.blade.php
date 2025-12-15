@@ -2,13 +2,13 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Quản lý Dự án') }}
+                {{ __('Project management') }}
             </h2>
             <a href="{{ route('admin.projects.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-                Thêm Dự án
+                Add New Project
             </a>
         </div>
     </x-slot>
@@ -25,19 +25,19 @@
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-600">Tổng số Dự án</div>
+                    <div class="text-sm text-gray-600">Total Projects</div>
                     <div class="text-2xl font-bold">{{ $projects->count() }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-600">Đã xuất bản</div>
+                    <div class="text-sm text-gray-600">Published</div>
                     <div class="text-2xl font-bold text-green-600">{{ $projects->where('status', 'published')->count() }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-600">Nháp</div>
+                    <div class="text-sm text-gray-600">Draft</div>
                     <div class="text-2xl font-bold text-yellow-600">{{ $projects->where('status', 'draft')->count() }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-600">Nổi bật</div>
+                    <div class="text-sm text-gray-600">Featured</div>
                     <div class="text-2xl font-bold text-blue-600">{{ $projects->where('featured', true)->count() }}</div>
                 </div>
             </div>
@@ -50,25 +50,25 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        STT
+                                        ID
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Dự án
+                                        Project
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Danh mục
+                                        Category
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Trạng thái
+                                        Stattus
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Lượt xem
+                                        Views
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Ngày xuất bản
+                                        Published Date
                                     </th>
                                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Thao tác
+                                        Action
                                     </th>
                                 </tr>
                             </thead>
@@ -126,11 +126,11 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if($project->status === 'published')
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    Đã xuất bản
+                                                    Published
                                                 </span>
                                             @else
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                    Nháp
+                                                    Draft
                                                 </span>
                                             @endif
                                         </td>
@@ -162,7 +162,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
-                                            Chưa có dự án nào. Hãy tạo dự án đầu tiên!
+                                            No projects yet, create the first one!
                                         </td>
                                     </tr>
                                 @endforelse

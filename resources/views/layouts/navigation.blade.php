@@ -7,7 +7,13 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('admin.dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                       <img
+                            src="{{ asset('assets/AIcontrol_imgs/mian_Icon/aicontrol-co-mau.svg') }}"
+                            class="img-fluid"
+                            style="height: 50px;"
+                            alt="AIControl"
+                            >
+
                     </a>
                 </div>
                 <div class="ml-6 text-gray-600 text-sm hidden md:block">
@@ -67,31 +73,31 @@
                     {{ __('Dashboard') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.pages')" :active="request()->routeIs('admin.pages')">
-                    {{ __('Manage Pages') }}
+                    {{ __('Pages') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                    {{ __('Manage Users') }}
+                    {{ __('Users') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.products')" :active="request()->routeIs('admin.products*')">
-                    {{ __('Manage Products') }}
+                    {{ __('Products') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.brands')" :active="request()->routeIs('admin.brands*')">
-                    {{ __('Manage Brands') }}
+                    {{ __('Product\'s Brands') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.categories')" :active="request()->routeIs('admin.categories*')">
-                    {{ __('Manage Categories') }}
+                    {{ __('Product Categories') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs*')">
-                    {{ __('Manage Blogs') }}
+                    {{ __('Blogs') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.blog-categories')" :active="request()->routeIs('admin.blog-categories*')">
-                    {{ __('Manage Blog Categories') }}
+                    {{ __('Blog Categories') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.projects')" :active="request()->routeIs('admin.projects*')">
-                    {{ __('Manage Projects') }}
+                    {{ __('Projects') }}
                 </x-nav-link>
                 <x-nav-link :href="route('admin.project-categories')" :active="request()->routeIs('admin.project-categories*')">
-                    {{ __('Manage Project Categories') }}
+                    {{ __('Projects Categories') }}
                 </x-nav-link>
                 <x-nav-link :href="route('home')" target="_blank">
                     {{ __('View Website') }}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="{{ current_locale() }}">
+<html class="no-js" lang="{{ app()->getLocale() }}">
 
 <head>
 
@@ -117,8 +117,7 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <h1 class="heading-h1">
-                                        {{ __('security.hero_title_line1') }}<br>
-                                        <span class="heading-h1-highlight">{{ __('security.hero_title_line2') }}</span>
+                                            {!! __('security.hero_content') !!}
                                         </h1>
                                         <div class="heading-h1-box d-flex justify-content-end">
                                             <p>{{ __('security.hero_description') }}</p>

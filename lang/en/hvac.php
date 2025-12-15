@@ -9,8 +9,8 @@ return [
     'og_description' => 'AIControl\'s HVAC solution helps efficiently control and monitor central air conditioning, save energy, and easily integrate with BMS.',
     
     // Hero Section
-    'hero_title' => 'TEMPERATURE CONTROL',
-    'hero_highlight' => 'HVAC',
+    // In resources/lang/en/hvac.php
+    'hero_content' => '<span class="heading-h1-highlight">HVAC</span> <br> CONTROL SOLUTIONS',
     'hero_subtitle' => 'HVAC',
     'hero_description' => 'Manage and adjust temperature, humidity, and air quality for buildings',
     
@@ -42,7 +42,7 @@ return [
     'type4_desc' => 'Multi-split central air conditioning, high energy efficiency. Applied to office buildings, hotels and shopping centers.',
     
     // Benefits Section
-    'benefits_title' => 'Benefits Delivered',
+    'benefits_title' => 'Key <br> Benefits',
     'benefit1_title' => 'Energy Savings',
     'benefit1_desc' => 'Smart control helps reduce electricity consumption, optimize operating costs for buildings.',
     'benefit2_title' => 'Maximum Comfort',

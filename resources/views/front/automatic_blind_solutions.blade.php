@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="{{ current_locale() }}">
+<html class="no-js" lang="{{ app()->getLocale() }}">
 
 <head>
 
@@ -107,8 +107,7 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <h1 class="heading-h1">
-                                        <span class="heading-h1-highlight">{{ __('shade.hero_highlight') }}</span><br>
-                                        {{ __('shade.hero_title') }}
+                                            {!! __('shade.hero_content') !!}
                                         </h1>
                                         <div class="heading-h1-box d-flex justify-content-end">
                                             <!-- <span class="tp-section-subtitle pre">Mang Lại Cho Bạn Sự</span> -->
@@ -280,63 +279,62 @@
                 <div class="tp-pd-3-portfolio-area pt-50 pb-60">
                     <div class="container container-1200">
                         <div class="container container-1230">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="tp-benefit-heading mb-85">
-                                    <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
-                                        <span class="tp-section-subtitle pre">TƯƠNG THÍCH</span>
-                                        <div class="ar-about-us-4-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
-                                                <rect y="4" width="80" height="1" fill="#111013" />
-                                                <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#111013" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="tp-benefit-heading mb-85">
+                                        <div class="ar-about-us-4-title-box tp_fade_anim d-flex align-items-center mb-15">
+                                            <span class="tp-section-subtitle pre">{{ __('shade.compatibility_subtitle') }}</span>
+                                            <div class="ar-about-us-4-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
+                                                    <rect y="4" width="80" height="1" fill="#111013" />
+                                                    <path d="M77 7.96366L80.5 4.48183L77 1" stroke="#111013" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </div>
                                         </div>
+                                        <h2 class="tp-section-title lts tp_fade_anim">
+                                            {!! __('shade.compatibility_title') !!}
+                                        </h2>
                                     </div>
-                                    <h2 class="tp-section-title lts tp_fade_anim">Phù hợp với nhiều <br><span>Không gian & Vị trí</span></h2>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tp-pd-3-portfolio-item-wrap">
-                            <div class="tp-pd-3-portfolio-item mb-120">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="tp-pd-3-portfolio-thumb">
-                                            <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy2.jpg') }}" alt="Điều khiển chiếu sáng cho văn phòng"  class="w-100">
+                            
+                            <div class="tp-pd-3-portfolio-item-wrap">
+                                <div class="tp-pd-3-portfolio-item mb-120">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="tp-pd-3-portfolio-thumb">
+                                                <img src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy2.jpg') }}" alt="{{ __('shade.item1_title') }}" class="w-100">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
-                                            <span class="tp-pd-3-subtitle">01</span>
-                                            <h4 class="tp-pd-3-title">Rèm Cuốn (Roller Shades)</h4>
-                                            <div class="tp-pd-3-overview-text">
-                                                <p> Tinh chỉnh nâng hạ nhẹ nhàng với độ êm tuyệt đối, <br>
-                                                    mang lại sự thoải mái chuẩn xác và đẳng cấp trong từng chuyển động.
-                                                </p>
+                                        <div class="col-lg-6">
+                                            <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 ml-40">
+                                                <span class="tp-pd-3-subtitle">01</span>
+                                                <h4 class="tp-pd-3-title">{{ __('shade.item1_title') }}</h4>
+                                                <div class="tp-pd-3-overview-text">
+                                                    <p>{!! __('shade.item1_desc') !!}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tp-pd-3-portfolio-item-wrap pt-120">
-                            <div class="tp-pd-3-portfolio-item mb-120">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
-                                           <span class="tp-pd-3-subtitle">02</span>
-                                            <h4 class="tp-pd-3-title">Rèm Vải Dọc (Drapery)</h4>
-                                            <div class="tp-pd-3-overview-text">
-                                                <p> Không chỉ đóng mở qua lại hệ thống rèm còn <br> 
-                                                    có khả năng tùy chỉnh độ sáng bằng cách lật các <br>
-                                                    lá của rèm thông qua điều chỉnh hoặc cảm biến ánh sáng
-                                                </p>
+
+                            <div class="tp-pd-3-portfolio-item-wrap pt-120">
+                                <div class="tp-pd-3-portfolio-item mb-120">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="tp-pd-3-portfolio-content tp-pd-3-content-pin mt-20 mr-40">
+                                                <span class="tp-pd-3-subtitle">02</span>
+                                                <h4 class="tp-pd-3-title">{{ __('shade.item2_title') }}</h4>
+                                                <div class="tp-pd-3-overview-text">
+                                                    <p>{!! __('shade.item2_desc') !!}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="tp-pd-3-portfolio-thumb">
-                                            <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy1.jpg') }}" alt="">
-                                          
+                                        <div class="col-lg-6">
+                                            <div class="tp-pd-3-portfolio-thumb">
+                                                <img class="w-100" src="{{ asset('assets/AIcontrol_imgs/Automatic_blind_solutions/imgs/blind_casestudy1.jpg') }}" alt="{{ __('shade.item2_title') }}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

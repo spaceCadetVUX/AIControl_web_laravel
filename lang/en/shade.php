@@ -11,8 +11,7 @@ return [
     'og_description' => 'AIControl automated blind solutions bring convenience, elegance and energy savings, easily integrated into smart building systems.',
 
     // Hero Section
-    'hero_title' => 'AUTOMATED',
-    'hero_highlight' => 'BLINDS & CURTAINS',
+    'hero_content' => '<span class="heading-h1-highlight">SMART SHADING</span> <br> SOLUTIONS',
     'hero_description' => 'Smooth, refined operation<br>Creating convenient and sophisticated spaces',
 
     // Types Section
@@ -31,8 +30,22 @@ return [
     'feature3' => 'Adjust opening/closing based on light intensity',
     'feature4' => 'Integration with smart systems (BMS, Alexa, Google)',
 
+    // ... existing keys ...
+
+    // Compatibility Section
+    'compatibility_subtitle' => 'COMPATIBILITY',
+    'compatibility_title' => 'Suitable for various <br><span>Spaces & Locations</span>',
+
+    // Item 1
+    'item1_title' => 'Roller Shades',
+    'item1_desc' => 'Smooth lifting adjustment with absolute silence, <br> bringing precise comfort and class in every movement.',
+
+    // Item 2
+    'item2_title' => 'Vertical Blinds (Drapery)',
+    'item2_desc' => 'Not only opening and closing, the system can also <br> adjust brightness by tilting the <br> slats via manual control or light sensors.',
+
     // Benefits Section
-    'benefits_title' => '<span>Benefits</span><br>Delivered',
+    'benefits_title' => '<span>Key</span><br>Benefits',
     'benefit1_title' => 'Ultra-Quiet Operation',
     'benefit1_desc' => 'Whisper-quiet motor ensures curtains operate almost silently.',
     'benefit2_title' => 'Smart Automation',
@@ -58,4 +71,7 @@ return [
     'blog_title' => 'Latest Blog Posts',
     'blog_view_all' => 'View all posts',
     'blog_no_posts' => 'No posts available in Landing category yet.',
+
+
+
 ];

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="{{ current_locale() }}">
+<html class="no-js agntix-light" lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://aicontrol.vn/assets/AIcontrol_imgs/aicontrol-co-mau.svg">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="{{ current_locale() === 'vi' ? 'vi_VN' : 'en_US' }}">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
 
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">

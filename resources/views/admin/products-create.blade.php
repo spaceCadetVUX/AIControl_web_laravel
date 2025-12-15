@@ -525,17 +525,7 @@
                                 <input type="checkbox" id="indexable-checkbox-create" name="indexable" value="1" checked class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 h-5 w-5">
                                 <span class="ml-3 text-sm font-medium text-gray-700">Allow search engines to index this product</span>
                             </label>
-                            
-                            <div class="mt-4 p-3 bg-gray-50 rounded-lg">
-                                <p class="text-xs text-gray-600">
-                                    <strong>Sitemap Priority Guide:</strong><br>
-                                    • 1.0 = Most important (featured/bestseller products)<br>
-                                    • 0.8 = High priority (new/popular products)<br>
-                                    • 0.5 = Normal priority (regular products)<br>
-                                    • 0.3 = Lower priority (older/discontinued items)
-                                </p>
-                            </div>
-                            
+                        
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                     const checkbox = document.getElementById('indexable-checkbox-create');
@@ -580,13 +570,13 @@
                             <input type="text" name="related_products" value="{{ old('related_products') }}" placeholder="1, 5, 12" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Language</label>
                             <select name="language" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="en">English</option>
                                 <option value="vi">Vietnamese</option>
                             </select>
-                        </div>
+                        </div> --}}
 
                         {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Custom Fields (JSON)</label>
@@ -606,7 +596,7 @@
                 </div>
 
                 <!-- Statistics Tab -->
-                <div id="content-stats" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
+                {{-- <div id="content-stats" class="tab-content hidden bg-white shadow-sm rounded-lg p-6">
                     <h3 class="text-lg font-semibold mb-4">Product Statistics</h3>
 
                     <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
@@ -651,7 +641,7 @@
                             <div class="text-2xl font-bold text-indigo-600">0</div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Submit Buttons -->
                 <div class="bg-white shadow-sm rounded-lg p-6 mt-4">

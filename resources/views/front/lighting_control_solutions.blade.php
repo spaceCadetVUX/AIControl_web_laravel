@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="{{ current_locale() }}">
+<html class="no-js" lang="{{ app()->getLocale() }}">
 
 <head>
 
@@ -113,8 +113,7 @@
                                 <div class="col-xl-12">
                                     <div class="ar-hero-title-box tp_fade_anim" data-delay=".3">
                                         <h1 class="heading-h1">
-                                        {{ __('lighting.hero_title_line1') }}<br>
-                                        {{ __('lighting.hero_title_line2') }} <span class="heading-h1-highlight">{{ __('lighting.hero_title_highlight') }}</span>
+                                            {!! __('lighting.hero_content') !!}
                                         </h1>
                                         <div class="heading-h1-box d-flex justify-content-end">
                                             <span class="tp-section-subtitle pre">{{ __('lighting.hero_subtitle') }}</span>
@@ -778,7 +777,7 @@
                                 </div>
                             @empty
                                 <div class="col-12">
-                                    <p class="text-center text-muted">Hiện chưa có bài viết nào trong danh mục này.</p>
+                                    <p class="text-center text-muted">{{ __('lighting.blog_no_posts') }}</p>
                                 </div>
                             @endforelse
                         </div>

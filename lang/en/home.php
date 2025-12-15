@@ -22,7 +22,7 @@ return [
     
     // About Section
     'about_tagline' => 'AIControl',
-    'about_title' => 'Bringing you world-class smart control & management solutions.',
+    'about_title' => 'Bringing you the world\'s leading smart control & management solutions.',
     'about_subtitle' => 'Helping your business buildings operate efficiently, intelligently, and energy-efficiently.',
     'about_description' => 'AI Control is building the future with leading smart control solutions.',
     'about_experience_label' => 'Years of Experience',
