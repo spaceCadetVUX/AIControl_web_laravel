@@ -5,9 +5,10 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-6 col-md-8">
                     <div class="ar-footer-widget ar-footer-col-1 mb-40 tp_fade_anim" data-delay=".3">
-                        <div class="ar-footer-logo mb-30">
-                            <a href="{{ route('home') }}"><img data-width="300" src="{{ assets('assets/AIcontrol_imgs/landing/AICONTROL LOGO.svg') }}" alt="logo AIControl"></a>
-                        </div>
+                        <a href="{{ url(current_locale()) }}">
+                            <img data-width="300" src="{{ assets('assets/AIcontrol_imgs/landing/AICONTROL LOGO.svg') }}" alt="logo AIControl">
+                        </a>
+
                         <div class="ar-footer-widget-content">
                             <p>
                                 {{-- Our goal is to exceed expectations <br>
@@ -34,7 +35,7 @@
                         <div class="ar-footer-widget-menu">
                             <ul>
                                 <li><a href="">{{ __('footer.about_intro') }}</a></li>
-                                <li><a href="{{ route('blog.index') }}">{{ __('footer.about_blogs') }}</a></li>
+                                <li><a href="{{ route(current_locale() . '.blog.index') }}">Blog</a></li>
                             </ul>
                         </div>
                     </div>

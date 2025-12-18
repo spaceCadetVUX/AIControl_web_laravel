@@ -109,7 +109,7 @@
                                         <!-- Search Widget -->
                                         <div class="sidebar-widget sidebar-search-widget mb-40">
                                             <div class="sidebar-search">
-                                                <form action="{{ route('blog.search') }}" method="GET">
+                                                 <form action="{{ route(current_locale() . '.blog.search') }}" method="GET">
                                                     <div class="sidebar-search-input position-relative">
                                                         <input type="text" name="q" placeholder="Tìm kiếm bài viết..." value="{{ request('q') }}">
                                                         <button type="submit">
@@ -133,7 +133,7 @@
                                             <h3 class="sidebar-widget-title sidebar-widget-title-styled mb-25">
                                                 Danh mục bài viết
                                             </h3>
-                                            <form id="blog-category-filter-form" method="GET" action="{{ route('blog.index') }}">
+                                            <form id="blog-category-filter-form" method="GET" action="{{ route(current_locale() . '.blog.index') }}">
                                                 <div class="blog-categories-filter" style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
                                                     @foreach($blogCategories as $rootCategory)
                                                         <div class="category-group" style="margin-bottom: 15px;">
@@ -206,7 +206,12 @@
                                                     @foreach($categories as $cat)
                                                     <li>
                                                         {{-- Apply 'active' class when this category route matches the current URL --}}
-                                                        <a class="d-flex align-items-center justify-content-between {{ url()->current() == route('blog.category', $cat) ? 'active' : '' }}" href="{{ route('blog.category', $cat) }}">
+                                                        <a
+                                                                class="d-flex align-items-center justify-content-between
+                                                                    {{ url()->current() == route(current_locale() . '.blog.category', ['category' => $cat]) ? 'active' : '' }}"
+                                                                href="{{ route(current_locale() . '.blog.category', ['category' => $cat]) }}"
+                                                            >
+
                                                             <span class="category-icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -237,7 +242,7 @@
                                                 <div class="rc-post d-flex align-items-start mb-20">
                                                     @if($latest->featured_image)
                                                     <div class="rc-post-thumb">
-                                                        <a href="{{ route('blog.show', $latest->slug) }}">
+                                                        <a href="{{ route(current_locale() . '.blog.show', $latest->slug) }}">
                                                             <img src="{{ asset($latest->featured_image) }}" alt="{{ $latest->title }}">
                                                         </a>
                                                     </div>
@@ -245,11 +250,15 @@
                                                     <div class="rc-post-content">
                                                         @if($latest->category)
                                                         <div class="rc-post-category mb-1">
-                                                            <a href="{{ route('blog.category', $latest->category) }}">{{ $latest->category }}</a>
+                                                            <a href="{{ route(current_locale() . '.blog.category', ['category' => $latest->category]) }}">
+                                                                {{ $latest->category }}
+                                                            </a>
+
+
                                                         </div>
                                                         @endif
                                                         <h3 class="rc-post-title mb-1">
-                                                            <a href="{{ route('blog.show', $latest->slug) }}">{{ Str::limit($latest->title, 50) }}</a>
+                                                            <a href="{{ route(current_locale() . '.blog.show', $latest->slug) }}">{{ Str::limit($latest->title, 50) }}</a>
                                                         </h3>
                                                         <div class="rc-post-meta">
                                                             <span>
@@ -278,7 +287,7 @@
                                             <div class="sidebar-widget-content">
                                                 <div class="tagcloud">
                                                     @foreach($allTags as $tag)
-                                                    <a href="{{ route('blog.search') }}?q={{ $tag }}">{{ $tag }}</a>
+                                                    <a href="{{current_locale() . route('blog.search') }}?q={{ $tag }}">{{ $tag }}</a>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -296,7 +305,7 @@
                                         <div class="tp-blog-masonry-item h-100">
                                             @if($blog->featured_image)
                                             <div class="tp-blog-masonry-thumb position-relative">
-                                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                                <a href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}">
                                                     <img src="{{ asset($blog->featured_image) }}" alt="{{ $blog->title }}">
                                                 </a>
                                                 @if($blog->category)
@@ -336,7 +345,7 @@
                                                 </div>
 
                                                 <h4 class="tp-blog-masonry-title mb-15">
-                                                    <a class="tp-line-white" href="{{ route('blog.show', $blog->slug) }}">
+                                                    <a class="tp-line-white" href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}">
                                                         {{ Str::limit($blog->title, 60) }}
                                                     </a>
                                                 </h4>
@@ -346,7 +355,7 @@
                                                 
                                                 <div class="d-flex justify-content-between align-items-center blog-footer">
                                                     <div class="tp-blog-masonry-btn">
-                                                        <a href="{{ route('blog.show', $blog->slug) }}">
+                                                        <a href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}">
                                                             <span style="color: var(--tp-brand-primary-color)">Đọc thêm</span>
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -461,7 +470,7 @@
         <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
         <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
         <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
-        <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+        <script src="{{ asset('assets/js/nice-select.js') }}"></script> 
         <script src="{{ asset('assets/js/purecounter.js') }}"></script>
         <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
         <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
@@ -480,7 +489,7 @@
         <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
         <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
         <script>
-            window.blogIndexRoute = "{{ route('blog.index') }}";
+            window.blogIndexRoute = "{{ route(current_locale() . '.blog.index') }}";
         </script>
         <script src="{{ asset('assets/js/blogs.js') }}"></script>
 

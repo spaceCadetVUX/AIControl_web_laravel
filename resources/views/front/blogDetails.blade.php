@@ -158,9 +158,9 @@
                                 <div class="tp-breadcrumb-content text-center">
                                     <h1 class="tp-breadcrumb-title">{{ $blog->title }}</h1>
                                     <div class="tp-breadcrumb-list mb-35">
-                                        <span><a href="{{ route('home') }}">Trang chủ</a></span>
+                                        <span><a href="{{ route(current_locale() . '.index') }}">Trang chủ</a></span>
                                         <span class="dvdr"><i>|</i></span>
-                                        <span><a href="{{ route('blogs') }}">Tin tức</a></span>
+                                        <span><a href="{{ route(current_locale() . '.blog.index') }}">Tin tức</a></span>
                                         <span class="dvdr"><i>|</i></span>
                                         {{-- <span>{{ Str::limit($blog->title, 50) }}</span> --}}
                                     </div>
@@ -213,7 +213,10 @@
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M4.5 4.5H4.50714M14.5 8.5L9.5 13.5C9.36739 13.6326 9.20993 13.7379 9.03638 13.8099C8.86282 13.8819 8.67677 13.9194 8.48883 13.9202C8.3009 13.921 8.11453 13.8852 7.94036 13.8148C7.76618 13.7445 7.60783 13.6408 7.47403 13.509C7.34023 13.3772 7.23379 13.2199 7.16177 13.0466C7.08975 12.8732 7.05355 12.6873 7.05272 12.4993C7.05189 12.3114 7.08645 12.1252 7.15723 11.9512C7.22802 11.7773 7.33329 11.619 7.46571 11.4857L11.9657 7H1V1H15V15L14.5 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <a href="{{ route('blog.category', $blog->category) }}">{{ $blog->category }}</a>
+                                            <a href="{{ route(current_locale() . '.blog.category', ['category' => $blog->category]) }}">{{ $blog->category }}</a>
+
+                                            
+
                                         </span>
                                         @endif
                                         @if($blog->reading_time)
@@ -241,7 +244,9 @@
                                         <h4 class="tp-postbox-tag-title">Tags:</h4>
                                         <div class="tagcloud">
                                             @foreach($blog->tags as $tag)
-                                            <a href="{{ route('blog.search') }}?q={{ $tag }}">{{ $tag }}</a>
+                                            <a  href="{{ route(current_locale() . '.blog.search') }}?q={{ urlencode($tag) }}">{{ $tag }}</a>
+                                           
+
                                             @endforeach
                                         </div>
                                     </div>
@@ -278,9 +283,10 @@
                                             <div class="tp-blog-masonry-item">
                                                 @if($related->featured_image)
                                                 <div class="tp-blog-masonry-thumb position-relative">
-                                                    <a href="{{ route('blog.show', $related->slug) }}">
+                                                    <a href="{{ route(current_locale() . '.blog.show', $related->slug) }}">
                                                         <img src="{{ asset($related->featured_image) }}" alt="{{ $related->title }}">
                                                     </a>
+
                                                     @if($related->category)
                                                     <div class="tp-blog-masonry-tag">
                                                         <span>{{ $related->category }}</span>
@@ -290,15 +296,16 @@
                                                 @endif
                                                 <div class="tp-blog-masonry-content">
                                                     <h4 class="tp-blog-masonry-title mb-15">
-                                                        <a href="{{ route('blog.show', $related->slug) }}">
+                                                        <a href="{{ route(current_locale() . '.blog.show', $related->slug) }}">
                                                             {{ Str::limit($related->title, 60) }}
                                                         </a>
+
                                                     </h4>
                                                     @if($related->excerpt)
                                                     <p>{{ Str::limit($related->excerpt, 100) }}</p>
                                                     @endif
                                                     <div class="tp-blog-masonry-btn">
-                                                        <a href="{{ route('blog.show', $related->slug) }}">
+                                                        <a href="{{ route(current_locale() . '.blog.show', $related->slug) }}">
                                                             Đọc thêm
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -324,7 +331,7 @@
                                         {{-- Search Widget --}}
                                         <div class="sidebar-widget sidebar-search-widget mb-40">
                                             <div class="sidebar-search">
-                                                <form action="{{ route('blog.search') }}" method="GET">
+                                                <form action="{{ route(current_locale() . '.blog.search') }}" method="GET">
                                                     <div class="sidebar-search-input position-relative">
                                                         <input type="text" name="q" placeholder="Tìm kiếm bài viết..." value="{{ request('q') }}">
                                                         <button type="submit">
@@ -348,7 +355,9 @@
                                                     @foreach($categories as $cat)
                                                     <li>
                                                         {{-- Add 'active' class when the category link matches the current URL --}}
-                                                        <a class="d-flex align-items-center justify-content-between {{ url()->current() == route('blog.category', $cat) ? 'active' : '' }}" href="{{ route('blog.category', $cat) }}">
+                                                        <a class="d-flex align-items-center justify-content-between
+                                                            {{ url()->current() == route(current_locale() . '.blog.category', $cat) ? 'active' : '' }}"
+                                                            href="{{ route(current_locale() . '.blog.category', $cat) }}">
                                                             <span class="category-icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -378,8 +387,8 @@
                                                 @foreach($latestPosts as $latest)
                                                 <div class="rc-post d-flex align-items-start mb-20">
                                                     @if($latest->featured_image)
-                                                    <div class="rc-post-thumb">
-                                                        <a href="{{ route('blog.show', $latest->slug) }}">
+                                                    <div class="rc-post-thumb"> 
+                                                        <a href="{{ route(current_locale() . '.blog.show', $latest->slug) }}">
                                                             <img src="{{ asset($latest->featured_image) }}" alt="{{ $latest->title }}">
                                                         </a>
                                                     </div>
@@ -387,11 +396,44 @@
                                                     <div class="rc-post-content">
                                                         @if($latest->category)
                                                         <div class="rc-post-category mb-1">
-                                                            <a href="{{ route('blog.category', $latest->category) }}">{{ $latest->category }}</a>
+                                                            <a href="{{ route(current_locale() . '.blog.category', ['category' => $latest->category]) }}">>{{ $latest->category }}</a>
                                                         </div>
                                                         @endif
                                                         <h3 class="rc-post-title mb-1">
-                                                            <a href="{{ route('blog.show', $latest->slug) }}">{{ Str::limit($latest->title, 50) }}</a>
+                                                            <a href="{{ route(current_locale() . '.blog.show', $latest->slug) }}">{{ Str::limit($latest->title, 50) }}</a>
+                                                        </h3>
+                                                        <div class="rc-post-meta">
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                                </svg>
+                                                                {{ $latest->formatted_published_date }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            </div><div class="rc-post-wrap">
+                                                @foreach($latestPosts as $latest)
+                                                <div class="rc-post d-flex align-items-start mb-20">
+                                                    @if($latest->featured_image)
+                                                    <div class="rc-post-thumb">
+                                                        <a href="{{ route(current_locale() . '.blog.show', $latest->slug) }}">
+                                                            <img src="{{ asset($latest->featured_image) }}" alt="{{ $latest->title }}">
+                                                        </a>
+                                                    </div>
+                                                    @endif
+                                                    <div class="rc-post-content">
+                                                        @if($latest->category)
+                                                        <div class="rc-post-category mb-1">
+                                                            <a         {{ $latest->category }}>{{ $latest->category }}</a>
+                                                        </div>
+                                                        @endif
+                                                        <h3 class="rc-post-title mb-1">
+                                                            <a href="{{ route(current_locale() . '.blog.show', $latest->slug) }}">{{ Str::limit($latest->title, 50) }}</a>
                                                         </h3>
                                                         <div class="rc-post-meta">
                                                             <span>
@@ -410,9 +452,6 @@
                                             </div>
                                         </div>
                                         @endif
-
-                                        {{-- Tags Widget --}}
-                                        @if(isset($allTags) && $allTags->count() > 0)
                                         <div class="sidebar-widget sidebar-widget-box">
                                             <h3 class="sidebar-widget-title sidebar-widget-title-styled mb-25">
                                                 Thẻ tag
@@ -420,13 +459,13 @@
                                             <div class="sidebar-widget-content">
                                                 <div class="tagcloud">
                                                     @foreach($allTags as $tag)
-                                                    <a href="{{ route('blog.search') }}?q={{ $tag }}">{{ $tag }}</a>
+                                                   <a href="{{ route(current_locale() . '.blog.search', ['q' => $tag]) }}">
+                                                        {{ $tag }}
+                                                    </a>
                                                     @endforeach
                                                 </div>
                                             </div>
                                         </div>
-                                        @endif
-
                                     </div>
                                 </div>
                             </div>

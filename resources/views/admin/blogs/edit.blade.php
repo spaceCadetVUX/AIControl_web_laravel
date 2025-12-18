@@ -63,7 +63,7 @@
                             <input type="text" name="slug" id="blog-slug" value="{{ old('slug', $blog->slug) }}" 
                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="auto-generated-from-title">
-                            <p class="mt-1 text-xs text-gray-500">Current URL: {{ route('blog.show', $blog->slug) }}</p>
+                            <p class="mt-1 text-xs text-gray-500">Current URL: {{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}</p>
                             @error('slug') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
 
@@ -271,7 +271,7 @@
                             <a href="{{ route('admin.blogs.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-400">
                                 Cancel
                             </a>
-                            <a href="{{ route('blog.show', $blog->slug) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600">
+                            <a href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>

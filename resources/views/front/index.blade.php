@@ -329,19 +329,19 @@
                     <div class="ar-service-title-box">
                         <h2 class="tp-section-title-clash-600 text-white fs-60 mb-0 tp_fade_anim" data-delay=".4">{{ __('home.brands_title') }}</h2>
                     </div>
-                    <a href="{{ route('abb') }}" class="ar-service-item d-flex align-items-end justify-content-end active">
+                    <a href="{{ route(current_locale() . '.abb') }}" class="ar-service-item d-flex align-items-end justify-content-end active">
                         <div class="ar-service-bg" data-background="{{ asset('assets/AIcontrol_imgs/landing/ABB.jpg') }}"></div>
                         <span class="ar-service-title">ABB</span>
                     </a>
-                    <a href="{{ route('legrand') }}" class="ar-service-item d-flex align-items-end justify-content-end">
+                    <a href="{{ route(current_locale() . '.legrand') }}" class="ar-service-item d-flex align-items-end justify-content-end">
                         <div class="ar-service-bg" data-background="{{ asset('assets/AIcontrol_imgs/landing/legrand.jpg') }}"></div>
                         <span class="ar-service-title">Legrand</span>
                     </a>
-                    <a href="{{ route('cpElectronics') }}" class="ar-service-item d-flex align-items-end justify-content-end">
+                    <a href="{{ route(current_locale() . '.cpElectronics') }}" class="ar-service-item d-flex align-items-end justify-content-end">
                         <div class="ar-service-bg" data-background="{{ asset('assets/AIcontrol_imgs/landing/cpElectronic.png') }}"></div>
                         <span class="ar-service-title">CP Electronics</span>
                     </a>
-                    <a href="{{ route('vantage') }}" class="ar-service-item d-flex align-items-end justify-content-end">
+                    <a href="{{ route(current_locale() . '.vantage') }}" class="ar-service-item d-flex align-items-end justify-content-end">
                         <div class="ar-service-bg" data-background="{{ asset('assets/AIcontrol_imgs/landing/vantage.png') }}"></div>
                         <span class="ar-service-title">Vantage</span>
                     </a>
@@ -373,10 +373,10 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
                                         <div class="design-project-content pr-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('lightingControl') }}">
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route(current_locale() . '.solution.lighting') }}">
                                                     {{ __('home.solution_lighting_title') }} </a></h3>
                                             <span class="tp_reveal_anim fw-light">{{ __('home.solution_lighting_subtitle') }}</span>
-                                            <a class="tp-btn-sky-border height-50" href="{{ route('lightingControl') }}">{{ __('home.solution_lighting_button') }}</a>
+                                            <a class="tp-btn-sky-border height-50" href="{{ route(current_locale() . '.solution.lighting') }}">{{ __('home.solution_lighting_button') }}</a>
                                         </div>
                                     </div>
                                     <div class="col-xl-7 order-xl-1 order-0">
@@ -390,9 +390,9 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
                                         <div class="design-project-content pr-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('shade') }}">{{ __('home.solution_shade_title') }}</a></h3>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route(current_locale() . '.solution.shade') }}">{{ __('home.solution_shade_title') }}</a></h3>
                                             <span class="tp_reveal_anim fw-light">{{ __('home.solution_shade_subtitle') }}</span>
-                                            <a class="tp-btn-sky-border height-50" href="{{ route('shade') }}">{{ __('home.solution_shade_button') }}</a>
+                                            <a class="tp-btn-sky-border height-50" href="{{ route(current_locale() . '.solution.shade') }}">{{ __('home.solution_shade_button') }}</a>
                                         </div>
                                     </div>
                                     <div class="col-xl-7 order-xl-1 order-0">
@@ -411,9 +411,9 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('hvacControl') }}">{{ __('home.solution_hvac_title') }}</a></h3>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route(current_locale() . '.solution.hvac') }}">{{ __('home.solution_hvac_title') }}</a></h3>
                                             <span class="tp_reveal_anim fw-light">{{ __('home.solution_hvac_subtitle') }}</span>
-                                            <a class="tp-btn-sky-border height-50" href="{{ route('hvacControl') }}">{{ __('home.solution_hvac_button') }}</a>
+                                            <a class="tp-btn-sky-border height-50" href="{{ route(current_locale() . '.solution.hvac') }}">{{ __('home.solution_hvac_button') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -427,14 +427,14 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('security') }}">{{ __('home.solution_security_title') }}</a></h3>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route(current_locale() . '.solution.security') }}">{{ __('home.solution_security_title') }}</a></h3>
                                             <span class="tp_reveal_anim fw-light">{{ __('home.solution_security_subtitle') }}</span>
-                                            <a class="tp-btn-sky-border height-50" href="{{ route('security') }}">{{ __('home.solution_security_button') }}</a>
+                                            <a class="tp-btn-sky-border height-50" href="{{ route(current_locale() . '.solution.security') }}">{{ __('home.solution_security_button') }}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="design-project-item mb-120">
+                            {{-- <div class="design-project-item mb-120">
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 order-xl-0 order-1">
                                         <div class="design-project-content pr-200">
@@ -465,7 +465,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="design-project-item mb-120">
                                 <div class="row align-items-center">
                                     <div class="col-xl-7">
@@ -475,9 +475,9 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('bms') }}">{{ __('home.solution_bms_title') }}</a></h3>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route(current_locale() . '.solution.bms') }}">{{ __('home.solution_bms_title') }}</a></h3>
                                             <span class="tp_reveal_anim fw-light">{{ __('home.solution_bms_subtitle') }}</span>
-                                            <a class="tp-btn-sky-border height-50" href="{{ route('bms') }}">{{ __('home.solution_bms_button') }}</a>
+                                            <a class="tp-btn-sky-border height-50" href="{{ route(current_locale() . '.solution.bms') }}">{{ __('home.solution_bms_button') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -491,9 +491,9 @@
                                     </div>
                                     <div class="col-xl-5">
                                         <div class="design-project-content pl-200">
-                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route('bms') }}">{{ __('home.solution_hotel_title') }}</a></h3>
+                                            <h3 class="design-project-title tp_reveal_anim"><a href="{{ route(current_locale() . '.solution.hotel') }}">{{ __('home.solution_hotel_title') }}</a></h3>
                                             <span class="tp_reveal_anim fw-light">{{ __('home.solution_hotel_subtitle') }}</span>
-                                            <a class="tp-btn-sky-border height-50" href="{{ route('bms') }}">{{ __('home.solution_hotel_button') }}</a>
+                                            <a class="tp-btn-sky-border height-50" href="{{ route(current_locale() . '.solution.hotel') }}">{{ __('home.solution_hotel_button') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -669,15 +669,15 @@
                                 <div class="col-xl-4 col-lg-4 col-md-5">
                                     <div class="ar-blog-btn-box d-flex justify-content-md-end justify-content-start mb-15">
                                         <div class="tp-btn-red-circle-box tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                                            <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}" aria-label="Go to blog">
+                                            <a class="tp-btn-red-circle-icon" href="{{ route(current_locale() . '.blog.index') }}" aria-label="Go to blog">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span>
                                             </a>
-                                            <a class="tp-btn-red-circle-text" href="{{ route('blog.index') }}" aria-label="View all blog posts">{{ __('home.blog_view_all') }}</a>
-                                            <a class="tp-btn-red-circle-icon" href="{{ route('blog.index') }}" aria-label="Go to blog">
+                                            <a class="tp-btn-red-circle-text" href="{{ route(current_locale() . '.blog.index') }}" aria-label="View all blog posts">{{ __('home.blog_view_all') }}</a>
+                                            <a class="tp-btn-red-circle-icon" href="{{ route(current_locale() . '.blog.index') }}" aria-label="Go to blog">
                                                 <span>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -696,17 +696,17 @@
                             $cover = $blog->featured_image ? asset($blog->featured_image) : asset('assets/img/home-08/blog/blog-1.jpg');
                             $primaryCategoryModel = $blog->blogCategories->first();
                             $primaryCategory = optional($primaryCategoryModel)->name ?? 'Blog';
-                            $categoryUrl = route('blog.show', $blog->slug);
+                            $categoryUrl = route(current_locale() . '.blog.show', ['slug' => $blog->slug]);
                             $publishedDate = $blog->published_at ? $blog->published_at->format('M d, Y') : ($blog->created_at ? $blog->created_at->format('M d, Y') : null);
                             @endphp
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".{{ $delay }}">
                                     <div class="ar-blog-thumb p-relative">
-                                        <a href="{{ route('blog.show', $blog->slug) }}"><img class="" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
+                                        <a href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}"><img class="" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
 
                                     </div>
                                     <div class="ar-blog-content">
-                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route('blog.show', $blog->slug) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
+                                        <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
                                         @if($publishedDate)
                                         <span class="ar-blog-meta">{{ $publishedDate }}</span>
                                         @endif

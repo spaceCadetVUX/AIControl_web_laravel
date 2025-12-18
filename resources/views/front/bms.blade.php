@@ -1,31 +1,23 @@
 <!doctype html>
-<html class="no-js" lang="{{ current_locale() }}">
+<html class="no-js" lang="{{ app()->getLocale() }}"> 
 
 <head>
 
 <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
     <title>{{ __('bms.seo_title') }}</title>
-    
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <meta name="description" content="{{ __('bms.seo_description') }}">
     <meta name="keywords" content="{{ __('bms.seo_keywords') }}">
-
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
-    
     <link rel="canonical" href="https://aicontrol.vn/bms">
-
     <meta property="og:title" content="{{ __('bms.og_title') }}">
-    <meta property="og:description" content="{{ __('bms.og_description') }}">
     <meta property="og:url" content="https://aicontrol.vn/bms">
     <meta property="og:site_name" content="{{ __('bms.og_site_name') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://aicontrol.vn/assets/img/seo/bms-system.jpg">
 
     <!-- CSS here -->
-
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
@@ -109,7 +101,7 @@
                                         </h1>
 
                                         <div class="tp_fade_anim" data-delay=".7">
-                                            <a class="tp-btn-black-square" href="{{ route('contact') }}">
+                                            <a class="tp-btn-black-square">
                                                 <span>
                                                     <span class="text-1">{{ __('bms.btn_consult') }}</span>
                                                     <span class="text-2">{{ __('bms.btn_consult') }}</span>
@@ -154,7 +146,7 @@
                             </div>
                             <div class="dgm-hero-text-box" data-background="{{ asset('assets/img/home-03/hero/hero-text-shape.png') }}">
                                 <p>{{ __('bms.hero_box_text') }}</p>
-                                <a class="dgm-hero-arrow" href="{{ route('contact') }}">
+                                <a class="dgm-hero-arrow" >
                                     <span>
                                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5.23804 17.2178L18.2428 8.11173" stroke="#141414" stroke-width="2" stroke-miterlimit="10" />
@@ -299,14 +291,14 @@
                                             <div class="col-lg-5">
                                                 <div class="dgm-service-content-left d-inline-flex align-items-center">
                                                     <span>01</span>
-                                                    <h4 class="dgm-service-title-sm"><a href="{{ route('hvacControl') }}">{!! __('bms.feature1_title') !!}</a>
+                                                    <h4 class="dgm-service-title-sm"><a href="{{ route(current_locale() . '.solution.hvac') }}">{!! __('bms.feature1_title') !!}</a>
                                                     </h4>
                                                 </div>
                                             </div>
                                             <div class="col-lg-7">
                                                 <div class="dgm-service-content-right d-flex align-items-center justify-content-between">
                                                     <p>{!! __('bms.feature1_desc') !!}</p>
-                                                    <a class="dgm-service-link" href="{{ route('hvacControl') }}">
+                                                    <a class="dgm-service-link" href="{{ route(current_locale() . '.solution.hvac') }}">
                                                         <span>
                                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -328,13 +320,13 @@
                                             <div class="col-lg-5">
                                                 <div class="dgm-service-content-left d-inline-flex align-items-center">
                                                     <span>02</span>
-                                                    <h4 class="dgm-service-title-sm"><a href="{{ route('lightingControl') }}">{!! __('bms.feature2_title') !!}</a></h4>
+                                                    <h4 class="dgm-service-title-sm"><a href="{{ route(current_locale() . '.solution.lighting') }}">{!! __('bms.feature2_title') !!}</a></h4>
                                                 </div>
                                             </div>
                                             <div class="col-lg-7">
                                                 <div class="dgm-service-content-right d-flex align-items-center justify-content-between">
                                                     <p>{!! __('bms.feature2_desc') !!}</p>
-                                                    <a class="dgm-service-link" href="{{ route('lightingControl') }}">
+                                                    <a class="dgm-service-link" href="{{ route(current_locale() . '.solution.lighting') }}">
                                                         <span>
                                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -356,13 +348,13 @@
                                             <div class="col-lg-5">
                                                 <div class="dgm-service-content-left d-inline-flex align-items-center">
                                                     <span>03</span>
-                                                    <h4 class="dgm-service-title-sm"><a href="{{ route('contact') }}">{!! __('bms.feature3_title') !!}</a></h4>
+                                                    <h4 class="dgm-service-title-sm"><a >{!! __('bms.feature3_title') !!}</a></h4>
                                                 </div>
                                             </div>
                                             <div class="col-lg-7">
                                                 <div class="dgm-service-content-right d-flex align-items-center justify-content-between">
                                                     <p>{!! __('bms.feature3_desc') !!}</p>
-                                                    <a class="dgm-service-link" href="{{ route('contact') }}">
+                                                    <a class="dgm-service-link" >
                                                         <span>
                                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -384,13 +376,13 @@
                                             <div class="col-lg-5">
                                                 <div class="dgm-service-content-left d-inline-flex align-items-center">
                                                     <span>04</span>
-                                                    <h4 class="dgm-service-title-sm"><a href="{{ route('security') }}">{!! __('bms.feature4_title') !!}</a></h4>
+                                                    <h4 class="dgm-service-title-sm"><a href="{{ route(current_locale() . '.solution.security') }}">{!! __('bms.feature4_title') !!}</a></h4>
                                                 </div>
                                             </div>
                                             <div class="col-lg-7">
                                                 <div class="dgm-service-content-right d-flex align-items-center justify-content-between">
                                                     <p>{!! __('bms.feature4_desc') !!}</p>
-                                                    <a class="dgm-service-link" href="{{ route('security') }}">
+                                                    <a class="dgm-service-link" href="{{ route(current_locale() . '.solution.security') }}">
                                                         <span>
                                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

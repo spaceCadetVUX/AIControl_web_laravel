@@ -19,33 +19,14 @@
                                 </button>
                             </div>
                             <div class="tp-header-8-lang d-none d-md-block">
-                                @php
-                                    $currentPath = request()->path();
-                                    $isEnglish = str_starts_with($currentPath, 'en/') || $currentPath === 'en';
-                                    
-                                    // Get path without locale prefix
-                                    if ($isEnglish) {
-                                        // Remove 'en' or 'en/' prefix
-                                        if ($currentPath === 'en') {
-                                            $pathWithoutLocale = '';
-                                        } else {
-                                            $pathWithoutLocale = substr($currentPath, 3); // Remove 'en/'
-                                        }
-                                    } else {
-                                        $pathWithoutLocale = $currentPath === '/' ? '' : $currentPath;
-                                    }
-                                    
-                                    // Generate URLs
-                                    $viUrl = url($pathWithoutLocale ? '/' . $pathWithoutLocale : '/');
-                                    $enUrl = url($pathWithoutLocale ? '/en/' . $pathWithoutLocale : '/en');
-                                @endphp
-                                <a href="{{ $viUrl }}" class="{{ !$isEnglish ? 'active' : '' }}">VI</a>
-                                <a href="{{ $enUrl }}" class="{{ $isEnglish ? 'active' : '' }}">EN</a>
+                                <a href="{{ switch_locale_url('vi') }}" class="{{ current_locale() === 'vi' ? 'active' : '' }}">VI</a>
+                                <a href="{{ switch_locale_url('en') }}" class="{{ current_locale() === 'en' ? 'active' : '' }}">EN</a>
                             </div>
+
                         </div>
                         <div class="tp-header-8-middle">
                             <div class="tp-header-logo">
-                              <a href="{{ localized_route('home') }}">
+                              <a href="{{ url(current_locale()) }}">
 
                                     <img data-width="200" src="{{ assets('assets/AIcontrol_imgs/mian_Icon/aicontrol-co-mau.svg') }}" alt="AIControl Homepage">
                                 </a>
@@ -80,36 +61,36 @@
     <nav class="tp-mobile-menu-active d-none">
         <ul>
             <li>
-                <a style="color: black" href="{{ localized_route('home') }}">{{ __('header.nav_home') }}</a>
+                <a style="color: black" href="{{ url(current_locale()) }}">{{ __('header.nav_home') }}</a>
             </li>
             <li class="has-dropdown p-static is-active">
                 <a href="#">{{ __('header.nav_solutions') }}</a>
                 <ul class="tp-submenu submenu">
-                    <li><a href="{{ localized_route('lightingControl') }}">{{ __('header.solution_lighting') }}</a></li>
-                    <li><a href="{{ localized_route('shade') }}">{{ __('header.solution_shade') }}</a></li>
-                    <li><a href="{{ localized_route('hvacControl') }}">{{ __('header.solution_hvac') }}</a></li>
-                    <li><a href="{{ localized_route('security') }}">{{ __('header.solution_security') }}</a></li>
-                    <li><a href="{{ localized_route('bms') }}">{{ __('header.solution_bms') }}</a></li>
-                    <li><a href="{{ localized_route('hotelControl') }}">{{ __('header.solution_hotel') }}</a></li>
+                    <li><a href="{{ route(current_locale() . '.solution.lighting') }}">{{ __('header.solution_lighting') }}</a></li>
+                    <li><a href="{{ route(current_locale() . '.solution.shade') }}">{{ __('header.solution_shade') }}</a></li>
+                    <li><a href="{{ route(current_locale() . '.solution.hvac') }}">{{ __('header.solution_hvac') }}</a></li>
+                    <li><a href="{{ route(current_locale() . '.solution.security') }}">{{ __('header.solution_security') }}</a></li>
+                    <li><a href="{{ route(current_locale() . '.solution.bms') }}">{{ __('header.solution_bms') }}</a></li>
+                    <li><a href="{{ route(current_locale() . '.solution.hotel') }}">{{ __('header.solution_hotel') }}</a></li>
                 </ul>
             </li>
             <li class="has-dropdown p-static is-active">
                 <a href="#">{{ __('header.nav_partners') }}</a>
                 <ul class="tp-submenu submenu">
-                    <li><a href="{{ localized_route('abb') }}">{{ __('header.partner_abb') }}</a></li>      
-                    <li><a href="{{ localized_route('legrand') }}">{{ __('header.partner_legrand') }}</a></li>
-                    <li><a href="{{ localized_route('vantage') }}">{{ __('header.partner_vantage') }}</a></li>
-                    <li><a href="{{ localized_route('cpElectronics') }}">{{ __('header.partner_cp') }}</a></li>
+                <li><a href="{{ route(current_locale() . '.abb') }}">ABB</a></li>
+                <li><a href="{{ route(current_locale() . '.legrand') }}">Legrand</a></li>
+                <li><a href="{{ route(current_locale() . '.vantage') }}">Vantage</a></li>
+                <li><a href="{{ route(current_locale() . '.cpElectronics') }}">CP Electronics</a></li>
                 </ul>
             </li>
             <li class="is-active">
-                <a href="{{ localized_route('shop') }}">{{ __('header.nav_products') }}</a>
+                <a href="{{ url(current_locale().'/san-pham') }}">{{ __('header.nav_products') }}</a>
             </li>
             <li class="is-active">
-                <a href="{{ localized_route('projects.index') }}">{{ __('header.nav_projects') }}</a>
+                <a href="{{ url(current_locale().'/du-an') }}">{{ __('header.nav_projects') }}</a>
             </li>
             <li class="is-active">
-                <a href="{{ localized_route('blogs') }}">{{ __('header.nav_blogs') }}</a>
+                <a href="{{ url(current_locale().'/blog') }}">{{ __('header.nav_blogs') }}</a>
             </li>
             {{-- <li class="has-dropdown is-active">
                 <a href="#">Về chúng tôi</a>
@@ -142,7 +123,7 @@
                 <div class="tp-search-content">
                     <h3 class="tp-search-title mb-40">{{ __('header.search_title') }}</h3>
                     <div class="tp-search-form-wrapper p-relative">
-                        <form action="{{ localized_route('shop') }}" method="GET" id="headerSearchForm">
+                        <form action="{{ url(current_locale().'/san-pham') }}" method="GET" id="headerSearchForm">
                             <div class="tp-search-input-box position-relative">
                                 <input type="text" 
                                        name="q"
@@ -150,8 +131,8 @@
                                        class="tp-search-input" 
                                        placeholder="{{ __('header.search_placeholder') }}"
                                        autocomplete="off"
-                                       data-autocomplete-url="{{ localized_route('product.autocomplete') }}"
-                                       data-shop-url="{{ localized_route('shop') }}">
+                                       data-autocomplete-url="{{ url(current_locale().'/api/products/autocomplete') }}"
+                                       data-shop-url="{{ url(current_locale().'/san-pham') }}">
                                 <button type="submit" class="tp-search-submit-btn" aria-label="Search">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M19.0004 18.9999L14.6504 14.6499M17.0001 9.00004C17.0001 13.4183 13.4183 17.0001 9.00004 17.0001C4.58174 17.0001 1 13.4183 1 9.00004C1 4.58174 4.58174 1 9.00004 1C13.4183 1 17.0001 4.58174 17.0001 9.00004Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

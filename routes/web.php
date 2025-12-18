@@ -8,76 +8,117 @@ use App\Http\Controllers\Front\ProjectController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application.
-| These routes handle both front-end (public pages)
-| and admin pages (authenticated users).
-|
-*/
 
-// Helper function to register routes for both default locale (vi) and other locales
-$registerLocalizedRoutes = function () {
-    // ----------------------------
-    // FRONT PAGES (public)
-    // ----------------------------
+
+
+Route::get('/', function () {
+    return redirect('/vi/', 301);
+});
+
+
+// ==============================
+// VIETNAMESE ROUTES (/vi)
+// ==============================
+Route::prefix('vi')->name('vi.')->group(function () {
+    Route::get('/', [PageController::class, 'index'])->name('index');
+
+    
+    // FRONT PAGES
     Route::controller(PageController::class)->group(function () {
-        Route::get('/', 'index')->name('home');
+        Route::get('/dieu-khien-chieu-sang', 'lightingControl')->name('solution.lighting');
+        Route::get('/rem-tu-dong', 'shade')->name('solution.shade');
+        Route::get('/dieu-khien-hvac', 'hvacControl')->name('solution.hvac');
+        Route::get('/he-thong-an-ninh', 'security')->name('solution.security');
+        Route::get('/bms', 'bms')->name('solution.bms');
+        Route::get('/dieu-khien-phong-khach-san', 'hotelControl')->name('solution.hotel');
+        Route::get('/contact', 'contact')->name('contact');
+
+        // PARTNERS PAGES (VIETNAMESE)
         Route::get('/abb', 'abb')->name('abb');
         Route::get('/legrand', 'legrand')->name('legrand');
-        Route::get('/cp-electronics', 'cpElectronics')->name('cpElectronics');
         Route::get('/vantage', 'vantage')->name('vantage');
-        Route::get('/dieu-khien-chieu-sang', 'lightingControl')->name('lightingControl');
-        Route::get('/rem-tu-dong', 'shade')->name('shade');
-        Route::get('/dieu-khien-hvac', 'hvacControl')->name('hvacControl');
-        Route::get('/he-thong-an-ninh', 'security')->name('security');
-        Route::get('/bms', 'bms')->name('bms');
-        Route::get('/dieu-khien-khach-san', 'hotelControl')->name('hotelControl');
-        Route::get('/contact', 'contact')->name('contact');
+        Route::get('/cp-electronics', 'cpElectronics')->name('cpElectronics');
     });
 
-    // ----------------------------
-    // BLOG PAGES
-    // ----------------------------
+    // BLOG
     Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
-        Route::get('/', 'index')->name('index'); // /blog = blog listing
-        Route::get('/category/{category}', 'byCategory')->name('category'); // /blog/category/{name}
-        Route::get('/search', 'search')->name('search'); // /blog/search?q=keyword
-        Route::get('/{slug}', 'show')->name('show'); // /blog/{slug} = blog detail
+        Route::get('/', 'index')->name('index');
+        Route::get('/category/{category}', 'byCategory')->name('category');
+        Route::get('/search', 'search')->name('search');
+        Route::get('/{slug}', 'show')->name('show');
     });
 
-    // Legacy route for backwards compatibility
-    Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
-
-    // ----------------------------
-    // PROJECT PAGES
-    // ----------------------------
+    // PROJECTS
     Route::controller(ProjectController::class)->prefix('du-an')->name('projects.')->group(function () {
-        Route::get('/', 'index')->name('index'); // /du-an = projects listing
-        Route::get('/danh-muc/{category}', 'byCategory')->name('category'); // /du-an/danh-muc/{slug}
-        Route::get('/{slug}', 'show')->name('show'); // /du-an/{slug} = project detail
+        Route::get('/', 'index')->name('index');
+        Route::get('/danh-muc/{category}', 'byCategory')->name('category');
+        Route::get('/{slug}', 'show')->name('show');
     });
 
-    // ----------------------------
-    // PRODUCT PAGES
-    // ----------------------------
+    // PRODUCTS
     Route::controller(ProductController::class)->group(function () {
         Route::get('/san-pham', 'index')->name('shop');
         Route::get('/san-pham/{slug}', 'show')->name('product.show');
         Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
         Route::get('/search', 'search')->name('product.search');
-        Route::get('/api/products/autocomplete', 'autocomplete')->name('product.autocomplete');
     });
-};
 
-// Register routes for default locale (Vietnamese - no prefix)
-$registerLocalizedRoutes();
+});
 
-// Register routes for English with /en prefix
-Route::prefix('en')->group($registerLocalizedRoutes);
+// ==============================
+// ENGLISH ROUTES (/en)
+// ==============================
+Route::prefix('en')->name('en.')->group(function () {
+     Route::get('/', [PageController::class, 'index'])->name('index');
+    // FRONT PAGES
+    Route::controller(PageController::class)->group(function () {
+    Route::get('/lighting-control-solutions', 'lightingControl')
+        ->name('solution.lighting');
+    Route::get('/automatic-shading-solutions', 'shade')
+        ->name('solution.shade');
+    Route::get('/hvac-control-solutions', 'hvacControl')
+        ->name('solution.hvac');
+    Route::get('/security-systems', 'security')
+        ->name('solution.security');
+    Route::get('/building-management-system', 'bms')
+        ->name('solution.bms');
+    Route::get('/hotel-room-management-system', 'hotelControl')
+        ->name('solution.hotel');
+    Route::get('/contact', 'contact')->name('contact');
+
+    // Partners pages (English)
+    Route::get('/abb', 'abb')->name('abb');
+    Route::get('/legrand', 'legrand')->name('legrand');
+    Route::get('/vantage', 'vantage')->name('vantage');
+    Route::get('/cp-electronics', 'cpElectronics')->name('cpElectronics');
+});
+
+
+    // BLOG
+    Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/category/{category}', 'byCategory')->name('category');
+        Route::get('/search', 'search')->name('search');
+        Route::get('/{slug}', 'show')->name('show');
+    });
+
+    // PROJECTS
+    Route::controller(ProjectController::class)->prefix('projects')->name('projects.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/category/{category}', 'byCategory')->name('category');
+        Route::get('/{slug}', 'show')->name('show');
+    });
+
+    // PRODUCTS
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/products', 'index')->name('shop');
+        Route::get('/products/{slug}', 'show')->name('product.show');
+        Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
+        Route::get('/search', 'search')->name('product.search');
+    });
+
+});
+
 
 // ----------------------------
 // PROFILE PAGES (protected by auth)

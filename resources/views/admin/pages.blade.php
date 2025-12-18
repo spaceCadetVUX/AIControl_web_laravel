@@ -120,7 +120,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('lightingControl') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.solution.lighting') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>
@@ -137,7 +137,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('hvacControl') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.solution.hvac') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>
@@ -154,7 +154,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('security') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.solution.security') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>

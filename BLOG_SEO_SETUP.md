@@ -319,7 +319,7 @@ The BlogController now handles all blog routes.
 @foreach($blogs as $blog)
 <div class="blog-item">
     <h3>
-        <a href="{{ route('blog.show', $blog->slug) }}">
+        <a href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}">
             {{ $blog->title }}
         </a>
     </h3>
