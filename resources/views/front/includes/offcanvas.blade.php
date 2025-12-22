@@ -6,7 +6,7 @@
         <div class="tp-offcanvas-2-left left-box">
             <div class="tp-offcanvas-2-left-wrap d-flex justify-content-between align-items-center">
                 <div class="tp-offcanvas-2-logo">
-                    <a href="index.html">
+                    <a href="{{ route(current_locale() . '.index') }}">
                         <img class="logo-1" data-width="140" src="{{ assets('assets/AIcontrol_imgs/mian_Icon/aicontrol-co-mau.svg') }}" alt="">
                         <img class="logo-2" data-width="140" src="{{ assets('assets/AIcontrol_imgs/mian_Icon/aicontrol-co-mau.svg') }}" alt="">
                     </a>

@@ -14,22 +14,25 @@
                 <div class="col-lg-8">
                     <div class="tp-search-content">
                         <div class="search p-relative">
-                            <form action="{{ route('shop') }}" method="GET" id="headerSearchForm">
-                                <input type="text" 
-                                       name="q"
-                                       id="header-search-input"
-                                       class="search-input" 
-                                       placeholder="Tìm kiếm sản phẩm, SKU..."
-                                       autocomplete="off"
-                                       data-autocomplete-url="{{ route('product.autocomplete') }}"
-                                       data-shop-url="{{ route('shop') }}">
-                                <button type="submit" class="tp-search-icon" aria-label="Search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                        <path d="M18.0508 18.05L23.0009 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M20.8004 10.9C20.8004 5.43237 16.3679 1 10.9002 1C5.43246 1 1 5.43237 1 10.9C1 16.3676 5.43246 20.7999 10.9002 20.7999C16.3679 20.7999 20.8004 16.3676 20.8004 10.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                                    </svg>
-                                </button>
+                            <form action="{{ route(current_locale() . '.product.shop') }}" method="GET" id="headerSearchForm">
+                                <input type="text"
+                                    name="q"
+                                    id="header-search-input"
+                                    class="search-input"
+                                    placeholder="Tìm kiếm sản phẩm, SKU..."
+                                    autocomplete="off"
+                                    data-autocomplete-url="{{ route(current_locale() . '.product.autocomplete') }}"
+                                    data-shop-url="{{ route(current_locale() . '.product.shop') }}">
+                                <button type="submit"
+                                    class="tp-search-icon"
+                                    aria-label="Search"
+                                    >
+                                                        <i class="fal fa-search"></i>
+
+                            </button>
+
                             </form>
+
                             
                             <!-- Autocomplete Dropdown -->
                             <div id="header-autocomplete-dropdown" class="autocomplete-dropdown" style="display: none;">

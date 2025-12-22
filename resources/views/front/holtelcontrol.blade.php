@@ -117,7 +117,8 @@
                                             <h4 style="color: #34679A;"><span data-purecounter-duration="1" data-purecounter-end="50" class="purecounter">0</span>+</h4>
                                             <div class="crp-hero-funfact-more-details d-flex justify-content-between">
                                                 <p style="color: #16304b;">{{ __('hotel.stat_hotels') }}</p>
-                                                <a href="{{ route('projects.index') }}">
+                                                <a href="{{ route(app()->getLocale() . '.projects.index') }}
+">
                                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M2 16L16 2M16 2V16M16 2L2 2" stroke="#2A4C3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
@@ -128,11 +129,11 @@
                                             <h4 style="color: #34679A;"><span data-purecounter-duration="1" data-purecounter-end="40" class="purecounter">0</span>%</h4>
                                             <div class="crp-hero-funfact-more-details d-flex justify-content-between">
                                                 <p style="color: #16304b;">{{ __('hotel.stat_energy_saving') }}</p>
-                                                <a href="{{ route('contact') }}">
+                                                {{-- <a href="{{ route('contact') }}">
                                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M2 16L16 2M16 2V16M16 2L2 2" stroke="#2A4C3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -180,19 +181,19 @@
                                         </h4>
                                         <div class="crp-about-bottom-wrap d-flex">
                                             <div class="crp-about-btn-box tp_fade_anim" data-delay=".5">
-                                                <a class="tp-btn-yellow-green lg" href="{{ route('contact') }}">
+                                                {{-- <a class="tp-btn-yellow-green lg" href="{{ route('contact') }}">
                                                     <span>
                                                         <span class="text-1">Tư Vấn GRMS</span>
                                                         <span class="text-2">Tư Vấn GRMS</span>
                                                     </span>
-                                                </a>
+                                                </a> --}}
                                             </div>
                                             <div class="crp-about-text tp_fade_anim" data-delay=".7">
                                                 <p>
                                                     AIControl cung cấp giải pháp GRMS tích hợp hoàn chỉnh với
-                                                    <a href="{{ route('vantage') }}">Vantage</a>, 
-                                                    <a href="{{ route('legrand') }}">Legrand</a>, và 
-                                                    <a href="{{ route('abb') }}">ABB</a>, 
+                                                    <a href="{{  route(current_locale() . '.vantage') }}">Vantage</a>, 
+                                                    <a href="{{ route(current_locale() . '.legrand') }}">Legrand</a>, và 
+                                                    <a href="{{ route(current_locale() . '.abb') }}">ABB</a>, 
                                                     giúp khách sạn nâng cao chất lượng dịch vụ và giảm 40% chi phí vận hành.
                                                 </p>
                                             </div>

@@ -202,12 +202,13 @@
                 const highlightedName = highlightText(product.name, keyword);
                 const highlightedSku = highlightText(product.sku || '', keyword);
                 const highlightedBrand = highlightText(product.brand || '', keyword);
-                const productUrl = `/san-pham/${product.slug}`;
+                const productUrl = product.url; // ✅ locale-safe URL
                 const imageUrl = product.image_url || '/assets/img/no-image.png';
                 
                 html += `
                     <a href="${productUrl}" class="autocomplete-item">
-                        <img src="${imageUrl}" alt="${product.name}" class="autocomplete-item-image" onerror="this.src='/assets/img/no-image.png'">
+                        <img src="${imageUrl}" alt="${product.name}" class="autocomplete-item-image" onerror="this.onerror=null;this.src='/assets/img/product/default.jpg'"
+
                         <div class="autocomplete-item-info">
                             <div class="autocomplete-item-name">${highlightedName}</div>
                             <div class="autocomplete-item-meta">

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="{{ app()->getLocale() }}">
+<html class="no-js" lang="{{ current_locale() }}">
 
 <head>
 

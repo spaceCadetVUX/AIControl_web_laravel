@@ -11,14 +11,24 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $supportedLocales = ['vi', 'en'];
+        // Routes that must NOT be localized
+        if (
+            $request->is('login') ||
+            $request->is('logout') ||
+            $request->is('register') ||
+            $request->is('password/*') ||
+            $request->is('admin') ||
+            $request->is('admin/*')
+        ) {
+            return $next($request);
+        }
 
+        $supportedLocales = ['vi', 'en'];
         $locale = $request->segment(1);
 
         if (!in_array($locale, $supportedLocales)) {
             $locale = config('app.fallback_locale', 'vi');
 
-            // Redirect to URL with default locale
             return redirect("/{$locale}/" . ltrim($request->path(), '/'));
         }
 

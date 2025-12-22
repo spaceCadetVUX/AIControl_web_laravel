@@ -91,7 +91,7 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Sản phẩm",
-          "item": "{{ route('shop') }}"
+          "item": "{{ route(current_locale() . '.shop') }}"
         },
         {
           "@type": "ListItem",

@@ -26,7 +26,7 @@
     <meta property="og:title" content="{{ $product->og_title ?? $product->meta_title ?? $product->name }}">
     <meta property="og:description" content="{{ $product->og_description ?? $product->meta_description ?? $product->short_description }}">
     <meta property="og:image" content="{{ $product->image_url ? (str_starts_with($product->image_url, 'http') ? $product->image_url : asset($product->image_url)) : asset('assets/img/default-product.jpg') }}">
-    <meta property="og:url" content="{{ route('product.show', $product->slug) }}">
+    <meta property="og:url" content="{{ route(app()->getLocale() . '.product.show', $product->slug) }}">
     <meta property="og:site_name" content="AIControl Vietnam">
     <meta property="product:price:amount" content="{{ $product->sale_price ?? $product->price }}">
     <meta property="product:price:currency" content="{{ $product->currency }}">
@@ -64,7 +64,7 @@
       },
       "offers": {
         "@type": "Offer",
-        "url": "{{ route('product.show', $product->slug) }}",
+        "url": "{{ route(app()->getLocale() . '.product.show', $product->slug) }}",
         "priceCurrency": "{{ $product->currency }}",
         "price": "{{ $product->sale_price ?? $product->price }}",
         "availability": "https://schema.org/{{ $product->stock_status == 'in_stock' ? 'InStock' : 'OutOfStock' }}",
@@ -87,37 +87,39 @@
     {{-- Breadcrumb Schema --}}
     
 
-    <script type="application/ld+json">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
     {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Trang chủ",
-          "item": "{{ route('home') }}"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Sản phẩm",
-          "item": "{{ route('shop') }}"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "{{ $product->brand }}",
-          "item": "{{ route('brand.products', $product->brand) }}"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "{{ $product->name }}"
-        }
-      ]
+      "@type": "ListItem",
+      "position": 1,
+      "name": "{{ __('Trang chủ') }}",
+      "item": "{{ route(current_locale() . '.index') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ __('Sản phẩm') }}",
+      "item": "{{ route(current_locale() . '.product.shop') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ $product->brand }}",
+      "item": "{{ route(current_locale() . '.product.brand', $product->brand) }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "{{ $product->name }}"
     }
-    </script>
+  ]
+}
+</script>
+
+
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
@@ -224,9 +226,9 @@
                             <div class="col-lg-12">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Trang chủ</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('shop') }}">Sản phẩm</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('brand.products', $product->brand) }}">{{ $product->brand }}</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ route(current_locale() . '.index') }}">Trang chủ</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ route(current_locale() . '.product.shop') }}">Sản phẩm</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ route(current_locale() . '.product.brand', $product->brand) }}">{{ $product->brand }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                                     </ol>
                                 </nav>
@@ -411,9 +413,9 @@
                                         <a href="tel:0918918755" class="btn">
                                             <i class="fa fa-phone"></i> <span class="d-none d-sm-inline">Gọi ngay: </span>0918918755
                                         </a>
-                                        <a href="{{ route('contact') }}" class="btn btn-outline-primary">
+                                        {{-- <a href="{{ route(current_locale() . '.contact') }}" class="btn btn-outline-primary">
                                             <i class="fa fa-envelope"></i> Liên hệ tư vấn
-                                        </a>
+                                        </a> --}}
                                     </div>
 
                                     <!-- Categories & Tags -->
@@ -464,7 +466,7 @@
                                             </div>
                                             <h5>{{ Str::limit($relatedProduct->name, 50) }}</h5>
                                             <p class="text-primary fw-bold">{{ number_format($relatedProduct->sale_price ?? $relatedProduct->price, 0, ',', '.') }}đ</p>
-                                            <a href="{{ route('product.show', $relatedProduct->slug) }}" class="btn btn-sm btn-outline-primary w-100">Xem chi tiết</a>
+                                            <a href="{{ route(current_locale() . '.product.show', $relatedProduct->slug) }}" class="btn btn-sm btn-outline-primary w-100">Xem chi tiết</a>
                                         </div>
                                     </div>
                                     @endforeach

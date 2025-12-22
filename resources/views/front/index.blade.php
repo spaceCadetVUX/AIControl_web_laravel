@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="{{ app()->getLocale() }}">
+<html class="no-js agntix-light" lang="{{ current_locale() }}">
 
 <head>
     <meta charset="utf-8">

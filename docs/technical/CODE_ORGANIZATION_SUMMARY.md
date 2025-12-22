@@ -40,7 +40,7 @@ Successfully extracted all inline CSS and JavaScript from `shop.blade.php` and o
   - Updated autocomplete dropdown ID from `autocompleteResults` to `autocomplete-dropdown`
   - Added data attributes to search input:
     - `data-autocomplete-url="{{ route('product.autocomplete') }}"`
-    - `data-shop-url="{{ route('shop') }}"`
+    - `data-shop-url="{{ route(current_locale() . '.shop') }}"`
   - Added shop.js script include: `<script src="{{ assets('assets/js/shop.js') }}"></script>`
 
 ---
@@ -54,7 +54,7 @@ Since external JavaScript files cannot use Laravel Blade syntax (`{{ route() }}`
 <input type="text" 
        id="search-input" 
        data-autocomplete-url="{{ route('product.autocomplete') }}"
-       data-shop-url="{{ route('shop') }}">
+       data-shop-url="{{ route(current_locale() . '.shop') }}">
 ```
 
 The JavaScript then reads these attributes:

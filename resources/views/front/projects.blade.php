@@ -118,7 +118,7 @@
                                         <!-- Search Widget -->
                                         <div class="sidebar-widget sidebar-search-widget mb-40">
                                             <div class="search-form" style="position: relative;">
-                                                <form action="{{ route('projects.index') }}" method="GET">
+                                                <form action="{{ route(app()->getLocale() . '.projects.index') }}" method="GET">
                                                     <div class="sidebar-search-input position-relative">
                                                         <input type="text" name="search" placeholder="Tìm kiếm dự án..." value="{{ request('search') }}">
                                                         <button type="submit">
@@ -140,7 +140,7 @@
                                             <div class="sidebar-widget-category">
                                                 <ul class="category-list">
                                                     <li>
-                                                        <a class="d-flex align-items-center justify-content-between {{ (!isset($selectedCategory) && !isset($category)) ? 'active' : '' }}" href="{{ route('projects.index') }}">
+                                                        <a class="d-flex align-items-center justify-content-between {{ (!isset($selectedCategory) && !isset($category)) ? 'active' : '' }}" href="{{ route(current_locale() . '.projects.index') }}">
                                                             <span class="category-icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                                     <circle cx="12" cy="12" r="10"></circle>
@@ -159,7 +159,8 @@
                                                     </li>
                                                     @foreach($categories as $cat)
                                                     <li>
-                                                        <a class="d-flex align-items-center justify-content-between {{ (isset($selectedCategory) && $selectedCategory->id == $cat->id) || (isset($category) && $category->id == $cat->id) ? 'active' : '' }}" href="{{ route('projects.category', $cat->slug) }}">
+                                                        <a class="d-flex align-items-center justify-content-between {{ (isset($selectedCategory) && $selectedCategory->id == $cat->id) || (isset($category) && $category->id == $cat->id) ? 'active' : '' }}" href="{{ route(current_locale() . '.projects.category', $cat->slug) }}"
+>
                                                             <span class="category-icon">
                                                                 @if($cat->icon)
                                                                     <i class="{{ $cat->icon }}"></i>

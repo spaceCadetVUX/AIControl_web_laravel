@@ -260,14 +260,19 @@ class ProductController extends Controller
         $products = Product::published()
             ->where(function($query) use ($keyword) {
                 $query->where('name', 'LIKE', "%{$keyword}%")
-                      ->orWhere('sku', 'LIKE', "%{$keyword}%")
-                      ->orWhere('brand', 'LIKE', "%{$keyword}%");
+                    ->orWhere('sku', 'LIKE', "%{$keyword}%")
+                    ->orWhere('brand', 'LIKE', "%{$keyword}%");
             })
             ->select('id', 'name', 'sku', 'slug', 'brand', 'image_url', 'price')
-            ->distinct()
-            ->orderBy('name', 'asc')
             ->limit(7)
-            ->get();
+            ->get()
+            ->map(function ($product) {
+                $product->url = route(current_locale() . '.product.show', $product->slug);
+                return $product;
+            });
+
+
+
 
         $total = Product::published()
             ->where(function($query) use ($keyword) {
@@ -278,10 +283,28 @@ class ProductController extends Controller
             ->distinct()
             ->count('id');
 
+            
+            $products = $products->map(function ($product) {
+            return [
+                'id'        => $product->id,
+                'name'      => $product->name,
+                'sku'       => $product->sku,
+                'brand'     => $product->brand,
+                'image_url' => $product->image_url
+                    ? (str_starts_with($product->image_url, 'http')
+                        ? $product->image_url
+                        : asset($product->image_url))
+                    : asset('assets/img/no-image.png'),
+                'price'     => $product->price,
+                'url'       => route(app()->getLocale() . '.product.show', $product->slug),
+            ];
+        });
+
         return response()->json([
             'products' => $products,
             'total' => $total,
             'hasMore' => $total > 7
         ]);
+
     }
 }

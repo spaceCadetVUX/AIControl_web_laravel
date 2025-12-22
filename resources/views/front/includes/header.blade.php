@@ -23,10 +23,11 @@
                                 <a href="{{ switch_locale_url('en') }}" class="{{ current_locale() === 'en' ? 'active' : '' }}">EN</a>
                             </div>
 
+
                         </div>
                         <div class="tp-header-8-middle">
                             <div class="tp-header-logo">
-                              <a href="{{ url(current_locale()) }}">
+                              <a href="{{ route(current_locale() . '.index') }}">
 
                                     <img data-width="200" src="{{ assets('assets/AIcontrol_imgs/mian_Icon/aicontrol-co-mau.svg') }}" alt="AIControl Homepage">
                                 </a>
@@ -84,7 +85,7 @@
                 </ul>
             </li>
             <li class="is-active">
-                <a href="{{ url(current_locale().'/san-pham') }}">{{ __('header.nav_products') }}</a>
+                <a href="{{ route(current_locale().'.product.shop') }}">{{ __('header.nav_products') }}</a>
             </li>
             <li class="is-active">
                 <a href="{{ url(current_locale().'/du-an') }}">{{ __('header.nav_projects') }}</a>
@@ -123,27 +124,27 @@
                 <div class="tp-search-content">
                     <h3 class="tp-search-title mb-40">{{ __('header.search_title') }}</h3>
                     <div class="tp-search-form-wrapper p-relative">
-                        <form action="{{ url(current_locale().'/san-pham') }}" method="GET" id="headerSearchForm">
+                        <form action="{{ route(current_locale() . '.product.shop') }}" method="GET" id="headerSearchForm">
                             <div class="tp-search-input-box position-relative">
-                                <input type="text" 
-                                       name="q"
-                                       id="header-search-input"
-                                       class="tp-search-input" 
-                                       placeholder="{{ __('header.search_placeholder') }}"
-                                       autocomplete="off"
-                                       data-autocomplete-url="{{ url(current_locale().'/api/products/autocomplete') }}"
-                                       data-shop-url="{{ url(current_locale().'/san-pham') }}">
+                                <input type="text"
+                                    name="q"
+                                    id="header-search-input"
+                                    class="tp-search-input"
+                                    placeholder="{{ __('header.search_placeholder') }}"
+                                    autocomplete="off"
+                                    data-autocomplete-url="{{ route(current_locale() . '.product.autocomplete') }}"
+                                    data-shop-url="{{ route(current_locale() . '.product.shop') }}">
                                 <button type="submit" class="tp-search-submit-btn" aria-label="Search">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M19.0004 18.9999L14.6504 14.6499M17.0001 9.00004C17.0001 13.4183 13.4183 17.0001 9.00004 17.0001C4.58174 17.0001 1 13.4183 1 9.00004C1 4.58174 4.58174 1 9.00004 1C13.4183 1 17.0001 4.58174 17.0001 9.00004Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
+                                    <!-- SVG -->
+                                     <i class="fal fa-search"></i>
                                 </button>
                             </div>
                         </form>
+
                         
                         <!-- Autocomplete Dropdown -->
                         <div id="header-autocomplete-dropdown" class="autocomplete-dropdown" style="display: none;">
-                            <div class="autocomplete-list"></div>
+                            <div class="autocomplete-list"></div>   
                         </div>
                     </div>
                     <div class="tp-search-hint mt-30">

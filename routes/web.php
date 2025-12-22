@@ -12,8 +12,9 @@ use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () {
-    return redirect('/vi/', 301);
-});
+    return redirect()->to(url('vi'), 301);
+})->name('home');
+
 
 
 // ==============================
@@ -56,12 +57,20 @@ Route::prefix('vi')->name('vi.')->group(function () {
     });
 
     // PRODUCTS
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('/san-pham', 'index')->name('shop');
-        Route::get('/san-pham/{slug}', 'show')->name('product.show');
-        Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
-        Route::get('/search', 'search')->name('product.search');
+    Route::controller(ProductController::class)
+    ->prefix('san-pham')
+    ->name('product.')
+    ->group(function () {
+        Route::get('/', 'index')->name('shop');
+
+        Route::get('/search', 'search')->name('search');
+        Route::get('/autocomplete', 'autocomplete')->name('autocomplete');
+        Route::get('/brand/{brand}', 'byBrand')->name('brand');
+
+        Route::get('/{slug}', 'show')->name('show');
     });
+
+
 
 });
 
@@ -110,12 +119,21 @@ Route::prefix('en')->name('en.')->group(function () {
     });
 
     // PRODUCTS
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('/products', 'index')->name('shop');
-        Route::get('/products/{slug}', 'show')->name('product.show');
-        Route::get('/brand/{brand}', 'byBrand')->name('brand.products');
-        Route::get('/search', 'search')->name('product.search');
+    Route::controller(ProductController::class)
+    ->prefix('products')
+    ->name('product.')
+    ->group(function () {
+        Route::get('/', 'index')->name('shop');
+
+        Route::get('/search', 'search')->name('search');
+        Route::get('/autocomplete', 'autocomplete')->name('autocomplete');
+        Route::get('/brand/{brand}', 'byBrand')->name('brand');
+
+        Route::get('/{slug}', 'show')->name('show');
     });
+
+
+
 
 });
 
