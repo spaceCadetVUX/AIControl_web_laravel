@@ -7,7 +7,7 @@ return [
     'meta_keywords' => 'CP Electronics, điều khiển chiếu sáng, cảm biến chiếu sáng, tiết kiệm năng lượng, Legrand, AIControl, CP Electronics Việt Nam, điều khiển tòa nhà, cảm biến hiện diện, BMS, quản lý năng lượng',
     'og_title' => 'Thương hiệu CP Electronics | Giải pháp tự động hóa & quản lý tòa nhà | AIControl Việt Nam',
     'og_description' => 'CP Electronics – thương hiệu thuộc Legrand, cung cấp giải pháp điều khiển chiếu sáng, cảm biến thông minh và quản lý năng lượng hiệu quả cho mọi loại công trình.',
-    
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_subtitle' => 'CP Electronics',
     'hero_title' => 'Đối Tác',

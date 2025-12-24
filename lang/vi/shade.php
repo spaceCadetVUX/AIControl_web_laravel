@@ -9,7 +9,7 @@ return [
     // Open Graph
     'og_title' => 'AIControl | Hệ thống rèm tự động thông minh cho công trình thương mại',
     'og_description' => 'Giải pháp rèm tự động của AIControl mang đến sự tiện nghi, sang trọng và tiết kiệm năng lượng, dễ dàng tích hợp vào hệ thống nhà thông minh.',
-
+    'og_image_alt'=>'Logo AIControl Việt Nam',
     // Hero Section
     'hero_content' => '<span class="heading-h1-highlight">RÈM CỬA</span> <br> TỰ ĐỘNG',
     'hero_description' => 'Vận hành mượt mà, tinh tế<br>Tạo không gian tiên nghi và đẳng cấp',

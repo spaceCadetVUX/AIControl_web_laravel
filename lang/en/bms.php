@@ -8,7 +8,7 @@ return [
     // Open Graph (Facebook/Zalo)
     'og_title' => 'BMS Solutions | Smart Building Management Systems | AIControl Vietnam',
     'og_description' => 'AIControl Vietnam provides comprehensive BMS solutions: HVAC, lighting, security, energy, and integrated automation for smart buildings.',
-    'og_site_name' => 'AIControl Vietnam',
+    'og_image_alt' => 'AIControl Vietnam logo',
 
     // ... existing SEO keys ...
 

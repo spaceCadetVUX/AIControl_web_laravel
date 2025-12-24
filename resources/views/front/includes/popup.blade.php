@@ -1,308 +1,250 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <!-- Adding Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>AIControl Contact Popup</title>
     
+    <!-- Font Awesome cho icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- CSS đặt trực tiếp trong HTML -->
     <style>
-
-
-        /* --- New Button Style --- */
-        .open-popup-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            background-color: #0052d4;
-            color: white;
-            border: none;
-            border-radius: 8px;
+        /* Nút nổi mở popup (góc dưới phải) */
+        .contact-float-btn {
+            position: fixed;
+            right: 50px;
+            bottom: 120px;
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0px 8px 16px rgba(3, 4, 28, 0.3);
             cursor: pointer;
-            z-index: 99; /* Below popup */
-            transition: all 0.2s ease;
+            z-index: 99;
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+            visibility: visible;
         }
-        .open-popup-button:hover {
-            background-color: #0041a8;
+
+        .contact-float-btn:hover {
+            transform: translateY(-3px);
         }
 
+        @media (max-width: 767px) {
+            .contact-float-btn {
+                right: 20px;
+                bottom: 120px;
+            }
+        }
 
-        /* --- Popup Styles --- */
-
-        /* 1. The dark background overlay */
+        /* Overlay */
         .popup-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.65); /* Dark semi-transparent */
-            
-            /* Center the card */
-            display: none; /* CHANGED: Hidden by default */
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            display: none;
             place-items: center;
             z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        /* 2. The main popup card */
+        .popup-overlay.active {
+            display: grid;
+            opacity: 1;
+        }
+
+        /* Card popup */
         .popup-card {
-            position: relative;
             width: 90%;
-            max-width: 400px;
-            /* Updated: Removed white background, set to light gray */
-            background-color: #f0f2f5; 
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            
-            /* This clips the image to the rounded corners */
-            overflow: hidden; 
-            
-            /* Pop-in animation */
-            animation: popup-fade-in 0.3s ease-out;
+            max-width: 420px;
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9) translateY(40px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* 3. The 'x' close button */
+        .popup-overlay.active .popup-card {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* Header image */
+        .popup-header {
+            position: relative;
+            height: 220px;
+        }
+
+        .popup-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Text overlay trên ảnh */
+        .popup-header-text {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+        }
+
+        .popup-header-text h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 8px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .popup-header-text p {
+            font-size: 17px;
+            margin: 0;
+            opacity: 0.95;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+        }
+
+        /* Nút đóng */
         .popup-close {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            
-            /* Style reset */
-            background: none;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.25);
             border: none;
-            
-            /* Icon style */
+            border-radius: 50%;
             color: white;
-            font-size: 26px;
-            font-weight: 300;
-            line-height: 1;
+            font-size: 20px;
             cursor: pointer;
-            
-            /* Makes the white 'x' visible on light/busy backgrounds */
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-            
-            z-index: 10; /* Above the image */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+            z-index: 10;
         }
 
         .popup-close:hover {
-            opacity: 0.8;
+            background: rgba(255,255,255,0.4);
+            transform: rotate(90deg);
         }
 
-        /* 4. The top image section */
-   
-
-        .popup-image {
-    width: 100%;
-    height: auto;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    overflow: hidden;
-}
-
-.popup-image img {
-    width: 100%;
-    display: block;
-}
-
-
-        /* 5. The white content area */
+        /* Nội dung dưới */
         .popup-content {
-            padding: 28px;
+            padding: 32px 24px;
             text-align: center;
-            /* Updated: Set background to white, distinct from card bg */
-            background-color: #ffffff; 
-        }
-
-        .popup-content h2 {
-            font-size: 26px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin: 0 0 12px 0;
         }
 
         .popup-content p {
             font-size: 16px;
-            color: #555555;
-            line-height: 1.5;
-            margin: 0 0 24px 0;
+            color: #4b5563;
+            margin-bottom: 32px;
+            line-height: 1.6;
         }
 
-        /* 6. Button Styles */
+        /* Nhóm nút liên lạc */
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
 
-        /* A container for the buttons */
-        .popup-button-group {
+        .contact-btn {
+            flex: 1;
+            min-width: 60px;
+            padding: 14px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            gap: 12px; /* Spacing between buttons */
-            width: 100%;
-        }
-
-        /* Base style for all buttons */
-        .popup-button {
-            /* Style reset */
-            border: none;
-            cursor: pointer;
-            
-            /* Sizing & Font */
-            font-size: 16px;
-            font-weight: 600;
-            padding: 13px 24px;
-            border-radius: 8px;
-            width: 100%; /* Make it full-width */
-            
-            /* Transitions */
-            transition: all 0.2s ease;
-            
-            /* For icon alignment */
-            display: flex;
             align-items: center;
-            justify-content: center;
-        }
-        
-        /* Add gap between icon and text */
-        .popup-button i {
-            margin-right: 8px;
+            gap: 6px;
+            text-decoration: none;
         }
 
-        .popup-button:hover {
-            transform: translateY(-2px); /* Slight lift on hover */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        .contact-btn i {
+            font-size: 20px;
+            color: #1f2937;
         }
 
-        /* * UPDATED COLORS
-         * These now match the header image
-         */
-
-        /* Specific style for the Call button (Matches header dark blue) */
-        .popup-button-call {
-            background-color: #0548b4;
-            color: #ffffff;
-        
-        }
-        .popup-button-call:hover {
-            background-color: #0041a8; /* Darker blue */
-        }
-        
-        /* Specific style for the Zalo button (Matches header light blue) */
-        .popup-button-zalo {
-             background-color: #0548b4;
-            color: #ffffff;
-        }
-        .popup-button-zalo:hover {
-            background-color: #0041a8; /* Darker blue */
+        .contact-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-4px);
         }
 
-        /* 7. Animation keyframes */
-        @keyframes popup-fade-in {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        @media (max-width: 480px) {
+            .popup-header { height: 180px; }
+            .popup-header-text h2 { font-size: 28px; }
+            .popup-content { padding: 24px 16px; }
         }
     </style>
+    
+    <!-- Link to external JavaScript -->
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
 </head>
 <body>
 
+    <!-- Nút nổi mở popup -->
+    <a class="contact-float-btn" aria-label="Liên hệ hỗ trợ">
+        <i class="fas fa-headset"></i>
+    </a>
 
-
-    <!-- This is the popup HTML -->
-    <!-- The overlay is set to display: grid for demo. 
-         In a real app, you'd set it to 'none' and show it with JS. 
-    -->
-    <div class="popup-overlay" id="popupOverlay">
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="contactOverlay">
         <div class="popup-card">
-            
-            <!-- 1. Close Button -->
-            <button class="popup-close" id="popupCloseBtn" aria-label="Close popup">&times;</button>
-            
-            <!-- 2. Image Section -->
-            <!-- 2. Image Section -->
-            <div class="popup-image">
-                <img src="../assets/AIcontrol_imgs/sociallogo/popupimg.jpg" alt="Popup Image">
+            <div class="popup-header">
+                <img src="https://www.architecturecourses.org/sites/default/files/2024-06/modern-minimalist-living-room.webp" alt="AIControl Smart Home">
+                
+                <div class="popup-header-text">
+                    <h2>Ai Control</h2>
+                    <p>Thông tin liên lạc và hỗ trợ</p>
+                </div>
+                
+                <button class="popup-close" id="contactClose" aria-label="Đóng">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
-
-
-            <!-- 3. Content Section -->
-            <div class="popup-content" id="popupStep1">
-                <h2>Thông tin liên lạc</h2>
-                <p>Vui lòng chọn phương thức liên lạc</p>
-                <!-- Button Group -->
-                <div class="popup-button-group">
-                    <button id="callButton" class="popup-button popup-button-call">
-                        <i class="fas fa-phone-alt"></i> Gọi đến số hotline
-                    </button>
-
-                    <button id="zaloButton" class="popup-button popup-button-zalo">
-                        <i class="fas fa-comment-dots"></i> Zalo
-                    </button>
-
+            <div class="popup-content">
+                <p>Chọn một trong các kênh dưới đây để được hỗ trợ nhanh nhất từ đội ngũ AIControl.</p>
+                
+                <div class="contact-buttons">
+                    <a href="https://www.facebook.com/yourpage" target="_blank" class="contact-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://zalo.me/0918918755" target="_blank" class="contact-btn">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Zalo</span>
+                    </a>
+                    <a href="tel:02873007475" class="contact-btn">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Hotline</span>
+                    </a>
+                    <a href="mailto:info@aicontrol.vn" class="contact-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
                 </div>
             </div>
-            
         </div>
     </div>
-    <!-- End of popup HTML -->
-
-    <script>
-        // --- Simple JavaScript to make the popup close ---
-        const overlay = document.getElementById('popupOverlay');
-        const closeBtn = document.getElementById('popupCloseBtn');
-        const openBtn = document.getElementById('openPopupBtn'); // Added open button
-
-        function openPopup() {
-            // Check if overlay exists
-            if (overlay) {
-                overlay.style.display = 'grid'; // Show the popup
-            }
-        }
-
-        function closePopup() {
-            // Check if overlay exists
-            if (overlay) {
-                // In a real app, you'd add a class, but for demo we'll hide it
-                overlay.style.display = 'none'; 
-            }
-        }
-
-        if (openBtn) { // Add listener for the new button
-            openBtn.addEventListener('click', openPopup);
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closePopup);
-        }
-        
-        if (overlay) {
-            // Click on the dark background to close
-            overlay.addEventListener('click', function(event) {
-                // Check if the clicked target is the overlay itself, not a child
-                if (event.target === overlay) {
-                    closePopup();
-                }
-            });
-        }
-
-        document.getElementById('zaloButton').addEventListener('click', function () {
-            window.open('https://zalo.me/0918918755', '_blank');
-        });
-
-
-        document.getElementById('callButton').addEventListener('click', function () {
-            window.location.href = 'tel:02873007475';
-        });
-
-
-
-    </script>
 
 </body>
 </html>

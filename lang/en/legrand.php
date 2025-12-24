@@ -5,9 +5,10 @@ return [
     'meta_title' => 'Legrand Brand | Electrical & Smart Control Solutions | AIControl Vietnam',
     'meta_description' => 'Legrand – a world-leading group in electrical equipment, lighting control and building automation. AIControl Vietnam is an official partner, providing and integrating genuine Legrand solutions in Vietnam.',
     'meta_keywords' => 'Legrand, Legrand equipment, Legrand Vietnam, lighting control, building automation, electrical systems, BMS, smart home, AIControl, Legrand MyHOME, KNX, automation system',
+    
     'og_title' => 'Legrand Brand | Electrical & Smart Control Solutions | AIControl Vietnam',
     'og_description' => 'AIControl Vietnam introduces Legrand – a global brand in electrical equipment, lighting, smart control and BMS solutions for modern buildings.',
-    
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_subtitle' => 'Legrand details',
     'hero_title' => 'Partner',

@@ -92,7 +92,7 @@
                             <div class="col-lg-3">
                                 <!-- Mobile Filter Toggle Button -->
                                 <button class="mobile-filter-toggle" id="mobileFilterToggle">
-                                    <i class="fal fa-filter"></i> Bộ lọc & Tìm kiếm
+                                    <i class="fal fa-filter"></i> {{ __('shop.labels.filter_toggle') }}
                                 </button>
 
                                 <!-- Sidebar Overlay for Mobile -->
@@ -112,13 +112,13 @@
                                             <!-- Search Bar -->
                                             <div class="sidebar-widget">
                                                 <h3 class="widget-title">
-                                                    <i class="fal fa-search"></i> Tìm kiếm
+                                                    <i class="fal fa-search"></i> {{ __('shop.labels.search_button') }}
                                                 </h3>
 
                                                 <div class="search-form" style="position: relative;">
-                                                    <input type="text" name="q" id="search-input" placeholder="Tìm kiếm sản phẩm, SKU..." value="{{ request('q') }}" autocomplete="off" data-autocomplete-url="{{ route(current_locale() . '.product.autocomplete') }}" data-shop-url="{{ route(current_locale() . '.product.shop') }}">
+                                                    <input type="text" name="q" id="search-input" placeholder="{{ __('shop.labels.search_placeholder') }}" value="{{ request('q') }}" autocomplete="off" data-autocomplete-url="{{ route(current_locale() . '.product.autocomplete') }}" data-shop-url="{{ route(current_locale() . '.product.shop') }}">
 
-                                                    <button type="submit" aria-label="Tìm kiếm">
+                                                    <button type="submit" aria-label="{{ __('shop.labels.search_button') }}">
                                                         <i class="fal fa-search"></i>
                                                     </button>
 
@@ -130,21 +130,21 @@
                                             <!-- Sort -->
                                             <div class="sidebar-widget">
                                                 <h3 class="widget-title">
-                                                    <i class="fal fa-sort"></i> Sắp xếp theo
+                                                    <i class="fal fa-sort"></i> {{ __('shop.labels.sort_label') }}
                                                 </h3>
 
                                                 <select class="sort-select" name="sort" aria-label="Sắp xếp sản phẩm">
                                                     <option value="newest" {{ request('sort','newest')==='newest'?'selected':'' }}>
-                                                        Mới nhất
+                                                        {{ __('shop.labels.sort_options.newest') }}
                                                     </option>
                                                     <option value="popular" {{ request('sort')==='popular'?'selected':'' }}>
-                                                        Phổ biến nhất
+                                                        {{ __('shop.labels.sort_options.popular') }}
                                                     </option>
                                                     <option value="price-low" {{ request('sort')==='price-low'?'selected':'' }}>
-                                                        Giá: Thấp → Cao
+                                                        {{ __('shop.labels.sort_options.price-low') }}
                                                     </option>
                                                     <option value="price-high" {{ request('sort')==='price-high'?'selected':'' }}>
-                                                        Giá: Cao → Thấp
+                                                        {{ __('shop.labels.sort_options.price-high') }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -158,7 +158,7 @@
 
                                             <div class="sidebar-widget pt-20">
                                                 <h3 class="widget-title">
-                                                    <i class="fal fa-copyright"></i> Hãng
+                                                    <i class="fal fa-copyright"></i> {{ __('shop.labels.brand') }}
                                                 </h3>
 
                                                 <ul class="filter-list">
@@ -190,7 +190,7 @@
 
                                             <div class="sidebar-widget">
                                                 <h3 class="widget-title">
-                                                    <i class="fal fa-list"></i> Phân loại
+                                                    <i class="fal fa-list"></i> {{ __('shop.labels.category') }}
                                                 </h3>
 
                                                 <ul class="filter-list">
@@ -223,11 +223,11 @@
                                             <!-- Actions -->
                                             <div class="filter-actions">
                                                 <button type="submit" class="btn-apply-filter">
-                                                    <i class="fal fa-check"></i> Áp dụng
+                                                    <i class="fal fa-check"></i> {{ __('shop.labels.apply') }}
                                                 </button>
 
                                                 <a href="{{ route(current_locale() . '.product.shop') }}" class="btn-clear-filter">
-                                                    <i class="fal fa-redo"></i> Xóa bộ lọc
+                                                    <i class="fal fa-redo"></i> {{ __('shop.labels.clear') }}
                                                 </a>
                                             </div>
 
@@ -245,8 +245,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-6">
                                             <p class="results-count">
-                                                Hiển thị <strong>{{ $products->firstItem() ?? 0 }}</strong> - <strong>{{ $products->lastItem() ?? 0 }}</strong>
-                                                của <strong>{{ $products->total() }}</strong> sản phẩm
+                                                {{ __('shop.labels.results_show', ['from' => $products->firstItem() ?? 0, 'to' => $products->lastItem() ?? 0, 'total' => $products->total()]) }}
                                             </p>
                                         </div>
                                     </div>
@@ -272,11 +271,11 @@
 
 
                                                     @if($product->featured)
-                                                    <span class="badge-featured">Nổi bật</span>
+                                                    <span class="badge-featured">{{ __('shop.labels.badge_featured') }}</span>
                                                     @endif
 
                                                     @if($product->sale_price && $product->sale_price < $product->price)
-                                                        <span class="badge-sale">Giảm giá</span>
+                                                        <span class="badge-sale">{{ __('shop.labels.badge_sale') }}</span>
                                                         @endif
                                                 </div>
 
@@ -333,8 +332,8 @@
                                         <div class="col-12">
                                             <div class="no-products">
                                                 <i class="fal fa-box-open"></i>
-                                                <h3>Không tìm thấy sản phẩm</h3>
-                                                <p>Vui lòng thử điều chỉnh bộ lọc hoặc tìm kiếm với từ khóa khác.</p>
+                                                <h3>{{ __('shop.labels.no_products_title') }}</h3>
+                                                <p>{{ __('shop.labels.no_products_message') }}</p>
                                             </div>
                                         </div>
                                         @endforelse
@@ -346,17 +345,17 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="shop-pagination">
-                                                <nav aria-label="Phân trang sản phẩm">
+                                                <nav aria-label="{{ __('shop.labels.pagination_aria') }}">
                                                     <ul class="pagination">
                                                         <!-- Previous Button -->
                                                         @if($products->onFirstPage())
                                                         <li class="disabled" aria-disabled="true">
-                                                            <span><i class="fal fa-angle-left"></i> Trước</span>
+                                                            <span><i class="fal fa-angle-left"></i> {{ __('shop.labels.pagination_prev') }}</span>
                                                         </li>
                                                         @else
                                                         <li>
                                                             <a href="{{ $products->previousPageUrl() }}" rel="prev">
-                                                                <i class="fal fa-angle-left"></i> Trước
+                                                                <i class="fal fa-angle-left"></i> {{ __('shop.labels.pagination_prev') }}
                                                             </a>
                                                         </li>
                                                         @endif
@@ -378,12 +377,12 @@
                                                         @if($products->hasMorePages())
                                                         <li>
                                                             <a href="{{ $products->nextPageUrl() }}" rel="next">
-                                                                Sau <i class="fal fa-angle-right"></i>
+                                                                {{ __('shop.labels.pagination_next') }} <i class="fal fa-angle-right"></i>
                                                             </a>
                                                         </li>
                                                         @else
                                                         <li class="disabled" aria-disabled="true">
-                                                            <span>Sau <i class="fal fa-angle-right"></i></span>
+                                                            <span>{{ __('shop.labels.pagination_next') }} <i class="fal fa-angle-right"></i></span>
                                                         </li>
                                                         @endif
                                                     </ul>
@@ -429,6 +428,7 @@
     <script src="{{ asset('assets/js/nice-select.js') }}"></script>
     <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>

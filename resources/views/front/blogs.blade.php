@@ -1,30 +1,55 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="vi">
-
+<html class="no-js agntix-light" lang="{{ current_locale() }}">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Tin tức & Bài viết - AIControl Vietnam</title>
-    <meta name="description" content="Cập nhật tin tức mới nhất về hệ thống điều khiển thông minh, chiếu sáng, HVAC, an ninh và giải pháp tự động hóa cho ngôi nhà và công trình.">
+
+    <title>{{ __('blog.meta_title') }}</title>
+    <meta name="description" content="{{ __('blog.meta_description') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Place favicon.ico in the root directory -->
+    <!-- Canonical -->
+    @php
+    $path = request()->path();
+    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+    @endphp
+
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+
+
+    <!-- Hreflang -->
+
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ __('blog.og_title') }}">
+    <meta property="og:description" content="{{ __('blog.og_description') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AIControl Vietnam">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
+    <meta property="og:image" content="{{ url(asset('assets/AIcontrol_imgs/ai_control_logo.png')) }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ __('blog.og_image_alt') }}">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
-    <!-- CSS here -->
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-
 </head>
+
 
 <body class="">
 
@@ -482,6 +507,7 @@
         <script src="{{ asset('assets/js/atropos.js') }}"></script>
         <script src="{{ asset('assets/js/slider-active.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
         <script src="{{ asset('assets/js/header-search.js') }}"></script>
         <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
         <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>

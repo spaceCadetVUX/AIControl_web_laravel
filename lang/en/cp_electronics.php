@@ -5,9 +5,10 @@ return [
     'meta_title' => 'CP Electronics Brand | Lighting Control & Energy Saving Solutions | AIControl Vietnam',
     'meta_description' => 'Discover CP Electronics – a Legrand brand specializing in intelligent lighting control and energy management solutions. AIControl Vietnam is the official partner for distributing and integrating CP Electronics solutions in Vietnam.',
     'meta_keywords' => 'CP Electronics, lighting control, lighting sensors, energy saving, Legrand, AIControl, CP Electronics Vietnam, building automation, occupancy sensors, BMS, energy management',
+    
     'og_title' => 'CP Electronics Brand | Building Automation & Management Solutions | AIControl Vietnam',
     'og_description' => 'CP Electronics – a Legrand brand delivering intelligent lighting control, smart sensors, and efficient energy management solutions for all types of buildings.',
-    
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_subtitle' => 'CP Electronics',
     'hero_title' => 'Partner',

@@ -9,9 +9,9 @@ return [
     // Open Graph
     'og_title' => 'AIControl | Giải pháp điều khiển chiếu sáng cho công trình thương mại',
     'og_description' => 'Tối ưu năng lượng và tự động hóa chiếu sáng thông minh cho tòa nhà, trung tâm thương mại, văn phòng với giải pháp AIControl.',
-
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
-'hero_content' => 'GIẢI PHÁP ĐIỀU KHIỂN <br> <span class="heading-h1-highlight">CHIẾU SÁNG</span>',
+    'hero_content' => 'GIẢI PHÁP ĐIỀU KHIỂN <br> <span class="heading-h1-highlight">CHIẾU SÁNG</span>',
     'hero_subtitle' => 'Mang Lại Cho Bạn Sự',
     'hero_description' => 'Tối ưu hóa ánh sáng & trải nghiệm.<br>Nâng tầm không gian và tiết kiệm năng lượng',
 

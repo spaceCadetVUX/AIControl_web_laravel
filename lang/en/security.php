@@ -9,7 +9,7 @@ return [
     // Open Graph
     'og_title' => 'AIControl | Smart Security & Access Control Solutions',
     'og_description' => 'AIControl security system integrates fire alarms, intrusion detection, access control and surveillance cameras, providing absolute safety for buildings.',
-
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_content' => '<span class="heading-h1-highlight">SECURITY & ACCESS CONTROL</span> SYSTEM',
     'hero_description' => 'Integrated security and access control system',

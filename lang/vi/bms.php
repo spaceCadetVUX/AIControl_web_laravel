@@ -8,7 +8,7 @@ return [
     // Open Graph (Facebook/Zalo)
     'og_title' => 'Giải pháp BMS | Hệ thống quản lý tòa nhà thông minh | AIControl Việt Nam',
     'og_description' => 'AIControl Việt Nam cung cấp giải pháp BMS toàn diện: HVAC, chiếu sáng, an ninh, năng lượng và tự động hóa tích hợp cho tòa nhà thông minh.',
-    'og_site_name' => 'AIControl Việt Nam',
+    'og_image_alt'=>'Logo AIControl Việt Nam',
 
 
     // ... existing SEO keys ...

@@ -9,7 +9,7 @@ return [
     // Open Graph
     'og_title' => 'AIControl | Giải pháp an ninh & kiểm soát ra vào thông minh',
     'og_description' => 'Hệ thống an ninh AIControl tích hợp báo cháy, báo động, kiểm soát ra vào và camera giám sát, mang đến an toàn tuyệt đối cho công trình.',
-
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_content' => 'HỆ THỐNG <br> <span class="heading-h1-highlight">KIỂM SOÁT RA VÀO & AN NINH</span>',
     'hero_description' => 'Kiểm soát hệ thống an ninh và ra vào tích hợp',

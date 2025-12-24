@@ -5,9 +5,10 @@ return [
     'meta_title' => 'Thương hiệu Legrand | Giải pháp điện & điều khiển thông minh | AIControl Việt Nam',
     'meta_description' => 'Legrand – tập đoàn hàng đầu thế giới trong lĩnh vực thiết bị điện, điều khiển chiếu sáng và tự động hóa tòa nhà. AIControl Việt Nam là đối tác chính thức, cung cấp và tích hợp các giải pháp Legrand chính hãng tại Việt Nam.',
     'meta_keywords' => 'Legrand, thiết bị Legrand, Legrand Việt Nam, điều khiển chiếu sáng, tự động hóa tòa nhà, hệ thống điện, BMS, nhà thông minh, AIControl, Legrand MyHOME, KNX, automation system',
+    
     'og_title' => 'Thương hiệu Legrand | Giải pháp điện & điều khiển thông minh | AIControl Việt Nam',
     'og_description' => 'AIControl Việt Nam giới thiệu Legrand – thương hiệu toàn cầu về thiết bị điện, chiếu sáng, điều khiển thông minh và giải pháp BMS cho tòa nhà hiện đại.',
-    
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_subtitle' => 'Legrand detalis',
     'hero_title' => 'Đối Tác',

@@ -9,7 +9,7 @@ return [
     // Open Graph
     'og_title' => 'AIControl | Smart Automated Blind & Curtain Systems for Commercial Buildings',
     'og_description' => 'AIControl automated blind solutions bring convenience, elegance and energy savings, easily integrated into smart building systems.',
-
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_content' => '<span class="heading-h1-highlight">SMART SHADING</span> <br> SOLUTIONS',
     'hero_description' => 'Smooth, refined operation<br>Creating convenient and sophisticated spaces',

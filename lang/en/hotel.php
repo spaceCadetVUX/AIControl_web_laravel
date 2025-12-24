@@ -1,6 +1,15 @@
 <?php
 
 return [
+    'meta_title' => 'Hotel Room Control Solutions | GRMS | AIControl Vietnam',
+    'meta_description' => 'Guest Room Management System (GRMS) solutions that optimize guest experience, reduce energy consumption, and improve hotel operational efficiency. AIControl Vietnam delivers advanced control of lighting, HVAC, key card systems, sensors, and smart hotel room automation.',
+    'meta_keywords' => 'GRMS, Guest Room Management System, hotel room control, hotel control system, hotel HVAC control, hotel energy saving, hotel key card system, hotel lighting control, AIControl, hotel automation',
+   
+    'og_title' => 'Hotel Room Control Solutions | GRMS | AIControl Vietnam',
+    'og_description' => 'AIControl Vietnam delivers advanced GRMS solutions including lighting control, HVAC, occupancy sensors, key card systems, and smart hotel room automation to enhance guest experience and improve energy efficiency.',
+    'og_image_alt' => 'AIControl Vietnam logo',
+
+
     // Hero Section
     'hero_title' => 'Smart & Energy-Efficient Hotel Room Control System',
     'hero_subtitle' => 'Comprehensive GRMS (Guest Room Management System) solution for modern hotels',
@@ -42,4 +51,23 @@ return [
     'cta_title' => 'Ready To Upgrade Your Hotel?',
     'cta_description' => 'Contact us for the most suitable GRMS solution consultation',
     'cta_button' => 'Request Consultation',
+
+        
+    'grms_solution_line_1' => 'AIControl',
+    'grms_solution_line_2' => 'GRMS Solutions',
+
+    'experience_years' => 'Years of <br> Experience',
+
+    'grms_description' => 'GRMS (Guest Room Management System) is an intelligent solution for managing and controlling <span style="color:#34679A">every device in hotel rooms</span>, enhancing guest comfort and streamlining hotel operations.',
+
+    
+
+    'inline_with_savings' => 'AIControl delivers integrated solutions with 
+    <a href=":vantage" class="partner-link">Vantage</a>, 
+    <a href=":legrand" class="partner-link">Legrand</a>, and 
+    <a href=":abb" class="partner-link">ABB</a>, 
+    helping businesses improve service quality and reduce operating costs by 
+    <span class="text-highlight">40%</span>.',
+
+
 ];

@@ -16149,7 +16149,7 @@ body.tp-magic-cursor #magic-cursor {
   margin-bottom: 10px;
   display: inline-block;
   letter-spacing: -0.02em;
-  font-family: var( );
+  font-family: var( --tp-ff-inter);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
   .crp-about-exp-item span {
@@ -16161,11 +16161,11 @@ body.tp-magic-cursor #magic-cursor {
 .crp-about-exp-item i {
   display: block;
   font-weight: 500;
-  font-size: 28px;
+  font-size: 18px;
   line-height: 0.86;
   color: #17312f;
   font-style: normal;
-  font-family: var(--tp-ff-teko);
+  font-family: var(--tp-ff-inter);
 }
 .crp-about-btn-box {
   flex: 0 0 auto;

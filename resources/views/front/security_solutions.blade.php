@@ -16,23 +16,30 @@
     <meta name="keywords" content="{{ __('security.meta_keywords') }}">
 
     <!-- ✅ Canonical URL -->
-    <link rel="canonical" href="https://www.aicontrol.vn/he-thong-an-ninh.html">
+    @php
+    $path = request()->path();
+    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+    @endphp
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+
 
     <!-- ✅ Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- ✅ Open Graph cho chia sẻ mạng xã hội -->
-    <meta property="og:title" content="{{ __('security.og_title') }}">
-    <meta property="og:description" content="{{ __('security.og_description') }}">
-    <meta property="og:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-security.jpg">
+    <meta property="og:title" content="{{ __('hotel.og_title') }}">
+    <meta property="og:description" content="{{ __('hotel.og_description') }}">
+    <meta property="og:image" content="{{ url(asset('assets/AIcontrol_imgs/ai_control_logo.png')) }}">
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ __('hotel.og_image_alt') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
-
-    <!-- ✅ Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ __('security.og_title') }}">
-    <meta name="twitter:description" content="{{ __('security.og_description') }}">
-    <meta name="twitter:image" content="https://www.aicontrol.vn/assets/img/og/aicontrol-security.jpg">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
 
     <!-- Place favicon.ico in the root directory -->
 
@@ -553,6 +560,7 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>

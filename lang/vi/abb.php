@@ -7,7 +7,7 @@ return [
     'meta_keywords' => 'ABB, thiết bị ABB, ABB Việt Nam, điều khiển chiếu sáng, BMS, HVAC, tự động hóa, AIControl, hệ thống điện ABB, thiết bị công nghiệp, smart building, automation system',
     'og_title' => 'Thương hiệu ABB | Giải pháp tự động hóa & quản lý tòa nhà | AIControl Việt Nam',
     'og_description' => 'AIControl Việt Nam giới thiệu ABB – thương hiệu toàn cầu về tự động hóa, điều khiển thông minh và quản lý tòa nhà tích hợp.',
-    
+    'og_image_alt'=>'Logo AIControl Việt Nam',
     // Hero Section
     'hero_subtitle' => 'ABB',
     'hero_title' => 'Đối Tác',

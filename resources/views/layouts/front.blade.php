@@ -96,6 +96,7 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
     @if(file_exists(public_path('assets/js/contact.js')))

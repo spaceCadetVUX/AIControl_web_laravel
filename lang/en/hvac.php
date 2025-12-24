@@ -5,9 +5,10 @@ return [
     'meta_title' => 'AIControl | Smart HVAC Control and Management System for Commercial Buildings',
     'meta_description' => 'AIControl provides smart HVAC control and management solutions for buildings, offices, hotels, helping optimize energy, monitor temperature, airflow, and efficiently operate central air conditioning systems.',
     'meta_keywords' => 'AIControl, HVAC, HVAC control, HVAC management, central air conditioning, ventilation system, energy saving, BMS, smart building, automation, building control, air conditioning system, smart control, building management system',
+    
     'og_title' => 'AIControl | Smart HVAC Control and Management System',
     'og_description' => 'AIControl\'s HVAC solution helps efficiently control and monitor central air conditioning, save energy, and easily integrate with BMS.',
-    
+    'og_image_alt'=>'Logo AIControl Việt Nam',
     // Hero Section
     // In resources/lang/en/hvac.php
     'hero_content' => '<span class="heading-h1-highlight">HVAC</span> <br> CONTROL SOLUTIONS',

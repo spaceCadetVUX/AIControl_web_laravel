@@ -10,12 +10,29 @@
     <meta name="description" content="{{ __('bms.seo_description') }}">
     <meta name="keywords" content="{{ __('bms.seo_keywords') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
-    <link rel="canonical" href="https://aicontrol.vn/bms">
+    
+    @php
+    $path = request()->path();
+    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+    @endphp
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+
+    
+     <!-- Open Graph for Facebook -->
+    <!-- Open Graph (Facebook, Zalo, etc.) -->
     <meta property="og:title" content="{{ __('bms.og_title') }}">
-    <meta property="og:url" content="https://aicontrol.vn/bms">
-    <meta property="og:site_name" content="{{ __('bms.og_site_name') }}">
+    <meta property="og:description" content="{{ __('bms.og_description') }}">
+    <meta property="og:image" content="{{ url(asset('assets/AIcontrol_imgs/ai_control_logo.png')) }}">
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ __('bms.og_image_alt') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://aicontrol.vn/assets/img/seo/bms-system.jpg">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
 
     <!-- CSS here -->
     <!-- CSS here -->
@@ -648,6 +665,7 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>

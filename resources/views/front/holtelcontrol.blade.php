@@ -1,29 +1,42 @@
 <!doctype html>
-<html class="no-js agntix-light" lang="zxx">
+<html class="no-js agntix-light" lang="{{ current_locale() }}">
 
 <head>
 
   <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <base href="{{ url('/') }}/">
-    <title>Giải pháp điều khiển phòng khách sạn | GRMS | AIControl Việt Nam</title>
+    <title>{{ __('hotel.meta_title') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Giải pháp điều khiển phòng khách sạn (GRMS) – giúp tối ưu trải nghiệm khách lưu trú, tiết kiệm năng lượng và vận hành hiệu quả. AIControl Việt Nam cung cấp hệ thống điều khiển ánh sáng, HVAC, thẻ từ, cảm biến và tự động hóa phòng khách sạn hiện đại.">
-    <meta name="keywords" content="GRMS, điều khiển phòng khách sạn, Guest Room Management System, hotel control, HVAC khách sạn, tiết kiệm năng lượng, thẻ từ khách sạn, điều khiển ánh sáng hotel, AIControl, hotel automation">
+    <meta name="description" content="{{ __('hotel.meta_description') }}">
+    <meta name="keywords" content="{{ __('hotel.meta_keywords') }}">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://aicontrol.vn/grms">
+    @php
+    $path = request()->path();
+    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+    @endphp
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+
 
     <!-- Open Graph for Facebook -->
-    <meta property="og:title" content="Giải pháp điều khiển phòng khách sạn | GRMS | AIControl Việt Nam">
-    <meta property="og:description" content="AIControl Việt Nam cung cấp hệ thống GRMS: điều khiển ánh sáng, HVAC, cảm biến hiện diện, thẻ từ và tự động hóa phòng khách sạn giúp nâng cao trải nghiệm và tiết kiệm năng lượng.">
-    <meta property="og:url" content="https://aicontrol.vn/grms">
-    <meta property="og:site_name" content="AIControl Việt Nam">
+    <!-- Open Graph (Facebook, Zalo, etc.) -->
+    <meta property="og:title" content="{{ __('hotel.og_title') }}">
+    <meta property="og:description" content="{{ __('hotel.og_description') }}">
+    <meta property="og:image" content="{{ url(asset('assets/AIcontrol_imgs/ai_control_logo.png')) }}">
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ __('hotel.og_image_alt') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://aicontrol.vn/assets/img/seo/grms-room-control.jpg">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
 
     <!-- CSS here -->
     <!-- CSS here -->
@@ -42,7 +55,7 @@
 
 </head>
 
-<body class="tp-magic-cursor">
+<body class="">
 
     <!-- Begin magic cursor -->
     <div id="magic-cursor">
@@ -162,11 +175,13 @@
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4">
                                     <div class="crp-about-left">
-                                        <span class="tp-section-subtitle-teko mb-120 tp_fade_anim" data-delay=".3">Giải pháp <br> <i>GRMS</i> AIControl</span>
+                                        <span class="tp-section-subtitle-teko mb-120 tp_fade_anim" data-delay=".3"><span>{{ __('hotel.grms_solution_line_1') }}</span><br>
+                                        <i>{{ __('hotel.grms_solution_line_2') }}</i>
+                                        </span>
                                         <div class="crp-about-exp tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
                                             <div class="crp-about-exp-item text-center">
                                                 <span data-purecounter-duration="1" data-purecounter-end="12" class="purecounter">0</span>
-                                                <i>Năm Kinh <br> Nghiệm</i>
+                                                <i>{!! __('hotel.experience_years') !!}</i>
                                             </div>
                                         </div>
                                     </div>
@@ -174,10 +189,7 @@
                                 <div class="col-xl-8 col-lg-8">
                                     <div class="crp-about-right">
                                         <h4 class="tp-section-title-teko mb-55 tp_fade_anim" style="color: #14293D"  data-delay=".3">
-                                            GRMS (Guest Room Management System) là hệ thống
-                                            quản lý và điều khiển <span style="color: #34679A">thông minh toàn bộ</span>
-                                            thiết bị trong phòng khách sạn, mang lại trải nghiệm
-                                            tuyệt vời cho khách và tối ưu vận hành.
+                                            {!! __('hotel.grms_description') !!}
                                         </h4>
                                         <div class="crp-about-bottom-wrap d-flex">
                                             <div class="crp-about-btn-box tp_fade_anim" data-delay=".5">
@@ -190,11 +202,12 @@
                                             </div>
                                             <div class="crp-about-text tp_fade_anim" data-delay=".7">
                                                 <p>
-                                                    AIControl cung cấp giải pháp GRMS tích hợp hoàn chỉnh với
-                                                    <a href="{{  route(current_locale() . '.vantage') }}">Vantage</a>, 
-                                                    <a href="{{ route(current_locale() . '.legrand') }}">Legrand</a>, và 
-                                                    <a href="{{ route(current_locale() . '.abb') }}">ABB</a>, 
-                                                    giúp khách sạn nâng cao chất lượng dịch vụ và giảm 40% chi phí vận hành.
+                                                    {!! __('hotel.inline_with_savings', [
+                                                        'vantage' => route(current_locale() . '.vantage'),
+                                                        'legrand' => route(current_locale() . '.legrand'),
+                                                        'abb'     => route(current_locale() . '.abb'),
+                                                    ]) !!}
+
                                                 </p>
                                             </div>
                                         </div>
@@ -207,7 +220,7 @@
                 <!-- about area end -->
 
                 <!-- brand area start -->
-                <div class="creative-brand-area pb-80 fix">
+                {{-- <div class="creative-brand-area pb-80 fix">
                     <div class="creative-brand-wrapper">
                         <div class="swiper-container creative-brand-active">
                             <div class="swiper-wrapper slider-transtion">
@@ -259,7 +272,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- brand area end -->
 
                 <!-- service area start -->
@@ -785,6 +798,7 @@
     <script src="assets/js/atropos.js"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="assets/js/portfolio-slider-1.js"></script>

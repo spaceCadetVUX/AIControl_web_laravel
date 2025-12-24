@@ -5,9 +5,10 @@ return [
     'meta_title' => 'AIControl | Hệ thống điều khiển và quản lý HVAC thông minh cho công trình thương mại',
     'meta_description' => 'AIControl cung cấp giải pháp điều khiển và quản lý HVAC thông minh cho tòa nhà, văn phòng, khách sạn, giúp tối ưu năng lượng, giám sát nhiệt độ, lưu lượng gió và vận hành hiệu quả hệ thống điều hòa trung tâm.',
     'meta_keywords' => 'AIControl, HVAC, điều khiển HVAC, quản lý HVAC, điều hòa trung tâm, hệ thống thông gió, tiết kiệm năng lượng, BMS, smart building, automation, điều khiển tòa nhà, hệ thống điều hòa không khí, điều khiển thông minh, building management system',
+    
     'og_title' => 'AIControl | Hệ thống điều khiển và quản lý HVAC thông minh',
     'og_description' => 'Giải pháp HVAC của AIControl giúp điều khiển và giám sát điều hòa trung tâm hiệu quả, tiết kiệm năng lượng và dễ dàng tích hợp BMS.',
-    
+    'og_image_alt'=>'Logo AIControl Việt Nam',
     // Hero Section
    // In resources/lang/vi/hvac.php
     'hero_content' => 'ĐIỀU KHIỂN NHIỆT ĐỘ <br> <span class="heading-h1-highlight">HVAC</span>',

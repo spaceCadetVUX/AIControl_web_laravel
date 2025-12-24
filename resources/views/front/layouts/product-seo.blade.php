@@ -119,5 +119,6 @@
     
     {{-- JS --}}
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
 </body>
 </html>

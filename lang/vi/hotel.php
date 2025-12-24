@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'meta_title'=>'Giải pháp điều khiển phòng khách sạn | GRMS | AIControl Việt Nam',
+    'meta_description'=>'Giải pháp điều khiển phòng khách sạn (GRMS) – giúp tối ưu trải nghiệm khách lưu trú, tiết kiệm năng lượng và vận hành hiệu quả. AIControl Việt Nam cung cấp hệ thống điều khiển ánh sáng, HVAC, thẻ từ, cảm biến và tự động hóa phòng khách sạn hiện đại.',
+    
+    'meta_keywords'=>'GRMS, điều khiển phòng khách sạn, Guest Room Management System, hotel control, HVAC khách sạn, tiết kiệm năng lượng, thẻ từ khách sạn, điều khiển ánh sáng hotel, AIControl, hotel automation',
+    'og_title'=>'Giải pháp điều khiển phòng khách sạn | GRMS | AIControl Việt Nam',
+    'og_description'=>'AIControl Việt Nam cung cấp hệ thống GRMS: điều khiển ánh sáng, HVAC, cảm biến hiện diện, thẻ từ và tự động hóa phòng khách sạn giúp nâng cao trải nghiệm và tiết kiệm năng lượng.',
+    'og_image_alt'=>'Logo AIControl Việt Nam',
+
     // Hero Section
     'hero_title' => 'Hệ Thống Điều Khiển Phòng Khách Sạn Thông Minh & Tiết Kiệm',
     'hero_subtitle' => 'Giải pháp GRMS (Guest Room Management System) toàn diện cho khách sạn hiện đại',
@@ -42,4 +50,21 @@ return [
     'cta_title' => 'Sẵn Sàng Nâng Cấp Khách Sạn Của Bạn?',
     'cta_description' => 'Liên hệ với chúng tôi để được tư vấn giải pháp GRMS phù hợp nhất',
     'cta_button' => 'Yêu Cầu Tư Vấn',
+
+    'grms_solution_line_1' => 'Giải pháp',
+    'grms_solution_line_2' => 'GRMS AIControl',
+
+    'experience_years' => 'Năm Kinh <br> Nghiệm',
+
+    'grms_description' => 'GRMS (Guest Room Management System) là hệ thống quản lý và điều khiển <span style="color:#34679A">thông minh toàn bộ</span> thiết bị trong phòng khách sạn, mang lại trải nghiệm vượt trội cho khách lưu trú và tối ưu hiệu quả vận hành.',
+
+
+    'inline_with_savings' => 'AIControl cung cấp giải pháp tích hợp cùng 
+    <a href=":vantage" class="partner-link">Vantage</a>, 
+    <a href=":legrand" class="partner-link">Legrand</a> và 
+    <a href=":abb" class="partner-link">ABB</a>, 
+    giúp doanh nghiệp nâng cao chất lượng dịch vụ và giảm 
+    <span class="text-highlight">40%</span> chi phí vận hành.',
+
+
 ];

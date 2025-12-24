@@ -7,7 +7,7 @@ return [
     'meta_keywords' => 'ABB, ABB equipment, ABB Vietnam, lighting control, BMS, HVAC, automation, AIControl, ABB electrical systems, industrial equipment, smart building, automation system',
     'og_title' => 'ABB Brand | Building Automation & Management Solutions | AIControl Vietnam',
     'og_description' => 'AIControl Vietnam introduces ABB – a global brand in automation, smart control, and integrated building management.',
-    
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_subtitle' => 'ABB',
     'hero_title' => 'Partner',

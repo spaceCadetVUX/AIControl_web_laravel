@@ -1,4 +1,5 @@
 <!-- header area start -->
+
 <header>
     <!-- header area start -->
     <div class="tp-header-8-area header-transparent tp-header-8-border" data-bg-color="#ffffffff">
@@ -44,7 +45,7 @@
                                 </button>
                             </div>
                             <div class="tp-header-8-btn">
-                                <a class="tp-btn-border-2" id="openPopupBtn">
+                                <a class="tp-btn-border-2" href="#" id="openContactPopup">
                                     {{ __('header.call_now') }}
                                     <span>
                                         <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +89,7 @@
                 <a href="{{ route(current_locale().'.product.shop') }}">{{ __('header.nav_products') }}</a>
             </li>
             <li class="is-active">
-                <a href="{{ url(current_locale().'/du-an') }}">{{ __('header.nav_projects') }}</a>
+                <a href="{{ route(current_locale() . '.projects.index') }}">{{ __('header.nav_projects') }}</a>
             </li>
             <li class="is-active">
                 <a href="{{ url(current_locale().'/blog') }}">{{ __('header.nav_blogs') }}</a>
@@ -155,5 +156,7 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('assets/js/popup.js') }}" defer></script>
 <div class="body-overlay"></div>
+
 <!-- search area end -->

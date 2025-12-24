@@ -9,7 +9,7 @@ return [
     // Open Graph
     'og_title' => 'AIControl | Lighting Control Solutions for Commercial Buildings',
     'og_description' => 'Optimize energy and automate smart lighting for buildings, shopping centers, offices with AIControl solutions.',
-
+    'og_image_alt' => 'AIControl Vietnam logo',
     // Hero Section
     'hero_content' => '<span class="heading-h1-highlight">LIGHTING</span> <br> CONTROL SOLUTIONS',
     'hero_subtitle' => 'Bringing You',

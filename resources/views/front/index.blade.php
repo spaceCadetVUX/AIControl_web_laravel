@@ -13,16 +13,29 @@
     <meta name="keywords" content="{{ __('home.meta_keywords') }}">
     <meta name="author" content="AIControl">
     <!-- Canonical (avoid duplicate URLs) -->
-    <link rel="canonical" href="https://aicontrol.vn/">
+    @php
+    $path = request()->path();
+    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+    @endphp
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
 
     <!-- Open Graph (Facebook, Zalo, etc.) -->
     <meta property="og:title" content="{{ __('home.og_title') }}">
     <meta property="og:description" content="{{ __('home.og_description') }}">
-    <meta property="og:image" content="https://aicontrol.vn/assets/AIcontrol_imgs/aicontrol-co-mau.svg">
+    <meta property="og:image" content="{{ url(asset('assets/AIcontrol_imgs/ai_control_logo.png')) }}">
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ __('home.og_image_alt') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
+
 
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
@@ -30,8 +43,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
@@ -57,14 +70,6 @@
     <!-- preloader end  -->
 
     <!-- back to top start -->
-    {{-- <div class="back-to-top-wrapper">
-        <button id="back_to_top" type="button" class="back-to-top-btn">
-            <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 6L6 1L1 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </button>
-    </div> --}}
-
     <div class="back-to-top-wrapper">
     <button 
         id="back_to_top" 
@@ -80,9 +85,10 @@
     <!-- back to top end -->
 
     {{-- header and canvas - popup --}}
+    @include('front.includes.popup')
     @include('front.includes.offcanvas')
     @include('front.includes.header')
-    @include('front.includes.popup')
+    
 
     <div id="smooth-wrapper">
         <div id="smooth-content">
@@ -753,12 +759,15 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
+    
     <!-- JS here -->
 </body>
 

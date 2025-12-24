@@ -16,16 +16,28 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
     <!-- Canonical URL -->
+    @php
+    $path = request()->path();
+    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+    @endphp
     <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+
 
     <!-- Open Graph for Facebook -->
+        <!-- Open Graph (Facebook, Zalo, etc.) -->
     <meta property="og:title" content="{{ __('abb.og_title') }}">
     <meta property="og:description" content="{{ __('abb.og_description') }}">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:site_name" content="AIControl Việt Nam">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://aicontrol.vn/assets/img/seo/abb-brand.jpg">
+    <meta property="og:image" content="{{ url(asset('assets/AIcontrol_imgs/ai_control_logo.png')) }}">
 
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ __('abb.og_image_alt') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'vi' ? 'vi_VN' : 'en_US' }}">
 
     <!-- CSS here -->
     <!-- CSS here -->
@@ -281,13 +293,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span>03</span>
-                                                        <h3 class="dgm-service-title-sm"><a href="service-details-light.html">{{ __('abb.solution_3_title') }}</a></h3>
+                                                        <h3 class="dgm-service-title-sm"><a >{{ __('abb.solution_3_title') }}</a></h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="dgm-service-content-right black-text d-flex align-items-center justify-content-between">
                                                         <p>{{ __('abb.solution_3_description') }}</p>
-                                                        <a class="dgm-service-link" href="service-details-light.html">
+                                                        <a class="dgm-service-link" >
                                                             <span>
                                                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -337,13 +349,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="dgm-service-content-left black-text d-inline-flex align-items-center">
                                                         <span>05</span>
-                                                        <h3 class="dgm-service-title-sm"><a href="service-details-light.html">{{ __('abb.solution_5_title') }}</a></h3>
+                                                        <h3 class="dgm-service-title-sm"><a  href="{{ route(current_locale() . '.solution.bms') }}">{{ __('abb.solution_5_title') }}</a></h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="dgm-service-content-right black-text d-flex align-items-center justify-content-between">
                                                         <p>{{ __('abb.solution_5_description') }}</p>
-                                                        <a class="dgm-service-link" href="service-details-light.html">
+                                                        <a class="dgm-service-link"  href="{{ route(current_locale() . '.solution.bms') }}">
                                                             <span>
                                                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M0.880859 13L12.8809 1M12.8809 1H0.880859M12.8809 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -465,6 +477,7 @@
     <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
     <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
