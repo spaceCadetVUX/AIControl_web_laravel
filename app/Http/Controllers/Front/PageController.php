@@ -137,7 +137,6 @@ class PageController extends Controller
             ->get();
         return view('front.lighting_control_solutions', compact('lightingControlBlog'));
     }
-
     /**
      * Display shading solutions page
      */
@@ -204,19 +203,48 @@ class PageController extends Controller
     /**
      * Display BMS page
      */
-    public function bms() 
-    { 
-        return view('front.bms'); 
+    public function bms()
+    {
+     $NewestBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'newest-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Newest blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
+
+        return view('front.bms', compact('NewestBlogs'));
     }
+
+   
 
     /**
      * Display Hotel Control page
      */
     public function hotelControl() 
     { 
-        return view('front.holtelcontrol'); 
-    }
+        // newest blog filter
+        $NewestBlogs = Blog::with(['blogCategories:id,name,slug'])
+            ->where('is_published', true)
+            ->whereHas('blogCategories', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('slug', 'newest-blog')
+                        ->orWhereRaw('LOWER(name) = ?', ['Newest blog']);
+                });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take(4)
+            ->get();
 
+        return view('front.holtelcontrol', compact('NewestBlogs'));
+    }
+  
     /**
      * Display contact us page
      */

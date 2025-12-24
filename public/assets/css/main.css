@@ -3998,7 +3998,7 @@ input[type=color] {
 }
 .tp-section-title-teko {
   font-weight: 600;
-  font-size: 60px;
+  font-size: 50px;
   line-height: 1;
   letter-spacing: -0.01em;
   font-family: var(--tp-ff-inter);
@@ -18813,7 +18813,7 @@ body.tp-magic-cursor #magic-cursor {
   text-align: center;
   border-radius: 50%;
   display: inline-block;
-  background-color: var(--tp-common-yellow-green);
+  background-color: var(--tp-brand-primary-color);
 }
 .crp-service-title-sm {
   font-weight: 600;
@@ -18821,8 +18821,8 @@ body.tp-magic-cursor #magic-cursor {
   line-height: 1.1;
   letter-spacing: 0.5px;
   margin-bottom: 10px;
-  font-family: var(--tp-ff-teko);
-  color: var(--tp-common-cream-3);
+  font-family: var(--tp-ff-inter);
+  color: var(--tp-primary-text-color);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .crp-service-title-sm {
@@ -43910,7 +43910,7 @@ body.tp-magic-cursor #magic-cursor {
   background-color: #2A4C3A;
 }
 .agntix-light .crp-service-title-sm {
-  color: #2a4c3a;
+  color: #2A4C3A;
 }
 .agntix-light .crp-service-content p {
   color: rgba(0, 0, 0, 0.7);

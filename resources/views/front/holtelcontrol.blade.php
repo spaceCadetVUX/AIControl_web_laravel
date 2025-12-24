@@ -13,7 +13,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     <!-- Canonical URL -->
     @php
     $path = request()->path();
@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/atropos.min.css') }}">
@@ -113,9 +113,9 @@
                             <div class="col-xl-7 col-lg-8 col-md-6">
                                 <div class="crp-hero-ptb-3">
                                     <div class="crp-hero-title-box mb-35">
-                                        <h2 class="crp-hero-title fs-100 tp_fade_anim pb-100">
+                                        <h1 class="crp-hero-title fs-100 tp_fade_anim pb-100">
                                             {{ __('hotel.hero_title') }}
-                                        </h2>
+                                        </h1>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                 <!-- banner area start -->
                 <div class="crp-banner-area">
                     <div class="crp-banner-wrap">
-                        <img class="w-100" data-speed=".8" src="assets/AIcontrol_imgs/hotel/pexels-pixabay-258154.jpg" alt="">
+                        <img class="w-100" data-speed=".8" src="{{ assets('assets/AIcontrol_imgs/hotel/pexels-pixabay-258154.jpg') }}" alt="">
                     </div>
                 </div>
                 <!-- banner area end -->
@@ -170,7 +170,8 @@
                     <div class="container container-1330">
                         <div class="crp-about-wrapper p-relative">
                             <div class="crp-about-shape">
-                                <img data-speed="1.2" src="assets/img/home-09/about/ab-shape-1.png" alt="">
+                                
+                                <img data-speed="1.2" src="{{ assets('assets/img/home-09/about/ab-shape-1.png') }}" alt="shape">
                             </div>
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4">
@@ -278,16 +279,16 @@
                 <!-- service area start -->
                 <div class="crp-service-area p-relative pt-80 pb-90">
                     <div class="crp-service-shape-wrap">
-                        <img class="crp-service-shape-1" data-speed="1.1" src="assets/img/home-09/service/service-shape-1.png" alt="">
-                        <img class="crp-service-shape-2" data-speed="1.1" src="assets/img/home-09/service/service-shape-2.png" alt="">
-                        <img class="crp-service-shape-3" data-speed="1.1" src="assets/img/home-09/service/service-shape-3.png" alt="">
+                        <img  class="crp-service-shape-1" data-speed="1.1"src="{{ assets('assets/img/home-09/service/service-shape-1.png') }}" alt="shape">
+                        <img  class="crp-service-shape-1" data-speed="1.1"src="{{ assets('assets/img/home-09/service/service-shape-2.png') }}" alt="shape">
+                        <img  class="crp-service-shape-1" data-speed="1.1"src="{{ assets('assets/img/home-09/service/service-shape-3.png') }}" alt="shape">
                     </div>
                     <div class="container container-1330">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="crp-service-title-box">
-                                    <span class="tp-section-subtitle-teko mb-25 tp_fade_anim" data-delay=".3">Creative approach</span>
-                                    <h4 class="tp-section-title-teko tp_fade_anim" data-delay=".5">Smart <span>Business</span> <br> Solutions</h4>
+                                    <span class="tp-section-subtitle-teko mb-25 tp_fade_anim" data-delay=".2">{!! __('hotel.features_title') !!}</span>
+                                    <h4 class="tp-section-title-teko tp_fade_anim" data-delay=".5">{!! __('hotel.features_subtitle') !!}</h4>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -300,18 +301,15 @@
                                         </span>
                                     </div>
                                     <div class="crp-service-content">
-                                        <h4 class="crp-service-title-sm"><a class="tp-line-white cream" href="service-details-2-light.html">Business Consultation</a></h4>
+                                        <h4 class="crp-service-title-sm"><a class="tp-line-white " >{!! __('hotel.feature_lighting_title') !!}</a></h4>
                                         <p>
-                                            Lorem ipsum dolor sit amet, conse ctetur
-                                            sadipiscing elit, sed dominus eiusmc od tempor
-                                            omincid idu nt ut labore et dolore <br>
-                                            magna aliqua.
+                                            {!! __('hotel.feature_lighting_desc') !!}
                                         </p>
-                                        <a class="crp-service-link" href="service-details-2-light.html">
-                                            <span>
+                                        <a class="crp-service-link">
+                                            {{-- <span>
                                                 <span class="text-1">View More</span>
                                                 <span class="text-2">View More</span>
-                                            </span>
+                                            </span> --}}
                                             <i>
                                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1 11L11 1M11 1V11M11 1H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -334,18 +332,15 @@
                                         </span>
                                     </div>
                                     <div class="crp-service-content">
-                                        <h4 class="crp-service-title-sm"><a class="tp-line-white cream" href="service-details-2-light.html">Professional Business</a></h4>
+                                        <h4 class="crp-service-title-sm"><a class="tp-line-white cream" >{!! __('hotel.feature_hvac_title') !!}</a></h4>
                                         <p>
-                                            Lorem ipsum dolor sit amet, conse ctetur
-                                            sadipiscing elit, sed dominus eiusmc od tempor
-                                            omincid idu nt ut labore et dolore <br>
-                                            magna aliqua.
+                                            {!! __('hotel.feature_hvac_desc') !!}
                                         </p>
-                                        <a class="crp-service-link" href="service-details-2-light.html">
-                                            <span>
+                                        <a class="crp-service-link">
+                                            {{-- <span>
                                                 <span class="text-1">View More</span>
                                                 <span class="text-2">View More</span>
-                                            </span>
+                                            </span> --}}
                                             <i>
                                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1 11L11 1M11 1V11M11 1H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -368,18 +363,15 @@
                                         </span>
                                     </div>
                                     <div class="crp-service-content">
-                                        <h4 class="crp-service-title-sm"><a class="tp-line-white cream" href="service-details-2-light.html">Business Growth</a></h4>
+                                        <h4 class="crp-service-title-sm"><a class="tp-line-white cream">{!! __('hotel.feature_control_title') !!}</a></h4>
                                         <p>
-                                            Lorem ipsum dolor sit amet, conse ctetur
-                                            sadipiscing elit, sed dominus eiusmc od tempor
-                                            omincid idu nt ut labore et dolore <br>
-                                            magna aliqua.
+                                            {!! __('hotel.feature_control_desc') !!}
                                         </p>
-                                        <a class="crp-service-link" href="service-details-2-light.html">
-                                            <span>
+                                        <a class="crp-service-link">
+                                            {{-- <span>
                                                 <span class="text-1">View More</span>
                                                 <span class="text-2">View More</span>
-                                            </span>
+                                            </span> --}}
                                             <i>
                                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1 11L11 1M11 1V11M11 1H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -403,45 +395,32 @@
                         <div class="row gx-10">
                             <div class="col-xl-6">
                                 <div class="row gx-10">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 mb-10">
-                                        <div class="crp-success-item about-us p-relative" data-bg-color="#45653C" data-background="assets/img/about-us/about-us-thumb-3.png">
-                                            <div class="crp-about-us-item-wrap">
-                                                <div class="crp-about-us-item-icon">
-                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.92553 9.27506C3.84549 12.2016 7.45199 12.9209 9.77481 12.1958L11.1295 14.6676C11.254 14.874 11.4734 14.9996 11.7096 14.9996H16.3166C16.8157 14.9996 17.146 14.4669 16.9354 14.0017L10.7799 0.405605C10.6642 0.150088 10.4111 -0.00947846 10.1371 0.000435603L3.62801 0.235985C3.60506 0.236815 3.58251 0.23875 3.56042 0.241728C2.93431 0.265385 2.34927 0.444713 1.84298 0.795815C-0.839236 2.65588 -0.40367 6.27712 1.92553 9.27506ZM8.64298 9.90472C10.153 8.85757 10.2 6.40865 9.18555 4.35178C7.22576 1.36455 4.15183 0.316804 2.43995 1.31967C0.0418452 2.72455 1.09979 6.85172 2.77513 8.95691C4.45046 11.0621 6.86831 11.1354 8.64298 9.90472Z" fill="#F9F4E8" />
-                                                            <path d="M4.54315 4.32617C4.73732 3.90234 5.2732 3.78941 5.61389 4.10054L7.25538 5.59958C7.48022 5.80491 7.54785 6.13735 7.4219 6.41812L4.06045 14.5922C3.94893 14.8408 3.70695 15 3.44066 15L1.02887 15C0.528456 15 0.198165 14.4647 0.411397 13.9992L4.54315 4.32617Z" fill="#F9F4E8" />
-                                                        </svg></span>
-                                                </div>
-                                                <h4 class="crp-about-us-item-title">Unique and <br>
-                                                    New Business Tips</h4>
-                                                <div class="crp-about-us-item-btn-box">
-                                                    <span>42k people</span>
-                                                    <a href="#"><span>Explore <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-                                                                <path d="M1 8.99994L9 0.999939" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M1 0.999939H9V8.99994" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg></span></a>
-                                                </div>
+                                   <div class="col-xl-6 col-lg-6 col-md-6 mb-10">
+                                        <div class="crp-success-item">
+                                            <div class="crp-success-img anim-zoomin-wrap">
+                                                <img class="w-100 anim-zoomin" src="assets/AIcontrol_imgs/hotel/ht6.jpg" alt="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 mb-10">
                                         <div class="crp-success-item">
                                             <div class="crp-success-img anim-zoomin-wrap">
-                                                <img class="w-100 anim-zoomin" src="assets/img/about-us/about-us-thumb-2.jpg" alt="">
+                                                <img class="w-100 anim-zoomin" src="assets/AIcontrol_imgs/hotel/ht7.jpg" alt="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 mb-10">
                                         <div class="crp-success-item about-us">
                                             <div class="crp-success-video anim-zoomin-wrap">
-                                                <video loop="" muted="" autoplay="" playsinline="" src="assets/img/about-us/about-us-3.mp4"></video>
+                                                {{-- <video loop="" muted="" autoplay="" playsinline="" src="assets/img/about-us/about-us-3.mp4"></video> --}}
+                                                <img class="w-100 anim-zoomin" src="assets/AIcontrol_imgs/hotel/ht5.jpg" alt="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 mb-10">
-                                        <div class="crp-success-item about-us-img p-relative" data-bg-color="#45653C">
+                                        <div class="crp-success-item about-us-img p-relative" data-bg-color="">
                                             <div class="crp-about-us-item-img">
-                                                <img src="assets/img/about-us/about-us-thumb-4.png" alt="">
+                                                <img src="assets/AIcontrol_imgs/hotel/ht4.jpg" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -450,315 +429,77 @@
                         </div>
                     </div>
                     <div class="crp-success-about-us-big-img anim-zoomin-wrap">
-                        <img class="w-100 anim-zoomin" src="assets/img/about-us/about-us-thumb-1.jpg" alt="">
+                        <img class="w-100 anim-zoomin" src="assets/AIcontrol_imgs/hotel/ht3.jpg" alt="">
                     </div>
                 </div>
                 <!-- success area end -->
 
-                <!-- team area start -->
-                <div class="des-team-area pb-180">
-                    <div class="container container-1750">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="des-team-wrap des-team-inner-style">
-                                    <div class="des-team-item-box active hover-reveal-item p-relative">
-                                        <a href="team-details-light.html">
-                                            <div class="des-team-item d-flex align-items-center justify-content-between">
-                                                <span>Since 2010</span>
-                                                <h4 class="des-team-title">Logan Dang</h4>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </a>
-                                        <div class="des-team-reveal-img" data-background="assets/img/home-02/team/team-1.jpg"></div>
+                <!-- blog area start -->
+                <div class="ar-blog-area pb-100 pt-120">
+                    <div class="container container-1430">
+                        <div class="ar-blog-title-wrap ar-title-mlr mb-60">
+                            <div class="row align-items-end">
+                                <div class="col-xl-8 col-lg-8 col-md-7">
+                                    <div class="ar-blog-title-box">
+                                        <h3 class="tp-section-title-clash-600 fs-60 mb-0 tp_fade_anim" data-delay=".4">{{ __('abb.blog_title') }}</h3>
                                     </div>
-                                    <div class="des-team-item-box active hover-reveal-item p-relative">
-                                        <a href="team-details-light.html">
-                                            <div class="des-team-item d-flex align-items-center justify-content-between">
-                                                <span>Since 2010</span>
-                                                <h4 class="des-team-title">Rahat Chowhury</h4>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </a>
-                                        <div class="des-team-reveal-img" data-background="assets/img/home-02/team/team-2.jpg"></div>
-                                    </div>
-                                    <div class="des-team-item-box active hover-reveal-item p-relative">
-                                        <a href="team-details-light.html">
-                                            <div class="des-team-item d-flex align-items-center justify-content-between">
-                                                <span>Since 2010</span>
-                                                <h4 class="des-team-title">Thomas Finlan</h4>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </a>
-                                        <div class="des-team-reveal-img" data-background="assets/img/home-02/team/team-3.jpg"></div>
-                                    </div>
-                                    <div class="des-team-item-box active hover-reveal-item p-relative">
-                                        <a href="team-details-light.html">
-                                            <div class="des-team-item d-flex align-items-center justify-content-between">
-                                                <span>Since 2010</span>
-                                                <h4 class="des-team-title">Farhan Firoz</h4>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </a>
-                                        <div class="des-team-reveal-img" data-background="assets/img/home-02/team/team-4.jpg"></div>
-                                    </div>
-                                    <div class="des-team-item-box active hover-reveal-item p-relative">
-                                        <a href="team-details-light.html">
-                                            <div class="des-team-item d-flex align-items-center justify-content-between">
-                                                <span>Since 2010</span>
-                                                <h4 class="des-team-title">Billy Craft</h4>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </a>
-                                        <div class="des-team-reveal-img" data-background="assets/img/home-02/team/team-5.jpg"></div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-5">
+                                    <div class="ar-blog-btn-box d-flex justify-content-md-end justify-content-start mb-15">
+                                        <div class="tp-btn-red-circle-box tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
+                                            <a class="tp-btn-red-circle-icon" href="{{ route(current_locale() . '.blog.index') }}">
+                                                <span>
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                            <a class="tp-btn-red-circle-text" href="{{ route(current_locale() . '.blog.index') }}">{{ __('abb.blog_view_all') }}</a>
+                                            <a class="tp-btn-red-circle-icon" href="{{ route(current_locale() . '.blog.index') }}">
+                                                <span>
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row gx-40">
+                            @forelse(($NewestBlogs ?? collect()) as $index => $blog)
+                                @php
+                                    $delay = number_format(0.3 + ($index * 0.1), 1);
+                                    $cover = $blog->featured_image ? asset($blog->featured_image) : asset('assets/img/home-08/blog/blog-1.jpg');
+                                    $primaryCategoryModel = $blog->blogCategories->first();
+                                    $primaryCategory = optional($primaryCategoryModel)->name ?? 'Blog';
+                                    $categoryUrl = route(current_locale() . '.blog.show', ['slug' => $blog->slug]);
+                                    $publishedDate = $blog->published_at ? $blog->published_at->format('M d, Y') : ($blog->created_at ? $blog->created_at->format('M d, Y') : null);
+                                @endphp
+                                <div class="col-xl-3 col-lg-6 col-md-6">
+                                    <div class="ar-blog-item mb-30 tp_fade_anim" data-delay=".{{ $delay }}">
+                                        <div class="ar-blog-thumb p-relative">
+                                            <a href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}"><img class="w-100" src="{{ $cover }}" alt="{{ $blog->title }}"></a>
+                                            <a class="ar-blog-category" href="{{ $categoryUrl }}">{{ $primaryCategory }}</a>
+                                        </div>
+                                        <div class="ar-blog-content">
+                                            <h3 class="ar-blog-title-sm"><a class="tp-line-black" href="{{ route(current_locale() . '.blog.show', ['slug' => $blog->slug]) }}">{{ \Illuminate\Support\Str::limit($blog->title, 70) }}</a></h3>
+                                            @if($publishedDate)
+                                                <span class="ar-blog-meta">{{ $publishedDate }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-12">
+                                    <p class="text-center text-muted">{{ __('abb.blog_no_posts') }}</p>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
-                <!-- team area end -->
-
-                <!-- price area start -->
-                <div class="crp-price-area crp-inner-style fix p-relative z-index-1 pt-120 pb-140" data-bg-color="#edf2ef">
-                    <div class="crp-price-shape-2 d-none d-xl-block">
-                        <img src="assets/img/home-09/price/shape-2.png" alt="">
-                    </div>
-                    <div class="container container-1330">
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="pp-award-left tp_fade_anim" data-delay=".3">
-                                    <span class="tp-section-subtitle-clash clash-subtitle-pos body-ff">
-                                        Award
-                                        <i>
-                                            <svg width="102" height="9" viewBox="0 0 102 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M98 8L101.5 4.5L98 1M1 4H101V5H1V4Z" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </svg>
-                                        </i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-lg-10">
-                                <div class="pp-about-heading pb-55">
-                                    <h3 class="tp-section-title-teko fs-120 tp_fade_anim" data-delay=".5">Awards & <br> Recognitions</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="pp-award-wrapper">
-                                    <div class="tp-award-item-wrap p-relative">
-                                        <div class="tp-award-item pp-award-header p-relative mb-5 tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year tp-award-text-2">year</span>
-                                                        <span class="tp-award-text tp-award-text-2">Recognition</span>
-                                                        <span class="tp-award-text-2">platform</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-text-2">Project</span>
-                                                        <span class="tp-award-icon tp-award-text-2">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tp-award-item hover-reveal-item p-relative tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year">2025</span>
-                                                        <span class="tp-award-text">Honors</span>
-                                                        <span class="tp-award-year">AWWWARDS</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-position">Agntix</span>
-                                                        <span class="tp-award-link">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-award-reveal-img" data-background="assets/img/home-01/award/award-1.jpg"></div>
-                                        </div>
-                                        <div class="tp-award-item hover-reveal-item p-relative tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year">2025</span>
-                                                        <span class="tp-award-text">Site of the Day</span>
-                                                        <span class="tp-award-year">Mindsparkle Mag</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-position">Personal Portfolio</span>
-                                                        <span class="tp-award-link">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-award-reveal-img" data-background="assets/img/home-01/award/award-2.jpg"></div>
-                                        </div>
-                                        <div class="tp-award-item hover-reveal-item p-relative tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year">2023</span>
-                                                        <span class="tp-award-text">Best Innovation</span>
-                                                        <span class="tp-award-year">MUSE Awards</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-position">Thom Evans Fitness</span>
-                                                        <span class="tp-award-link">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-award-reveal-img" data-background="assets/img/home-01/award/award-3.jpg"></div>
-                                        </div>
-                                        <div class="tp-award-item hover-reveal-item p-relative tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year">2022</span>
-                                                        <span class="tp-award-text">Mobile Excellence</span>
-                                                        <span class="tp-award-year">Mindsparkle Mag</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-position">Pixel Forged</span>
-                                                        <span class="tp-award-link">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-award-reveal-img" data-background="assets/img/home-01/award/award-4.jpg"></div>
-                                        </div>
-                                        <div class="tp-award-item hover-reveal-item p-relative tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year">2021</span>
-                                                        <span class="tp-award-text">Site of the Day</span>
-                                                        <span class="tp-award-year">CSS Awards</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-position">Portfolio</span>
-                                                        <span class="tp-award-link">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-award-reveal-img" data-background="assets/img/home-01/award/award-5.jpg"></div>
-                                        </div>
-                                        <div class="tp-award-item hover-reveal-item p-relative tp_fade_anim">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-8 col-md-6">
-                                                    <div class="tp-award-box-left z-index-3">
-                                                        <span class="tp-award-year">2020</span>
-                                                        <span class="tp-award-text">Honors</span>
-                                                        <span class="tp-award-year">AWWWARDS</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="tp-award-box-right z-index-3 d-flex justify-content-between align-items-center">
-                                                        <span class="tp-award-position">Agntix Studio</span>
-                                                        <span class="tp-award-link">
-                                                            Link
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-award-reveal-img" data-background="assets/img/home-01/award/award-6.jpg"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- price area end -->
-
-                <!-- project area start -->
-                <div class="crp-project-area tp-panel-pin-area pt-140 mb-150">
-                    <div class="container container-1330">
-                        <div class="row">
-                            <div class="col-xl-5">
-                                <div class="crp-project-title-box tp-panel-pin">
-                                    <h4 class="tp-section-title-teko fs-150 mb-50 tp_fade_anim" data-delay=".3">Our recent <span>projects</span></h4>
-                                    <div class="tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                                        <a class="tp-btn-yellow-border" href="portfolio-col-3-light.html">
-                                            <span>
-                                                <span class="text-1">See All Projects</span>
-                                                <span class="text-2">See All Projects</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-7">
-                                <div class="crp-project-right">
-                                    <div class="tp-work-item about-us-3-bg tp-panel-pin mb-15">
-                                        <div class="tp-work-number p-relative">
-                                            <span></span>
-                                            <i>01</i>
-                                        </div>
-                                        <div class="tp-work-content">
-                                            <h4 class="tp-work-title">User Research</h4>
-                                            <p>We listen stories of user to understand pain points and give a rough <br> estimate about cost and time-frame</p>
-                                        </div>
-                                    </div>
-                                    <div class="tp-work-item about-us-3-bg tp-panel-pin mb-15">
-                                        <div class="tp-work-number p-relative">
-                                            <span></span>
-                                            <i>02</i>
-                                        </div>
-                                        <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Define Problems</h4>
-                                            <p>We listen stories of user to understand pain points and give a rough <br> estimate about cost and time-frame</p>
-                                        </div>
-                                    </div>
-                                    <div class="tp-work-item about-us-3-bg tp-panel-pin mb-15">
-                                        <div class="tp-work-number p-relative">
-                                            <span></span>
-                                            <i>03</i>
-                                        </div>
-                                        <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Design & Prototype</h4>
-                                            <p>We listen stories of user to understand pain points and give a rough <br> estimate about cost and time-frame</p>
-                                        </div>
-                                    </div>
-                                    <div class="tp-work-item about-us-3-bg tp-panel-pin mb-15">
-                                        <div class="tp-work-number p-relative">
-                                            <span></span>
-                                            <i>04</i>
-                                        </div>
-                                        <div class="tp-work-content">
-                                            <h4 class="tp-work-title">Evaluation & Testing</h4>
-                                            <p>We listen stories of user to understand pain points and give a rough <br> estimate about cost and time-frame</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- project area end -->
+                <!-- blog area end -->
 
 
             </main>
@@ -776,35 +517,36 @@
     <!-- JS here -->
 
 
-    <script src="assets/js/vendor/jquery.js"></script>
-    <script src="assets/js/bootstrap-bundle.js"></script>
-    <script src="assets/js/swiper-bundle.js"></script>
-    <script src="assets/js/plugin.js"></script>
-    <script src="assets/js/three.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/scroll-magic.js"></script>
-    <script src="assets/js/hover-effect.umd.js"></script>
-    <script src="assets/js/magnific-popup.js"></script>
-    <script src="assets/js/parallax-slider.js"></script>
-    <script src="assets/js/nice-select.js"></script>
-    <script src="assets/js/purecounter.js"></script>
-    <script src="assets/js/isotope-pkgd.js"></script>
-    <script src="assets/js/imagesloaded-pkgd.js"></script>
-    <script src="assets/js/ajax-form.js"></script>
-    <script src="assets/js/Observer.min.js"></script>
-    <script src="assets/js/splitting.min.js"></script>
-    <script src="assets/js/webgl.js"></script>
-    <script src="assets/js/parallax-scroll.js"></script>
-    <script src="assets/js/atropos.js"></script>
+  <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/js/three.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/scroll-magic.js') }}"></script>
+    <script src="{{ asset('assets/js/hover-effect.umd.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/Observer.min.js') }}"></script>
+    <script src="{{ asset('assets/js/splitting.min.js') }}"></script>
+    <script src="{{ asset('assets/js/webgl.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax-scroll.js') }}"></script>
+    <script src="{{ asset('assets/js/atropos.js') }}"></script>
     <script src="{{ asset('assets/js/slider-active.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/popup.js') }}"></script>
     <script src="{{ asset('assets/js/header-search.js') }}"></script>
     <script src="{{ asset('assets/js/tp-cursor.js') }}"></script>
-    <script src="assets/js/portfolio-slider-1.js"></script>
-    <script type="module" src="assets/js/distortion-img.js"></script>
-    <script type="module" src="assets/js/skew-slider/index.js"></script>
-    <script type="module" src="assets/js/img-revel/index.js"></script>
+    <script src="{{ asset('assets/js/portfolio-slider-1.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/distortion-img.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
+    <script src="{{ asset('assets/js/popup.js') }}"></script>
 
 
     <!-- JS here -->

@@ -309,9 +309,12 @@
                                 <div class="tp-blog-masonry-item h-100">
                                     @if($related->thumbnail_image)
                                     <div class="tp-blog-masonry-thumb position-relative mb-20">
-                                        <a href="{{ route('projects.show', $related->slug) }}">
-                                            <img src="{{ asset($related->thumbnail_image) }}" alt="{{ $related->title }}" style="width: 100%; height: 250px; object-fit: cover;">
+                                        <a href="{{ route(current_locale() . '.projects.show', $related->slug) }}">
+                                            <img src="{{ asset($related->thumbnail_image) }}"
+                                                alt="{{ $related->title }}"
+                                                style="width: 100%; height: 250px; object-fit: cover;">
                                         </a>
+
                                         @if($related->category)
                                         <div class="tp-blog-masonry-tag">
                                             <span>
@@ -326,17 +329,24 @@
                                     @endif
                                     <div class="tp-blog-masonry-content">
                                         <h4 class="tp-blog-masonry-title mb-15">
-                                            <a href="{{ route('projects.show', $related->slug) }}">{{ Str::limit($related->title, 50) }}</a>
+                                            <a href="{{ route(current_locale() . '.projects.show', $related->slug) }}">
+                                                {{ Str::limit($related->title, 50) }}
+                                            </a>
+
                                         </h4>
                                         @if($related->short_description)
                                         <p class="mb-20">{{ Str::limit($related->short_description, 80) }}</p>
                                         @endif
                                         <div class="tp-blog-masonry-btn">
-                                            <a href="{{ route('projects.show', $related->slug) }}">
-                                                Xem chi tiết 
+                                            <a href="{{ route(current_locale() . '.projects.show', $related->slug) }}">
+                                                Xem chi tiết
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#ff5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11"
+                                                            stroke="#ff5722"
+                                                            stroke-width="2"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round" />
                                                     </svg>
                                                 </span>
                                             </a>
