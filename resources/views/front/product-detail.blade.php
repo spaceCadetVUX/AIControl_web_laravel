@@ -1,15 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="vi">
+<html class="no-js" lang="{{ current_locale() }}">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
     {{-- SEO Meta Tags --}}
     <title>{{ $product->meta_title ?? $product->name . ' - AIControl Vietnam' }}</title>
     <meta name="description" content="{{ $product->meta_description ?? Str::limit($product->short_description, 160) }}">
     <meta name="keywords" content="{{ $product->meta_keywords ?? $product->brand . ', ' . $product->name }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     
     {{-- Robots Meta Tag - Controls Search Engine Indexing --}}
     @if(!$product->indexable)

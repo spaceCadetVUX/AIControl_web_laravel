@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl')</title>
+    
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="@yield('description', 'AIControl cung cấp giải pháp điều khiển thông minh giúp tối ưu năng lượng, chiếu sáng và an ninh cho mọi công trình thương mại, văn phòng, và nhà máy.')">
@@ -14,6 +15,7 @@
 
     <!-- Canonical -->
     <link rel="canonical" href="@yield('canonical', url()->current())">
+
 
     <!-- Open Graph (Facebook, Zalo, etc.) -->
     <meta property="og:title" content="@yield('og_title', 'Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl')">

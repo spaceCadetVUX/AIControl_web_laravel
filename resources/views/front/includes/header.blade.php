@@ -94,14 +94,8 @@
             <li class="is-active">
                 <a href="{{ url(current_locale().'/blog') }}">{{ __('header.nav_blogs') }}</a>
             </li>
-            {{-- <li class="has-dropdown is-active">
-                <a href="#">Về chúng tôi</a>
-                <ul class="tp-submenu submenu">
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Dịch vụ</a></li>
-                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
-                    <li><a href="#">FAQ's</a></li>
-                </ul>
+            {{-- <li class="">
+              
             </li> --}}
         </ul>
     </nav>

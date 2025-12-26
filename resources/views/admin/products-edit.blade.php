@@ -15,7 +15,7 @@
 
     <div class="py-12">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
+            <form id="product-form" method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -385,6 +385,7 @@
                                 </div>
                                 @endforeach
                             </div>
+                            <input type="hidden" name="specifications" id="specifications_input" value="">
                             <button type="button" onclick="addSpecification()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Specification</button>
                         </div>
 
@@ -437,6 +438,33 @@
                                     inputs.forEach(input => input.value = '');
                                 }
                             }
+
+                            // Serialize specifications into hidden input before form submit
+                            function serializeSpecifications() {
+                                const keys = Array.from(document.querySelectorAll('input[name="spec_keys[]"]'));
+                                const vals = Array.from(document.querySelectorAll('input[name="spec_values[]"]'));
+                                const obj = {};
+                                for (let i = 0; i < keys.length; i++) {
+                                    const k = keys[i].value.trim();
+                                    const v = vals[i] ? vals[i].value : '';
+                                    if (k === '') continue;
+                                    obj[k] = v;
+                                }
+                                const hidden = document.getElementById('specifications_input');
+                                if (hidden) {
+                                    hidden.value = JSON.stringify(obj);
+                                }
+                            }
+
+                            // Attach serializer to form submit
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const form = document.getElementById('product-form');
+                                if (form) {
+                                    form.addEventListener('submit', function(e) {
+                                        serializeSpecifications();
+                                    });
+                                }
+                            });
                         </script>
                     </div>
                 </div>

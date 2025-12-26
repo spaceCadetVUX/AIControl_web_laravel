@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ __('blog.meta_title') }}</title>
     <meta name="description" content="{{ __('blog.meta_description') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <!-- Canonical -->
     @php
@@ -37,6 +38,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
+    @include('front.partials.ga')
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">

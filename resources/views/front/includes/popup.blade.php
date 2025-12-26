@@ -103,14 +103,14 @@
             font-size: 32px;
             font-weight: 800;
             margin: 0 0 8px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
         }
 
         .popup-header-text p {
             font-size: 17px;
             margin: 0;
             opacity: 0.95;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.5);
         }
 
         /* Nút đóng */
@@ -211,10 +211,7 @@
             <div class="popup-header">
                 <img src="https://www.architecturecourses.org/sites/default/files/2024-06/modern-minimalist-living-room.webp" alt="AIControl Smart Home">
                 
-                <div class="popup-header-text">
-                    <h2>Ai Control</h2>
-                    <p>Thông tin liên lạc và hỗ trợ</p>
-                </div>
+
                 
                 <button class="popup-close" id="contactClose" aria-label="Đóng">
                     <i class="fas fa-times"></i>
@@ -225,7 +222,7 @@
                 <p>Chọn một trong các kênh dưới đây để được hỗ trợ nhanh nhất từ đội ngũ AIControl.</p>
                 
                 <div class="contact-buttons">
-                    <a href="https://www.facebook.com/yourpage" target="_blank" class="contact-btn">
+                    <a href="https://www.facebook.com/aicontrol.vn" target="_blank" class="contact-btn">
                         <i class="fab fa-facebook-f"></i>
                         <span>Facebook</span>
                     </a>
@@ -237,7 +234,7 @@
                         <i class="fas fa-phone-alt"></i>
                         <span>Hotline</span>
                     </a>
-                    <a href="mailto:info@aicontrol.vn" class="contact-btn">
+                    <a href="mailto:hello@aicontrol.vn" class="contact-btn">
                         <i class="fas fa-envelope"></i>
                         <span>Email</span>
                     </a>

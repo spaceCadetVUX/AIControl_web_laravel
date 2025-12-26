@@ -5,28 +5,30 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="{{ url(current_locale()) }}/">
     <title>{{ __('lighting.meta_title') }}</title>
     <meta name="description" content="{{ __('lighting.meta_description') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <!-- ✅ Từ khóa (SEO Keywords) -->
     <meta name="keywords" content="{{ __('lighting.meta_keywords') }}">
 
 
     <!-- ✅ Canonical URL -->
+ <!-- Canonical (avoid duplicate URLs) -->
     @php
-    $path = request()->path();
-    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+         $path = ltrim(preg_replace('#^(vi|en)(/)?#', '', request()->path()), '/');
     @endphp
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
     <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
-    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/') }}">
 
 
     <!-- ✅ Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
+    @include('front.partials.ga')
 
     <!-- ✅ Open Graph (mạng xã hội, Zalo, Facebook, LinkedIn) -->
     <meta property="og:title" content="{{ __('hotel.og_title') }}">

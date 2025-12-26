@@ -30,6 +30,10 @@
             <div class="tp-offcanvas-menu counter-row">
                 <nav></nav>
             </div>
+            <div class="tp-header-8-lang d-none d-md-block">
+                                <a href="{{ switch_locale_url('vi') }}" class="{{ current_locale() === 'vi' ? 'active' : '' }}">VI</a>
+                                <a href="{{ switch_locale_url('en') }}" class="{{ current_locale() === 'en' ? 'active' : '' }}">EN</a>
+                            </div>
         </div>
         <div class="tp-offcanvas-2-right right-box d-none d-md-block p-relative">
             <div class="tp-offcanvas-2-close text-end">

@@ -11,7 +11,6 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Routes that must NOT be localized
         if (
             $request->is('login') ||
             $request->is('logout') ||
@@ -27,14 +26,12 @@ class SetLocale
         $locale = $request->segment(1);
 
         if (!in_array($locale, $supportedLocales)) {
-            $locale = config('app.fallback_locale', 'vi');
-
-            return redirect("/{$locale}/" . ltrim($request->path(), '/'));
+            return redirect('/vi/' . ltrim($request->path(), '/'), 301);
         }
 
         App::setLocale($locale);
-        Session::put('locale', $locale);
 
         return $next($request);
     }
 }
+

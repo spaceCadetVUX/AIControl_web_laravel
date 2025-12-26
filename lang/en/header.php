@@ -3,7 +3,7 @@
 return [
     // Header
     'menu' => 'Menu',
-    'call_now' => 'CALL NOW',
+    'call_now' => 'CONTACT',
     
     // Navigation - Main Menu
     'nav_home' => 'Home',

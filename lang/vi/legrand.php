@@ -38,7 +38,7 @@ return [
     'solutions_title_part2' => 'Legrand',
     
     // Solution 1 - Lighting
-    'solution1_title' => 'Chiếu sáng<br>Thông minh',
+    'solution1_title' => 'Điều khiển Chiếu sáng',
     'solution1_desc' => 'Tối ưu hóa tiêu thụ năng lượng, giảm chi phí vận hành. Tương thích KNX, DALI, Zigbee…',
     
     // Solution 2 - Hotel Room Management

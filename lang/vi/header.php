@@ -3,7 +3,7 @@
 return [
     // Header
     'menu' => 'Menu',
-    'call_now' => 'GỌI NGAY',
+    'call_now' => 'LIÊN HỆ',
     
     // Navigation - Main Menu
     'nav_home' => 'Trang chủ',

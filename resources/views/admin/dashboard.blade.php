@@ -475,7 +475,7 @@
 
         function sortTableBy(column, order = 'desc') {
             const tbody = document.getElementById('tableBody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const rows = Array.from(tbody.querySelectorAll('tr[data-name]'));
 
             rows.sort((a, b) => {
                 let aValue, bValue;
@@ -502,11 +502,14 @@
 
             // Clear tbody and re-append sorted rows
             tbody.innerHTML = '';
-            rows.forEach((row, index) => {
-                // Update row number
-                row.querySelector('.row-number').textContent = index + 1;
+                rows.forEach((row, index) => {
+                const rowNumberCell = row.querySelector('.row-number');
+                if (rowNumberCell) {
+                    rowNumberCell.textContent = index + 1;
+                }
                 tbody.appendChild(row);
             });
+
 
             // Update select dropdown to match
             const select = document.getElementById('sortFilter');

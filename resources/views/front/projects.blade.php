@@ -5,12 +5,14 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dự án - AIControl Vietnam</title>
     <meta name="description" content="Khám phá các dự án AIControl Vietnam về hệ thống điều khiển thông minh, chiếu sáng, HVAC, an ninh và tự động hóa nhà ở, tòa nhà và công trình hiện đại.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
+    @include('front.partials.ga')
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
@@ -199,9 +201,10 @@
                                                 <div class="rc-post d-flex align-items-start mb-20">
                                                     @if($featured->thumbnail_image)
                                                     <div class="rc-post-thumb">
-                                                        <a href="{{ route('projects.show', $featured->slug) }}">
+                                                        <a href="{{ route(app()->getLocale().'.projects.show', $featured->slug) }}">
                                                             <img src="{{ asset($featured->thumbnail_image) }}" alt="{{ $featured->title }}">
                                                         </a>
+
                                                     </div>
                                                     @endif
                                                     <div class="rc-post-content">
@@ -211,8 +214,11 @@
                                                         </div>
                                                         @endif
                                                         <h3 class="rc-post-title mb-1">
-                                                            <a href="{{ route('projects.show', $featured->slug) }}">{{ Str::limit($featured->title, 50) }}</a>
+                                                            <a href="{{ route(app()->getLocale().'.projects.show', $featured->slug) }}">
+                                                                {{ Str::limit($featured->title, 50) }}
+                                                            </a>
                                                         </h3>
+
                                                         @if($featured->detail_3_value)
                                                         <div class="rc-post-meta">
                                                             <span>
@@ -245,9 +251,10 @@
                                         <div class="tp-blog-masonry-item h-100">
                                             @if($project->thumbnail_image)
                                             <div class="tp-blog-masonry-thumb position-relative">
-                                                <a href="{{ route('projects.show', $project->slug) }}">
+                                               <a href="{{ route(app()->getLocale().'.projects.show', $project->slug) }}">
                                                     <img src="{{ asset($project->thumbnail_image) }}" alt="{{ $project->title }}" style="width: 100%; height: 280px; object-fit: cover;">
                                                 </a>
+
                                                 @if($project->category)
                                                 <div class="tp-blog-masonry-tag">
                                                     <span>
@@ -289,9 +296,10 @@
                                                 </div>
 
                                                 <h4 class="tp-blog-masonry-title mb-15">
-                                                    <a class="tp-line-white" href="{{ route('projects.show', $project->slug) }}">
+                                                    <a class="tp-line-white" href="{{ route(app()->getLocale().'.projects.show', $project->slug) }}">
                                                         {{ Str::limit($project->title, 60) }}
                                                     </a>
+
                                                 </h4>
                                                 @if($project->short_description)
                                                 <p class="mb-20">{{ Str::limit($project->short_description, 100) }}</p>
@@ -299,7 +307,7 @@
                                                 
                                                 <div class="d-flex justify-content-between align-items-center blog-footer">
                                                     <div class="tp-blog-masonry-btn">
-                                                        <a href="{{ route('projects.show', $project->slug) }}">
+                                                        <a href="{{ route(app()->getLocale().'.projects.show', $project->slug) }}">
                                                             Xem chi tiết 
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -307,6 +315,7 @@
                                                                 </svg>
                                                             </span>
                                                         </a>
+
                                                     </div>
                                                     @if($project->detail_4_value)
                                                     <span class="reading-time" style="font-size: 12px; color: #666;">

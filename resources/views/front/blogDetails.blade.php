@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
     {{-- SEO Meta Tags --}}
     <title>{{ $blog->seo_title }} | AIControl</title>
@@ -12,7 +13,7 @@
     @if($blog->meta_keywords)
     <meta name="keywords" content="{{ $blog->meta_keywords }}">
     @endif
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <meta name="author" content="{{ $blog->author->name ?? 'AIControl' }}">
     
     {{-- Canonical URL --}}
@@ -93,6 +94,7 @@
 
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
+    @include('front.partials.ga')
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">

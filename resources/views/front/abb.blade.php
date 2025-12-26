@@ -5,25 +5,28 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <base href="{{ url('/') }}/">
     <title>{{ __('abb.meta_title') }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <meta name="description" content="{{ __('abb.meta_description') }}">
     <meta name="keywords" content="{{ __('abb.meta_keywords') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/AIcontrol_imgs/small_logo.png') }}">
+    @include('front.partials.ga')
     <!-- Canonical URL -->
+ <!-- Canonical (avoid duplicate URLs) -->
     @php
-    $path = request()->path();
-    $path = preg_replace('#^(vi|en)(/)?#', '', $path);
+         $path = ltrim(preg_replace('#^(vi|en)(/)?#', '', request()->path()), '/');
     @endphp
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="alternate" hreflang="vi" href="{{ url('/vi/' . $path) }}">
     <link rel="alternate" hreflang="en" href="{{ url('/en/' . $path) }}">
-    <link rel="alternate" hreflang="x-default" href="{{ url('/vi/' . $path) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/') }}">
 
 
     <!-- Open Graph for Facebook -->

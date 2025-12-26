@@ -13,6 +13,10 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'ga4' => [
+    'id' => env('GA_MEASUREMENT_ID'),
+    ],
+
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
@@ -30,5 +34,7 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+
+
 
 ];
