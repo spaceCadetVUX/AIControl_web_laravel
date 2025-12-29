@@ -769,6 +769,7 @@
     <script type="module" src="{{ asset('assets/js/skew-slider/index.js') }}"></script>
     <script type="module" src="{{ asset('assets/js/img-revel/index.js') }}"></script>
     <script src="{{ asset('assets/js/popup.js') }}"></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
     
     <!-- JS here -->
 </body>

@@ -1,6 +1,7 @@
 <!-- header area start -->
 
 <header>
+    
     <!-- header area start -->
     <div class="tp-header-8-area header-transparent tp-header-8-border" data-bg-color="#ffffffff">
         <div class="container container-1750">

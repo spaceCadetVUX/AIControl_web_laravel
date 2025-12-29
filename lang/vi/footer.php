@@ -13,8 +13,8 @@ return [
     'contact_title' => 'Địa chỉ & liên lạc',
     'contact_phone' => 'SDT: 02873007475',
     'contact_zalo' => 'ZALO: Tư vấn & Nhận phản hồi',
-    'contact_address' => 'Địa chỉ: The Sun Avenue S5.01.02 28 - Mai Chí Thọ',
-    'contact_email' => 'Email: hello@aicontrol.vn',
+    'contact_address' => 'Địa chỉ: 110  110 Trương Văn Bang, Bình Trưng Tây, TP Thủ Đức, HCM,',
+    'contact_email' => 'Email:  support@aicontrol.vn',
     
     // Newsletter
     'newsletter_placeholder' => 'Nhập email của bạn',

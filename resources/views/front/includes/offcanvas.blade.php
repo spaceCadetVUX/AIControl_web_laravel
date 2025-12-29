@@ -57,7 +57,7 @@
                 </div>
                 <div class="tp-offcanvas-2-right-info-item">
                     <label class="mb-10">{{ __('header.offcanvas_email') }}</label>
-                    <a class="tp-line-white" href="mailto:hello@aicontrol.vn">hello@aicontrol.vn</a>
+                    <a class="tp-line-white" href="mailto: support@aicontrol.vn"> support@aicontrol.vn</a>
                 </div>
                 <div class="tp-offcanvas-2-right-info-item">
                     <label class="mb-10">{{ __('header.offcanvas_address') }}</label>

@@ -24,8 +24,13 @@
                                         <path d="M16 2.5C16 1.675 15.325 1 14.5 1H2.5C1.675 1 1 1.675 1 2.5M16 2.5V11.5C16 12.325 15.325 13 14.5 13H2.5C1.675 13 1 12.325 1 11.5V2.5M16 2.5L8.5 7.75L1 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
+                                
                                 <button class="ar-footer-widget-btn" type="submit">{{ __('footer.newsletter_button') }}</button>
                             </div>
+                            {{-- my calendly --}}
+                            <div class="calendly-inline-widget"
+                                    data-url="https://calendly.com/your-username/your-event"
+                                    style="min-width:320px;height:630px;"></div>
                         </div>
                     </div>
                 </div>
@@ -66,8 +71,8 @@
                                 </a>
                             </div>
                             <div class="ar-footer-widget-info">
-                                <a class="" target="_blank" href="https://www.google.com/maps/search/+The+Sun+Avenue+S5.01.02+28+-+Mai+Ch%C3%AD+Th%E1%BB%8D/@10.7851206,106.748232,166m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D">{{ __('footer.contact_address') }}</a>
-                                <a class="" target="_blank" href="mailto:hello@aicontrol.vn">{{ __('footer.contact_email') }}</a>
+                                <a class="" target="_blank" href="https://www.bing.com/maps/search?FORM=HDRSC6&q=%27Address%3A+110+110+Tr%C6%B0%C6%A1ng+V%C4%83n+Bang%2C+B%C3%ACnh+Tr%C6%B0ng+T%C3%A2y%2C+TP+Th%E1%BB%A7+%C4%90%E1%BB%A9c%2C+HCM%2C%27&cp=10.780167%7E106.751513&lvl=16&style=r">{{ __('footer.contact_address') }}</a>
+                                <a class="" target="_blank" href="mailto: support@aicontrol.vn">{{ __('footer.contact_email') }}</a>
                             </div>
                         </div>
                     </div>

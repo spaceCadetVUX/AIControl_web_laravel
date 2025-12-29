@@ -4,9 +4,12 @@ return [
     // Meta & SEO
     'meta_title' => 'Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl',
     'meta_description' => 'AIControl cung cấp giải pháp điều khiển thông minh giúp tối ưu năng lượng, chiếu sáng và an ninh cho mọi công trình thương mại, văn phòng, và nhà máy.',
+   
+    // og 
     'meta_keywords' => 'giải pháp điều khiển, nhà thông minh, điều khiển chiếu sáng, Điều khiển HVAC, Rèm thông minh, tiết kiệm năng lượng, AIControl, BMS, smart building, automation, Điều khiển khách sạn, ABB, Legrand, cp electronics, vantage',
     'og_title' => 'Giải pháp điều khiển thông minh cho mọi công trình thương mại | AIControl',
     'og_description' => 'Giải pháp tự động hóa, tiết kiệm năng lượng và nâng cao tiện ích cho công trình thương mại, văn phòng và nhà máy.',
+    'og_image_alt' => 'Giải pháp điều khiển thông minh AIControl',
     
     // Hero Section
     'hero_title' => 'Giải pháp điều khiển & quản lý thông minh',

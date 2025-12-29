@@ -234,7 +234,7 @@
                         <i class="fas fa-phone-alt"></i>
                         <span>Hotline</span>
                     </a>
-                    <a href="mailto:hello@aicontrol.vn" class="contact-btn">
+                    <a href="mailto: support@aicontrol.vn" class="contact-btn">
                         <i class="fas fa-envelope"></i>
                         <span>Email</span>
                     </a>

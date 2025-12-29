@@ -17,6 +17,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <form id="product-form" method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="specifications" id="specifications_json" value="{{ old('specifications') && is_string(old('specifications')) ? old('specifications') : (old('specifications') ? json_encode(old('specifications')) : (is_array($product->specifications) ? json_encode($product->specifications) : (is_string($product->specifications) ? $product->specifications : '')) ) }}">
                 @method('PUT')
 
                 <!-- Tab Navigation -->
@@ -366,26 +367,30 @@
                             <p class="text-xs text-blue-600 mb-3">💡 Tip: You can add URLs in the value field (e.g., for Doc, Datasheet). They will automatically become clickable links on the product page.</p>
                             <div id="specifications-container" class="space-y-2">
                                 @php
-                                    $specifications = old('specifications', $product->specifications);
-                                    if (is_string($specifications)) {
-                                        $specifications = json_decode($specifications, true) ?: [];
+                                    $specKeys = old('spec_keys');
+                                    $specValues = old('spec_values');
+                                    if (is_null($specKeys) && is_null($specValues)) {
+                                        $specifications = $product->specifications;
+                                        if (is_string($specifications)) {
+                                            $specifications = json_decode($specifications, true) ?: [];
+                                        }
+                                        $specifications = is_array($specifications) ? $specifications : [];
+                                        $specKeys = array_keys($specifications);
+                                        $specValues = array_values($specifications);
                                     }
-                                    $specifications = is_array($specifications) ? $specifications : [];
-                                    
-                                    if (empty($specifications)) {
-                                        $specifications = ['' => ''];
+                                    $specCount = max(count($specKeys ?? []), count($specValues ?? []));
+                                    if ($specCount === 0) {
+                                        $specCount = 1;
                                     }
                                 @endphp
-                                
-                                @foreach($specifications as $key => $value)
+                                @for($i = 0; $i < $specCount; $i++)
                                 <div class="specification-item flex gap-2">
-                                    <input type="text" name="spec_keys[]" value="{{ $key }}" placeholder="Spec name (e.g., Nguồn điện, Doc)" class="w-1/3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                                    <input type="text" name="spec_values[]" value="{{ $value }}" placeholder="Value or URL (e.g., 24V DC or https://...)" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <input type="text" name="spec_keys[]" value="{{ $specKeys[$i] ?? '' }}" placeholder="Spec name (e.g., Nguồn điện, Doc)" class="w-1/3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <input type="text" name="spec_values[]" value="{{ $specValues[$i] ?? '' }}" placeholder="Value or URL (e.g., 24V DC or https://...)" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
                                     <button type="button" onclick="removeSpecification(this)" class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm">Remove</button>
                                 </div>
-                                @endforeach
+                                @endfor
                             </div>
-                            <input type="hidden" name="specifications" id="specifications_input" value="">
                             <button type="button" onclick="addSpecification()" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">+ Add Specification</button>
                         </div>
 
@@ -438,33 +443,6 @@
                                     inputs.forEach(input => input.value = '');
                                 }
                             }
-
-                            // Serialize specifications into hidden input before form submit
-                            function serializeSpecifications() {
-                                const keys = Array.from(document.querySelectorAll('input[name="spec_keys[]"]'));
-                                const vals = Array.from(document.querySelectorAll('input[name="spec_values[]"]'));
-                                const obj = {};
-                                for (let i = 0; i < keys.length; i++) {
-                                    const k = keys[i].value.trim();
-                                    const v = vals[i] ? vals[i].value : '';
-                                    if (k === '') continue;
-                                    obj[k] = v;
-                                }
-                                const hidden = document.getElementById('specifications_input');
-                                if (hidden) {
-                                    hidden.value = JSON.stringify(obj);
-                                }
-                            }
-
-                            // Attach serializer to form submit
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const form = document.getElementById('product-form');
-                                if (form) {
-                                    form.addEventListener('submit', function(e) {
-                                        serializeSpecifications();
-                                    });
-                                }
-                            });
                         </script>
                     </div>
                 </div>
@@ -783,6 +761,26 @@
     </div>
 
     <script>
+        // Ensure specifications are serialized into hidden field before submit
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('product-form');
+            if (!form) return;
+            form.addEventListener('submit', function () {
+                const container = document.getElementById('specifications-container');
+                const items = container ? container.querySelectorAll('.specification-item') : [];
+                const specs = {};
+                items.forEach(item => {
+                    const inputs = item.querySelectorAll('input');
+                    if (inputs.length >= 2) {
+                        const key = (inputs[0].value || '').trim();
+                        const value = (inputs[1].value || '').trim();
+                        if (key !== '' && value !== '') specs[key] = value;
+                    }
+                });
+                const hidden = document.getElementById('specifications_json');
+                if (hidden) hidden.value = Object.keys(specs).length ? JSON.stringify(specs) : '';
+            });
+        });
         function showTab(tabName) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(content => {

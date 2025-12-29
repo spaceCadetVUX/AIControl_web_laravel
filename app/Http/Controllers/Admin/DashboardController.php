@@ -160,6 +160,7 @@ class DashboardController extends Controller
             'spec_keys.*' => 'nullable|string',
             'spec_values' => 'nullable|array',
             'spec_values.*' => 'nullable|string',
+            'specifications' => 'nullable',
             'image_url' => 'nullable|string|max:500',
             'image_alt' => 'nullable|string|max:255',
             'video_url' => 'nullable|string|max:500',
@@ -289,6 +290,19 @@ class DashboardController extends Controller
             unset($validated['spec_keys']);
             unset($validated['spec_values']);
         }
+
+        // Fallback: If specs weren't provided as keys/values arrays, accept JSON/array from `specifications` input
+        if ((empty($validated['specifications']) || is_string($validated['specifications'])) && $request->filled('specifications')) {
+            $specsInput = $request->input('specifications');
+            if (is_string($specsInput)) {
+                $decoded = json_decode($specsInput, true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded) && !empty($decoded)) {
+                    $validated['specifications'] = $decoded;
+                }
+            } elseif (is_array($specsInput) && !empty($specsInput)) {
+                $validated['specifications'] = $specsInput;
+            }
+        }
         
         // Convert JSON strings to arrays for complex JSON fields (excluding features and specifications)
         $complexJsonFields = ['custom_fields', 'structured_data'];
@@ -376,13 +390,7 @@ class DashboardController extends Controller
         $product = \App\Models\Product::with('categories')->findOrFail($id);
         $brands = \App\Models\Brand::active()->orderBy('name')->get();
         
-        // Debug log - safe null check
-        \Illuminate\Support\Facades\Log::info('Edit Product - Categories loaded', [
-            'product_id' => $product->id,
-            'categories_count' => $product->categories ? $product->categories->count() : 0,
-            'category_ids' => $product->categories ? $product->categories->pluck('id')->toArray() : [],
-            'category_names' => $product->categories ? $product->categories->pluck('name')->toArray() : []
-        ]);
+        // categories loaded
         
         return view('admin.products-edit', compact('product', 'brands'));
     }
@@ -393,11 +401,7 @@ class DashboardController extends Controller
     public function updateProduct(Request $request, \App\Models\Product $product)
     {
         try {
-            // Log incoming data for debugging
-            \Illuminate\Support\Facades\Log::info('Update Product Request', [
-                'product_id' => $product->id,
-                'request_data' => $request->all()
-            ]);
+            // request received for update
             
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
@@ -418,6 +422,7 @@ class DashboardController extends Controller
                 'spec_keys.*' => 'nullable|string',
                 'spec_values' => 'nullable|array',
                 'spec_values.*' => 'nullable|string',
+                'specifications' => 'nullable',
                 'image_url' => 'nullable|string|max:500',
                 'image_alt' => 'nullable|string|max:255',
                 'video_url' => 'nullable|string|max:500',
@@ -557,6 +562,19 @@ class DashboardController extends Controller
                 // Remove the temporary arrays
                 unset($validated['spec_keys']);
                 unset($validated['spec_values']);
+            }
+
+            // Fallback: If specs weren't provided as keys/values arrays, accept JSON/array from `specifications` input
+            if ((empty($validated['specifications']) || is_string($validated['specifications'])) && $request->filled('specifications')) {
+                $specsInput = $request->input('specifications');
+                if (is_string($specsInput)) {
+                    $decoded = json_decode($specsInput, true);
+                    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded) && !empty($decoded)) {
+                        $validated['specifications'] = $decoded;
+                    }
+                } elseif (is_array($specsInput) && !empty($specsInput)) {
+                    $validated['specifications'] = $specsInput;
+                }
             }
             
             // Convert JSON strings to arrays for complex JSON fields (excluding features and specifications)

@@ -106,6 +106,22 @@
     <link rel="stylesheet" href="{{ asset('assets/css/shop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
 
+    <style>
+        /* Ensure TinyMCE tables inside blog content render correctly and responsively */
+        .tp-postbox-content .table-responsive { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+        .tp-postbox-content .table-responsive table { width:100%; border-collapse:collapse; table-layout:auto; max-width:100%; }
+        .tp-postbox-content table { display: table !important; width:100% !important; }
+        .tp-postbox-content table thead { display: table-header-group !important; }
+        .tp-postbox-content table tbody { display: table-row-group !important; }
+        .tp-postbox-content table tr { display: table-row !important; }
+        .tp-postbox-content table th,
+        .tp-postbox-content table td { display: table-cell !important; padding:.6rem; border:1px solid #e6e6e6; vertical-align:top; text-align:left; word-break:break-word; }
+        .tp-postbox-content table img { max-width:100%; height:auto; display:block; }
+        @media (max-width:768px){
+            .tp-postbox-content .table-responsive { -ms-overflow-style: -ms-autohiding-scrollbar; }
+        }
+    </style>
+
 </head>
 
 <body class="">
@@ -237,7 +253,9 @@
 
                                     {{-- Post Content --}}
                                     <div class="tp-postbox-content">
-                                        {!! $blog->content !!}
+                                        <div class="table-responsive">
+                                            {!! $blog->content !!}
+                                        </div>
                                     </div>
 
                                     {{-- Tags --}}

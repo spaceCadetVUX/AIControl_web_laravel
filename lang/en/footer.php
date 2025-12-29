@@ -13,7 +13,7 @@ return [
     'contact_title' => 'Address & Contact',
     'contact_phone' => 'Phone: 02873007475',
     'contact_zalo' => 'ZALO: Consultation & Feedback',
-    'contact_address' => 'Address: The Sun Avenue S5.01.02 28 - Mai Chi Tho',
+    'contact_address' => 'Address: 110  110 Trương Văn Bang, Bình Trưng Tây, TP Thủ Đức, HCM,',
     'contact_email' => 'Email: hello@aicontrol.vn',
     
     // Newsletter

@@ -52,7 +52,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('abb') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.abb') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>
@@ -69,7 +69,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('legrand') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.legrand') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>
@@ -86,7 +86,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('cpElectronics') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.cpElectronics') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>
@@ -103,7 +103,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('vantage') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                        <a href="{{ route(current_locale() . '.vantage') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
                                     </td>
                                 </tr>
@@ -170,10 +170,10 @@
                                             Active
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <a href="{{ route('contact') }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             </tbody>
                         </table>

@@ -5,8 +5,10 @@ return [
     'meta_title' => 'Smart Control Solutions for All Commercial Buildings | AIControl',
     'meta_description' => 'AIControl provides smart control solutions that optimize energy, lighting, and security for all commercial buildings, offices, and factories.',
     'meta_keywords' => 'control solutions, smart home, lighting control, HVAC control, smart curtains, energy saving, AIControl, BMS, smart building, automation, hotel control, ABB, Legrand, cp electronics, vantage',
+    //og
     'og_title' => 'Smart Control Solutions for All Commercial Buildings | AIControl',
     'og_description' => 'Automation, energy-saving solutions that enhance utility for commercial buildings, offices, and factories.',
+    'og_image_alt' => 'AIControl Smart Control Solutions',
     
     // Hero Section
     'hero_title' => 'Smart Control & Management Solutions',
